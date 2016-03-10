@@ -1,4 +1,4 @@
-).toBeDefined();
+
 /*
  * When testing with webpack and ES6, we have to do some extra
  * things get testing to work right. Because we are gonna write test

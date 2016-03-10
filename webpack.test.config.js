@@ -1,4 +1,4 @@
-).toBeDefined();
+
 
 var helpers = require('./helpers');
 // Webpack Plugins

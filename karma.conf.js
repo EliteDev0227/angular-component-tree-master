@@ -1,4 +1,4 @@
-).toBeDefined();
+
 
 module.exports = function(config) {
   var testWebpackConfig = require('./webpack.test.config.js');

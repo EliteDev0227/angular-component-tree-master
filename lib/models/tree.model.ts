@@ -1,6 +1,7 @@
 export interface ITreeOptions {
-  childrenAttr?: string;
-  nameAttr?: string;
+  childrenField?: string
+  nameField?: string
+  treeNodeTemplate: any
 }
 
 export class TreeModel {

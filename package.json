@@ -1,9 +1,9 @@
 {
-  "name": "ng2-tree-component",
-  "version": "3.0.0",
-  "description": "An Angular 2 Tree Component",
+  "name": "angular2-tree-component",
+  "version": "1.0.0",
+  "description": "A simple yet powerful tree component for Angular2",
   "author": "Adam Klein <adam@500tech.com>",
-  "homepage": "https://github.com/500tech/ng2-tree-component",
+  "homepage": "https://github.com/500tech/angular2-tree-component",
   "license": "MIT",
   "scripts": {
     "clean": "npm cache clean && rimraf node_modules doc typings coverage dist",
@@ -97,10 +97,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/500tech/ng2-tree-component.git"
+    "url": "https://github.com/500tech/angular2-tree-component.git"
   },
   "bugs": {
-    "url": "https://github.com/500tech/ng2-tree-component/issues"
+    "url": "https://github.com/500tech/angular2-tree-component/issues"
   },
   "engines": {
     "node": ">= 4.2.1",

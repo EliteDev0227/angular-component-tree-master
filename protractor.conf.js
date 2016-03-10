@@ -1,4 +1,4 @@
-).toBeDefined();
+
 require('ts-node/register');
 
 exports.config = {

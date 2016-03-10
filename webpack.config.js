@@ -1,5 +1,3 @@
-).toBeDefined();
-
 var webpack = require('webpack');
 var helpers = require('./helpers');
 

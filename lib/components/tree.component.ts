@@ -1,10 +1,13 @@
 import { Component, Input } from 'angular2/core';
 import { TreeNodeComponent } from './tree-node.component';
 import { TreeModel, TreeNode, ITreeOptions } from '../models/tree.model';
+import { TreeNodeTemplateComponent } from './tree-node-template.component';
+
 const _ = require('lodash');
 const DEFAULT_OPTIONS = {
-  childrenAttr: 'children',
-  nameAttr: 'name'
+  childrenField: 'children',
+  nameField: 'name',
+  treeNodeTemplate: TreeNodeTemplateComponent
 }
 
 @Component({
