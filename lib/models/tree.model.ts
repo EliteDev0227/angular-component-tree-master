@@ -1,36 +1,37 @@
-export interface ITreeOptions {
-  childrenField?: string
-  nameField?: string
-  treeNodeTemplate: any
-}
+import { Injectable, Component, Input } from 'angular2/core';
+import { TreeNode } from './tree-node.model';
+import { TreeOptions } from './tree-defs.model';
 
+@Injectable()
 export class TreeModel {
   roots: TreeNode[];
-  constructor(nodes) {
-    Object.assign(this, {
-      roots: nodes.map(n => new TreeNode(n))
-    });
-  }
-}
+  options: TreeOptions;
 
-export class TreeNode {
-  name: string;
-  children: TreeNode[] = [];
-  expanded: boolean = false;
-  parent: TreeNode;
-
-  constructor(data, parent:TreeNode = null) {
-    Object.assign(this, data, { parent });
-    this.children = this.children.map(c => new TreeNode(c, this));
+  setData({ nodes, options }) {
+    this.options = new TreeOptions(options);
+    this.roots = nodes.map(n => new TreeNode(n, null, this));
+    this.treeNodeContentComponent = this._getTreeNodeContentComponent();
   }
 
-  get collapsed() { return !this.expanded }
-  get isRoot() { return !this.parent }
+  // if treeNodeTemplate is a component - use it,
+  // otherwise - it's a template, so wrap it with an AdHoc component
+  treeNodeContentComponent:any;
+  _getTreeNodeContentComponent() {
+    let treeNodeContentComponent = this.options.treeNodeTemplate;
+    if (typeof treeNodeContentComponent === 'string') {
+      return this._createAdHocComponent(treeNodeContentComponent);
+    }
+    return treeNodeContentComponent;
+  }
 
-  get isLeaf() { return !this.children.length }
-  get hasChildren() { return !this.isLeaf }
-
-  toggle() {
-    this.expanded = !this.expanded;
+  _createAdHocComponent(templateStr) {
+    @Component({
+        selector: 'TreeNodeTemplate',
+        template: templateStr
+    })
+    class AdHocTreeNodeTemplateComponent {
+        @Input() node: TreeNode;
+    }
+    return AdHocTreeNodeTemplateComponent;
   }
 }

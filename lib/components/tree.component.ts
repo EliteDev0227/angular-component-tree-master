@@ -1,39 +1,36 @@
-import { Component, Input } from 'angular2/core';
+import { Component, Input, OnChanges, SimpleChange } from 'angular2/core';
 import { TreeNodeComponent } from './tree-node.component';
-import { TreeModel, TreeNode, ITreeOptions } from '../models/tree.model';
-import { TreeNodeTemplateComponent } from './tree-node-template.component';
-
-const _ = require('lodash');
-const DEFAULT_OPTIONS = {
-  childrenField: 'children',
-  nameField: 'name',
-  treeNodeTemplate: TreeNodeTemplateComponent
-}
+import { TreeModel } from '../models/tree.model';
+import { ITreeOptions } from '../models/tree-defs.model';
 
 @Component({
   selector: 'Tree',
   directives: [TreeNodeComponent],
+  providers: [TreeModel],
   styles: [
     '.tree-children { padding-left: 20px }'
   ],
   template: `
     <TreeNode
-      *ngFor="#node of nodes"
-      [node]="node"
-      [options]="options">
+      *ngFor="#node of treeModel.roots"
+      [node]="node">
     </TreeNode>
   `
 })
-export class TreeComponent {
-  private _tree:TreeModel;
-  @Input()
-  set nodes(nodes:any[]) { this._tree = new TreeModel(nodes) }
-  get nodes() { return this._tree.roots }
-
-  private _options: ITreeOptions = DEFAULT_OPTIONS;
-  @Input()
-  set options(options:ITreeOptions) {
-    this._options = _.defaultsDeep(options, DEFAULT_OPTIONS);
+export class TreeComponent implements OnChanges {
+  constructor(public treeModel:TreeModel) {
   }
-  get options() { return this._options }
+
+  // delegating to TreeModel service:
+  _nodes:any[];
+  @Input() set nodes(nodes:any[]) { };
+  _options:ITreeOptions;
+  @Input() set options(options:ITreeOptions) { };
+
+  ngOnChanges(changes) {
+    this.treeModel.setData({
+      options: changes.options && changes.options.currentValue,
+      nodes: changes.nodes && changes.nodes.currentValue
+    });
+  }
 }

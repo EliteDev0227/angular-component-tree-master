@@ -1,6 +1,5 @@
 import { Component } from 'angular2/core';
-import { TreeComponent } from '../../lib/components/tree.component';
-import { ITreeNodeTemplateComponent } from '../../lib/components/tree-node-template.component';
+import { TreeComponent } from '../../lib/ng2tree';
 
 const CUSTOM_TEMPLATE_STRING = '{{ node.name }} ({{ node.subTitle }})';
 
@@ -38,7 +37,7 @@ export class App {
         }
     ];
 
-    customNameFieldOptions = { nameField: 'subTitle' };
+    customNameFieldOptions = { displayField: 'subTitle' };
     customTemplateOptions = { treeNodeTemplate: MyTreeNodeTemplate };
     customTemplateStringOptions = { treeNodeTemplate: CUSTOM_TEMPLATE_STRING }
 }
