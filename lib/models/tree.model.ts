@@ -6,11 +6,12 @@ import { TreeOptions } from './tree-defs.model';
 export class TreeModel {
   roots: TreeNode[];
   options: TreeOptions;
+  activeNode: TreeNode = null;
   events: {
     onToggle: EventEmitter<{eventName:string, node:TreeNode, isExpanded: boolean}>
   }
 
-  eventNames = ['onToggle'];
+  eventNames = ['onToggle', 'onActiveChanged', 'onActivate', 'onDeactivate'];
 
   setData({ nodes, options, events }) {
     this.options = new TreeOptions(options);

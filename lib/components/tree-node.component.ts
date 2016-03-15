@@ -6,12 +6,16 @@ import { TreeModel } from '../models/tree.model';
   selector: 'TreeNode',
   directives: [TreeNodeComponent],
   styles: [
-    '.tree-children { padding-left: 50px }'
+    '.tree-children { padding-left: 50px }',
+    '.node-content-wrapper { display: inline-block }',
+    '.tree-node.active > .node-content-wrapper { background: #AAF }'
   ],
   template: `
-    <div class="tree-node" [class.expanded]="node.isExpanded">
+    <div class="tree-node" [class.expanded]="node.isExpanded" [class.active]="node.isActive">
       <button *ngIf="node.hasChildren" class="toggle-children" (click)="node.toggle()">*</button>
-      <span #treeNodeContent></span>
+      <div class="node-content-wrapper" (click)="node.toggleActivated()">
+        <span #treeNodeContent></span>
+      </div>
       <div class="tree-children" [hidden]="node.isCollapsed">
         <TreeNode
           *ngFor="#node of node.children"

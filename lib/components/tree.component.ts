@@ -30,6 +30,9 @@ export class TreeComponent implements OnChanges {
   @Input() set options(options:ITreeOptions) { };
 
   @Output() onToggle;
+  @Output() onActiveChanged;
+  @Output() onActivate;
+  @Output() onDeactivate;
 
   ngOnChanges(changes) {
     this.treeModel.setData({

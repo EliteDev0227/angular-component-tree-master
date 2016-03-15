@@ -4,6 +4,7 @@ export class TreeNode {
   name: string;
   children: TreeNode[] = [];
   isExpanded: boolean = false;
+  isActive: boolean = false;
   parent: TreeNode;
   treeModel: TreeModel;
   _originalNode: any;
@@ -41,5 +42,22 @@ export class TreeNode {
   toggle() {
     this.isExpanded = !this.isExpanded;
     this.fireEvent({ eventName: 'onToggle', node: this, isExpanded: this.isExpanded });
+  }
+
+  toggleActivated() {
+    if (this.isActive) {
+      this.isActive = false;
+      this.treeModel.activeNode = null;
+      this.fireEvent({ eventName: 'onDeactive', node: this, isActive: this.isActive });
+    }
+    else {
+      if (this.treeModel.activeNode) {
+        this.treeModel.activeNode.isActive = false;
+      }
+      this.treeModel.activeNode = this;
+      this.isActive = true;
+      this.fireEvent({ eventName: 'onActivate', node: this, isActive: this.isActive });
+    }
+    this.fireEvent({ eventName: 'onActiveChanged', node: this, isActive: this.isActive });
   }
 }

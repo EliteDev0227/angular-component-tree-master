@@ -24,7 +24,9 @@ const CUSTOM_TEMPLATE_STRING = '{{ node.name }} ({{ node.subTitle }})';
 
     <br>
     <p>events:</p>
-    <Tree [nodes]="nodes" (onToggle)="onToggle($event)"></Tree>
+    <Tree [nodes]="nodes"
+        (onToggle)="onEvent($event)"
+        (onActiveChanged)="onEvent($event)"></Tree>
   `
 })
 export class App {
@@ -47,7 +49,7 @@ export class App {
     customNameFieldOptions = { displayField: 'subTitle' };
     customTemplateOptions = { treeNodeTemplate: MyTreeNodeTemplate };
     customTemplateStringOptions = { treeNodeTemplate: CUSTOM_TEMPLATE_STRING }
-    onToggle = ($event) => console.log($event);
+    onEvent = ($event) => console.log($event);
 }
 
 @Component({
