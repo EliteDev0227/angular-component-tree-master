@@ -1,7 +1,8 @@
-import { Component, Input, OnChanges, SimpleChange } from 'angular2/core';
+import { Component, Input, Output, OnChanges, SimpleChange, EventEmitter } from 'angular2/core';
 import { TreeNodeComponent } from './tree-node.component';
 import { TreeModel } from '../models/tree.model';
 import { ITreeOptions } from '../models/tree-defs.model';
+const _ = require('lodash');
 
 @Component({
   selector: 'Tree',
@@ -19,6 +20,7 @@ import { ITreeOptions } from '../models/tree-defs.model';
 })
 export class TreeComponent implements OnChanges {
   constructor(public treeModel:TreeModel) {
+    treeModel.eventNames.forEach((name) => this[name] = new EventEmitter());
   }
 
   // delegating to TreeModel service:
@@ -27,10 +29,13 @@ export class TreeComponent implements OnChanges {
   _options:ITreeOptions;
   @Input() set options(options:ITreeOptions) { };
 
+  @Output() onToggle;
+
   ngOnChanges(changes) {
     this.treeModel.setData({
       options: changes.options && changes.options.currentValue,
-      nodes: changes.nodes && changes.nodes.currentValue
+      nodes: changes.nodes && changes.nodes.currentValue,
+      events: _.pick(this, this.treeModel.eventNames)
     });
   }
 }

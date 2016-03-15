@@ -3,7 +3,7 @@ import { TreeModel } from './tree.model';
 export class TreeNode {
   name: string;
   children: TreeNode[] = [];
-  expanded: boolean = false;
+  isExpanded: boolean = false;
   parent: TreeNode;
   treeModel: TreeModel;
   _originalNode: any;
@@ -16,7 +16,7 @@ export class TreeNode {
   }
 
   // helper get functions:
-  get collapsed() { return !this.expanded }
+  get isCollapsed() { return !this.isExpanded }
   get isRoot() { return !this.parent }
 
   get isLeaf() { return !this.children.length }
@@ -24,6 +24,7 @@ export class TreeNode {
 
   // proxy to treeModel:
   get options() { return this.treeModel.options }
+  fireEvent(event) { this.treeModel.fireEvent(event) }
 
   // field accessors:
   get displayField() {
@@ -38,6 +39,7 @@ export class TreeNode {
 
   // helper methods:
   toggle() {
-    this.expanded = !this.expanded;
+    this.isExpanded = !this.isExpanded;
+    this.fireEvent({ eventName: 'onToggle', node: this, isExpanded: this.isExpanded });
   }
 }

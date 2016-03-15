@@ -9,10 +9,10 @@ import { TreeModel } from '../models/tree.model';
     '.tree-children { padding-left: 50px }'
   ],
   template: `
-    <div class="tree-node" [class.expanded]="node.expanded">
+    <div class="tree-node" [class.expanded]="node.isExpanded">
       <button *ngIf="node.hasChildren" class="toggle-children" (click)="node.toggle()">*</button>
       <span #treeNodeContent></span>
-      <div class="tree-children" [hidden]="node.collapsed">
+      <div class="tree-children" [hidden]="node.isCollapsed">
         <TreeNode
           *ngFor="#node of node.children"
           [node]="node">
