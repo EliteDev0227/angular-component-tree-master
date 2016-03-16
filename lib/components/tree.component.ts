@@ -18,10 +18,6 @@ const _ = require('lodash');
     '.tree-children { padding-left: 20px }'
   ],
   template: `
-    <button (click)="treeModel.focusNextNode()">next node</button>
-    <button (click)="treeModel.focusPreviousNode()">previous node</button>
-    <button (click)="treeModel.focusDrillDown()">drill down</button>
-    <button (click)="treeModel.focusDrillUp()">drill up</button>
     <TreeNode
       (click)="treeModel.setFocus(true)"
       *ngFor="#node of treeModel.roots"
@@ -53,32 +49,40 @@ export class TreeComponent implements OnChanges {
 
   onKeydown($event) {
     let focusedNode = this.treeModel.focusedNode;
-    if (this.treeModel.isFocused) {
-      switch ($event.keyCode) {
-        case KEYS.DOWN:
-          return this.treeModel.focusNextNode();
-        case KEYS.UP:
-          return this.treeModel.focusPreviousNode();
-        case KEYS.LEFT:
-          if (focusedNode.isExpanded) {
-            focusedNode.toggle();
-          }
-          else {
-            this.treeModel.focusDrillUp();
-          }
-          return;
-        case KEYS.RIGHT:
-          if (focusedNode.isCollapsed) {
-            focusedNode.toggle();
-          }
-          else {
-            this.treeModel.focusDrillDown();
-          }
-          return;
-        case KEYS.ENTER:
-        case KEYS.SPACE:
-          return focusedNode && focusedNode.toggleActivated();
-      }
+    if (!this.treeModel.isFocused) return;
+    if (_.includes([KEYS.DOWN, KEYS.UP, KEYS.LEFT,
+      KEYS.RIGHT, KEYS.ENTER, KEYS.SPACE], $event.keyCode)) {
+      $event.preventDefault();
+    }
+
+    switch ($event.keyCode) {
+      case KEYS.DOWN:
+        return this.treeModel.focusNextNode();
+
+      case KEYS.UP:
+        return this.treeModel.focusPreviousNode();
+
+      case KEYS.LEFT:
+        if (focusedNode.isExpanded) {
+          focusedNode.toggle();
+        }
+        else {
+          this.treeModel.focusDrillUp();
+        }
+        return;
+
+      case KEYS.RIGHT:
+        if (focusedNode.isCollapsed) {
+          focusedNode.toggle();
+        }
+        else {
+          this.treeModel.focusDrillDown();
+        }
+        return;
+
+      case KEYS.ENTER:
+      case KEYS.SPACE:
+        return focusedNode && focusedNode.toggleActivated();
     }
   }
 
