@@ -1,6 +1,7 @@
 import { Injectable, Component, Input, EventEmitter } from 'angular2/core';
 import { TreeNode } from './tree-node.model';
-import { TreeOptions, TREE_EVENTS } from './tree-defs.model';
+import { TreeOptions } from './tree-defs.model';
+import { TREE_EVENTS } from '../constants/events';
 
 const _ = require('lodash');
 
@@ -10,6 +11,7 @@ export class TreeModel {
   options: TreeOptions;
   activeNode: TreeNode = null;
   focusedNode: TreeNode = null;
+  static focusedTree = null;
   events: {
     onToggle: EventEmitter<{eventName:string, node:TreeNode, isExpanded: boolean}>
   }
@@ -39,6 +41,14 @@ export class TreeModel {
 
   getLastRoot() {
     return _.last(this.roots);
+  }
+
+  get isFocused() {
+    return TreeModel.focusedTree === this;
+  }
+
+  setFocus(value) {
+    TreeModel.focusedTree = value ? this : null;
   }
 
   // if treeNodeTemplate is a component - use it,

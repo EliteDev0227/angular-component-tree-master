@@ -8,7 +8,7 @@ const CUSTOM_TEMPLATE_STRING = '{{ node.name }} ({{ node.subTitle }})';
     directives: [TreeComponent],
     template: `
     <p>default options:</p>
-    <Tree [nodes]="nodes"></Tree>
+    <Tree [nodes]="nodes" [focused]="true"></Tree>
 
     <br>
     <p>custom name field:</p>

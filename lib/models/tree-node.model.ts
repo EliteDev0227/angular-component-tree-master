@@ -1,5 +1,5 @@
 import { TreeModel } from './tree.model';
-import { TREE_EVENTS } from './tree-defs.model';
+import { TREE_EVENTS } from '../constants/events'; 
 
 const _ = require('lodash');
 
