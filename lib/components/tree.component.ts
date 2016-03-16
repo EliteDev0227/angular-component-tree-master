@@ -15,14 +15,17 @@ const _ = require('lodash');
   },
   providers: [TreeModel],
   styles: [
-    '.tree-children { padding-left: 20px }'
+    '.tree-children { padding-left: 20px }',
+    '.tree { display: inline-block }'
   ],
   template: `
-    <TreeNode
-      (click)="treeModel.setFocus(true)"
-      *ngFor="#node of treeModel.roots"
-      [node]="node">
-    </TreeNode>
+    <div class="tree">
+      <TreeNode
+        (click)="treeModel.setFocus(true)"
+        *ngFor="#node of treeModel.roots"
+        [node]="node">
+      </TreeNode>
+    </div>
   `
 })
 export class TreeComponent implements OnChanges {
