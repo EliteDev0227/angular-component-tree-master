@@ -26,7 +26,9 @@ const CUSTOM_TEMPLATE_STRING = '{{ node.name }} ({{ node.subTitle }})';
     <p>events:</p>
     <Tree [nodes]="nodes"
         (onToggle)="onEvent($event)"
-        (onActiveChanged)="onEvent($event)"></Tree>
+        (onActiveChanged)="onEvent($event)"
+        (onFocus)="onEvent($event)"
+        (onBlur)="onEvent($event)"></Tree>
   `
 })
 export class App {
@@ -43,6 +45,19 @@ export class App {
                     subTitle: 'a bad child',
                 }
             ]
+        },
+        {
+          name: 'root2',
+          subTitle: 'the second root',
+          children: [
+            {
+              name: 'child2.1',
+              subTitle: 'new and improved'
+            }, {
+              name: 'child2.2',
+              subTitle: 'new and improved2',
+            }
+          ]
         }
     ];
 

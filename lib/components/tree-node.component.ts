@@ -8,10 +8,15 @@ import { TreeModel } from '../models/tree.model';
   styles: [
     '.tree-children { padding-left: 50px }',
     '.node-content-wrapper { display: inline-block }',
-    '.tree-node.active > .node-content-wrapper { background: #AAF }'
+    '.tree-node.active > .node-content-wrapper { background: #AAF }',
+    '.tree-node.active.focused > .node-content-wrapper { background: #AAF }',
+    '.tree-node.focused > .node-content-wrapper { background: #FFA }'
   ],
   template: `
-    <div class="tree-node" [class.expanded]="node.isExpanded" [class.active]="node.isActive">
+    <div class="tree-node"
+      [class.expanded]="node.isExpanded"
+      [class.active]="node.isActive"
+      [class.focused]="node.isFocused">
       <button *ngIf="node.hasChildren" class="toggle-children" (click)="node.toggle()">*</button>
       <div class="node-content-wrapper" (click)="node.toggleActivated()">
         <span #treeNodeContent></span>

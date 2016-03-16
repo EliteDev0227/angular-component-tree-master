@@ -1,27 +1,44 @@
 import { Injectable, Component, Input, EventEmitter } from 'angular2/core';
 import { TreeNode } from './tree-node.model';
-import { TreeOptions } from './tree-defs.model';
+import { TreeOptions, TREE_EVENTS } from './tree-defs.model';
+
+const _ = require('lodash');
 
 @Injectable()
 export class TreeModel {
   roots: TreeNode[];
   options: TreeOptions;
   activeNode: TreeNode = null;
+  focusedNode: TreeNode = null;
   events: {
     onToggle: EventEmitter<{eventName:string, node:TreeNode, isExpanded: boolean}>
   }
 
-  eventNames = ['onToggle', 'onActiveChanged', 'onActivate', 'onDeactivate'];
+  eventNames = Object.keys(TREE_EVENTS);
 
   setData({ nodes, options, events }) {
     this.options = new TreeOptions(options);
-    this.roots = nodes.map(n => new TreeNode(n, null, this));
+
+    const virtualRoot = new TreeNode({ isVirtualRoot : true }, null, this);
+
+    this.roots = nodes.map(n => new TreeNode(n, virtualRoot, this));
+
+    virtualRoot[this.options.childrenField] = this.roots;
+
     this.treeNodeContentComponent = this._getTreeNodeContentComponent();
     this.events = events;
   }
 
   fireEvent(event) {
     this.events[event.eventName].next(event);
+  }
+
+  getFirstRoot() {
+    return _.first(this.roots);
+  }
+
+  getLastRoot() {
+    return _.last(this.roots);
   }
 
   // if treeNodeTemplate is a component - use it,
@@ -44,5 +61,29 @@ export class TreeModel {
         @Input() node: TreeNode;
     }
     return AdHocTreeNodeTemplateComponent;
+  }
+
+  focusNextNode() {
+    let previousNode = this.focusedNode;
+    let nextNode = previousNode ? previousNode.findNextNode() : this.getFirstRoot();
+    nextNode && nextNode.focus();
+  }
+
+  focusPreviousNode() {
+    let previousNode = this.focusedNode;
+    let nextNode = previousNode ? previousNode.findPreviousNode() : this.getLastRoot();
+    nextNode && nextNode.focus();
+  }
+
+  focusDrillDown() {
+    let previousNode = this.focusedNode;
+    let nextNode = previousNode && previousNode.getFirstChild();
+    nextNode && nextNode.focus();
+  }
+
+  focusDrillUp() {
+    let previousNode = this.focusedNode;
+    let nextNode = previousNode && previousNode.realParent;
+    nextNode && nextNode.focus();
   }
 }

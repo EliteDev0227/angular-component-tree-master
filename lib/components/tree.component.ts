@@ -12,6 +12,10 @@ const _ = require('lodash');
     '.tree-children { padding-left: 20px }'
   ],
   template: `
+    <button (click)="treeModel.focusNextNode()">next node</button>
+    <button (click)="treeModel.focusPreviousNode()">previous node</button>
+    <button (click)="treeModel.focusDrillDown()">drill down</button>
+    <button (click)="treeModel.focusDrillUp()">drill up</button>
     <TreeNode
       *ngFor="#node of treeModel.roots"
       [node]="node">
@@ -33,6 +37,8 @@ export class TreeComponent implements OnChanges {
   @Output() onActiveChanged;
   @Output() onActivate;
   @Output() onDeactivate;
+  @Output() onFocus;
+  @Output() onBlur;
 
   ngOnChanges(changes) {
     this.treeModel.setData({
