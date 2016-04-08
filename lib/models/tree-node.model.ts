@@ -1,18 +1,22 @@
 import { TreeModel } from './tree.model';
+import { ITreeNode } from '../defs/api';
 import { TREE_EVENTS } from '../constants/events'; 
 
 const _ = require('lodash');
 
-export class TreeNode {
-  name: string;
-  children: TreeNode[] = [];
-  isExpanded: boolean = false;
-  isActive: boolean = false;
+export class TreeNode implements ITreeNode {
+  private _isExpanded: boolean = false;
+  get isExpanded() { return this._isExpanded };
+
+  private _isActive: boolean = false;
+  get isActive() { return this._isActive };
+
   isVirtualRoot: boolean = false;
   get isFocused() { return this.treeModel.focusedNode == this };
   parent: TreeNode;
   treeModel: TreeModel;
-  _originalNode: any;
+  private _originalNode: any;
+  get originalNode() { return this._originalNode };
 
   constructor(data, parent:TreeNode = null, treeModel:TreeModel) {
     Object.assign(this, data, { parent, treeModel });
@@ -23,7 +27,7 @@ export class TreeNode {
 
   // helper get functions:
   get isCollapsed() { return !this.isExpanded }
-  get isLeaf() { return !this.children.length }
+  get isLeaf() { return !this.childrenField.length }
   get hasChildren() { return !this.isLeaf }
   get isRoot() { return this.parent.isVirtualRoot }
   get realParent() { return this.isRoot ? null : this.parent }
@@ -37,7 +41,7 @@ export class TreeNode {
     return this[this.options.displayField];
   }
   get childrenField() {
-    return this[this.options.childrenField]; 
+    return this[this.options.childrenField] || [];
   }
   set childrenField(value) {
     this[this.options.childrenField] = value;
@@ -86,18 +90,18 @@ export class TreeNode {
 
   // helper methods:
   toggle() {
-    this.isExpanded = !this.isExpanded;
+    this._isExpanded = !this.isExpanded;
     this.fireEvent({ eventName: TREE_EVENTS.onToggle, node: this, isExpanded: this.isExpanded });
   }
 
   private _activate() {
-    this.isActive = true;
+    this._isActive = true;
     this.fireEvent({ eventName: TREE_EVENTS.onActivate, node: this });
     this.focus();
   }
 
   private _deactivate() {
-    this.isActive = false;
+    this._isActive = false;
     this.fireEvent({ eventName: TREE_EVENTS.onDeactivate, node: this });
   }
 

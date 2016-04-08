@@ -1,7 +1,8 @@
 import { Component, Input, Output, OnChanges, SimpleChange, EventEmitter } from 'angular2/core';
 import { TreeNodeComponent } from './tree-node.component';
 import { TreeModel } from '../models/tree.model';
-import { ITreeOptions } from '../models/tree-defs.model';
+import { TreeNode } from '../models/tree-node.model';
+import { ITreeOptions, ITreeComponent } from '../defs/api';
 import { KEYS } from '../constants/keys';
 
 const _ = require('lodash');
@@ -16,7 +17,16 @@ const _ = require('lodash');
   providers: [TreeModel],
   styles: [
     '.tree-children { padding-left: 20px }',
-    '.tree { display: inline-block }'
+    `.tree {
+      display: inline-block;
+      cursor: pointer;
+      -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none;   /* Chrome/Safari/Opera */
+      -khtml-user-select: none;    /* Konqueror */
+      -moz-user-select: none;      /* Firefox */
+      -ms-user-select: none;       /* IE/Edge */
+      user-select: none;           /* non-prefixed version, currently not supported by any browser */
+    }`
   ],
   template: `
     <div class="tree">
@@ -28,7 +38,8 @@ const _ = require('lodash');
     </div>
   `
 })
-export class TreeComponent implements OnChanges {
+
+export class TreeComponent implements OnChanges, ITreeComponent {
   constructor(public treeModel:TreeModel) {
     treeModel.eventNames.forEach((name) => this[name] = new EventEmitter());
   }
@@ -39,7 +50,7 @@ export class TreeComponent implements OnChanges {
   _options:ITreeOptions;
   @Input() set options(options:ITreeOptions) { };
 
-  @Input() set focused(value) {
+  @Input() set focused(value:boolean) {
     this.treeModel.setFocus(value);
   }
 

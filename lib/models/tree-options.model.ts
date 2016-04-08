@@ -1,15 +1,5 @@
-import { TreeNode } from './tree-node.model';
+import { ITreeOptions } from '../defs/api';
 const _ = require('lodash');
-
-export interface ITreeNodeTemplateComponent {
-  node: TreeNode;
-}
-
-export interface ITreeOptions {
-  childrenField:string;
-  displayField:string;
-  treeNodeTemplate:any;
-}
 
 export class TreeOptions implements ITreeOptions {
   childrenField:string = 'children';

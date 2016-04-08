@@ -1,5 +1,6 @@
 {
   "mode": "modules",
+  "name": "ng2tree",
   "out": "doc",
   "theme": "default",
   "ignoreCompilerErrors": "true",

@@ -12,6 +12,7 @@ const CUSTOM_TEMPLATE_STRING = '{{ node.name }} ({{ node.subTitle }})';
     <button (click)="tree.treeModel.focusPreviousNode()">previous node</button>
     <button (click)="tree.treeModel.focusDrillDown()">drill down</button>
     <button (click)="tree.treeModel.focusDrillUp()">drill up</button>
+    <br>
     <Tree #tree [nodes]="nodes" [focused]="true"></Tree>
 
     <br>
@@ -60,6 +61,12 @@ export class App {
             }, {
               name: 'child2.2',
               subTitle: 'new and improved2',
+              children: [
+                  {
+                      name: 'subsub',
+                      subTitle: 'subsub'
+                  }
+              ]
             }
           ]
         }

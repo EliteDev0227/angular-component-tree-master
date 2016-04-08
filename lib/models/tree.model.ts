@@ -1,20 +1,19 @@
 import { Injectable, Component, Input, EventEmitter } from 'angular2/core';
 import { TreeNode } from './tree-node.model';
-import { TreeOptions } from './tree-defs.model';
+import { TreeOptions } from './tree-options.model';
+import { ITreeModel } from '../defs/api';
 import { TREE_EVENTS } from '../constants/events';
 
 const _ = require('lodash');
 
 @Injectable()
-export class TreeModel {
+export class TreeModel implements ITreeModel {
   roots: TreeNode[];
   options: TreeOptions;
   activeNode: TreeNode = null;
   focusedNode: TreeNode = null;
   static focusedTree = null;
-  events: {
-    onToggle: EventEmitter<{eventName:string, node:TreeNode, isExpanded: boolean}>
-  }
+  private events: any;
 
   eventNames = Object.keys(TREE_EVENTS);
 
@@ -27,7 +26,7 @@ export class TreeModel {
 
     virtualRoot[this.options.childrenField] = this.roots;
 
-    this.treeNodeContentComponent = this._getTreeNodeContentComponent();
+    this._loadTreeNodeContentComponent();
     this.events = events;
   }
 
@@ -51,15 +50,16 @@ export class TreeModel {
     TreeModel.focusedTree = value ? this : null;
   }
 
+  private _treeNodeContentComponent:any;
+  get treeNodeContentComponent() { return this._treeNodeContentComponent };
+
   // if treeNodeTemplate is a component - use it,
   // otherwise - it's a template, so wrap it with an AdHoc component
-  treeNodeContentComponent:any;
-  _getTreeNodeContentComponent() {
-    let treeNodeContentComponent = this.options.treeNodeTemplate;
-    if (typeof treeNodeContentComponent === 'string') {
-      return this._createAdHocComponent(treeNodeContentComponent);
+  _loadTreeNodeContentComponent() {
+    this._treeNodeContentComponent = this.options.treeNodeTemplate;
+    if (typeof this._treeNodeContentComponent === 'string') {
+      this._treeNodeContentComponent = this._createAdHocComponent(this._treeNodeContentComponent);
     }
-    return treeNodeContentComponent;
   }
 
   _createAdHocComponent(templateStr) {
