@@ -33,7 +33,7 @@
     "e2e:live": "protractor --elementExplorer",
     "test": "karma start",
     "ci": "npm run e2e && npm run test",
-    "docs": "typedoc --options typedoc.json ./lib/defs",
+    "docs": "typedoc --options typedoc.json --readme none ./lib/defs",
     "start": "npm run server",
     "typings-install": "typings install",
     "postinstall": "npm run typings-install",

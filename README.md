@@ -1,3 +1,4 @@
-# ng2 tree component
+# angular2 tree component
 
-## Work in Progress, coming soon....
+## Demo & docs:
+[https://ng2tree.readme.io/docs](https://ng2tree.readme.io/docs)

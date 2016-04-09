@@ -1,6 +1,6 @@
 {
   "mode": "modules",
-  "name": "ng2tree",
+  "name": "angular2-tree-component",
   "out": "doc",
   "theme": "default",
   "ignoreCompilerErrors": "true",
