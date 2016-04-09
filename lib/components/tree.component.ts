@@ -2,7 +2,7 @@ import { Component, Input, Output, OnChanges, SimpleChange, EventEmitter } from 
 import { TreeNodeComponent } from './tree-node.component';
 import { TreeModel } from '../models/tree.model';
 import { TreeNode } from '../models/tree-node.model';
-import { ITreeOptions, ITreeComponent } from '../defs/api';
+import { ITreeOptions } from '../defs/api';
 import { KEYS } from '../constants/keys';
 
 const _ = require('lodash');
@@ -39,7 +39,7 @@ const _ = require('lodash');
   `
 })
 
-export class TreeComponent implements OnChanges, ITreeComponent {
+export class TreeComponent implements OnChanges {
   constructor(public treeModel:TreeModel) {
     treeModel.eventNames.forEach((name) => this[name] = new EventEmitter());
   }

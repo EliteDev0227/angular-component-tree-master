@@ -5,13 +5,6 @@
 import { EventEmitter, ElementRef } from 'angular2/core';
 
 /**
- * This is the interface for a TreeNode custom template Component
- */
-export interface ITreeNodeTemplateComponent {
-  node: ITreeNode;
-}
-
-/**
  * This is the interface for the options passed along to the tree component
  */
 export interface ITreeOptions {
@@ -21,54 +14,35 @@ export interface ITreeOptions {
 }
 
 /**
- * This is the interface of the tree component, with all inputs, outputs, and API
- * example usage:  
- * ```html
- * <Tree #tree [nodes]="nodes"></Tree>
- * ```  
- * ```
- * nodes = [
- *   {
- *       name: 'root1',
- *       children: [
- *           {
- *               name: 'child1',
- *           }, {
- *               name: 'child2',
- *           }
- *       ]
- *   }
- * ]
- * ```
- */
-export interface ITreeComponent {
-  // inputs
-  nodes: any[];
-  options: ITreeOptions;
-  focused: boolean;
-
-  // outputs
-  onToggle: EventEmitter<{ eventName: string, node: ITreeNode, isExpanded: boolean }>;
-  onActiveChanged: EventEmitter<{ eventName: string, node: ITreeNode, isActive: boolean }>;
-  onActivate: EventEmitter<{ eventName: string, node: ITreeNode }>;
-  onDeactivate: EventEmitter<{ eventName: string, node: ITreeNode }>;
-  onFocus: EventEmitter<{ eventName: string, node: ITreeNode }>;
-  onBlur: EventEmitter<{ eventName: string, node: ITreeNode }>;
-
-  // API
-  treeModel: ITreeModel
-}
-
-/**
  * This is the interface of a single Tree Node
  */
 export interface ITreeNode {
   // properties
+  /**
+   * Parent node
+   */
   parent: ITreeNode;
+  /**
+   * The value of the node's field that is used for displaying its content.
+   * By default 'name', unless stated otherwise in the options
+   */
   displayField: string;
+  /**
+   * The children of the node.
+   * By default is determined by 'node.children', unless stated otherwise in the options
+   */
   childrenField: ITreeNode[];
+  /**
+   * Pointer to the original data.
+   */
   originalNode: any;
+  /**
+   * Pointer to the ElementRef of the TreeNodeComponent that's displaying this node
+   */
   elementRef: ElementRef;
+  /**
+   * Level in the tree (starts from 1).
+   */
   level: number;
   // helpers
   isExpanded: boolean;
@@ -80,18 +54,54 @@ export interface ITreeNode {
   isRoot:boolean;
 
   // traversing
+  /**
+   * @returns next sibling (or null)
+   */
   findNextSibling(): ITreeNode;
+  /**
+   * @returns previous sibling (or null)
+   */
   findPreviousSibling(): ITreeNode;
+  /**
+   * @returns first child (or null)
+   */
   getFirstChild(): ITreeNode;
+  /**
+   * @returns last child (or null)
+   */
   getLastChild(): ITreeNode;
-  findNextNode(goInside:boolean): ITreeNode;
+  /**
+   * Finds the visually next node in the tree.
+   * @returns next node.
+   * @param goInside whether to look for children or just siblings
+   */
+  findNextNode(goInside: boolean): ITreeNode;
+  /**
+   * Finds the visually previous node in the tree.
+   * @returns previous node.
+   */
   findPreviousNode(): ITreeNode;
 
   // actions
+  /**
+   * Expands / Collapses the node
+   */
   toggle();
+  /**
+   * Activates / Deactivates the node (selects / deselects)
+   */
   toggleActivated();
+  /**
+   * Focus on the node
+   */
   focus();
+  /**
+   * Blur (unfocus) the node
+   */
   blur();
+  /**
+   * Fire an event to the renderer of the tree (if it was registered)
+   */
   fireEvent(event: any);
 }
 
@@ -100,10 +110,25 @@ export interface ITreeNode {
  */
 export interface ITreeModel {
   // properties
+  /**
+   * All root nodes
+   */
   roots: ITreeNode[];
+  /**
+   * Current active (selected) node
+   */
   activeNode: ITreeNode;
+  /**
+   * Current focused node
+   */
   focusedNode: ITreeNode;
+  /**
+   * Options that were passed to the tree component
+   */
   options: ITreeOptions;
+  /**
+   * Is the tree currently focused
+   */
   isFocused: boolean;
 
   // helpers
@@ -111,15 +136,31 @@ export interface ITreeModel {
    * @returns      first root of the tree
    */
   getFirstRoot(): ITreeNode;
+  /**
+   * @returns      last root of the tree
+   */
   getLastRoot(): ITreeNode;
 
   // actions
   /**
+   * Focuses or blurs the tree
    * @param value  true or false - whether to set focus or blur.
    */
   setFocus(value: boolean);
+  /**
+   * Focuses on the next node in the tree (same as down arrow)
+   */
   focusNextNode();
+  /**
+   * Focuses on the previous node in the tree (same as up arrow)
+   */
   focusPreviousNode();
+  /**
+   * Focuses on the inner child of the current focused node (same as right arrow on an expanded node)
+   */
   focusDrillDown();
+  /**
+   * Focuses on the parent of the current focused node (same as left arrow on a collapsed node)
+   */
   focusDrillUp();
 }
