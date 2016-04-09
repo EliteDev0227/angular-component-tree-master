@@ -44281,6 +44281,7 @@ webpackJsonp([1],[
 	        this.isVirtualRoot = false;
 	        Object.assign(this, data, { parent: parent, treeModel: treeModel });
 	        this._originalNode = data;
+	        this.level = this.parent ? this.parent.level + 1 : 0;
 	        this.childrenField = this.childrenField
 	            .map(function (c) { return new TreeNode(c, _this, treeModel); });
 	    }
@@ -44426,9 +44427,16 @@ webpackJsonp([1],[
 	        var previousNode = this.treeModel.focusedNode;
 	        this.treeModel.focusedNode = this;
 	        if (previousNode) {
-	            this.fireEvent({ eventName: events_1.TREE_EVENTS.onBlur, node: this.treeModel.focusedNode });
+	            this.fireEvent({ eventName: events_1.TREE_EVENTS.onBlur, node: previousNode });
 	        }
 	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onFocus, node: this });
+	    };
+	    TreeNode.prototype.blur = function () {
+	        var previousNode = this.treeModel.focusedNode;
+	        this.treeModel.focusedNode = null;
+	        if (previousNode) {
+	            this.fireEvent({ eventName: events_1.TREE_EVENTS.onBlur, node: this });
+	        }
 	    };
 	    return TreeNode;
 	}());
@@ -51343,7 +51351,10 @@ webpackJsonp([1],[
 	        core_1.Component({
 	            selector: 'app',
 	            directives: [ng2tree_1.TreeComponent],
-	            template: "\n    <p>default options:</p>\n    <button (click)=\"tree.treeModel.focusNextNode()\">next node</button>\n    <button (click)=\"tree.treeModel.focusPreviousNode()\">previous node</button>\n    <button (click)=\"tree.treeModel.focusDrillDown()\">drill down</button>\n    <button (click)=\"tree.treeModel.focusDrillUp()\">drill up</button>\n    <br>\n    <Tree #tree [nodes]=\"nodes\" [focused]=\"true\"></Tree>\n\n    <br>\n    <p>custom name field:</p>\n    <Tree [nodes]=\"nodes\" [options]=\"customNameFieldOptions\"></Tree>\n\n    <br>\n    <p>custom template:</p>\n    <Tree [nodes]=\"nodes\" [options]=\"customTemplateOptions\"></Tree>\n\n    <br>\n    <p>custom template string:</p>\n    <Tree [nodes]=\"nodes\" [options]=\"customTemplateStringOptions\"></Tree>\n\n    <br>\n    <p>events:</p>\n    <Tree [nodes]=\"nodes\"\n        (onToggle)=\"onEvent($event)\"\n        (onActiveChanged)=\"onEvent($event)\"\n        (onFocus)=\"onEvent($event)\"\n        (onBlur)=\"onEvent($event)\"></Tree>\n  "
+	            styles: [
+	                "button: {\n        line - height: 24px;\n        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);\n        border: none;\n        border-radius: 2px;\n        background: #A3D9F5;\n        cursor: pointer;\n        margin: 0 3px;\n      }"
+	            ],
+	            template: "\n    <Tree\n      #tree\n      [nodes]=\"nodes\"\n      [focused]=\"true\"\n      [options]=\"customTemplateStringOptions\"\n      (onToggle)=\"onEvent($event)\"\n      (onActivate)=\"onEvent($event)\"\n      (onDeactivate)=\"onEvent($event)\"\n      (onActiveChanged)=\"onEvent($event)\"\n      (onFocus)=\"onEvent($event)\"\n      (onBlur)=\"onEvent($event)\"\n    ></Tree>\n    <br>\n    <p>Keys:</p>\n    down | up | left | right | space | enter\n    <p>API:</p>\n    <button (click)=\"tree.treeModel.focusNextNode()\">next node</button>\n    <button (click)=\"tree.treeModel.focusPreviousNode()\">previous node</button>\n    <button (click)=\"tree.treeModel.focusDrillDown()\">drill down</button>\n    <button (click)=\"tree.treeModel.focusDrillUp()\">drill up</button>\n    <p></p>\n    <button\n      [disabled]=\"!tree.treeModel.focusedNode\"\n      (click)=\"tree.treeModel.focusedNode.toggleActivated()\">\n      {{ tree.treeModel.focusedNode?.isActive ? 'deactivate' : 'activate' }}\n    </button>\n    <button\n      [disabled]=\"!tree.treeModel.focusedNode\"\n      (click)=\"tree.treeModel.focusedNode.toggle()\">\n      {{ tree.treeModel.focusedNode?.isExpanded ? 'collapse' : 'expand' }}\n    </button>\n    <button\n      [disabled]=\"!tree.treeModel.focusedNode\"\n      (click)=\"tree.treeModel.focusedNode.blur()\">\n      blur\n    </button>\n\n  "
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], App);
@@ -51389,6 +51400,9 @@ webpackJsonp([1],[
 	    TreeNodeComponent.prototype.ngAfterViewInit = function () {
 	        this._loadTreeNodeContent();
 	    };
+	    TreeNodeComponent.prototype.ngOnChanges = function () {
+	        this.node.elementRef = this.elementRef;
+	    };
 	    TreeNodeComponent.prototype._loadTreeNodeContent = function () {
 	        var _this = this;
 	        this.componentLoader.loadIntoLocation(this.treeModel.treeNodeContentComponent, this.elementRef, 'treeNodeContent')
@@ -51406,16 +51420,18 @@ webpackJsonp([1],[
 	            directives: [TreeNodeComponent],
 	            styles: [
 	                '.tree-children { padding-left: 20px }',
-	                ".node-content-wrapper {\n      display: inline-block;\n      padding: 2px 5px;\n      border-radius: 2;\n    }",
-	                '.tree-node.active > .node-content-wrapper { background: #6CF }',
-	                '.tree-node.active.focused > .node-content-wrapper { background: #6CF }',
-	                '.tree-node.focused > .node-content-wrapper { background: #FFA }',
-	                '.tree-node.expanded > .toggle-children { background-image: url(\'data:image / png;base64, iVBORw0KGgoAAAANSUhEUgAAABIAAAAECAYAAACDQW/RAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABAhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/ IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8 + IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJ1dWlkOjY1RTYzOTA2ODZDRjExREJBNkUyRDg4N0NFQUNCNDA3IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjQ2QTJEN0RDODUzQzExRTU4RTQwRkQwODFEOUZEMEE3IiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjM1Q0YwRTQ0ODUzQzExRTU4RTQwRkQwODFEOUZEMEE3IiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE1IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MTk5NzA1OGEtZDI3OC00NDZkLWE4ODgtNGM4MGQ4YWI1NzNmIiBzdFJlZjpkb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6YzRkZmQxMGMtY2NlNS0xMTc4LWE5OGQtY2NkZmM5ODk5YWYwIi8 + IDxkYzp0aXRsZT4gPHJkZjpBbHQ + IDxyZGY6bGkgeG1sOmxhbmc9IngtZGVmYXVsdCI + Z2x5cGhpY29uczwvcmRmOmxpPiA8L3JkZjpBbHQ + IDwvZGM6dGl0bGU + IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY + IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8 + nZiGMwAAAChJREFUeNpiZGBg + ADE / AyUgY + MQOI / AxUAEwOVAMigj1Qw5yNAgAEACtUE2P6X / W4AAAAASUVORK5CYII=\') }',
-	                '.tree-node.collapsed > .toggle-children { background-image: url(\'data:image / png;base64, iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABAhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+ IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJ1dWlkOjY1RTYzOTA2ODZDRjExREJBNkUyRDg4N0NFQUNCNDA3IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjM1Q0YwRTQxODUzQzExRTU4RTQwRkQwODFEOUZEMEE3IiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjM1Q0YwRTQwODUzQzExRTU4RTQwRkQwODFEOUZEMEE3IiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE1IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MTk5NzA1OGEtZDI3OC00NDZkLWE4ODgtNGM4MGQ4YWI1NzNmIiBzdFJlZjpkb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6YzRkZmQxMGMtY2NlNS0xMTc4LWE5OGQtY2NkZmM5ODk5YWYwIi8 + IDxkYzp0aXRsZT4gPHJkZjpBbHQ + IDxyZGY6bGkgeG1sOmxhbmc9IngtZGVmYXVsdCI + Z2x5cGhpY29uczwvcmRmOmxpPiA8L3JkZjpBbHQ + IDwvZGM6dGl0bGU + IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY + IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8 + eUOB4gAAAFBJREFUeNpi / P//PwM+wMjI+AFI8UO5H4HqBfCqJ8JAFAVA9Yz41DMxUBmMGjgIDQQlgf9UNO8jtQ2kTRh+pKqXR7PeqIG0MfAjDjZWABBgACMcHM7LVR6AAAAAAElFTkSuQmCC\') }',
-	                ".toggle-children {\n        height: 10px;\n        width: 10px;\n        background-size: contain;\n        display: inline-block;\n        position: relative;\n        top: 1px;\n        background-repeat: no-repeat;\n        background-position: center;        \n    }",
+	                ".node-content-wrapper {\n      display: inline-block;\n      padding: 2px 5px;\n      border-radius: 2px;\n      transition: background-color .15s,box-shadow .15s;\n    }",
+	                '.tree-node-active > .node-content-wrapper { background: #beebff }',
+	                '.tree-node-active.tree-node-focused > .node-content-wrapper { background: #beebff }',
+	                '.tree-node-focused > .node-content-wrapper { background: #e7f4f9 }',
+	                '.node-content-wrapper:hover { background: #f7fbff }',
+	                '.tree-node-active > .node-content-wrapper, .tree-node-focused > .node-content-wrapper, .node-content-wrapper:hover { box-shadow: inset 0 0 1px #999; }',
+	                '.tree-node-expanded > .toggle-children { transform: rotate(90deg) }',
+	                '.tree-node-collapsed > .toggle-children { transform: rotate(0); }',
+	                ".toggle-children {\n        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABAhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJ1dWlkOjY1RTYzOTA2ODZDRjExREJBNkUyRDg4N0NFQUNCNDA3IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkYzRkRFQjcxODUzNTExRTU4RTQwRkQwODFEOUZEMEE3IiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkYzRkRFQjcwODUzNTExRTU4RTQwRkQwODFEOUZEMEE3IiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE1IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MTk5NzA1OGEtZDI3OC00NDZkLWE4ODgtNGM4MGQ4YWI1NzNmIiBzdFJlZjpkb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6YzRkZmQxMGMtY2NlNS0xMTc4LWE5OGQtY2NkZmM5ODk5YWYwIi8+IDxkYzp0aXRsZT4gPHJkZjpBbHQ+IDxyZGY6bGkgeG1sOmxhbmc9IngtZGVmYXVsdCI+Z2x5cGhpY29uczwvcmRmOmxpPiA8L3JkZjpBbHQ+IDwvZGM6dGl0bGU+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+5iogFwAAAGhJREFUeNpiYGBgKABigf///zOQg0EARH4A4gZyDIIZ8B/JoAJKDIDhB0CcQIkBRBtEyABkgxwoMQCGD6AbRKoBGAYxQgXIBRuZGKgAKPIC3QLxArnRSHZCIjspk52ZKMrOFBUoAAEGAKnq593MQAZtAAAAAElFTkSuQmCC');\n        height: 8px;\n        width: 9px;\n        background-size: contain;\n        display: inline-block;\n        position: relative;\n        background-repeat: no-repeat;\n        background-position: center;        \n    }",
 	                ".toggle-children-placeholder {\n        display: inline-block;\n        height: 10px;\n        width: 10px;\n        position: relative;\n        top: 1px;\n    }"
 	            ],
-	            template: "\n    <div class=\"tree-node\"\n      [class.expanded]=\"node.isExpanded && node.hasChildren\"\n      [class.collapsed]=\"node.isCollapsed && node.hasChildren\"\n      [class.leaf]=\"node.isLeaf\"\n      [class.active]=\"node.isActive\"\n      [class.focused]=\"node.isFocused\">\n      <span\n        *ngIf=\"node.hasChildren\"\n        class=\"toggle-children\"\n        (click)=\"node.toggle()\">\n      </span>\n      <span\n        *ngIf=\"!node.hasChildren\"\n        class=\"toggle-children-placeholder\">\n      </span>\n      <div class=\"node-content-wrapper\" (click)=\"node.toggleActivated()\">\n        <span #treeNodeContent></span>\n      </div>\n      <div class=\"tree-children\" [hidden]=\"node.isCollapsed\">\n        <TreeNode\n          *ngFor=\"#node of node.children\"\n          [node]=\"node\">\n        </TreeNode>\n      </div>\n    </div>\n  "
+	            template: "\n    <div class=\"tree-node tree-node-level-{{ node.level }}\"\n      [class.tree-node-expanded]=\"node.isExpanded && node.hasChildren\"\n      [class.tree-node-collapsed]=\"node.isCollapsed && node.hasChildren\"\n      [class.tree-node-leaf]=\"node.isLeaf\"\n      [class.tree-node-active]=\"node.isActive\"\n      [class.tree-node-focused]=\"node.isFocused\">\n      <span\n        *ngIf=\"node.hasChildren\"\n        class=\"toggle-children\"\n        (click)=\"node.toggle()\">\n      </span>\n      <span\n        *ngIf=\"!node.hasChildren\"\n        class=\"toggle-children-placeholder\">\n      </span>\n      <div class=\"node-content-wrapper\" (click)=\"node.toggleActivated()\">\n        <span #treeNodeContent></span>\n      </div>\n      <div class=\"tree-children\" [hidden]=\"node.isCollapsed\">\n        <TreeNode\n          *ngFor=\"#node of node.children\"\n          [node]=\"node\">\n        </TreeNode>\n      </div>\n    </div>\n  "
 	        }), 
 	        __metadata('design:paramtypes', [core_1.DynamicComponentLoader, core_1.ElementRef, tree_model_1.TreeModel])
 	    ], TreeNodeComponent);

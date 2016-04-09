@@ -6,34 +6,55 @@ const CUSTOM_TEMPLATE_STRING = '{{ node.name }} ({{ node.subTitle }})';
 @Component({
     selector: 'app',
     directives: [TreeComponent],
+    styles: [
+      `button: {
+        line - height: 24px;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
+        border: none;
+        border-radius: 2px;
+        background: #A3D9F5;
+        cursor: pointer;
+        margin: 0 3px;
+      }`
+    ],
     template: `
-    <p>default options:</p>
+    <Tree
+      #tree
+      [nodes]="nodes"
+      [focused]="true"
+      [options]="customTemplateStringOptions"
+      (onToggle)="onEvent($event)"
+      (onActivate)="onEvent($event)"
+      (onDeactivate)="onEvent($event)"
+      (onActiveChanged)="onEvent($event)"
+      (onFocus)="onEvent($event)"
+      (onBlur)="onEvent($event)"
+    ></Tree>
+    <br>
+    <p>Keys:</p>
+    down | up | left | right | space | enter
+    <p>API:</p>
     <button (click)="tree.treeModel.focusNextNode()">next node</button>
     <button (click)="tree.treeModel.focusPreviousNode()">previous node</button>
     <button (click)="tree.treeModel.focusDrillDown()">drill down</button>
     <button (click)="tree.treeModel.focusDrillUp()">drill up</button>
-    <br>
-    <Tree #tree [nodes]="nodes" [focused]="true"></Tree>
+    <p></p>
+    <button
+      [disabled]="!tree.treeModel.focusedNode"
+      (click)="tree.treeModel.focusedNode.toggleActivated()">
+      {{ tree.treeModel.focusedNode?.isActive ? 'deactivate' : 'activate' }}
+    </button>
+    <button
+      [disabled]="!tree.treeModel.focusedNode"
+      (click)="tree.treeModel.focusedNode.toggle()">
+      {{ tree.treeModel.focusedNode?.isExpanded ? 'collapse' : 'expand' }}
+    </button>
+    <button
+      [disabled]="!tree.treeModel.focusedNode"
+      (click)="tree.treeModel.focusedNode.blur()">
+      blur
+    </button>
 
-    <br>
-    <p>custom name field:</p>
-    <Tree [nodes]="nodes" [options]="customNameFieldOptions"></Tree>
-
-    <br>
-    <p>custom template:</p>
-    <Tree [nodes]="nodes" [options]="customTemplateOptions"></Tree>
-
-    <br>
-    <p>custom template string:</p>
-    <Tree [nodes]="nodes" [options]="customTemplateStringOptions"></Tree>
-
-    <br>
-    <p>events:</p>
-    <Tree [nodes]="nodes"
-        (onToggle)="onEvent($event)"
-        (onActiveChanged)="onEvent($event)"
-        (onFocus)="onEvent($event)"
-        (onBlur)="onEvent($event)"></Tree>
   `
 })
 export class App {

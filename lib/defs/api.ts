@@ -2,7 +2,7 @@
  * Welcome to ng2tree
  */
 
-import { EventEmitter } from 'angular2/core';
+import { EventEmitter, ElementRef } from 'angular2/core';
 
 /**
  * This is the interface for a TreeNode custom template Component
@@ -68,7 +68,8 @@ export interface ITreeNode {
   displayField: string;
   childrenField: ITreeNode[];
   originalNode: any;
-
+  elementRef: ElementRef;
+  level: number;
   // helpers
   isExpanded: boolean;
   isActive: boolean;
@@ -90,7 +91,8 @@ export interface ITreeNode {
   toggle();
   toggleActivated();
   focus();
-  fireEvent(event:any);
+  blur();
+  fireEvent(event: any);
 }
 
 /**

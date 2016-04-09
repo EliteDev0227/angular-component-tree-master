@@ -21,7 +21,7 @@ var HOST = process.env.HOST || 'localhost';
 var PORT = process.env.PORT || 8080;
 
 var metadata = {
-  title: 'ng2 tree component',
+  title: 'angular2 tree component',
   baseUrl: '/',
   host: HOST,
   port: PORT,
@@ -41,7 +41,7 @@ module.exports = helpers.defaults({
 
   entry: {
     'polyfills':'./src/polyfills.ts',
-    'main':'./src/main.ts' // our angular app
+    'main':'./lib/ng2tree.ts' // our angular app
   },
 
   // Config for our build files

@@ -1,3 +1,4 @@
+import { ElementRef } from 'angular2/core';
 import { TreeModel } from './tree.model';
 import { ITreeNode } from '../defs/api';
 import { TREE_EVENTS } from '../constants/events'; 
@@ -14,13 +15,16 @@ export class TreeNode implements ITreeNode {
   isVirtualRoot: boolean = false;
   get isFocused() { return this.treeModel.focusedNode == this };
   parent: TreeNode;
+  level: number;
   treeModel: TreeModel;
+  elementRef:ElementRef;
   private _originalNode: any;
   get originalNode() { return this._originalNode };
 
   constructor(data, parent:TreeNode = null, treeModel:TreeModel) {
     Object.assign(this, data, { parent, treeModel });
     this._originalNode = data;
+    this.level = this.parent ? this.parent.level + 1 : 0;
     this.childrenField = this.childrenField
       .map(c => new TreeNode(c, this, treeModel));
   }
@@ -124,8 +128,16 @@ export class TreeNode implements ITreeNode {
     let previousNode = this.treeModel.focusedNode;
     this.treeModel.focusedNode = this;
     if (previousNode) {
-      this.fireEvent({ eventName: TREE_EVENTS.onBlur, node: this.treeModel.focusedNode });
+      this.fireEvent({ eventName: TREE_EVENTS.onBlur, node: previousNode });
     }
     this.fireEvent({ eventName: TREE_EVENTS.onFocus, node: this });
+  }
+
+  blur() {
+    let previousNode = this.treeModel.focusedNode;
+    this.treeModel.focusedNode = null;
+    if (previousNode) {
+      this.fireEvent({ eventName: TREE_EVENTS.onBlur, node: this });
+    }
   }
 }
