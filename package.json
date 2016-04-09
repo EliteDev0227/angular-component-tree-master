@@ -1,10 +1,11 @@
 {
   "name": "angular2-tree-component",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A simple yet powerful tree component for Angular2",
   "author": "Adam Klein <adam@500tech.com>",
   "homepage": "https://github.com/500tech/angular2-tree-component",
   "license": "MIT",
+  "main": "lib/angular2-tree",
   "scripts": {
     "clean": "npm cache clean && rimraf node_modules doc typings coverage dist",
     "clean:dist": "rimraf dist",
