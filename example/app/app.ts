@@ -1,7 +1,7 @@
 import { Component } from 'angular2/core';
-import { TreeComponent } from '../../lib/ng2tree';
+import { TreeComponent } from '../../lib/angular2-tree';
 
-const CUSTOM_TEMPLATE_STRING = '{{ node.name }} ({{ node.subTitle }})';
+const CUSTOM_TEMPLATE_STRING = '{{ node.name }}';
 
 @Component({
     selector: 'app',

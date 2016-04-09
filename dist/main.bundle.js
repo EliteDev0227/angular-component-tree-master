@@ -33871,7 +33871,7 @@ webpackJsonp([1],[
 	};
 	var core_1 = __webpack_require__(4);
 	var tree_node_model_1 = __webpack_require__(196);
-	var tree_options_model_1 = __webpack_require__(287);
+	var tree_options_model_1 = __webpack_require__(288);
 	var events_1 = __webpack_require__(195);
 	var _ = __webpack_require__(69);
 	var TreeModel = (function () {
@@ -51304,8 +51304,8 @@ webpackJsonp([1],[
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(4);
-	var ng2tree_1 = __webpack_require__(288);
-	var CUSTOM_TEMPLATE_STRING = '{{ node.name }} ({{ node.subTitle }})';
+	var angular2_tree_1 = __webpack_require__(284);
+	var CUSTOM_TEMPLATE_STRING = '{{ node.name }}';
 	var App = (function () {
 	    function App() {
 	        this.nodes = [
@@ -51350,7 +51350,7 @@ webpackJsonp([1],[
 	    App = __decorate([
 	        core_1.Component({
 	            selector: 'app',
-	            directives: [ng2tree_1.TreeComponent],
+	            directives: [angular2_tree_1.TreeComponent],
 	            styles: [
 	                "button: {\n        line - height: 24px;\n        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);\n        border: none;\n        border-radius: 2px;\n        background: #A3D9F5;\n        cursor: pointer;\n        margin: 0 3px;\n      }"
 	            ],
@@ -51376,6 +51376,17 @@ webpackJsonp([1],[
 
 /***/ },
 /* 284 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var tree_model_1 = __webpack_require__(116);
+	exports.TreeModel = tree_model_1.TreeModel;
+	var tree_component_1 = __webpack_require__(286);
+	exports.TreeComponent = tree_component_1.TreeComponent;
+
+
+/***/ },
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -51441,7 +51452,7 @@ webpackJsonp([1],[
 
 
 /***/ },
-/* 285 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -51455,9 +51466,9 @@ webpackJsonp([1],[
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(4);
-	var tree_node_component_1 = __webpack_require__(284);
+	var tree_node_component_1 = __webpack_require__(285);
 	var tree_model_1 = __webpack_require__(116);
-	var keys_1 = __webpack_require__(286);
+	var keys_1 = __webpack_require__(287);
 	var _ = __webpack_require__(69);
 	var TreeComponent = (function () {
 	    function TreeComponent(treeModel) {
@@ -51593,7 +51604,7 @@ webpackJsonp([1],[
 
 
 /***/ },
-/* 286 */
+/* 287 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -51608,7 +51619,7 @@ webpackJsonp([1],[
 
 
 /***/ },
-/* 287 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -51624,17 +51635,6 @@ webpackJsonp([1],[
 	    return TreeOptions;
 	}());
 	exports.TreeOptions = TreeOptions;
-
-
-/***/ },
-/* 288 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var tree_model_1 = __webpack_require__(116);
-	exports.TreeModel = tree_model_1.TreeModel;
-	var tree_component_1 = __webpack_require__(285);
-	exports.TreeComponent = tree_component_1.TreeComponent;
 
 
 /***/ }
