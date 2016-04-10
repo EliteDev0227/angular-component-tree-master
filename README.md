@@ -1,4 +1,4 @@
 # angular2 tree component
 
 ## Demo & docs:
-[https://ng2tree.readme.io/docs](https://ng2tree.readme.io/docs)
+[https://angular2-tree.readme.io/docs](https://angular2-tree.readme.io/docs)
