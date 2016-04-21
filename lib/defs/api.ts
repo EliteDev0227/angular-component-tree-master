@@ -8,9 +8,25 @@ import { EventEmitter, ElementRef } from 'angular2/core';
  * This is the interface for the options passed along to the tree component
  */
 export interface ITreeOptions {
-  childrenField:string;
-  displayField:string;
-  treeNodeTemplate:any;
+  /**
+  * name of the field that represents the node's children. 'children' by default.
+  */
+  childrenField: string;
+  /**
+  * name of the field that represents the display field. 'name' by default.
+  */
+  displayField: string;
+  /**
+  * name of the field that represents the unique id. 'id' by default.
+  */
+  idField: string;
+  treeNodeTemplate: any;
+  /**
+   * Callback for loading children asynchronously.
+   * This function should return an array or a promise that resolves to an array of nodes.
+   * It is called the first time the node is opened
+   */
+  getChildren(node: ITreeNode): any;
 }
 
 /**
@@ -44,6 +60,17 @@ export interface ITreeNode {
    * Level in the tree (starts from 1).
    */
   level: number;
+  /**
+   * Path in the tree: Array of IDs.
+   */
+  path: string[];
+
+  /**
+   * A unique key of this node among its siblings.
+   * By default it's the 'id' of the original node, unless stated otherwise in options.idField
+   */
+  id: any;
+
   // helpers
   isExpanded: boolean;
   isActive: boolean;

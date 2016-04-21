@@ -94,7 +94,14 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_.itreeoptions.html#childrenfield" class="tsd-kind-icon">children<wbr>Field</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_.itreeoptions.html#displayfield" class="tsd-kind-icon">display<wbr>Field</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_.itreeoptions.html#idfield" class="tsd-kind-icon">id<wbr>Field</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_.itreeoptions.html#treenodetemplate" class="tsd-kind-icon">tree<wbr>Node<wbr>Template</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_api_.itreeoptions.html#getchildren" class="tsd-kind-icon">get<wbr>Children</a></li>
 							</ul>
 						</section>
 					</div>
@@ -108,9 +115,14 @@
 					<div class="tsd-signature tsd-kind-icon">children<wbr>Field<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L11">api.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L14">api.ts:14</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>name of the field that represents the node&#39;s children. &#39;children&#39; by default.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="displayfield" class="tsd-anchor"></a>
@@ -118,9 +130,29 @@
 					<div class="tsd-signature tsd-kind-icon">display<wbr>Field<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L12">api.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L18">api.ts:18</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>name of the field that represents the display field. &#39;name&#39; by default.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="idfield" class="tsd-anchor"></a>
+					<h3>id<wbr>Field</h3>
+					<div class="tsd-signature tsd-kind-icon">id<wbr>Field<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L22">api.ts:22</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>name of the field that represents the unique id. &#39;id&#39; by default.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="treenodetemplate" class="tsd-anchor"></a>
@@ -128,9 +160,42 @@
 					<div class="tsd-signature tsd-kind-icon">tree<wbr>Node<wbr>Template<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L13">api.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L23">api.ts:23</a></li>
 						</ul>
 					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="getchildren" class="tsd-anchor"></a>
+					<h3>get<wbr>Children</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Children<span class="tsd-signature-symbol">(</span>node<span class="tsd-signature-symbol">: </span><a href="_api_.itreenode.html" class="tsd-signature-type">ITreeNode</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L29">api.ts:29</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Callback for loading children asynchronously.
+										This function should return an array or a promise that resolves to an array of nodes.
+									It is called the first time the node is opened</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>node: <a href="_api_.itreenode.html" class="tsd-signature-type">ITreeNode</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -165,7 +230,13 @@
 								<a href="_api_.itreeoptions.html#displayfield" class="tsd-kind-icon">display<wbr>Field</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_api_.itreeoptions.html#idfield" class="tsd-kind-icon">id<wbr>Field</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_api_.itreeoptions.html#treenodetemplate" class="tsd-kind-icon">tree<wbr>Node<wbr>Template</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="_api_.itreeoptions.html#getchildren" class="tsd-kind-icon">get<wbr>Children</a>
 							</li>
 						</ul>
 					</li>

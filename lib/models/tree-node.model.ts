@@ -89,11 +89,11 @@ export class TreeNode implements ITreeNode {
     if (!previousSibling) {
       return this.realParent
     }
-    return previousSibling.getLastOpenDescendant()
+    return previousSibling._getLastOpenDescendant()
   }
 
-  getLastOpenDescendant() {
-    return this.isCollapsed ? this : this.getLastChild().getLastOpenDescendant();
+  _getLastOpenDescendant() {
+    return this.isCollapsed ? this : this.getLastChild()._getLastOpenDescendant();
   }
 
   private _getParentsChildren() {
