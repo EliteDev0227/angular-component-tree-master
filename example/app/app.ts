@@ -1,5 +1,6 @@
 import { Component } from 'angular2/core';
 import { TreeComponent } from '../../lib/angular2-tree';
+const uuid = require('uuid').v4;
 
 const CUSTOM_TEMPLATE_STRING = '{{ node.data.name }}';
 
@@ -60,42 +61,78 @@ const CUSTOM_TEMPLATE_STRING = '{{ node.data.name }}';
 export class App {
     nodes = [
         {
-            name: 'root1',
-            subTitle: 'the root',
-            children: [
-                {
-                    name: 'child1',
-                    subTitle: 'a good child'
-                }, {
-                    name: 'child2',
-                    subTitle: 'a bad child',
-                }
-            ]
+          id: uuid(),
+          name: 'root1',
+          subTitle: 'the root',
+          children: [
+            {
+              id: uuid(),
+              name: 'child1',
+              subTitle: 'a good child'
+            }, {
+              id: uuid(), 
+              name: 'child2',
+              subTitle: 'a bad child',
+            }
+          ]
         },
         {
+          id: uuid(), 
           name: 'root2',
           subTitle: 'the second root',
           children: [
             {
+              id: uuid(), 
               name: 'child2.1',
               subTitle: 'new and improved'
             }, {
+              id: uuid(), 
               name: 'child2.2',
               subTitle: 'new and improved2',
               children: [
-                  {
-                      name: 'subsub',
+                {
+                  id: uuid(), 
+                  name: 'subsub',
                       subTitle: 'subsub'
                   }
               ]
             }
           ]
+        },
+        {
+          id: uuid(), 
+          name: 'asyncroot',
+          hasChildren: true
         }
     ];
 
-    customNameFieldOptions = { displayField: 'subTitle' };
-    customTemplateOptions = { treeNodeTemplate: MyTreeNodeTemplate };
-    customTemplateStringOptions = { treeNodeTemplate: CUSTOM_TEMPLATE_STRING }
+    asyncChildren = [
+      {
+        name: 'child2.1',
+        subTitle: 'new and improved'
+      }, {
+        name: 'child2.2',
+        subTitle: 'new and improved2'
+      }
+    ];
+
+    getChildren(node) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => resolve(this.asyncChildren.map((c) => {
+          return Object.assign(c, {
+            hasChildren: node.level < 5,
+            id: uuid()
+          });
+        })), 1000);
+      });
+    }
+
+    // customNameFieldOptions = { displayField: 'subTitle' };
+    // customTemplateOptions = { treeNodeTemplate: MyTreeNodeTemplate };
+    customTemplateStringOptions = {
+      treeNodeTemplate: CUSTOM_TEMPLATE_STRING,
+      getChildren: this.getChildren.bind(this)
+    }
     onEvent = ($event) => console.log($event);
 }
 

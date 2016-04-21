@@ -8,6 +8,12 @@ const _ = require('lodash');
 export class TreeNode implements ITreeNode {
   private _isExpanded: boolean = false;
   get isExpanded() { return this._isExpanded };
+  set isExpanded(value) {
+    this._isExpanded = value
+    if (!this.children) {
+      this.loadChildren();
+    }
+  };
 
   private _isActive: boolean = false;
   get isActive() { return this._isActive };
@@ -15,12 +21,16 @@ export class TreeNode implements ITreeNode {
   get isFocused() { return this.treeModel.focusedNode == this };
   children: TreeNode[];
   level: number;
+  path: string[];
   elementRef:ElementRef;
+  hasChildren: boolean;
   private _originalNode: any;
   get originalNode() { return this._originalNode };
 
   constructor(public data:any, public parent:TreeNode = null, public treeModel:TreeModel) {
     this.level = this.parent ? this.parent.level + 1 : 0;
+    this.path = this.parent ? [...this.parent.path, this.id] : [];
+    this.hasChildren = !!(data.hasChildren || data[this.options.childrenField]);
     if (data[this.options.childrenField]) {
       this.children = data[this.options.childrenField]
         .map(c => new TreeNode(c, this, treeModel));      
@@ -30,8 +40,7 @@ export class TreeNode implements ITreeNode {
   // helper get functions:
   get isCollapsed() { return !this.isExpanded }
   get isLeaf() { return !this.hasChildren }
-  get hasChildren() { return this.data.hasChildren || this.children }
-  get isRoot() { return !this.parent }
+  get isRoot() { return this.parent.data.virtual }
   get realParent() { return this.isRoot ? null : this.parent }
 
   // proxy to treeModel:
@@ -43,10 +52,14 @@ export class TreeNode implements ITreeNode {
     return this.data[this.options.displayField];
   }
 
+  get id() {
+    return this.data[this.options.idField];
+  }
+
   // traversing:
   findAdjacentSibling(steps) {
     let index = this._getIndexInParent();
-    return this.parent && this.parent.children[index + steps];
+    return this._getParentsChildren()[index + steps];
   }
 
   findNextSibling() {
@@ -58,10 +71,11 @@ export class TreeNode implements ITreeNode {
   }
 
   getFirstChild() {
-    return this.children && _.first(this.children);
+    return _.first(this.children || []);
   }
+
   getLastChild() {
-    return this.children && _.last(this.children);
+    return _.last(this.children || []);
   }
 
   findNextNode(goInside = true) {
@@ -75,18 +89,35 @@ export class TreeNode implements ITreeNode {
     if (!previousSibling) {
       return this.realParent
     }
-    return previousSibling.isCollapsed
-      ? previousSibling
-      : previousSibling.getLastChild();
+    return previousSibling.getLastOpenDescendant()
+  }
+
+  getLastOpenDescendant() {
+    return this.isCollapsed ? this : this.getLastChild().getLastOpenDescendant();
+  }
+
+  private _getParentsChildren() {
+    return _.get(this, 'parent.children') || [];
   }
 
   private _getIndexInParent() {
-    return this.parent && this.parent.children.indexOf(this);
+    return this._getParentsChildren().indexOf(this);
   }
 
   // helper methods:
+  loadChildren() {
+    if (!this.options.getChildren) {
+      throw new Error('Node doesn\'t have children, or a getChildren method');
+    }
+    Promise.resolve(this.options.getChildren(this))
+      .then((children) => {
+        this.children = children
+          .map((child) => new TreeNode(child, this, this.treeModel));
+      });
+  }
+
   toggle() {
-    this._isExpanded = !this.isExpanded;
+    this.isExpanded = !this.isExpanded;
     this.fireEvent({ eventName: TREE_EVENTS.onToggle, node: this, isExpanded: this.isExpanded });
   }
 

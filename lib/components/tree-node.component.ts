@@ -58,11 +58,17 @@ import { TreeModel } from '../models/tree.model';
       <div class="node-content-wrapper" (click)="node.toggleActivated()">
         <span #treeNodeContent></span>
       </div>
-      <div class="tree-children" [hidden]="node.isCollapsed">
-        <TreeNode
-          *ngFor="#node of node.children"
-          [node]="node">
-        </TreeNode>
+      <div class="tree-children" *ngIf="node.isExpanded">
+        <div *ngIf="node.children">
+          <TreeNode          
+            *ngFor="#node of node.children"
+            [node]="node">
+          </TreeNode>
+        </div>
+        <span
+          class="tree-node-loading"
+          *ngIf="!node.children"
+        >loading...</span>
       </div>
     </div>
   `
