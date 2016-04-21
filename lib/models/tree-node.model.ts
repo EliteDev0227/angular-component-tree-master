@@ -12,28 +12,26 @@ export class TreeNode implements ITreeNode {
   private _isActive: boolean = false;
   get isActive() { return this._isActive };
 
-  isVirtualRoot: boolean = false;
   get isFocused() { return this.treeModel.focusedNode == this };
-  parent: TreeNode;
+  children: TreeNode[];
   level: number;
-  treeModel: TreeModel;
   elementRef:ElementRef;
   private _originalNode: any;
   get originalNode() { return this._originalNode };
 
-  constructor(data, parent:TreeNode = null, treeModel:TreeModel) {
-    Object.assign(this, data, { parent, treeModel });
-    this._originalNode = data;
+  constructor(public data:any, public parent:TreeNode = null, public treeModel:TreeModel) {
     this.level = this.parent ? this.parent.level + 1 : 0;
-    this.childrenField = this.childrenField
-      .map(c => new TreeNode(c, this, treeModel));
+    if (data[this.options.childrenField]) {
+      this.children = data[this.options.childrenField]
+        .map(c => new TreeNode(c, this, treeModel));      
+    }
   }
 
   // helper get functions:
   get isCollapsed() { return !this.isExpanded }
-  get isLeaf() { return !this.childrenField.length }
-  get hasChildren() { return !this.isLeaf }
-  get isRoot() { return this.parent.isVirtualRoot }
+  get isLeaf() { return !this.hasChildren }
+  get hasChildren() { return this.data.hasChildren || this.children }
+  get isRoot() { return !this.parent }
   get realParent() { return this.isRoot ? null : this.parent }
 
   // proxy to treeModel:
@@ -42,19 +40,13 @@ export class TreeNode implements ITreeNode {
 
   // field accessors:
   get displayField() {
-    return this[this.options.displayField];
-  }
-  get childrenField() {
-    return this[this.options.childrenField] || [];
-  }
-  set childrenField(value) {
-    this[this.options.childrenField] = value;
+    return this.data[this.options.displayField];
   }
 
   // traversing:
   findAdjacentSibling(steps) {
     let index = this._getIndexInParent();
-    return this.parent && this.parent.childrenField[index + steps];
+    return this.parent && this.parent.children[index + steps];
   }
 
   findNextSibling() {
@@ -66,10 +58,10 @@ export class TreeNode implements ITreeNode {
   }
 
   getFirstChild() {
-    return this.childrenField && _.first(this.childrenField);
+    return this.children && _.first(this.children);
   }
   getLastChild() {
-    return this.childrenField && _.last(this.childrenField);
+    return this.children && _.last(this.children);
   }
 
   findNextNode(goInside = true) {
@@ -89,7 +81,7 @@ export class TreeNode implements ITreeNode {
   }
 
   private _getIndexInParent() {
-    return this.parent && this.parent.childrenField.indexOf(this);
+    return this.parent && this.parent.children.indexOf(this);
   }
 
   // helper methods:

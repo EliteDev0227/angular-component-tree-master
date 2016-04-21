@@ -29,13 +29,13 @@ export interface ITreeNode {
   displayField: string;
   /**
    * The children of the node.
-   * By default is determined by 'node.children', unless stated otherwise in the options
+   * By default is determined by 'node.data.children', unless stated otherwise in the options
    */
-  childrenField: ITreeNode[];
+  children: ITreeNode[];
   /**
    * Pointer to the original data.
    */
-  originalNode: any;
+  data: any;
   /**
    * Pointer to the ElementRef of the TreeNodeComponent that's displaying this node
    */

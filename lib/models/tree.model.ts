@@ -20,11 +20,9 @@ export class TreeModel implements ITreeModel {
   setData({ nodes, options, events }) {
     this.options = new TreeOptions(options);
 
-    const virtualRoot = new TreeNode({ isVirtualRoot : true }, null, this);
+    const virtualRoot = new TreeNode({ children: nodes }, null, this);
 
-    this.roots = nodes.map(n => new TreeNode(n, virtualRoot, this));
-
-    virtualRoot[this.options.childrenField] = this.roots;
+    this.roots = virtualRoot.children;
 
     this._loadTreeNodeContentComponent();
     this.events = events;
