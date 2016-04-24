@@ -24,7 +24,8 @@ export class TreeModel implements ITreeModel {
 
     this.roots = virtualRoot.children;
 
-    this._loadTreeNodeContentComponent();
+    this._initTreeNodeContentComponent();
+    this._initLoadingComponent();
     this.events = events;
   }
 
@@ -48,15 +49,27 @@ export class TreeModel implements ITreeModel {
     TreeModel.focusedTree = value ? this : null;
   }
 
+
   private _treeNodeContentComponent:any;
   get treeNodeContentComponent() { return this._treeNodeContentComponent };
 
+  private _loadingComponent:any;
+  get loadingComponent() { return this._loadingComponent };
+
   // if treeNodeTemplate is a component - use it,
   // otherwise - it's a template, so wrap it with an AdHoc component
-  _loadTreeNodeContentComponent() {
+  _initTreeNodeContentComponent() {
     this._treeNodeContentComponent = this.options.treeNodeTemplate;
     if (typeof this._treeNodeContentComponent === 'string') {
       this._treeNodeContentComponent = this._createAdHocComponent(this._treeNodeContentComponent);
+    }
+  }
+
+  // same for loading component
+  _initLoadingComponent() {
+    this._loadingComponent = this.options.loadingComponent;
+    if (typeof this._loadingComponent === 'string') {
+      this._loadingComponent = this._createAdHocComponent(this._loadingComponent);
     }
   }
 

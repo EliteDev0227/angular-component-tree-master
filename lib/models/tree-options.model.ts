@@ -7,15 +7,18 @@ export interface ITreeOptions {
   displayField: string;
   idField: string;
   treeNodeTemplate: any;
+  loadingComponent: any;
   getChildren(node:TreeNode): any;
 }
 
-export class TreeOptions implements ITreeOptions {
+export class TreeOptions {
   childrenField:string = 'children';
   displayField:string = 'name';
-  treeNodeTemplate:any = '{{ node.displayField }}';
   idField:string = 'id';
+  treeNodeTemplate: any = '{{ node.displayField }}';
+  loadingComponent: any = 'loading...';
   getChildren = null;
+
   constructor(options = {}) {
     _.extend(this, options);
   }

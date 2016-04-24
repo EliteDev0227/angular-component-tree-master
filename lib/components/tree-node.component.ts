@@ -1,10 +1,11 @@
 import { Component, Input, Output, EventEmitter, DynamicComponentLoader, QueryList, Query, ElementRef, AfterViewInit } from 'angular2/core';
 import { TreeNode } from '../models/tree-node.model';
 import { TreeModel } from '../models/tree.model';
+import { LoadingComponent } from './loading.component.ts';
 
 @Component({
   selector: 'TreeNode',
-  directives: [TreeNodeComponent],
+  directives: [TreeNodeComponent, LoadingComponent],
   styles: [
     '.tree-children { padding-left: 20px }',
     `.node-content-wrapper {
@@ -65,10 +66,11 @@ import { TreeModel } from '../models/tree.model';
             [node]="node">
           </TreeNode>
         </div>
-        <span
+        <LoadingComponent
+          [treeModel]="treeModel"
           class="tree-node-loading"
           *ngIf="!node.children"
-        >loading...</span>
+        />
       </div>
     </div>
   `
@@ -83,7 +85,7 @@ export class TreeNodeComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-      this._loadTreeNodeContent();
+    this._loadTreeNodeContent();
   }
 
   ngOnChanges() {
@@ -97,5 +99,6 @@ export class TreeNodeComponent implements AfterViewInit {
       .then((componentRef) => {
         componentRef.instance.node = this.node;
       });
+
   }
 }

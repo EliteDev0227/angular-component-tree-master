@@ -2,7 +2,7 @@ import { Component, Input, Output, OnChanges, SimpleChange, EventEmitter } from 
 import { TreeNodeComponent } from './tree-node.component';
 import { TreeModel } from '../models/tree.model';
 import { TreeNode } from '../models/tree-node.model';
-import { ITreeOptions } from '../defs/api';
+import { TreeOptions } from '../models/tree-options.model';
 import { KEYS } from '../constants/keys';
 
 const _ = require('lodash');
@@ -44,11 +44,9 @@ export class TreeComponent implements OnChanges {
     treeModel.eventNames.forEach((name) => this[name] = new EventEmitter());
   }
 
-  // delegating to TreeModel service:
-  _nodes:any[];
+  // Will be handled in ngOnChanges
   @Input() set nodes(nodes:any[]) { };
-  _options:ITreeOptions;
-  @Input() set options(options:ITreeOptions) { };
+  @Input() set options(options:TreeOptions) { };
 
   @Input() set focused(value:boolean) {
     this.treeModel.setFocus(value);

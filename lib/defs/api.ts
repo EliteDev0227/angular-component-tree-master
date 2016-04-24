@@ -3,32 +3,7 @@
  */
 
 import { EventEmitter, ElementRef } from 'angular2/core';
-
-/**
- * This is the interface for the options passed along to the tree component
- */
-export interface ITreeOptions {
-  /**
-  * name of the field that represents the node's children. 'children' by default.
-  */
-  childrenField: string;
-  /**
-  * name of the field that represents the display field. 'name' by default.
-  */
-  displayField: string;
-  /**
-  * name of the field that represents the unique id. 'id' by default.
-  */
-  idField: string;
-  treeNodeTemplate: any;
-  /**
-   * Callback for loading children asynchronously.
-   * This function should return an array or a promise that resolves to an array of nodes.
-   * It is called the first time the node is opened
-   */
-  getChildren(node: ITreeNode): any;
-}
-
+import { TreeOptions } from '../models/tree-options.model';
 /**
  * This is the interface of a single Tree Node
  */
@@ -152,7 +127,7 @@ export interface ITreeModel {
   /**
    * Options that were passed to the tree component
    */
-  options: ITreeOptions;
+  options: TreeOptions;
   /**
    * Is the tree currently focused
    */
