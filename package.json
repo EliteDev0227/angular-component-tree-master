@@ -1,22 +1,21 @@
 {
   "name": "angular2-tree-component",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A simple yet powerful tree component for Angular2",
   "author": "Adam Klein <adam@500tech.com>",
   "homepage": "https://github.com/500tech/angular2-tree-component",
   "license": "MIT",
   "main": "lib/angular2-tree",
-  "typings": "defs/angular2-tree.d.ts",
+  "typings": "lib/defs/angular2-tree.d.ts",
   "keywords": ["angular2", "tree", "angular2-tree", "ng2", "ng2-tree"],
   "scripts": {
     "test": "karma start"
   },
   "peerDependencies": {
-    "angular2": "^2.0.0-beta.8"
+    "angular2": "^2.0.0-beta.16"
   },
   "dependencies": {
-    "lodash": "4.6.1",
-    "uuid": "2.0.2"
+    "lodash": "4.6.1"
   },
   "repository": {
     "type": "git",

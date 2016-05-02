@@ -1,11 +1,11 @@
 import { Component, Input, Output, EventEmitter, DynamicComponentLoader, QueryList, Query, ElementRef, AfterViewInit } from 'angular2/core';
 import { TreeNode } from '../models/tree-node.model';
-import { TreeModel } from '../models/tree.model';
-import { LoadingComponent } from './loading.component.ts';
+import { LoadingComponent } from './loading.component';
+import { TreeNodeContent } from './tree-node-content.component';
 
 @Component({
   selector: 'TreeNode',
-  directives: [TreeNodeComponent, LoadingComponent],
+  directives: [TreeNodeComponent, LoadingComponent, TreeNodeContent],
   styles: [
     '.tree-children { padding-left: 20px }',
     `.node-content-wrapper {
@@ -57,7 +57,8 @@ import { LoadingComponent } from './loading.component.ts';
         class="toggle-children-placeholder">
       </span>
       <div class="node-content-wrapper" (click)="node.toggleActivated()">
-        <span #treeNodeContent></span>
+        {{node.data.name}}
+        <TreeNodeContent [node]="node"></TreeNodeContent>
       </div>
       <div class="tree-children" *ngIf="node.isExpanded">
         <div *ngIf="node.children">
@@ -67,38 +68,18 @@ import { LoadingComponent } from './loading.component.ts';
           </TreeNode>
         </div>
         <LoadingComponent
-          [treeModel]="treeModel"
           class="tree-node-loading"
           *ngIf="!node.children"
-        />
+        ></LoadingComponent>
       </div>
     </div>
   `
 })
 
-export class TreeNodeComponent implements AfterViewInit {
+export class TreeNodeComponent {
   @Input() node:TreeNode;
 
   constructor(private componentLoader: DynamicComponentLoader,
-              private elementRef: ElementRef,
-              private treeModel:TreeModel) {
-  }
-
-  ngAfterViewInit() {
-    this._loadTreeNodeContent();
-  }
-
-  ngOnChanges() {
-    this.node.elementRef = this.elementRef;
-  }
-
-  _loadTreeNodeContent() {
-    this.componentLoader.loadIntoLocation(this.treeModel.treeNodeContentComponent,
-                                          this.elementRef,
-                                          'treeNodeContent')
-      .then((componentRef) => {
-        componentRef.instance.node = this.node;
-      });
-
+              private elementRef: ElementRef) {
   }
 }
