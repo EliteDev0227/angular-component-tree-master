@@ -11,6 +11,9 @@
   "scripts": {
     "test": "karma start"
   },
+  "contributors": [
+    "Adam Klein <adam@500tech.com>"
+  ],
   "peerDependencies": {
     "angular2": "^2.0.0-beta.16"
   },

@@ -1,9 +1,10 @@
-var webpack = require('webpack');
-var path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 
 
 // Webpack Config
-var webpackConfig = {
+const webpackConfig = {
   entry: {
     'polyfills': './src/polyfills.ts',
     'vendor':    './src/vendor.ts',
@@ -16,6 +17,12 @@ var webpackConfig = {
 
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({ name: ['app', 'vendor', 'polyfills'], minChunks: Infinity }),
+
+    // Generate index.html with included script tags
+    new HtmlWebpackPlugin({
+      inject: 'body',
+      template: 'src/index.html'
+    })
   ],
 
   module: {

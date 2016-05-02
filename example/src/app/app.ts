@@ -18,9 +18,44 @@ const CUSTOM_TEMPLATE_STRING = '{{ node.data.name }}';
         margin: 0 3px;
       }`
   ],
-  templateUrl: 'app/seed-app.html'
+  template: `<Tree
+    #tree
+    [nodes]="nodes"
+    [focused]="true"
+    [options]="customTemplateStringOptions"
+    (onToggle)="onEvent($event)"
+    (onActivate)="onEvent($event)"
+    (onDeactivate)="onEvent($event)"
+    (onActiveChanged)="onEvent($event)"
+    (onFocus)="onEvent($event)"
+    (onBlur)="onEvent($event)"
+  ></Tree>
+  <br>
+  <p>Keys:</p>
+  down | up | left | right | space | enter
+  <p>API:</p>
+  <button (click)="tree.treeModel.focusNextNode()">next node</button>
+  <button (click)="tree.treeModel.focusPreviousNode()">previous node</button>
+  <button (click)="tree.treeModel.focusDrillDown()">drill down</button>
+  <button (click)="tree.treeModel.focusDrillUp()">drill up</button>
+  <p></p>
+  <button
+    [disabled]="!tree.treeModel.focusedNode"
+    (click)="tree.treeModel.focusedNode.toggleActivated()">
+    {{ tree.treeModel.focusedNode?.isActive ? 'deactivate' : 'activate' }}
+  </button>
+  <button
+    [disabled]="!tree.treeModel.focusedNode"
+    (click)="tree.treeModel.focusedNode.toggle()">
+    {{ tree.treeModel.focusedNode?.isExpanded ? 'collapse' : 'expand' }}
+  </button>
+  <button
+    [disabled]="!tree.treeModel.focusedNode"
+    (click)="tree.treeModel.focusedNode.blur()">
+    blur
+  </button>`
 })
-export class SeedApp {
+export class App {
   nodes = [
     {
       id: uuid(),
@@ -89,10 +124,10 @@ export class SeedApp {
     });
   }
 
-  // customNameFieldOptions = { displayField: 'subTitle' };
-  // customTemplateOptions = { treeNodeTemplate: MyTreeNodeTemplate };
   customTemplateStringOptions = {
     treeNodeTemplate: CUSTOM_TEMPLATE_STRING,
+    // treeNodeTemplate: MyTreeNodeTemplate,
+    // displayField: 'subTitle',
     loadingComponent: MyTreeLoadingTemplate,
     getChildren: this.getChildren.bind(this)
   }
@@ -106,7 +141,7 @@ class MyTreeNodeTemplate {
 }
 
 @Component({
-  template: 'LOADING!!!!'
+  template: 'Loading, please hold....'
 })
 class MyTreeLoadingTemplate {
 }

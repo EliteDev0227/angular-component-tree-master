@@ -1,7 +1,7 @@
 {
-  "name": "angular2-seed",
+  "name": "angular2-tree-component-example",
   "version": "1.0.0",
-  "description": "A simple starter Angular2 project",
+  "description": "Example of using Angular2 tree component",
   "scripts": {
     "typings-install": "node node_modules/typings/dist/bin.js install",
     "postinstall": "npm run typings-install",
@@ -11,8 +11,7 @@
     "start": "npm run server"
   },
   "contributors": [
-    "Rob Wormald <robwormald@gmail.com>",
-    "PatrickJS <github@gdi2290.com>"
+    "Adam Klein <adam@500tech.com>"
   ],
   "license": "MIT",
   "devDependencies": {
@@ -34,19 +33,5 @@
     "rxjs": "5.0.0-beta.2",
     "uuid": "2.0.2",
     "zone.js": "~0.6.12"
-  },
-  "keywords": [
-    "Angular2",
-    "angular2-seed",
-    "official angular 2 seed",
-    "official angular2 seed"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/angular/angular2-seed.git"
-  },
-  "bugs": {
-    "url": "https://github.com/angular/angular2-seed/issues"
-  },
-  "homepage": "https://github.com/angular/angular2-seed#readme"
+  }
 }
