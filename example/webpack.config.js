@@ -13,6 +13,7 @@ const webpackConfig = {
 
   output: {
     path: './dist',
+    publicPath: '/500tech/angular2-tree-component/master/example/dist/',
   },
 
   plugins: [
