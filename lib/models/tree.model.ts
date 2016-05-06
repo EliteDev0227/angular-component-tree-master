@@ -1,4 +1,4 @@
-import { Injectable, Component, Input, EventEmitter } from 'angular2/core';
+import { Injectable, Component, Input, EventEmitter } from '@angular/core';
 import { TreeNode } from './tree-node.model';
 import { TreeOptions } from './tree-options.model';
 import { ITreeModel } from '../defs/api';

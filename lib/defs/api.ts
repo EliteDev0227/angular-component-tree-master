@@ -2,7 +2,7 @@
  * Welcome to ng2tree
  */
 
-import { EventEmitter, ElementRef } from 'angular2/core';
+import { EventEmitter, ElementRef } from '@angular/core';
 import { TreeOptions } from '../models/tree-options.model';
 /**
  * This is the interface of a single Tree Node

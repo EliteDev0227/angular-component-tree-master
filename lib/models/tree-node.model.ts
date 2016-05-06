@@ -1,4 +1,4 @@
-import { ElementRef } from 'angular2/core';
+import { ElementRef } from '@angular/core';
 import { TreeModel } from './tree.model';
 import { ITreeNode } from '../defs/api';
 import { TREE_EVENTS } from '../constants/events'; 

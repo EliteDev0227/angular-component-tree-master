@@ -1,4 +1,4 @@
-import { Component, ViewContainerRef, DynamicComponentLoader, Input } from 'angular2/core'
+import { Component, ViewContainerRef, DynamicComponentLoader, Input } from '@angular/core'
 import { TreeModel } from '../models/tree.model';
 
 @Component({

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, DynamicComponentLoader, QueryList, Query, ElementRef, AfterViewInit } from 'angular2/core';
+import { Component, Input, Output, EventEmitter, DynamicComponentLoader, QueryList, Query, ElementRef, AfterViewInit } from '@angular/core';
 import { TreeNode } from '../models/tree-node.model';
 import { LoadingComponent } from './loading.component';
 import { TreeNodeContent } from './tree-node-content.component';

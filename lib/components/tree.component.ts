@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnChanges, SimpleChange, EventEmitter } from 'angular2/core';
+import { Component, Input, Output, OnChanges, SimpleChange, EventEmitter } from '@angular/core';
 import { TreeNodeComponent } from './tree-node.component';
 import { TreeModel } from '../models/tree.model';
 import { TreeNode } from '../models/tree-node.model';
