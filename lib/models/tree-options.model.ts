@@ -15,7 +15,7 @@ export class TreeOptions {
   childrenField:string = 'children';
   displayField:string = 'name';
   idField:string = 'id';
-  treeNodeTemplate: any = '{{ node.displayField }}';
+  treeNodeTemplate: any = '';
   loadingComponent: any = 'loading...';
   getChildren = null;
 

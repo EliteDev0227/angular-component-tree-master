@@ -1,7 +1,7 @@
 import { ElementRef } from '@angular/core';
 import { TreeModel } from './tree.model';
 import { ITreeNode } from '../defs/api';
-import { TREE_EVENTS } from '../constants/events'; 
+import { TREE_EVENTS } from '../constants/events';
 
 const _ = require('lodash');
 
@@ -33,7 +33,7 @@ export class TreeNode implements ITreeNode {
     this.hasChildren = !!(data.hasChildren || data[this.options.childrenField]);
     if (data[this.options.childrenField]) {
       this.children = data[this.options.childrenField]
-        .map(c => new TreeNode(c, this, treeModel));      
+        .map(c => new TreeNode(c, this, treeModel));
     }
   }
 
