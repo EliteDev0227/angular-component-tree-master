@@ -9,6 +9,7 @@ export interface ITreeOptions {
   treeNodeTemplate: any;
   loadingComponent: any;
   getChildren(node:TreeNode): any;
+  hasCustomContextMenu: boolean;
 }
 
 export class TreeOptions {
@@ -18,6 +19,7 @@ export class TreeOptions {
   treeNodeTemplate: any = '{{ node.displayField }}';
   loadingComponent: any = 'loading...';
   getChildren = null;
+  hasCustomContextMenu = false;
 
   constructor(options = {}) {
     _.extend(this, options);
