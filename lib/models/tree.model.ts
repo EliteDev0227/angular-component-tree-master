@@ -31,6 +31,7 @@ export class TreeModel implements ITreeModel {
     this._initTreeNodeContentComponent();
     this._initLoadingComponent();
     this.events = events;
+    this.fireEvent({ eventName: TREE_EVENTS.onInitialized });
   }
 
   fireEvent(event) {

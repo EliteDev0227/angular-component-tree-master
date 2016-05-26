@@ -7,4 +7,5 @@ export const TREE_EVENTS = {
   onBlur: 'onBlur',
   onDoubleClick: 'onDoubleClick',
   onContextMenu: 'onContextMenu',
+  onInitialized: 'onInitialized',
 }

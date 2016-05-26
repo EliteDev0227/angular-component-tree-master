@@ -60,6 +60,7 @@ export class TreeComponent implements OnChanges {
   @Output() onBlur;
   @Output() onDoubleClick;
   @Output() onContextMenu;
+  @Output() onInitialized;
 
   onKeydown($event) {
     let focusedNode = this.treeModel.focusedNode;
