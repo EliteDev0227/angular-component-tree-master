@@ -78,7 +78,7 @@ export class TreeModel implements ITreeModel {
     }
   }
 
-  _createAdHocComponent(templateStr) {
+  _createAdHocComponent(templateStr): any {
     @Component({
         selector: 'TreeNodeTemplate',
         template: templateStr

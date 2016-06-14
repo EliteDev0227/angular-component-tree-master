@@ -1,5 +1,6 @@
 import { ElementRef } from '@angular/core';
 import { TreeModel } from './tree.model';
+import { TreeOptions } from './tree-options.model';
 import { ITreeNode } from '../defs/api';
 import { TREE_EVENTS } from '../constants/events';
 
@@ -44,7 +45,7 @@ export class TreeNode implements ITreeNode {
   get realParent() { return this.isRoot ? null : this.parent }
 
   // proxy to treeModel:
-  get options() { return this.treeModel.options }
+  get options(): TreeOptions { return this.treeModel.options }
   fireEvent(event) { this.treeModel.fireEvent(event) }
 
   // field accessors:

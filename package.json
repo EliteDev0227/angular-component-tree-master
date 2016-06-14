@@ -5,31 +5,41 @@
   "author": "Adam Klein <adam@500tech.com>",
   "homepage": "https://github.com/500tech/angular2-tree-component",
   "license": "MIT",
-  "main": "lib/angular2-tree",
-  "typings": "lib/defs/angular2-tree.d.ts",
+  "main": "angular2-tree-component",
+  "typings": "angular2-tree-component.d.ts",
   "keywords": ["angular2", "tree", "angular2-tree", "ng2", "ng2-tree"],
   "scripts": {
-    "test": "karma start"
+    "test": "karma start",
+    "clean": "rimraf node_modules && npm run clean:typescript && npm cache clean",
+    "clean:typescript": "rimraf angular2-tree.js angular2-tree.d.ts ./lib/**/*.js ./lib/components/*.d.ts ./lib/constants/*.d.ts ./lib/defs/api.d.ts ./lib/models/*.d.ts",
+    "build": "tsc",
+    "postinstall": "typings install"
   },
   "contributors": [
     "Adam Klein <adam@500tech.com>"
   ],
-  "peerDependencies": {
-    "@angular/common":  "2.0.0-rc.1",
-    "@angular/compiler":  "2.0.0-rc.1",
-    "@angular/core":  "2.0.0-rc.1",
-    "@angular/http":  "2.0.0-rc.1",
-    "@angular/platform-browser":  "2.0.0-rc.1",
-    "@angular/platform-browser-dynamic":  "2.0.0-rc.1",
-    "@angular/router":  "2.0.0-rc.1",
-    "@angular/router-deprecated":  "2.0.0-rc.1",
+  "dependencies": {
+    "@angular/common": "2.0.0-rc.1",
+    "@angular/compiler": "2.0.0-rc.1",
+    "@angular/core": "2.0.0-rc.1",
+    "@angular/http": "2.0.0-rc.1",
+    "@angular/platform-browser": "2.0.0-rc.1",
+    "@angular/platform-browser-dynamic": "2.0.0-rc.1",
+    "@angular/router": "2.0.0-rc.1",
+    "@angular/router-deprecated": "2.0.0-rc.1",
     "@angular/upgrade":  "2.0.0-rc.1",
+    "es6-promise": "^3.1.2",
+    "es6-shim": "^0.35.0",
+    "lodash": "4.6.1",
     "reflect-metadata": "^0.1.3",
     "rxjs": "5.0.0-beta.6",
     "zone.js": "^0.6.12"
   },
-  "dependencies": {
-    "lodash": "4.6.1"
+  "devDependencies": {
+    "rimraf": "^2.5.1",
+    "typedoc": "^0.3.12",
+    "typescript": "^1.8.0",
+    "typings": "^0.8.1"
   },
   "repository": {
     "type": "git",
