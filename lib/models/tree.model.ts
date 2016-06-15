@@ -103,13 +103,24 @@ export class TreeModel implements ITreeModel {
 
   focusDrillDown() {
     let previousNode = this.focusedNode;
-    let nextNode = previousNode && previousNode.getFirstChild();
-    nextNode && nextNode.focus();
+    if (previousNode && previousNode.isCollapsed && previousNode.hasChildren) {
+      previousNode.toggle();
+    }
+    else {
+      let nextNode = previousNode ? previousNode.getFirstChild() : this.getFirstRoot();
+      nextNode && nextNode.focus();
+    }
   }
 
   focusDrillUp() {
     let previousNode = this.focusedNode;
-    let nextNode = previousNode && previousNode.realParent;
-    nextNode && nextNode.focus();
+    if (!previousNode) return;
+    if (previousNode.isExpanded) {
+      previousNode.toggle();
+    }
+    else {
+      let nextNode = previousNode.realParent;
+      nextNode && nextNode.focus();
+    }
   }
 }

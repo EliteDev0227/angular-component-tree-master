@@ -74,10 +74,15 @@ import { TreeNodeContent } from './tree-node-content.component';
     </div>
   `
 })
-export class TreeNodeComponent {
+
+export class TreeNodeComponent implements AfterViewInit {
   @Input() node:TreeNode;
 
   constructor(private componentLoader: DynamicComponentLoader,
               private elementRef: ElementRef) {
+  }
+
+  ngAfterViewInit() {
+    this.node.elementRef = this.elementRef;
   }
 }

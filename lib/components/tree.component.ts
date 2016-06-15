@@ -77,22 +77,10 @@ export class TreeComponent implements OnChanges {
         return this.treeModel.focusPreviousNode();
 
       case KEYS.LEFT:
-        if (focusedNode.isExpanded) {
-          focusedNode.toggle();
-        }
-        else {
-          this.treeModel.focusDrillUp();
-        }
-        return;
+        return this.treeModel.focusDrillUp();
 
       case KEYS.RIGHT:
-        if (focusedNode.isCollapsed) {
-          focusedNode.toggle();
-        }
-        else {
-          this.treeModel.focusDrillDown();
-        }
-        return;
+        return this.treeModel.focusDrillDown();
 
       case KEYS.ENTER:
       case KEYS.SPACE:
