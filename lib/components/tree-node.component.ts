@@ -74,7 +74,6 @@ import { TreeNodeContent } from './tree-node-content.component';
     </div>
   `
 })
-
 export class TreeNodeComponent {
   @Input() node:TreeNode;
 

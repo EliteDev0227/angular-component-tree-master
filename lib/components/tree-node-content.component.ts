@@ -6,7 +6,6 @@ import { TreeModel } from '../models/tree.model';
   selector: 'TreeNodeContent',
   template: '',
 })
-
 export class TreeNodeContent implements AfterViewInit {
   @Input() node: TreeNode;
 

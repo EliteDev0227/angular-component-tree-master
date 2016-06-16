@@ -38,7 +38,6 @@ const _ = require('lodash');
     </div>
   `
 })
-
 export class TreeComponent implements OnChanges {
   constructor(public treeModel:TreeModel) {
     treeModel.eventNames.forEach((name) => this[name] = new EventEmitter());
