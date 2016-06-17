@@ -2,7 +2,8 @@
   "compilerOptions": {
     "module": "commonjs",
     "moduleResolution": "node",
-    "target": "ES5",
+    "target": "es5",
+    "outDir": "dist/",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "inlineSourceMap": true,
@@ -12,6 +13,7 @@
   "exclude": [
     "example",
     "node_modules",
+    "dist",
     "typings/main",
     "typings/main.d.ts"
   ],

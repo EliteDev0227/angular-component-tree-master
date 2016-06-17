@@ -1,6 +1,6 @@
 import { TreeNode } from './tree-node.model';
 
-const _ = require('lodash');
+import * as _ from 'lodash';
 
 export interface ITreeOptions {
   childrenField: string;

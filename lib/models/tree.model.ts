@@ -4,12 +4,12 @@ import { TreeOptions } from './tree-options.model';
 import { ITreeModel } from '../defs/api';
 import { TREE_EVENTS } from '../constants/events';
 
-const _ = require('lodash');
+import * as _ from 'lodash';
 
 @Injectable()
 export class TreeModel implements ITreeModel {
   roots: TreeNode[];
-  options: TreeOptions;
+  options: TreeOptions = new TreeOptions();
   activeNode: TreeNode = null;
   focusedNode: TreeNode = null;
   static focusedTree = null;

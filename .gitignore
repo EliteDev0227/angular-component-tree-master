@@ -55,10 +55,4 @@ npm-debug.log
 .idea/
 *.swp
 
-angular2-tree-component.js
-angular2-tree-component.d.ts
-lib/**/*.js
-lib/components/*.d.ts
-lib/constants/*.d.ts
-lib/defs/api.d.ts
-lib/models/*.d.ts
+dist

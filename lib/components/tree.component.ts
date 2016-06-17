@@ -5,7 +5,7 @@ import { TreeNode } from '../models/tree-node.model';
 import { TreeOptions } from '../models/tree-options.model';
 import { KEYS } from '../constants/keys';
 
-const _ = require('lodash');
+import * as _ from 'lodash'
 
 @Component({
   selector: 'Tree',

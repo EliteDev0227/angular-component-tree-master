@@ -4,7 +4,7 @@ import { TreeOptions } from './tree-options.model';
 import { ITreeNode } from '../defs/api';
 import { TREE_EVENTS } from '../constants/events';
 
-const _ = require('lodash');
+import * as _ from 'lodash';
 
 export class TreeNode implements ITreeNode {
   private _isExpanded: boolean = false;
@@ -97,8 +97,10 @@ export class TreeNode implements ITreeNode {
     return this.isCollapsed ? this : this.getLastChild()._getLastOpenDescendant();
   }
 
-  private _getParentsChildren() {
-    return _.get(this, 'parent.children') || [];
+  private _getParentsChildren():any[] {
+    const children = _.get(this, 'parent.children');
+
+    return <any[]>children || [];
   }
 
   private _getIndexInParent() {

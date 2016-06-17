@@ -4,17 +4,15 @@
 
 * Simple to use
 * Well Documented
-* Used in real apps
-* Feature rich
-* Powerful API for accessing & altering the tree state
-* Customizable
+* Customizable (display fields, children's field, custom templates, etc...)
+* Events
+* API for accessing & altering the tree state
+* Keyboard navigation
+* Async data
 * Easily styled (comes with very minimal styling)
-* Supports Keyboard navigation
-* Supports async data
-* Custom component for displaying the node's content
-* Custom loading component (for async data)
 
 ## Demo & full documentation:
+Please refer to the full documentation:  
 [https://angular2-tree.readme.io/docs](https://angular2-tree.readme.io/docs)
 
 ## Example
