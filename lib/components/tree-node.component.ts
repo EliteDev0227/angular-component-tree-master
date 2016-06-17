@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, DynamicComponentLoader, QueryList, Query, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, DynamicComponentLoader, QueryList, Query, ElementRef, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { TreeNode } from '../models/tree-node.model';
 import { LoadingComponent } from './loading.component';
 import { TreeNodeContent } from './tree-node-content.component';
@@ -30,7 +30,7 @@ import { TreeNodeContent } from './tree-node-content.component';
         display: inline-block;
         position: relative;
         background-repeat: no-repeat;
-        background-position: center;        
+        background-position: center;
     }`,
     `.toggle-children-placeholder {
         display: inline-block;
@@ -50,20 +50,19 @@ import { TreeNodeContent } from './tree-node-content.component';
       <span
         *ngIf="node.hasChildren"
         class="toggle-children"
-        (click)="node.toggle()">
+        (click)="node.toggle($event)">
       </span>
       <span
         *ngIf="!node.hasChildren"
         class="toggle-children-placeholder">
       </span>
-      <div class="node-content-wrapper" (click)="node.toggleActivated()">
-        {{node.data.name}}
+      <div class="node-content-wrapper" (click)="node.toggleActivated($event)" (dblclick)="node.doubleClick($event)" (contextmenu)="node.contextMenu($event)">
         <TreeNodeContent [node]="node"></TreeNodeContent>
       </div>
       <div class="tree-children" *ngIf="node.isExpanded">
         <div *ngIf="node.children">
-          <TreeNode          
-            *ngFor="#node of node.children"
+          <TreeNode
+            *ngFor="let node of node.children"
             [node]="node">
           </TreeNode>
         </div>
@@ -75,7 +74,6 @@ import { TreeNodeContent } from './tree-node-content.component';
     </div>
   `
 })
-
 export class TreeNodeComponent {
   @Input() node:TreeNode;
 

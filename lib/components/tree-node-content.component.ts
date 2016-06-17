@@ -1,31 +1,32 @@
-import { Component, Input, Output, EventEmitter, DynamicComponentLoader, QueryList, Query, ElementRef, AfterViewInit, ViewContainerRef } from '@angular/core';
+import { Component, Input, ComponentResolver, ComponentFactory, ComponentRef, AfterViewInit, ViewContainerRef } from '@angular/core';
 import { TreeNode } from '../models/tree-node.model';
 import { TreeModel } from '../models/tree.model';
-import { LoadingComponent } from './loading.component.ts';
 
 @Component({
   selector: 'TreeNodeContent',
-  template: ''
+  template: '',
 })
-
 export class TreeNodeContent implements AfterViewInit {
-  @Input() node:TreeNode;
+  @Input() node: TreeNode;
 
   constructor(
     private treeModel: TreeModel,
-    private componentLoader: DynamicComponentLoader,
-    private viewContainerRef: ViewContainerRef) {
+    private componentResolver: ComponentResolver,
+    private viewContainerRef: ViewContainerRef
+    ) {
   }
 
   ngAfterViewInit() {
-    setTimeout(() => this._loadTreeNodeContent());
+    this._loadTreeNodeContent();
   }
 
   _loadTreeNodeContent() {
-    this.componentLoader.loadNextToLocation(this.treeModel.treeNodeContentComponent,
-                                            this.viewContainerRef)
-      .then((componentRef) => {
+    this.componentResolver.resolveComponent(this.treeModel.treeNodeContentComponent)
+      .then((componentFactory: ComponentFactory<{ node: TreeNode }>) => {
+        let componentRef: ComponentRef<{ node: TreeNode }>
+          = this.viewContainerRef.createComponent(componentFactory, 0, this.viewContainerRef.injector);
         componentRef.instance.node = this.node;
+        componentRef.changeDetectorRef.detectChanges();
       });
   }
 }

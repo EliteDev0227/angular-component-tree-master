@@ -32,13 +32,12 @@ const _ = require('lodash');
     <div class="tree">
       <TreeNode
         (click)="treeModel.setFocus(true)"
-        *ngFor="#node of treeModel.roots"
+        *ngFor="let node of treeModel.roots"
         [node]="node">
       </TreeNode>
     </div>
   `
 })
-
 export class TreeComponent implements OnChanges {
   constructor(public treeModel:TreeModel) {
     treeModel.eventNames.forEach((name) => this[name] = new EventEmitter());
@@ -58,6 +57,9 @@ export class TreeComponent implements OnChanges {
   @Output() onDeactivate;
   @Output() onFocus;
   @Output() onBlur;
+  @Output() onDoubleClick;
+  @Output() onContextMenu;
+  @Output() onInitialized;
 
   onKeydown($event) {
     let focusedNode = this.treeModel.focusedNode;

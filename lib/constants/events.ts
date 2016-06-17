@@ -4,5 +4,8 @@ export const TREE_EVENTS = {
   onActivate: 'onActivate',
   onDeactivate: 'onDeactivate',
   onFocus: 'onFocus',
-  onBlur: 'onBlur'
+  onBlur: 'onBlur',
+  onDoubleClick: 'onDoubleClick',
+  onContextMenu: 'onContextMenu',
+  onInitialized: 'onInitialized',
 }

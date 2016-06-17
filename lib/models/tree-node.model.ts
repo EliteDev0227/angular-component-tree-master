@@ -1,7 +1,8 @@
 import { ElementRef } from '@angular/core';
 import { TreeModel } from './tree.model';
+import { TreeOptions } from './tree-options.model';
 import { ITreeNode } from '../defs/api';
-import { TREE_EVENTS } from '../constants/events'; 
+import { TREE_EVENTS } from '../constants/events';
 
 const _ = require('lodash');
 
@@ -30,10 +31,10 @@ export class TreeNode implements ITreeNode {
   constructor(public data:any, public parent:TreeNode = null, public treeModel:TreeModel) {
     this.level = this.parent ? this.parent.level + 1 : 0;
     this.path = this.parent ? [...this.parent.path, this.id] : [];
-    this.hasChildren = !!(data.hasChildren || data[this.options.childrenField]);
+    this.hasChildren = !!(data.hasChildren || (data[this.options.childrenField] && data[this.options.childrenField].length > 0));
     if (data[this.options.childrenField]) {
       this.children = data[this.options.childrenField]
-        .map(c => new TreeNode(c, this, treeModel));      
+        .map(c => new TreeNode(c, this, treeModel));
     }
   }
 
@@ -44,7 +45,7 @@ export class TreeNode implements ITreeNode {
   get realParent() { return this.isRoot ? null : this.parent }
 
   // proxy to treeModel:
-  get options() { return this.treeModel.options }
+  get options(): TreeOptions { return this.treeModel.options }
   fireEvent(event) { this.treeModel.fireEvent(event) }
 
   // field accessors:
@@ -162,5 +163,16 @@ export class TreeNode implements ITreeNode {
     if (previousNode) {
       this.fireEvent({ eventName: TREE_EVENTS.onBlur, node: this });
     }
+  }
+
+  doubleClick(rawEvent: MouseEvent) {
+    this.fireEvent({ eventName: TREE_EVENTS.onDoubleClick, node: this, rawEvent: rawEvent });
+  }
+
+  contextMenu(rawEvent: MouseEvent) {
+    if (this.options.hasCustomContextMenu) {
+      rawEvent.preventDefault();
+    }
+    this.fireEvent({ eventName: TREE_EVENTS.onContextMenu, node: this, rawEvent: rawEvent });
   }
 }
