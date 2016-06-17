@@ -119,6 +119,213 @@ webpackJsonp([2],{
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
+	var events_1 = __webpack_require__(345);
+	var _ = __webpack_require__(157);
+	var TreeNode = (function () {
+	    function TreeNode(data, parent, treeModel) {
+	        var _this = this;
+	        if (parent === void 0) { parent = null; }
+	        this.data = data;
+	        this.parent = parent;
+	        this.treeModel = treeModel;
+	        this._isExpanded = false;
+	        this._isActive = false;
+	        this.level = this.parent ? this.parent.level + 1 : 0;
+	        this.path = this.parent ? this.parent.path.concat([this.id]) : [];
+	        this.hasChildren = !!(data.hasChildren || (data[this.options.childrenField] && data[this.options.childrenField].length > 0));
+	        if (data[this.options.childrenField]) {
+	            this.children = data[this.options.childrenField]
+	                .map(function (c) { return new TreeNode(c, _this, treeModel); });
+	        }
+	    }
+	    Object.defineProperty(TreeNode.prototype, "isExpanded", {
+	        get: function () { return this._isExpanded; },
+	        set: function (value) {
+	            this._isExpanded = value;
+	            if (!this.children) {
+	                this.loadChildren();
+	            }
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    ;
+	    ;
+	    Object.defineProperty(TreeNode.prototype, "isActive", {
+	        get: function () { return this._isActive; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    ;
+	    Object.defineProperty(TreeNode.prototype, "isFocused", {
+	        get: function () { return this.treeModel.focusedNode == this; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    ;
+	    Object.defineProperty(TreeNode.prototype, "originalNode", {
+	        get: function () { return this._originalNode; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    ;
+	    Object.defineProperty(TreeNode.prototype, "isCollapsed", {
+	        // helper get functions:
+	        get: function () { return !this.isExpanded; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(TreeNode.prototype, "isLeaf", {
+	        get: function () { return !this.hasChildren; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(TreeNode.prototype, "isRoot", {
+	        get: function () { return this.parent.data.virtual; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(TreeNode.prototype, "realParent", {
+	        get: function () { return this.isRoot ? null : this.parent; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(TreeNode.prototype, "options", {
+	        // proxy to treeModel:
+	        get: function () { return this.treeModel.options; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    TreeNode.prototype.fireEvent = function (event) { this.treeModel.fireEvent(event); };
+	    Object.defineProperty(TreeNode.prototype, "displayField", {
+	        // field accessors:
+	        get: function () {
+	            return this.data[this.options.displayField];
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(TreeNode.prototype, "id", {
+	        get: function () {
+	            return this.data[this.options.idField];
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    // traversing:
+	    TreeNode.prototype.findAdjacentSibling = function (steps) {
+	        var index = this._getIndexInParent();
+	        return this._getParentsChildren()[index + steps];
+	    };
+	    TreeNode.prototype.findNextSibling = function () {
+	        return this.findAdjacentSibling(+1);
+	    };
+	    TreeNode.prototype.findPreviousSibling = function () {
+	        return this.findAdjacentSibling(-1);
+	    };
+	    TreeNode.prototype.getFirstChild = function () {
+	        return _.first(this.children || []);
+	    };
+	    TreeNode.prototype.getLastChild = function () {
+	        return _.last(this.children || []);
+	    };
+	    TreeNode.prototype.findNextNode = function (goInside) {
+	        if (goInside === void 0) { goInside = true; }
+	        return goInside && this.isExpanded && this.getFirstChild() ||
+	            this.findNextSibling() ||
+	            this.parent && this.parent.findNextNode(false);
+	    };
+	    TreeNode.prototype.findPreviousNode = function () {
+	        var previousSibling = this.findPreviousSibling();
+	        if (!previousSibling) {
+	            return this.realParent;
+	        }
+	        return previousSibling._getLastOpenDescendant();
+	    };
+	    TreeNode.prototype._getLastOpenDescendant = function () {
+	        return this.isCollapsed ? this : this.getLastChild()._getLastOpenDescendant();
+	    };
+	    TreeNode.prototype._getParentsChildren = function () {
+	        var children = _.get(this, 'parent.children');
+	        return children || [];
+	    };
+	    TreeNode.prototype._getIndexInParent = function () {
+	        return this._getParentsChildren().indexOf(this);
+	    };
+	    // helper methods:
+	    TreeNode.prototype.loadChildren = function () {
+	        var _this = this;
+	        if (!this.options.getChildren) {
+	            throw new Error('Node doesn\'t have children, or a getChildren method');
+	        }
+	        Promise.resolve(this.options.getChildren(this))
+	            .then(function (children) {
+	            _this.children = children
+	                .map(function (child) { return new TreeNode(child, _this, _this.treeModel); });
+	        });
+	    };
+	    TreeNode.prototype.toggle = function () {
+	        this.isExpanded = !this.isExpanded;
+	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onToggle, node: this, isExpanded: this.isExpanded });
+	    };
+	    TreeNode.prototype._activate = function () {
+	        this._isActive = true;
+	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onActivate, node: this });
+	        this.focus();
+	    };
+	    TreeNode.prototype._deactivate = function () {
+	        this._isActive = false;
+	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onDeactivate, node: this });
+	    };
+	    TreeNode.prototype.toggleActivated = function () {
+	        if (this.isActive) {
+	            this._deactivate();
+	            this.treeModel.activeNode = null;
+	        }
+	        else {
+	            if (this.treeModel.activeNode) {
+	                this.treeModel.activeNode._deactivate();
+	            }
+	            this._activate();
+	            this.treeModel.activeNode = this;
+	        }
+	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onActiveChanged, node: this, isActive: this.isActive });
+	    };
+	    TreeNode.prototype.focus = function () {
+	        var previousNode = this.treeModel.focusedNode;
+	        this.treeModel.focusedNode = this;
+	        if (previousNode) {
+	            this.fireEvent({ eventName: events_1.TREE_EVENTS.onBlur, node: previousNode });
+	        }
+	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onFocus, node: this });
+	    };
+	    TreeNode.prototype.blur = function () {
+	        var previousNode = this.treeModel.focusedNode;
+	        this.treeModel.focusedNode = null;
+	        if (previousNode) {
+	            this.fireEvent({ eventName: events_1.TREE_EVENTS.onBlur, node: this });
+	        }
+	    };
+	    TreeNode.prototype.doubleClick = function (rawEvent) {
+	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onDoubleClick, node: this, rawEvent: rawEvent });
+	    };
+	    TreeNode.prototype.contextMenu = function (rawEvent) {
+	        if (this.options.hasCustomContextMenu) {
+	            rawEvent.preventDefault();
+	        }
+	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onContextMenu, node: this, rawEvent: rawEvent });
+	    };
+	    return TreeNode;
+	}());
+	exports.TreeNode = TreeNode;
+	
+
+/***/ },
+
+/***/ 147:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
 	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
 	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
 	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -129,10 +336,10 @@ webpackJsonp([2],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(1);
-	var tree_node_model_1 = __webpack_require__(220);
+	var tree_node_model_1 = __webpack_require__(146);
 	var tree_options_model_1 = __webpack_require__(346);
 	var events_1 = __webpack_require__(345);
-	var _ = __webpack_require__(156);
+	var _ = __webpack_require__(157);
 	var TreeModel = (function () {
 	    function TreeModel() {
 	        this.options = new tree_options_model_1.TreeOptions();
@@ -251,7 +458,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 156:
+/***/ 157:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/**
@@ -15332,212 +15539,6 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 220:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var events_1 = __webpack_require__(345);
-	var _ = __webpack_require__(156);
-	var TreeNode = (function () {
-	    function TreeNode(data, parent, treeModel) {
-	        var _this = this;
-	        if (parent === void 0) { parent = null; }
-	        this.data = data;
-	        this.parent = parent;
-	        this.treeModel = treeModel;
-	        this._isExpanded = false;
-	        this._isActive = false;
-	        this.level = this.parent ? this.parent.level + 1 : 0;
-	        this.path = this.parent ? this.parent.path.concat([this.id]) : [];
-	        this.hasChildren = !!(data.hasChildren || (data[this.options.childrenField] && data[this.options.childrenField].length > 0));
-	        if (data[this.options.childrenField]) {
-	            this.children = data[this.options.childrenField]
-	                .map(function (c) { return new TreeNode(c, _this, treeModel); });
-	        }
-	    }
-	    Object.defineProperty(TreeNode.prototype, "isExpanded", {
-	        get: function () { return this._isExpanded; },
-	        set: function (value) {
-	            this._isExpanded = value;
-	            if (!this.children) {
-	                this.loadChildren();
-	            }
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    ;
-	    ;
-	    Object.defineProperty(TreeNode.prototype, "isActive", {
-	        get: function () { return this._isActive; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    ;
-	    Object.defineProperty(TreeNode.prototype, "isFocused", {
-	        get: function () { return this.treeModel.focusedNode == this; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    ;
-	    Object.defineProperty(TreeNode.prototype, "originalNode", {
-	        get: function () { return this._originalNode; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    ;
-	    Object.defineProperty(TreeNode.prototype, "isCollapsed", {
-	        // helper get functions:
-	        get: function () { return !this.isExpanded; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(TreeNode.prototype, "isLeaf", {
-	        get: function () { return !this.hasChildren; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(TreeNode.prototype, "isRoot", {
-	        get: function () { return this.parent.data.virtual; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(TreeNode.prototype, "realParent", {
-	        get: function () { return this.isRoot ? null : this.parent; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(TreeNode.prototype, "options", {
-	        // proxy to treeModel:
-	        get: function () { return this.treeModel.options; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    TreeNode.prototype.fireEvent = function (event) { this.treeModel.fireEvent(event); };
-	    Object.defineProperty(TreeNode.prototype, "displayField", {
-	        // field accessors:
-	        get: function () {
-	            return this.data[this.options.displayField];
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(TreeNode.prototype, "id", {
-	        get: function () {
-	            return this.data[this.options.idField];
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    // traversing:
-	    TreeNode.prototype.findAdjacentSibling = function (steps) {
-	        var index = this._getIndexInParent();
-	        return this._getParentsChildren()[index + steps];
-	    };
-	    TreeNode.prototype.findNextSibling = function () {
-	        return this.findAdjacentSibling(+1);
-	    };
-	    TreeNode.prototype.findPreviousSibling = function () {
-	        return this.findAdjacentSibling(-1);
-	    };
-	    TreeNode.prototype.getFirstChild = function () {
-	        return _.first(this.children || []);
-	    };
-	    TreeNode.prototype.getLastChild = function () {
-	        return _.last(this.children || []);
-	    };
-	    TreeNode.prototype.findNextNode = function (goInside) {
-	        if (goInside === void 0) { goInside = true; }
-	        return goInside && this.isExpanded && this.getFirstChild() ||
-	            this.findNextSibling() ||
-	            this.parent && this.parent.findNextNode(false);
-	    };
-	    TreeNode.prototype.findPreviousNode = function () {
-	        var previousSibling = this.findPreviousSibling();
-	        if (!previousSibling) {
-	            return this.realParent;
-	        }
-	        return previousSibling._getLastOpenDescendant();
-	    };
-	    TreeNode.prototype._getLastOpenDescendant = function () {
-	        return this.isCollapsed ? this : this.getLastChild()._getLastOpenDescendant();
-	    };
-	    TreeNode.prototype._getParentsChildren = function () {
-	        return _.get(this, 'parent.children') || [];
-	    };
-	    TreeNode.prototype._getIndexInParent = function () {
-	        return this._getParentsChildren().indexOf(this);
-	    };
-	    // helper methods:
-	    TreeNode.prototype.loadChildren = function () {
-	        var _this = this;
-	        if (!this.options.getChildren) {
-	            throw new Error('Node doesn\'t have children, or a getChildren method');
-	        }
-	        Promise.resolve(this.options.getChildren(this))
-	            .then(function (children) {
-	            _this.children = children
-	                .map(function (child) { return new TreeNode(child, _this, _this.treeModel); });
-	        });
-	    };
-	    TreeNode.prototype.toggle = function () {
-	        this.isExpanded = !this.isExpanded;
-	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onToggle, node: this, isExpanded: this.isExpanded });
-	    };
-	    TreeNode.prototype._activate = function () {
-	        this._isActive = true;
-	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onActivate, node: this });
-	        this.focus();
-	    };
-	    TreeNode.prototype._deactivate = function () {
-	        this._isActive = false;
-	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onDeactivate, node: this });
-	    };
-	    TreeNode.prototype.toggleActivated = function () {
-	        if (this.isActive) {
-	            this._deactivate();
-	            this.treeModel.activeNode = null;
-	        }
-	        else {
-	            if (this.treeModel.activeNode) {
-	                this.treeModel.activeNode._deactivate();
-	            }
-	            this._activate();
-	            this.treeModel.activeNode = this;
-	        }
-	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onActiveChanged, node: this, isActive: this.isActive });
-	    };
-	    TreeNode.prototype.focus = function () {
-	        var previousNode = this.treeModel.focusedNode;
-	        this.treeModel.focusedNode = this;
-	        if (previousNode) {
-	            this.fireEvent({ eventName: events_1.TREE_EVENTS.onBlur, node: previousNode });
-	        }
-	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onFocus, node: this });
-	    };
-	    TreeNode.prototype.blur = function () {
-	        var previousNode = this.treeModel.focusedNode;
-	        this.treeModel.focusedNode = null;
-	        if (previousNode) {
-	            this.fireEvent({ eventName: events_1.TREE_EVENTS.onBlur, node: this });
-	        }
-	    };
-	    TreeNode.prototype.doubleClick = function (rawEvent) {
-	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onDoubleClick, node: this, rawEvent: rawEvent });
-	    };
-	    TreeNode.prototype.contextMenu = function (rawEvent) {
-	        if (this.options.hasCustomContextMenu) {
-	            rawEvent.preventDefault();
-	        }
-	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onContextMenu, node: this, rawEvent: rawEvent });
-	    };
-	    return TreeNode;
-	}());
-	exports.TreeNode = TreeNode;
-	
-
-/***/ },
-
 /***/ 337:
 /***/ function(module, exports, __webpack_require__) {
 
@@ -15598,7 +15599,7 @@ webpackJsonp([2],{
 	"use strict";
 	var core_1 = __webpack_require__(1);
 	// Angular 2 Router
-	var router_deprecated_1 = __webpack_require__(214);
+	var router_deprecated_1 = __webpack_require__(215);
 	// application_directives: directives that are global through out the application
 	exports.APPLICATION_DIRECTIVES = router_deprecated_1.ROUTER_DIRECTIVES.slice();
 	exports.DIRECTIVES = [
@@ -15637,7 +15638,7 @@ webpackJsonp([2],{
 	// Angular 2 Http
 	var http_1 = __webpack_require__(305);
 	// Angular 2 Router
-	var router_deprecated_1 = __webpack_require__(214);
+	var router_deprecated_1 = __webpack_require__(215);
 	/*
 	* Application Providers/Directives/Pipes
 	* providers/directives/pipes that only live in our browser environment
@@ -15673,7 +15674,7 @@ webpackJsonp([2],{
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _ = __webpack_require__(156);
+	var _ = __webpack_require__(157);
 	var TreeOptions = (function () {
 	    function TreeOptions(options) {
 	        if (options === void 0) { options = {}; }
@@ -16085,8 +16086,10 @@ webpackJsonp([2],{
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var tree_model_1 = __webpack_require__(146);
+	var tree_model_1 = __webpack_require__(147);
 	exports.TreeModel = tree_model_1.TreeModel;
+	var tree_node_model_1 = __webpack_require__(146);
+	exports.TreeNode = tree_node_model_1.TreeNode;
 	var tree_component_1 = __webpack_require__(513);
 	exports.TreeComponent = tree_component_1.TreeComponent;
 	
@@ -16107,7 +16110,7 @@ webpackJsonp([2],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(1);
-	var tree_model_1 = __webpack_require__(146);
+	var tree_model_1 = __webpack_require__(147);
 	var LoadingComponent = (function () {
 	    function LoadingComponent(treeModel, componentLoader, viewContainerRef) {
 	        this.treeModel = treeModel;
@@ -16148,8 +16151,8 @@ webpackJsonp([2],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(1);
-	var tree_node_model_1 = __webpack_require__(220);
-	var tree_model_1 = __webpack_require__(146);
+	var tree_node_model_1 = __webpack_require__(146);
+	var tree_model_1 = __webpack_require__(147);
 	var TreeNodeContent = (function () {
 	    function TreeNodeContent(treeModel, componentResolver, viewContainerRef) {
 	        this.treeModel = treeModel;
@@ -16200,7 +16203,7 @@ webpackJsonp([2],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(1);
-	var tree_node_model_1 = __webpack_require__(220);
+	var tree_node_model_1 = __webpack_require__(146);
 	var loading_component_1 = __webpack_require__(510);
 	var tree_node_content_component_1 = __webpack_require__(511);
 	var TreeNodeComponent = (function () {
@@ -16255,10 +16258,10 @@ webpackJsonp([2],{
 	};
 	var core_1 = __webpack_require__(1);
 	var tree_node_component_1 = __webpack_require__(512);
-	var tree_model_1 = __webpack_require__(146);
+	var tree_model_1 = __webpack_require__(147);
 	var tree_options_model_1 = __webpack_require__(346);
 	var keys_1 = __webpack_require__(514);
-	var _ = __webpack_require__(156);
+	var _ = __webpack_require__(157);
 	var TreeComponent = (function () {
 	    function TreeComponent(treeModel) {
 	        var _this = this;
