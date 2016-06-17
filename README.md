@@ -11,17 +11,48 @@
 * Async data
 * Easily styled (comes with very minimal styling)
 
-## Demo & full documentation:
-Please refer to the full documentation:  
-[https://angular2-tree.readme.io/docs](https://angular2-tree.readme.io/docs)
 
-## Example
+## Examples
 ```
 git clone https://github.com/500tech/angular2-tree-component
-cd angular2-tree-component/example
+```
+
+### Using webpack:
+```
+cd angular2-tree-component/example/webpack
 npm install
 npm start
 ```
+
+### Using systemjs:
+```
+cd angular2-tree-component/example/systemjs
+npm install
+npm start
+```
+
+**There's currently an issue with systemJS and lodash.**  
+Until we solve it, please install lodash into the project:  
+```
+npm install --save angular2-tree-component
+```
+
+and add these lines to systemjs.config.js:  
+```
+  var map = {
+    'angular2-tree-component':    'node_modules/angular2-tree-component',
+    'lodash':                     'node_modules/lodash',
+  };
+
+  var packages = {
+    'angular2-tree-component'   : { main: 'dist/angular2-tree-component.js', defaultExtension: 'js' },
+    'lodash'                    : { main: 'lodash.js', defaultExtension: 'js' },
+  };
+```
+
+## Demo & full documentation:
+Please refer to the full documentation:  
+[https://angular2-tree.readme.io/docs](https://angular2-tree.readme.io/docs)
 
 ## What's next
 We would always love to hear suggestions for features & improvements - just open an issue.
