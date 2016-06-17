@@ -34,7 +34,7 @@ npm start
 **There's currently an issue with systemJS and lodash.**  
 Until we solve it, please install lodash into the project:  
 ```
-npm install --save angular2-tree-component
+npm install --save lodash
 ```
 
 and add these lines to systemjs.config.js:  
