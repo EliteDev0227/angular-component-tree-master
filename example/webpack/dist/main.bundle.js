@@ -243,7 +243,10 @@ webpackJsonp([2],{
 	        return previousSibling._getLastOpenDescendant();
 	    };
 	    TreeNode.prototype._getLastOpenDescendant = function () {
-	        return this.isCollapsed ? this : this.getLastChild()._getLastOpenDescendant();
+	        var lastChild = this.getLastChild();
+	        return (this.isCollapsed || !lastChild)
+	            ? this
+	            : lastChild._getLastOpenDescendant();
 	    };
 	    TreeNode.prototype._getParentsChildren = function () {
 	        var children = _.get(this, 'parent.children');
@@ -294,6 +297,7 @@ webpackJsonp([2],{
 	    TreeNode.prototype.focus = function () {
 	        var previousNode = this.treeModel.focusedNode;
 	        this.treeModel.focusedNode = this;
+	        this.elementRef.nativeElement.scrollIntoViewIfNeeded();
 	        if (previousNode) {
 	            this.fireEvent({ eventName: events_1.TREE_EVENTS.onBlur, node: previousNode });
 	        }
@@ -438,13 +442,25 @@ webpackJsonp([2],{
 	    };
 	    TreeModel.prototype.focusDrillDown = function () {
 	        var previousNode = this.focusedNode;
-	        var nextNode = previousNode && previousNode.getFirstChild();
-	        nextNode && nextNode.focus();
+	        if (previousNode && previousNode.isCollapsed && previousNode.hasChildren) {
+	            previousNode.toggle();
+	        }
+	        else {
+	            var nextNode = previousNode ? previousNode.getFirstChild() : this.getFirstRoot();
+	            nextNode && nextNode.focus();
+	        }
 	    };
 	    TreeModel.prototype.focusDrillUp = function () {
 	        var previousNode = this.focusedNode;
-	        var nextNode = previousNode && previousNode.realParent;
-	        nextNode && nextNode.focus();
+	        if (!previousNode)
+	            return;
+	        if (previousNode.isExpanded) {
+	            previousNode.toggle();
+	        }
+	        else {
+	            var nextNode = previousNode.realParent;
+	            nextNode && nextNode.focus();
+	        }
 	    };
 	    TreeModel.focusedTree = null;
 	    TreeModel = __decorate([
@@ -16211,6 +16227,9 @@ webpackJsonp([2],{
 	        this.componentLoader = componentLoader;
 	        this.elementRef = elementRef;
 	    }
+	    TreeNodeComponent.prototype.ngAfterViewInit = function () {
+	        this.node.elementRef = this.elementRef;
+	    };
 	    __decorate([
 	        core_1.Input(), 
 	        __metadata('design:type', tree_node_model_1.TreeNode)
@@ -16302,21 +16321,9 @@ webpackJsonp([2],{
 	            case keys_1.KEYS.UP:
 	                return this.treeModel.focusPreviousNode();
 	            case keys_1.KEYS.LEFT:
-	                if (focusedNode.isExpanded) {
-	                    focusedNode.toggle();
-	                }
-	                else {
-	                    this.treeModel.focusDrillUp();
-	                }
-	                return;
+	                return this.treeModel.focusDrillUp();
 	            case keys_1.KEYS.RIGHT:
-	                if (focusedNode.isCollapsed) {
-	                    focusedNode.toggle();
-	                }
-	                else {
-	                    this.treeModel.focusDrillDown();
-	                }
-	                return;
+	                return this.treeModel.focusDrillDown();
 	            case keys_1.KEYS.ENTER:
 	            case keys_1.KEYS.SPACE:
 	                return focusedNode && focusedNode.toggleActivated();
