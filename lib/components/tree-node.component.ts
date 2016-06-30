@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, DynamicComponentLoader, QueryList, Query, ElementRef, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, DynamicComponentLoader, QueryList, Query, ElementRef, AfterViewInit, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { TreeNode } from '../models/tree-node.model';
 import { LoadingComponent } from './loading.component';
 import { TreeNodeContent } from './tree-node-content.component';
@@ -6,6 +6,7 @@ import { TreeNodeContent } from './tree-node-content.component';
 @Component({
   selector: 'TreeNode',
   directives: [TreeNodeComponent, LoadingComponent, TreeNodeContent],
+  encapsulation: ViewEncapsulation.None,
   styles: [
     '.tree-children { padding-left: 20px }',
     `.node-content-wrapper {

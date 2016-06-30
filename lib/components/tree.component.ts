@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnChanges, SimpleChange, EventEmitter } from '@angular/core';
+import { Component, Input, Output, OnChanges, SimpleChange, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { TreeNodeComponent } from './tree-node.component';
 import { TreeModel } from '../models/tree.model';
 import { TreeNode } from '../models/tree-node.model';
@@ -10,6 +10,7 @@ import * as _ from 'lodash'
 @Component({
   selector: 'Tree',
   directives: [TreeNodeComponent],
+  encapsulation: ViewEncapsulation.None,
   host: {
     '(body: keydown)': "onKeydown($event)",
     '(body: mousedown)': "onMousedown($event)"
