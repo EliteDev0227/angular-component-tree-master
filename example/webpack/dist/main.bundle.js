@@ -12,13 +12,13 @@ webpackJsonp([2],{
 	* Platform and Environment
 	* our providers/directives/pipes
 	*/
-	var browser_1 = __webpack_require__(487);
-	var environment_1 = __webpack_require__(488);
+	var browser_1 = __webpack_require__(489);
+	var environment_1 = __webpack_require__(490);
 	/*
 	* App Component
 	* our top level component that holds all of our components
 	*/
-	var app_1 = __webpack_require__(486);
+	var app_1 = __webpack_require__(488);
 	/*
 	 * Bootstrap our Angular app with a top level component `App` and inject
 	 * our Services and Providers into Angular's dependency injection
@@ -51,7 +51,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 145:
+/***/ 146:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -115,12 +115,12 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 146:
+/***/ 147:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var events_1 = __webpack_require__(345);
-	var _ = __webpack_require__(157);
+	var _ = __webpack_require__(158);
 	var TreeNode = (function () {
 	    function TreeNode(data, parent, treeModel) {
 	        var _this = this;
@@ -326,7 +326,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 147:
+/***/ 148:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -340,10 +340,10 @@ webpackJsonp([2],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(1);
-	var tree_node_model_1 = __webpack_require__(146);
+	var tree_node_model_1 = __webpack_require__(147);
 	var tree_options_model_1 = __webpack_require__(346);
 	var events_1 = __webpack_require__(345);
-	var _ = __webpack_require__(157);
+	var _ = __webpack_require__(158);
 	var TreeModel = (function () {
 	    function TreeModel() {
 	        this.options = new tree_options_model_1.TreeOptions();
@@ -474,7 +474,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 157:
+/***/ 158:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/**
@@ -15560,7 +15560,7 @@ webpackJsonp([2],{
 
 	"use strict";
 	var core_1 = __webpack_require__(1);
-	var angular2_hmr_1 = __webpack_require__(507);
+	var angular2_hmr_1 = __webpack_require__(509);
 	var AppState = (function () {
 	    function AppState() {
 	        // @HmrState() is used by HMR to track the state of any object during HMR (hot module replacement)
@@ -15690,7 +15690,7 @@ webpackJsonp([2],{
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _ = __webpack_require__(157);
+	var _ = __webpack_require__(158);
 	var TreeOptions = (function () {
 	    function TreeOptions(options) {
 	        if (options === void 0) { options = {}; }
@@ -15710,7 +15710,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 484:
+/***/ 486:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15722,13 +15722,13 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 485:
+/***/ 487:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var core_1 = __webpack_require__(484);
-	var angular2_tree_component_1 = __webpack_require__(509);
-	var uuid = __webpack_require__(670).v4;
+	var core_1 = __webpack_require__(486);
+	var angular2_tree_component_1 = __webpack_require__(511);
+	var uuid = __webpack_require__(673).v4;
 	var CUSTOM_TEMPLATE_STRING = '{{ node.data.name }}';
 	var App = (function () {
 	    function App() {
@@ -15847,7 +15847,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 486:
+/***/ 488:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15855,7 +15855,7 @@ webpackJsonp([2],{
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
 	// App
-	__export(__webpack_require__(485));
+	__export(__webpack_require__(487));
 	__export(__webpack_require__(337));
 	var app_service_2 = __webpack_require__(337);
 	// Application wide providers
@@ -15866,7 +15866,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 487:
+/***/ 489:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15884,7 +15884,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 488:
+/***/ 490:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15906,11 +15906,11 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 506:
+/***/ 508:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {"use strict";
-	var hmr_store_1 = __webpack_require__(145);
+	var hmr_store_1 = __webpack_require__(146);
 	// noop in parentNode
 	// TODO: find a better way to noop
 	var _env = typeof process !== 'undefined' &&
@@ -15964,17 +15964,17 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 507:
+/***/ 509:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	function __export(m) {
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
-	var hmr_store_1 = __webpack_require__(145);
+	var hmr_store_1 = __webpack_require__(146);
+	__export(__webpack_require__(510));
 	__export(__webpack_require__(508));
-	__export(__webpack_require__(506));
-	__export(__webpack_require__(145));
+	__export(__webpack_require__(146));
 	function provideHmrState(initialState) {
 	    if (initialState === void 0) { initialState = {}; }
 	    return [
@@ -15987,11 +15987,11 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 508:
+/***/ 510:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var hmr_store_1 = __webpack_require__(145);
+	var hmr_store_1 = __webpack_require__(146);
 	function hotModuleReplacement(bootloader, module, options) {
 	    if (options === void 0) { options = {}; }
 	    if (!module.hot) {
@@ -16098,21 +16098,21 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 509:
+/***/ 511:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var tree_model_1 = __webpack_require__(147);
+	var tree_model_1 = __webpack_require__(148);
 	exports.TreeModel = tree_model_1.TreeModel;
-	var tree_node_model_1 = __webpack_require__(146);
+	var tree_node_model_1 = __webpack_require__(147);
 	exports.TreeNode = tree_node_model_1.TreeNode;
-	var tree_component_1 = __webpack_require__(513);
+	var tree_component_1 = __webpack_require__(515);
 	exports.TreeComponent = tree_component_1.TreeComponent;
 	
 
 /***/ },
 
-/***/ 510:
+/***/ 512:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16126,7 +16126,7 @@ webpackJsonp([2],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(1);
-	var tree_model_1 = __webpack_require__(147);
+	var tree_model_1 = __webpack_require__(148);
 	var LoadingComponent = (function () {
 	    function LoadingComponent(treeModel, componentLoader, viewContainerRef) {
 	        this.treeModel = treeModel;
@@ -16153,7 +16153,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 511:
+/***/ 513:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16167,8 +16167,8 @@ webpackJsonp([2],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(1);
-	var tree_node_model_1 = __webpack_require__(146);
-	var tree_model_1 = __webpack_require__(147);
+	var tree_node_model_1 = __webpack_require__(147);
+	var tree_model_1 = __webpack_require__(148);
 	var TreeNodeContent = (function () {
 	    function TreeNodeContent(treeModel, componentResolver, viewContainerRef) {
 	        this.treeModel = treeModel;
@@ -16205,7 +16205,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 512:
+/***/ 514:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16219,9 +16219,9 @@ webpackJsonp([2],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(1);
-	var tree_node_model_1 = __webpack_require__(146);
-	var loading_component_1 = __webpack_require__(510);
-	var tree_node_content_component_1 = __webpack_require__(511);
+	var tree_node_model_1 = __webpack_require__(147);
+	var loading_component_1 = __webpack_require__(512);
+	var tree_node_content_component_1 = __webpack_require__(513);
 	var TreeNodeComponent = (function () {
 	    function TreeNodeComponent(componentLoader, elementRef) {
 	        this.componentLoader = componentLoader;
@@ -16262,7 +16262,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 513:
+/***/ 515:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16276,11 +16276,11 @@ webpackJsonp([2],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(1);
-	var tree_node_component_1 = __webpack_require__(512);
-	var tree_model_1 = __webpack_require__(147);
+	var tree_node_component_1 = __webpack_require__(514);
+	var tree_model_1 = __webpack_require__(148);
 	var tree_options_model_1 = __webpack_require__(346);
-	var keys_1 = __webpack_require__(514);
-	var _ = __webpack_require__(157);
+	var keys_1 = __webpack_require__(516);
+	var _ = __webpack_require__(158);
 	var TreeComponent = (function () {
 	    function TreeComponent(treeModel) {
 	        var _this = this;
@@ -16417,7 +16417,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 514:
+/***/ 516:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -16433,7 +16433,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 669:
+/***/ 672:
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {
@@ -16472,7 +16472,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 670:
+/***/ 673:
 /***/ function(module, exports, __webpack_require__) {
 
 	//     uuid.js
@@ -16483,7 +16483,7 @@ webpackJsonp([2],{
 	// Unique ID creation requires a high quality random # generator.  We feature
 	// detect to determine the best RNG source, normalizing to a function that
 	// returns 128-bits of randomness, since that's what's usually required
-	var _rng = __webpack_require__(669);
+	var _rng = __webpack_require__(672);
 
 	// Maps for number <-> hex string conversion
 	var _byteToHex = [];
