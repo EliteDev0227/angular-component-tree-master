@@ -294,10 +294,16 @@ webpackJsonp([2],{
 	        }
 	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onActiveChanged, node: this, isActive: this.isActive });
 	    };
+	    TreeNode.prototype.scrollIntoView = function () {
+	        var nativeElement = this.elementRef.nativeElement;
+	        nativeElement.scrollIntoViewIfNeeded
+	            ? nativeElement.scrollIntoViewIfNeeded()
+	            : nativeElement.scrollIntoView();
+	    };
 	    TreeNode.prototype.focus = function () {
 	        var previousNode = this.treeModel.focusedNode;
 	        this.treeModel.focusedNode = this;
-	        this.elementRef.nativeElement.scrollIntoViewIfNeeded();
+	        this.scrollIntoView();
 	        if (previousNode) {
 	            this.fireEvent({ eventName: events_1.TREE_EVENTS.onBlur, node: previousNode });
 	        }
@@ -330,15 +336,6 @@ webpackJsonp([2],{
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
 	var core_1 = __webpack_require__(1);
 	var tree_node_model_1 = __webpack_require__(147);
 	var tree_options_model_1 = __webpack_require__(346);
@@ -16116,15 +16113,6 @@ webpackJsonp([2],{
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
 	var core_1 = __webpack_require__(1);
 	var tree_model_1 = __webpack_require__(148);
 	var LoadingComponent = (function () {
@@ -16157,15 +16145,6 @@ webpackJsonp([2],{
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
 	var core_1 = __webpack_require__(1);
 	var tree_node_model_1 = __webpack_require__(147);
 	var tree_model_1 = __webpack_require__(148);
@@ -16209,15 +16188,6 @@ webpackJsonp([2],{
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
 	var core_1 = __webpack_require__(1);
 	var tree_node_model_1 = __webpack_require__(147);
 	var loading_component_1 = __webpack_require__(512);
@@ -16238,6 +16208,7 @@ webpackJsonp([2],{
 	        core_1.Component({
 	            selector: 'TreeNode',
 	            directives: [TreeNodeComponent, loading_component_1.LoadingComponent, tree_node_content_component_1.TreeNodeContent],
+	            encapsulation: core_1.ViewEncapsulation.None,
 	            styles: [
 	                '.tree-children { padding-left: 20px }',
 	                ".node-content-wrapper {\n      display: inline-block;\n      padding: 2px 5px;\n      border-radius: 2px;\n      transition: background-color .15s,box-shadow .15s;\n    }",
@@ -16266,15 +16237,6 @@ webpackJsonp([2],{
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
 	var core_1 = __webpack_require__(1);
 	var tree_node_component_1 = __webpack_require__(514);
 	var tree_model_1 = __webpack_require__(148);
@@ -16397,6 +16359,7 @@ webpackJsonp([2],{
 	        core_1.Component({
 	            selector: 'Tree',
 	            directives: [tree_node_component_1.TreeNodeComponent],
+	            encapsulation: core_1.ViewEncapsulation.None,
 	            host: {
 	                '(body: keydown)': "onKeydown($event)",
 	                '(body: mousedown)': "onMousedown($event)"
