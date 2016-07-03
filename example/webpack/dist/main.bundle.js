@@ -298,7 +298,7 @@ webpackJsonp([2],{
 	        var nativeElement = this.elementRef.nativeElement;
 	        nativeElement.scrollIntoViewIfNeeded
 	            ? nativeElement.scrollIntoViewIfNeeded()
-	            : nativeElement.scrollIntoView();
+	            : nativeElement.scrollIntoView(false);
 	    };
 	    TreeNode.prototype.focus = function () {
 	        var previousNode = this.treeModel.focusedNode;
