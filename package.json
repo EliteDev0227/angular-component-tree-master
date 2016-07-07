@@ -19,6 +19,9 @@
     "clean": "rimraf node_modules && npm run clean:typescript && npm cache clean",
     "clean:typescript": "rimraf dist",
     "build": "node_modules/.bin/tsc",
+    "example:webpack": "npm run build && cp -rf dist example/webpack/node_modules/angular2-tree-component/ && cd example/webpack && npm start",
+    "example:systemjs": "npm run build && cp -rf dist example/systemjs/node_modules/angular2-tree-component/ && cd example/systemjs && npm start",
+    "example:webpack:build": "cd example/webpack && npm run build",
     "postinstall": "node_modules/.bin/typings install"
   },
   "files": [
@@ -37,12 +40,13 @@
     "@angular/platform-browser-dynamic": "^2.0.0-rc.3"
   },
   "dependencies": {
+    "element-closest": "2.0.1",
     "es6-promise": "^3.1.2",
     "es6-shim": "^0.35.0",
+    "lodash": "4.6.1",
     "reflect-metadata": "^0.1.3",
     "rxjs": "5.0.0-beta.6",
-    "zone.js": "^0.6.12",
-    "lodash": "4.6.1"
+    "zone.js": "^0.6.12"
   },
   "devDependencies": {
     "@angular/common": "^2.0.0-rc.3",

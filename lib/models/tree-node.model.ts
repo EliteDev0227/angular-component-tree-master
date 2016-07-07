@@ -31,9 +31,10 @@ export class TreeNode implements ITreeNode {
   constructor(public data:any, public parent:TreeNode = null, public treeModel:TreeModel) {
     this.level = this.parent ? this.parent.level + 1 : 0;
     this.path = this.parent ? [...this.parent.path, this.id] : [];
-    this.hasChildren = !!(data.hasChildren || (data[this.options.childrenField] && data[this.options.childrenField].length > 0));
-    if (data[this.options.childrenField]) {
-      this.children = data[this.options.childrenField]
+    this.hasChildren = !!(data.hasChildren || (this.getField('children') && this.getField('children').length > 0));
+    if (this.getField('expanded')) this.isExpanded = true;
+    if (this.getField('children')) {
+      this.children = this.getField('children')
         .map(c => new TreeNode(c, this, treeModel));
     }
   }
@@ -50,11 +51,15 @@ export class TreeNode implements ITreeNode {
 
   // field accessors:
   get displayField() {
-    return this.data[this.options.displayField];
+    return this.getField('display');
   }
 
   get id() {
-    return this.data[this.options.idField];
+    return this.getField('id');
+  }
+
+  getField(key) {
+    return this.data[this.options[`${key}Field`]];
   }
 
   // traversing:
@@ -153,10 +158,15 @@ export class TreeNode implements ITreeNode {
     this.fireEvent({ eventName: TREE_EVENTS.onActiveChanged, node: this, isActive: this.isActive });
   }
 
+  scrollIntoView() {
+    const nativeElement = this.elementRef.nativeElement;
+    nativeElement.scrollIntoViewIfNeeded && nativeElement.scrollIntoViewIfNeeded();
+  }
+
   focus() {
     let previousNode = this.treeModel.focusedNode;
     this.treeModel.focusedNode = this;
-    this.elementRef.nativeElement.scrollIntoViewIfNeeded();
+    this.scrollIntoView();
     if (previousNode) {
       this.fireEvent({ eventName: TREE_EVENTS.onBlur, node: previousNode });
     }

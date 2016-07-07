@@ -132,9 +132,11 @@ webpackJsonp([2],{
 	        this._isActive = false;
 	        this.level = this.parent ? this.parent.level + 1 : 0;
 	        this.path = this.parent ? this.parent.path.concat([this.id]) : [];
-	        this.hasChildren = !!(data.hasChildren || (data[this.options.childrenField] && data[this.options.childrenField].length > 0));
-	        if (data[this.options.childrenField]) {
-	            this.children = data[this.options.childrenField]
+	        this.hasChildren = !!(data.hasChildren || (this.getField('children') && this.getField('children').length > 0));
+	        if (this.getField('expanded'))
+	            this.isExpanded = true;
+	        if (this.getField('children')) {
+	            this.children = this.getField('children')
 	                .map(function (c) { return new TreeNode(c, _this, treeModel); });
 	        }
 	    }
@@ -200,18 +202,21 @@ webpackJsonp([2],{
 	    Object.defineProperty(TreeNode.prototype, "displayField", {
 	        // field accessors:
 	        get: function () {
-	            return this.data[this.options.displayField];
+	            return this.getField('display');
 	        },
 	        enumerable: true,
 	        configurable: true
 	    });
 	    Object.defineProperty(TreeNode.prototype, "id", {
 	        get: function () {
-	            return this.data[this.options.idField];
+	            return this.getField('id');
 	        },
 	        enumerable: true,
 	        configurable: true
 	    });
+	    TreeNode.prototype.getField = function (key) {
+	        return this.data[this.options[(key + "Field")]];
+	    };
 	    // traversing:
 	    TreeNode.prototype.findAdjacentSibling = function (steps) {
 	        var index = this._getIndexInParent();
@@ -15692,6 +15697,7 @@ webpackJsonp([2],{
 	        this.childrenField = 'children';
 	        this.displayField = 'name';
 	        this.idField = 'id';
+	        this.isExpandedField = 'isExpanded';
 	        this.treeNodeTemplate = '{{ node.displayField }}';
 	        this.loadingComponent = 'loading...';
 	        this.getChildren = null;
@@ -15730,17 +15736,20 @@ webpackJsonp([2],{
 	        this.nodes = [
 	            {
 	                id: uuid(),
-	                name: 'root1',
+	                expanded: true,
+	                name: 'root expanded',
 	                subTitle: 'the root',
 	                children: [
 	                    {
 	                        id: uuid(),
 	                        name: 'child1',
-	                        subTitle: 'a good child'
+	                        subTitle: 'a good child',
+	                        hasChildren: false
 	                    }, {
 	                        id: uuid(),
 	                        name: 'child2',
 	                        subTitle: 'a bad child',
+	                        hasChildren: false
 	                    }
 	                ]
 	            },
@@ -15752,7 +15761,8 @@ webpackJsonp([2],{
 	                    {
 	                        id: uuid(),
 	                        name: 'child2.1',
-	                        subTitle: 'new and improved'
+	                        subTitle: 'new and improved',
+	                        hasChildren: false
 	                    }, {
 	                        id: uuid(),
 	                        name: 'child2.2',
@@ -15761,7 +15771,8 @@ webpackJsonp([2],{
 	                            {
 	                                id: uuid(),
 	                                name: 'subsub',
-	                                subTitle: 'subsub'
+	                                subTitle: 'subsub',
+	                                hasChildren: false
 	                            }
 	                        ]
 	                    }
@@ -15786,6 +15797,7 @@ webpackJsonp([2],{
 	            treeNodeTemplate: CUSTOM_TEMPLATE_STRING,
 	            // treeNodeTemplate: MyTreeNodeTemplate,
 	            // displayField: 'subTitle',
+	            expandedField: 'expanded',
 	            loadingComponent: MyTreeLoadingTemplate,
 	            getChildren: this.getChildren.bind(this)
 	        };

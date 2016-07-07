@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component } from 'angular2/core';
 import { TreeComponent } from 'angular2-tree-component';
+const uuid = require('uuid').v4;
 
 const CUSTOM_TEMPLATE_STRING = '{{ node.data.name }}';
 
 @Component({
+  selector: 'app',
   directives: [TreeComponent],
-  selector: 'my-app',
   styles: [
     `button: {
         line - height: 24px;
@@ -54,21 +55,24 @@ const CUSTOM_TEMPLATE_STRING = '{{ node.data.name }}';
     blur
   </button>`
 })
-export class AppComponent { 
+export class App {
   nodes = [
     {
       id: uuid(),
-      name: 'root1',
+      expanded: true,
+      name: 'root expanded',
       subTitle: 'the root',
       children: [
         {
           id: uuid(),
           name: 'child1',
-          subTitle: 'a good child'
+          subTitle: 'a good child',
+          hasChildren: false
         }, {
           id: uuid(),
           name: 'child2',
           subTitle: 'a bad child',
+          hasChildren: false
         }
       ]
     },
@@ -80,7 +84,8 @@ export class AppComponent {
         {
           id: uuid(),
           name: 'child2.1',
-          subTitle: 'new and improved'
+          subTitle: 'new and improved',
+          hasChildren: false
         }, {
           id: uuid(),
           name: 'child2.2',
@@ -89,7 +94,8 @@ export class AppComponent {
             {
               id: uuid(),
               name: 'subsub',
-              subTitle: 'subsub'
+              subTitle: 'subsub',
+              hasChildren: false
             }
           ]
         }
@@ -112,7 +118,7 @@ export class AppComponent {
     }
   ];
 
-  getChildren(node:any) {
+  getChildren(node) {
     return new Promise((resolve, reject) => {
       setTimeout(() => resolve(this.asyncChildren.map((c) => {
         return Object.assign(c, {
@@ -127,12 +133,12 @@ export class AppComponent {
     treeNodeTemplate: CUSTOM_TEMPLATE_STRING,
     // treeNodeTemplate: MyTreeNodeTemplate,
     // displayField: 'subTitle',
+    expandedField: 'expanded',
     loadingComponent: MyTreeLoadingTemplate,
     getChildren: this.getChildren.bind(this)
   }
-  onEvent = ($event:any) => console.log($event);
+  onEvent = ($event) => console.log($event);
 }
-
 
 @Component({
   template: CUSTOM_TEMPLATE_STRING
@@ -144,10 +150,4 @@ class MyTreeNodeTemplate {
   template: 'Loading, please hold....'
 })
 class MyTreeLoadingTemplate {
-}
-
-let id = 0;
-function uuid() {
-  id = id + 1;
-  return id;
 }

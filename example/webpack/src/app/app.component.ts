@@ -59,17 +59,20 @@ export class App {
   nodes = [
     {
       id: uuid(),
-      name: 'root1',
+      expanded: true,
+      name: 'root expanded',
       subTitle: 'the root',
       children: [
         {
           id: uuid(),
           name: 'child1',
-          subTitle: 'a good child'
+          subTitle: 'a good child',
+          hasChildren: false
         }, {
           id: uuid(),
           name: 'child2',
           subTitle: 'a bad child',
+          hasChildren: false
         }
       ]
     },
@@ -81,7 +84,8 @@ export class App {
         {
           id: uuid(),
           name: 'child2.1',
-          subTitle: 'new and improved'
+          subTitle: 'new and improved',
+          hasChildren: false
         }, {
           id: uuid(),
           name: 'child2.2',
@@ -90,7 +94,8 @@ export class App {
             {
               id: uuid(),
               name: 'subsub',
-              subTitle: 'subsub'
+              subTitle: 'subsub',
+              hasChildren: false
             }
           ]
         }
@@ -128,6 +133,7 @@ export class App {
     treeNodeTemplate: CUSTOM_TEMPLATE_STRING,
     // treeNodeTemplate: MyTreeNodeTemplate,
     // displayField: 'subTitle',
+    expandedField: 'expanded',
     loadingComponent: MyTreeLoadingTemplate,
     getChildren: this.getChildren.bind(this)
   }
