@@ -1,5 +1,5 @@
 /* tslint:disable:no-unused-variable */
-import { AppComponent } from './app.component';
+import { App } from './app.component';
 
 import {
   expect, it, iit, xit,
@@ -24,20 +24,20 @@ describe('Smoke test', () => {
   });
 });
 
-describe('AppComponent with TCB', function () {
+describe('App with TCB', function () {
 
   it('should instantiate component',
     async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
 
-    tcb.createAsync(AppComponent).then(fixture => {
-      expect(fixture.componentInstance instanceof AppComponent).toBe(true, 'should create AppComponent');
+    tcb.createAsync(App).then(fixture => {
+      expect(fixture.componentInstance instanceof App).toBe(true, 'should create App');
     });
   })));
 
   it('should have expected <h1> text',
     async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
 
-      tcb.createAsync(AppComponent).then(fixture => {
+      tcb.createAsync(App).then(fixture => {
       // fixture.detectChanges();  // would need to resolve a binding but we don't have a binding
 
       let h1 = fixture.debugElement.query(el => el.name === 'h1').nativeElement;  // it works

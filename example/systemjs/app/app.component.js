@@ -8,9 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('angular2/core');
+var core_1 = require('@angular/core');
 var angular2_tree_component_1 = require('angular2-tree-component');
-var uuid = require('uuid').v4;
 var CUSTOM_TEMPLATE_STRING = '{{ node.data.name }}';
 var App = (function () {
     function App() {
@@ -131,4 +130,9 @@ var MyTreeLoadingTemplate = (function () {
     ], MyTreeLoadingTemplate);
     return MyTreeLoadingTemplate;
 }());
+var id = 0;
+function uuid() {
+    id = id + 1;
+    return id;
+}
 //# sourceMappingURL=app.component.js.map

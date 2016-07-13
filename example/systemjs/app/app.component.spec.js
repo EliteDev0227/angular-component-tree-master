@@ -11,14 +11,14 @@ testing_1.describe('Smoke test', function () {
         testing_1.expect(true).toEqual(true, 'should pass');
     });
 });
-testing_1.describe('AppComponent with TCB', function () {
+testing_1.describe('App with TCB', function () {
     testing_1.it('should instantiate component', testing_1.async(testing_1.inject([testing_2.TestComponentBuilder], function (tcb) {
-        tcb.createAsync(app_component_1.AppComponent).then(function (fixture) {
-            testing_1.expect(fixture.componentInstance instanceof app_component_1.AppComponent).toBe(true, 'should create AppComponent');
+        tcb.createAsync(app_component_1.App).then(function (fixture) {
+            testing_1.expect(fixture.componentInstance instanceof app_component_1.App).toBe(true, 'should create App');
         });
     })));
     testing_1.it('should have expected <h1> text', testing_1.async(testing_1.inject([testing_2.TestComponentBuilder], function (tcb) {
-        tcb.createAsync(app_component_1.AppComponent).then(function (fixture) {
+        tcb.createAsync(app_component_1.App).then(function (fixture) {
             // fixture.detectChanges();  // would need to resolve a binding but we don't have a binding
             var h1 = fixture.debugElement.query(function (el) { return el.name === 'h1'; }).nativeElement; // it works
             h1 = fixture.debugElement.query(platform_browser_1.By.css('h1')).nativeElement; // preferred

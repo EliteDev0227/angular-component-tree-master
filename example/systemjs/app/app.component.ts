@@ -1,6 +1,5 @@
-import { Component } from 'angular2/core';
+import { Component } from '@angular/core';
 import { TreeComponent } from 'angular2-tree-component';
-const uuid = require('uuid').v4;
 
 const CUSTOM_TEMPLATE_STRING = '{{ node.data.name }}';
 
@@ -118,7 +117,7 @@ export class App {
     }
   ];
 
-  getChildren(node) {
+  getChildren(node:any) {
     return new Promise((resolve, reject) => {
       setTimeout(() => resolve(this.asyncChildren.map((c) => {
         return Object.assign(c, {
@@ -137,7 +136,7 @@ export class App {
     loadingComponent: MyTreeLoadingTemplate,
     getChildren: this.getChildren.bind(this)
   }
-  onEvent = ($event) => console.log($event);
+  onEvent = ($event:any) => console.log($event);
 }
 
 @Component({
@@ -150,4 +149,10 @@ class MyTreeNodeTemplate {
   template: 'Loading, please hold....'
 })
 class MyTreeLoadingTemplate {
+}
+
+let id = 0;
+function uuid() {
+  id = id + 1;
+  return id;
 }

@@ -12,13 +12,13 @@ webpackJsonp([2],{
 	* Platform and Environment
 	* our providers/directives/pipes
 	*/
-	var browser_1 = __webpack_require__(489);
-	var environment_1 = __webpack_require__(490);
+	var browser_1 = __webpack_require__(492);
+	var environment_1 = __webpack_require__(493);
 	/*
 	* App Component
 	* our top level component that holds all of our components
 	*/
-	var app_1 = __webpack_require__(488);
+	var app_1 = __webpack_require__(491);
 	/*
 	 * Bootstrap our Angular app with a top level component `App` and inject
 	 * our Services and Providers into Angular's dependency injection
@@ -15551,7 +15551,7 @@ webpackJsonp([2],{
 	  }
 	}.call(this));
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(377)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(380)(module), (function() { return this; }())))
 
 /***/ },
 
@@ -15560,7 +15560,7 @@ webpackJsonp([2],{
 
 	"use strict";
 	var core_1 = __webpack_require__(1);
-	var angular2_hmr_1 = __webpack_require__(509);
+	var angular2_hmr_1 = __webpack_require__(512);
 	var AppState = (function () {
 	    function AppState() {
 	        // @HmrState() is used by HMR to track the state of any object during HMR (hot module replacement)
@@ -15711,25 +15711,12 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 486:
+/***/ 490:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	function __export(m) {
-	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-	}
-	__export(__webpack_require__(1));
-	//# sourceMappingURL=index.js.map
-
-/***/ },
-
-/***/ 487:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var core_1 = __webpack_require__(486);
-	var angular2_tree_component_1 = __webpack_require__(511);
-	var uuid = __webpack_require__(673).v4;
+	var core_1 = __webpack_require__(1);
+	var angular2_tree_component_1 = __webpack_require__(514);
 	var CUSTOM_TEMPLATE_STRING = '{{ node.data.name }}';
 	var App = (function () {
 	    function App() {
@@ -15850,11 +15837,16 @@ webpackJsonp([2],{
 	    ], MyTreeLoadingTemplate);
 	    return MyTreeLoadingTemplate;
 	}());
+	var id = 0;
+	function uuid() {
+	    id = id + 1;
+	    return id;
+	}
 	
 
 /***/ },
 
-/***/ 488:
+/***/ 491:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15862,7 +15854,7 @@ webpackJsonp([2],{
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
 	// App
-	__export(__webpack_require__(487));
+	__export(__webpack_require__(490));
 	__export(__webpack_require__(337));
 	var app_service_2 = __webpack_require__(337);
 	// Application wide providers
@@ -15873,7 +15865,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 489:
+/***/ 492:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15891,7 +15883,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 490:
+/***/ 493:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15913,7 +15905,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 508:
+/***/ 511:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {"use strict";
@@ -15967,11 +15959,11 @@ webpackJsonp([2],{
 	}
 	exports.HmrState = HmrState;
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(376)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(378)))
 
 /***/ },
 
-/***/ 509:
+/***/ 512:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15979,8 +15971,8 @@ webpackJsonp([2],{
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
 	var hmr_store_1 = __webpack_require__(146);
-	__export(__webpack_require__(510));
-	__export(__webpack_require__(508));
+	__export(__webpack_require__(513));
+	__export(__webpack_require__(511));
 	__export(__webpack_require__(146));
 	function provideHmrState(initialState) {
 	    if (initialState === void 0) { initialState = {}; }
@@ -15994,7 +15986,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 510:
+/***/ 513:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16105,7 +16097,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 511:
+/***/ 514:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16113,13 +16105,14 @@ webpackJsonp([2],{
 	exports.TreeModel = tree_model_1.TreeModel;
 	var tree_node_model_1 = __webpack_require__(147);
 	exports.TreeNode = tree_node_model_1.TreeNode;
-	var tree_component_1 = __webpack_require__(515);
+	var tree_component_1 = __webpack_require__(518);
 	exports.TreeComponent = tree_component_1.TreeComponent;
-	
+	__webpack_require__(520);
+		
 
 /***/ },
 
-/***/ 512:
+/***/ 515:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16151,7 +16144,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 513:
+/***/ 516:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16194,14 +16187,14 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 514:
+/***/ 517:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var core_1 = __webpack_require__(1);
 	var tree_node_model_1 = __webpack_require__(147);
-	var loading_component_1 = __webpack_require__(512);
-	var tree_node_content_component_1 = __webpack_require__(513);
+	var loading_component_1 = __webpack_require__(515);
+	var tree_node_content_component_1 = __webpack_require__(516);
 	var TreeNodeComponent = (function () {
 	    function TreeNodeComponent(componentLoader, elementRef) {
 	        this.componentLoader = componentLoader;
@@ -16243,15 +16236,15 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 515:
+/***/ 518:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var core_1 = __webpack_require__(1);
-	var tree_node_component_1 = __webpack_require__(514);
+	var tree_node_component_1 = __webpack_require__(517);
 	var tree_model_1 = __webpack_require__(148);
 	var tree_options_model_1 = __webpack_require__(346);
-	var keys_1 = __webpack_require__(516);
+	var keys_1 = __webpack_require__(519);
 	var _ = __webpack_require__(158);
 	var TreeComponent = (function () {
 	    function TreeComponent(treeModel) {
@@ -16390,7 +16383,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 516:
+/***/ 519:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -16406,231 +16399,53 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 672:
-/***/ function(module, exports) {
+/***/ 520:
+/***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(global) {
-	var rng;
-
-	if (global.crypto && crypto.getRandomValues) {
-	  // WHATWG crypto-based RNG - http://wiki.whatwg.org/wiki/Crypto
-	  // Moderately fast, high quality
-	  var _rnds8 = new Uint8Array(16);
-	  rng = function whatwgRNG() {
-	    crypto.getRandomValues(_rnds8);
-	    return _rnds8;
-	  };
-	}
-
-	if (!rng) {
-	  // Math.random()-based (RNG)
-	  //
-	  // If all else fails, use Math.random().  It's fast, but is of unspecified
-	  // quality.
-	  var  _rnds = new Array(16);
-	  rng = function() {
-	    for (var i = 0, r; i < 16; i++) {
-	      if ((i & 0x03) === 0) r = Math.random() * 0x100000000;
-	      _rnds[i] = r >>> ((i & 0x03) << 3) & 0xff;
-	    }
-
-	    return _rnds;
-	  };
-	}
-
-	module.exports = rng;
-
-
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+	"use strict";
+	__webpack_require__(673);
+	__webpack_require__(347);
+	__webpack_require__(348);
+	__webpack_require__(381);
+	__webpack_require__(379);
+	
 
 /***/ },
 
 /***/ 673:
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	//     uuid.js
-	//
-	//     Copyright (c) 2010-2012 Robert Kieffer
-	//     MIT License - http://opensource.org/licenses/mit-license.php
+	// element-closest | CC0-1.0 | github.com/jonathantneal/closest
 
-	// Unique ID creation requires a high quality random # generator.  We feature
-	// detect to determine the best RNG source, normalizing to a function that
-	// returns 128-bits of randomness, since that's what's usually required
-	var _rng = __webpack_require__(672);
+	if (typeof Element.prototype.matches !== 'function') {
+		Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.webkitMatchesSelector || function matches(selector) {
+			var element = this;
+			var elements = (element.document || element.ownerDocument).querySelectorAll(selector);
+			var index = 0;
 
-	// Maps for number <-> hex string conversion
-	var _byteToHex = [];
-	var _hexToByte = {};
-	for (var i = 0; i < 256; i++) {
-	  _byteToHex[i] = (i + 0x100).toString(16).substr(1);
-	  _hexToByte[_byteToHex[i]] = i;
+			while (elements[index] && elements[index] !== element) {
+				++index;
+			}
+
+			return Boolean(elements[index]);
+		};
 	}
 
-	// **`parse()` - Parse a UUID into it's component bytes**
-	function parse(s, buf, offset) {
-	  var i = (buf && offset) || 0, ii = 0;
+	if (typeof Element.prototype.closest !== 'function') {
+		Element.prototype.closest = function closest(selector) {
+			var element = this;
 
-	  buf = buf || [];
-	  s.toLowerCase().replace(/[0-9a-f]{2}/g, function(oct) {
-	    if (ii < 16) { // Don't overflow!
-	      buf[i + ii++] = _hexToByte[oct];
-	    }
-	  });
+			while (element && element.nodeType === 1) {
+				if (element.matches(selector)) {
+					return element;
+				}
 
-	  // Zero out remaining bytes if string was short
-	  while (ii < 16) {
-	    buf[i + ii++] = 0;
-	  }
+				element = element.parentNode;
+			}
 
-	  return buf;
+			return null;
+		};
 	}
-
-	// **`unparse()` - Convert UUID byte array (ala parse()) into a string**
-	function unparse(buf, offset) {
-	  var i = offset || 0, bth = _byteToHex;
-	  return  bth[buf[i++]] + bth[buf[i++]] +
-	          bth[buf[i++]] + bth[buf[i++]] + '-' +
-	          bth[buf[i++]] + bth[buf[i++]] + '-' +
-	          bth[buf[i++]] + bth[buf[i++]] + '-' +
-	          bth[buf[i++]] + bth[buf[i++]] + '-' +
-	          bth[buf[i++]] + bth[buf[i++]] +
-	          bth[buf[i++]] + bth[buf[i++]] +
-	          bth[buf[i++]] + bth[buf[i++]];
-	}
-
-	// **`v1()` - Generate time-based UUID**
-	//
-	// Inspired by https://github.com/LiosK/UUID.js
-	// and http://docs.python.org/library/uuid.html
-
-	// random #'s we need to init node and clockseq
-	var _seedBytes = _rng();
-
-	// Per 4.5, create and 48-bit node id, (47 random bits + multicast bit = 1)
-	var _nodeId = [
-	  _seedBytes[0] | 0x01,
-	  _seedBytes[1], _seedBytes[2], _seedBytes[3], _seedBytes[4], _seedBytes[5]
-	];
-
-	// Per 4.2.2, randomize (14 bit) clockseq
-	var _clockseq = (_seedBytes[6] << 8 | _seedBytes[7]) & 0x3fff;
-
-	// Previous uuid creation time
-	var _lastMSecs = 0, _lastNSecs = 0;
-
-	// See https://github.com/broofa/node-uuid for API details
-	function v1(options, buf, offset) {
-	  var i = buf && offset || 0;
-	  var b = buf || [];
-
-	  options = options || {};
-
-	  var clockseq = options.clockseq !== undefined ? options.clockseq : _clockseq;
-
-	  // UUID timestamps are 100 nano-second units since the Gregorian epoch,
-	  // (1582-10-15 00:00).  JSNumbers aren't precise enough for this, so
-	  // time is handled internally as 'msecs' (integer milliseconds) and 'nsecs'
-	  // (100-nanoseconds offset from msecs) since unix epoch, 1970-01-01 00:00.
-	  var msecs = options.msecs !== undefined ? options.msecs : new Date().getTime();
-
-	  // Per 4.2.1.2, use count of uuid's generated during the current clock
-	  // cycle to simulate higher resolution clock
-	  var nsecs = options.nsecs !== undefined ? options.nsecs : _lastNSecs + 1;
-
-	  // Time since last uuid creation (in msecs)
-	  var dt = (msecs - _lastMSecs) + (nsecs - _lastNSecs)/10000;
-
-	  // Per 4.2.1.2, Bump clockseq on clock regression
-	  if (dt < 0 && options.clockseq === undefined) {
-	    clockseq = clockseq + 1 & 0x3fff;
-	  }
-
-	  // Reset nsecs if clock regresses (new clockseq) or we've moved onto a new
-	  // time interval
-	  if ((dt < 0 || msecs > _lastMSecs) && options.nsecs === undefined) {
-	    nsecs = 0;
-	  }
-
-	  // Per 4.2.1.2 Throw error if too many uuids are requested
-	  if (nsecs >= 10000) {
-	    throw new Error('uuid.v1(): Can\'t create more than 10M uuids/sec');
-	  }
-
-	  _lastMSecs = msecs;
-	  _lastNSecs = nsecs;
-	  _clockseq = clockseq;
-
-	  // Per 4.1.4 - Convert from unix epoch to Gregorian epoch
-	  msecs += 12219292800000;
-
-	  // `time_low`
-	  var tl = ((msecs & 0xfffffff) * 10000 + nsecs) % 0x100000000;
-	  b[i++] = tl >>> 24 & 0xff;
-	  b[i++] = tl >>> 16 & 0xff;
-	  b[i++] = tl >>> 8 & 0xff;
-	  b[i++] = tl & 0xff;
-
-	  // `time_mid`
-	  var tmh = (msecs / 0x100000000 * 10000) & 0xfffffff;
-	  b[i++] = tmh >>> 8 & 0xff;
-	  b[i++] = tmh & 0xff;
-
-	  // `time_high_and_version`
-	  b[i++] = tmh >>> 24 & 0xf | 0x10; // include version
-	  b[i++] = tmh >>> 16 & 0xff;
-
-	  // `clock_seq_hi_and_reserved` (Per 4.2.2 - include variant)
-	  b[i++] = clockseq >>> 8 | 0x80;
-
-	  // `clock_seq_low`
-	  b[i++] = clockseq & 0xff;
-
-	  // `node`
-	  var node = options.node || _nodeId;
-	  for (var n = 0; n < 6; n++) {
-	    b[i + n] = node[n];
-	  }
-
-	  return buf ? buf : unparse(b);
-	}
-
-	// **`v4()` - Generate random UUID**
-
-	// See https://github.com/broofa/node-uuid for API details
-	function v4(options, buf, offset) {
-	  // Deprecated - 'format' argument, as supported in v1.2
-	  var i = buf && offset || 0;
-
-	  if (typeof(options) == 'string') {
-	    buf = options == 'binary' ? new Array(16) : null;
-	    options = null;
-	  }
-	  options = options || {};
-
-	  var rnds = options.random || (options.rng || _rng)();
-
-	  // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
-	  rnds[6] = (rnds[6] & 0x0f) | 0x40;
-	  rnds[8] = (rnds[8] & 0x3f) | 0x80;
-
-	  // Copy bytes to buffer, if provided
-	  if (buf) {
-	    for (var ii = 0; ii < 16; ii++) {
-	      buf[i + ii] = rnds[ii];
-	    }
-	  }
-
-	  return buf || unparse(rnds);
-	}
-
-	// Export public API
-	var uuid = v4;
-	uuid.v1 = v1;
-	uuid.v4 = v4;
-	uuid.parse = parse;
-	uuid.unparse = unparse;
-
-	module.exports = uuid;
 
 
 /***/ }
