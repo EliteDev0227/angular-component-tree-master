@@ -12,13 +12,13 @@ webpackJsonp([2],{
 	* Platform and Environment
 	* our providers/directives/pipes
 	*/
-	var browser_1 = __webpack_require__(492);
-	var environment_1 = __webpack_require__(493);
+	var browser_1 = __webpack_require__(488);
+	var environment_1 = __webpack_require__(489);
 	/*
 	* App Component
 	* our top level component that holds all of our components
 	*/
-	var app_1 = __webpack_require__(491);
+	var app_1 = __webpack_require__(487);
 	/*
 	 * Bootstrap our Angular app with a top level component `App` and inject
 	 * our Services and Providers into Angular's dependency injection
@@ -132,7 +132,6 @@ webpackJsonp([2],{
 	        this._isActive = false;
 	        this.level = this.parent ? this.parent.level + 1 : 0;
 	        this.path = this.parent ? this.parent.path.concat([this.id]) : [];
-	        this.hasChildren = !!(data.hasChildren || (this.getField('children') && this.getField('children').length > 0));
 	        if (this.getField('expanded'))
 	            this.isExpanded = true;
 	        if (this.getField('children')) {
@@ -144,7 +143,7 @@ webpackJsonp([2],{
 	        get: function () { return this._isExpanded; },
 	        set: function (value) {
 	            this._isExpanded = value;
-	            if (!this.children) {
+	            if (!this.getField('children') && this.hasChildren && value) {
 	                this.loadChildren();
 	            }
 	        },
@@ -171,8 +170,15 @@ webpackJsonp([2],{
 	        configurable: true
 	    });
 	    ;
-	    Object.defineProperty(TreeNode.prototype, "isCollapsed", {
+	    Object.defineProperty(TreeNode.prototype, "hasChildren", {
 	        // helper get functions:
+	        get: function () {
+	            return !!(this.data.hasChildren || (this.getField('children') && this.getField('children').length > 0));
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(TreeNode.prototype, "isCollapsed", {
 	        get: function () { return !this.isExpanded; },
 	        enumerable: true,
 	        configurable: true
@@ -339,6 +345,15 @@ webpackJsonp([2],{
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
 	var core_1 = __webpack_require__(1);
 	var tree_node_model_1 = __webpack_require__(147);
 	var tree_options_model_1 = __webpack_require__(346);
@@ -15551,7 +15566,7 @@ webpackJsonp([2],{
 	  }
 	}.call(this));
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(380)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(377)(module), (function() { return this; }())))
 
 /***/ },
 
@@ -15560,7 +15575,7 @@ webpackJsonp([2],{
 
 	"use strict";
 	var core_1 = __webpack_require__(1);
-	var angular2_hmr_1 = __webpack_require__(512);
+	var angular2_hmr_1 = __webpack_require__(508);
 	var AppState = (function () {
 	    function AppState() {
 	        // @HmrState() is used by HMR to track the state of any object during HMR (hot module replacement)
@@ -15711,12 +15726,12 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 490:
+/***/ 486:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var core_1 = __webpack_require__(1);
-	var angular2_tree_component_1 = __webpack_require__(514);
+	var angular2_tree_component_1 = __webpack_require__(510);
 	var CUSTOM_TEMPLATE_STRING = '{{ node.data.name }}';
 	var App = (function () {
 	    function App() {
@@ -15729,12 +15744,12 @@ webpackJsonp([2],{
 	                children: [
 	                    {
 	                        id: uuid(),
-	                        name: 'child1',
+	                        name: 'child11',
 	                        subTitle: 'a good child',
 	                        hasChildren: false
 	                    }, {
 	                        id: uuid(),
-	                        name: 'child2',
+	                        name: 'child12',
 	                        subTitle: 'a bad child',
 	                        hasChildren: false
 	                    }
@@ -15846,7 +15861,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 491:
+/***/ 487:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15854,7 +15869,7 @@ webpackJsonp([2],{
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
 	// App
-	__export(__webpack_require__(490));
+	__export(__webpack_require__(486));
 	__export(__webpack_require__(337));
 	var app_service_2 = __webpack_require__(337);
 	// Application wide providers
@@ -15865,7 +15880,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 492:
+/***/ 488:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15883,7 +15898,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 493:
+/***/ 489:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15905,7 +15920,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 511:
+/***/ 507:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {"use strict";
@@ -15959,11 +15974,11 @@ webpackJsonp([2],{
 	}
 	exports.HmrState = HmrState;
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(378)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(376)))
 
 /***/ },
 
-/***/ 512:
+/***/ 508:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15971,8 +15986,8 @@ webpackJsonp([2],{
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
 	var hmr_store_1 = __webpack_require__(146);
-	__export(__webpack_require__(513));
-	__export(__webpack_require__(511));
+	__export(__webpack_require__(509));
+	__export(__webpack_require__(507));
 	__export(__webpack_require__(146));
 	function provideHmrState(initialState) {
 	    if (initialState === void 0) { initialState = {}; }
@@ -15986,7 +16001,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 513:
+/***/ 509:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16097,7 +16112,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 514:
+/***/ 510:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16105,17 +16120,26 @@ webpackJsonp([2],{
 	exports.TreeModel = tree_model_1.TreeModel;
 	var tree_node_model_1 = __webpack_require__(147);
 	exports.TreeNode = tree_node_model_1.TreeNode;
-	var tree_component_1 = __webpack_require__(518);
+	var tree_component_1 = __webpack_require__(514);
 	exports.TreeComponent = tree_component_1.TreeComponent;
-	__webpack_require__(520);
+	__webpack_require__(516);
 		
 
 /***/ },
 
-/***/ 515:
+/***/ 511:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
 	var core_1 = __webpack_require__(1);
 	var tree_model_1 = __webpack_require__(148);
 	var LoadingComponent = (function () {
@@ -16144,10 +16168,19 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 516:
+/***/ 512:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
 	var core_1 = __webpack_require__(1);
 	var tree_node_model_1 = __webpack_require__(147);
 	var tree_model_1 = __webpack_require__(148);
@@ -16187,14 +16220,23 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 517:
+/***/ 513:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
 	var core_1 = __webpack_require__(1);
 	var tree_node_model_1 = __webpack_require__(147);
-	var loading_component_1 = __webpack_require__(515);
-	var tree_node_content_component_1 = __webpack_require__(516);
+	var loading_component_1 = __webpack_require__(511);
+	var tree_node_content_component_1 = __webpack_require__(512);
 	var TreeNodeComponent = (function () {
 	    function TreeNodeComponent(componentLoader, elementRef) {
 	        this.componentLoader = componentLoader;
@@ -16236,15 +16278,24 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 518:
+/***/ 514:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
 	var core_1 = __webpack_require__(1);
-	var tree_node_component_1 = __webpack_require__(517);
+	var tree_node_component_1 = __webpack_require__(513);
 	var tree_model_1 = __webpack_require__(148);
 	var tree_options_model_1 = __webpack_require__(346);
-	var keys_1 = __webpack_require__(519);
+	var keys_1 = __webpack_require__(515);
 	var _ = __webpack_require__(158);
 	var TreeComponent = (function () {
 	    function TreeComponent(treeModel) {
@@ -16383,7 +16434,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 519:
+/***/ 515:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -16399,54 +16450,43 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 520:
+/***/ 516:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	__webpack_require__(673);
-	__webpack_require__(347);
-	__webpack_require__(348);
-	__webpack_require__(381);
-	__webpack_require__(379);
+	__webpack_require__(517);
 	
 
 /***/ },
 
-/***/ 673:
+/***/ 517:
 /***/ function(module, exports) {
 
 	// element-closest | CC0-1.0 | github.com/jonathantneal/closest
-
 	if (typeof Element.prototype.matches !== 'function') {
-		Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.webkitMatchesSelector || function matches(selector) {
-			var element = this;
-			var elements = (element.document || element.ownerDocument).querySelectorAll(selector);
-			var index = 0;
-
-			while (elements[index] && elements[index] !== element) {
-				++index;
-			}
-
-			return Boolean(elements[index]);
-		};
+	    Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype['mozMatchesSelector'] || Element.prototype.webkitMatchesSelector || function matches(selector) {
+	        var element = this;
+	        var elements = (element.document || element.ownerDocument).querySelectorAll(selector);
+	        var index = 0;
+	        while (elements[index] && elements[index] !== element) {
+	            ++index;
+	        }
+	        return Boolean(elements[index]);
+	    };
 	}
-
-	if (typeof Element.prototype.closest !== 'function') {
-		Element.prototype.closest = function closest(selector) {
-			var element = this;
-
-			while (element && element.nodeType === 1) {
-				if (element.matches(selector)) {
-					return element;
-				}
-
-				element = element.parentNode;
-			}
-
-			return null;
-		};
+	if (typeof Element.prototype['closest'] !== 'function') {
+	    Element.prototype['closest'] = function closest(selector) {
+	        var element = this;
+	        while (element && element.nodeType === 1) {
+	            if (element.matches(selector)) {
+	                return element;
+	            }
+	            element = element.parentNode;
+	        }
+	        return null;
+	    };
 	}
-
+	
 
 /***/ }
 

@@ -11,7 +11,7 @@ export class TreeNode implements ITreeNode {
   get isExpanded() { return this._isExpanded };
   set isExpanded(value) {
     this._isExpanded = value
-    if (!this.children) {
+    if (!this.getField('children') && this.hasChildren && value) {
       this.loadChildren();
     }
   };
@@ -24,14 +24,14 @@ export class TreeNode implements ITreeNode {
   level: number;
   path: string[];
   elementRef:ElementRef;
-  hasChildren: boolean;
+
   private _originalNode: any;
   get originalNode() { return this._originalNode };
 
   constructor(public data:any, public parent:TreeNode = null, public treeModel:TreeModel) {
     this.level = this.parent ? this.parent.level + 1 : 0;
     this.path = this.parent ? [...this.parent.path, this.id] : [];
-    this.hasChildren = !!(data.hasChildren || (this.getField('children') && this.getField('children').length > 0));
+    
     if (this.getField('expanded')) this.isExpanded = true;
     if (this.getField('children')) {
       this.children = this.getField('children')
@@ -40,10 +40,13 @@ export class TreeNode implements ITreeNode {
   }
 
   // helper get functions:
-  get isCollapsed() { return !this.isExpanded }
-  get isLeaf() { return !this.hasChildren }
-  get isRoot() { return this.parent.data.virtual }
-  get realParent() { return this.isRoot ? null : this.parent }
+  get hasChildren():boolean {
+    return !!(this.data.hasChildren || (this.getField('children') && this.getField('children').length > 0));
+  }
+  get isCollapsed():boolean { return !this.isExpanded }
+  get isLeaf():boolean { return !this.hasChildren }
+  get isRoot():boolean { return this.parent.data.virtual }
+  get realParent():TreeNode { return this.isRoot ? null : this.parent }
 
   // proxy to treeModel:
   get options(): TreeOptions { return this.treeModel.options }

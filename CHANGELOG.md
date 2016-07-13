@@ -1,3 +1,8 @@
+<a name="1.1.9"></a>
+# 1.1.9 (2016-07-13)
+* Fixed IE support
+* Supporting 'expanded' field on node for pre-expanded nodes
+
 <a name="1.1.8"></a>
 # 1.1.8 (2016-06-30)
 * Using View Encapsulation = None to allow override of CSS
