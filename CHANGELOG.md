@@ -1,3 +1,7 @@
+<a name="1.1.10"></a>
+# 1.1.10 (2016-07-17)
+* Added context to options, to use in custom template component
+
 <a name="1.1.9"></a>
 # 1.1.9 (2016-07-13)
 * Fixed IE support
