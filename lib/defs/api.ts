@@ -128,6 +128,7 @@ export interface ITreeModel {
    * Options that were passed to the tree component
    */
   options: TreeOptions;
+
   /**
    * Is the tree currently focused
    */

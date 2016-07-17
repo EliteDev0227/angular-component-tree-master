@@ -48,9 +48,10 @@ export class TreeNode implements ITreeNode {
   get isRoot():boolean { return this.parent.data.virtual }
   get realParent():TreeNode { return this.isRoot ? null : this.parent }
 
-  // proxy to treeModel:
+  // proxy functions:
   get options(): TreeOptions { return this.treeModel.options }
   fireEvent(event) { this.treeModel.fireEvent(event) }
+  get context():any { return this.options.context }
 
   // field accessors:
   get displayField() {

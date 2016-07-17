@@ -11,6 +11,7 @@ export interface ITreeOptions {
   loadingComponent: any;
   getChildren(node:TreeNode): any;
   hasCustomContextMenu: boolean;
+  context: any;
 }
 
 export class TreeOptions {
@@ -22,6 +23,7 @@ export class TreeOptions {
   loadingComponent: any = 'loading...';
   getChildren = null;
   hasCustomContextMenu = false;
+  context = null;
 
   constructor(options = {}) {
     _.extend(this, options);

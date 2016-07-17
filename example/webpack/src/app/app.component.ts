@@ -1,7 +1,11 @@
-import { Component } from '@angular/core';
-import { TreeComponent } from 'angular2-tree-component';
+import { Component, Input } from '@angular/core';
+import { TreeComponent, TreeNode } from 'angular2-tree-component';
 
-const CUSTOM_TEMPLATE_STRING = '{{ node.data.name }}';
+const CUSTOM_TEMPLATE_STRING = `
+  <span title="{{node.data.subTitle}}">{{ node.data.name }}</span> {{ childrenCount() }}`;
+
+const CUSTOM_TEMPLATE_STRING_WITH_CONTEXT = `{{ node.data.name }} {{ childrenCount() }}
+  <button (click)="context.go($event)">Custom Action</button>`;
 
 @Component({
   selector: 'app',
@@ -129,20 +133,31 @@ export class App {
   }
 
   customTemplateStringOptions = {
-    treeNodeTemplate: CUSTOM_TEMPLATE_STRING,
-    // treeNodeTemplate: MyTreeNodeTemplate,
+    // treeNodeTemplate: CUSTOM_TEMPLATE_STRING,
+    treeNodeTemplate: MyTreeNodeTemplate,
     // displayField: 'subTitle',
     expandedField: 'expanded',
     loadingComponent: MyTreeLoadingTemplate,
-    getChildren: this.getChildren.bind(this)
+    getChildren: this.getChildren.bind(this),
+    context: this
   }
   onEvent = ($event:any) => console.log($event);
+
+  go($event) {
+    $event.stopPropagation();
+    alert('this method is on the app component')
+  }
 }
 
 @Component({
   template: CUSTOM_TEMPLATE_STRING
 })
 class MyTreeNodeTemplate {
+  @Input() node:TreeNode;
+
+  childrenCount() {
+    return this.node.children ? `(${this.node.children.length})` : '';
+  }
 }
 
 @Component({

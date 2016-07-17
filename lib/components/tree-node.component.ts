@@ -57,7 +57,11 @@ import { TreeNodeContent } from './tree-node-content.component';
         *ngIf="!node.hasChildren"
         class="toggle-children-placeholder">
       </span>
-      <div class="node-content-wrapper" (click)="node.toggleActivated($event)" (dblclick)="node.doubleClick($event)" (contextmenu)="node.contextMenu($event)">
+      <div class="node-content-wrapper"
+        (click)="node.toggleActivated($event)"
+        (dblclick)="node.doubleClick($event)"
+        (contextmenu)="node.contextMenu($event)">
+
         <TreeNodeContent [node]="node"></TreeNodeContent>
       </div>
       <div class="tree-children" *ngIf="node.isExpanded">
