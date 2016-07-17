@@ -199,12 +199,17 @@ webpackJsonp([2],{
 	        configurable: true
 	    });
 	    Object.defineProperty(TreeNode.prototype, "options", {
-	        // proxy to treeModel:
+	        // proxy functions:
 	        get: function () { return this.treeModel.options; },
 	        enumerable: true,
 	        configurable: true
 	    });
 	    TreeNode.prototype.fireEvent = function (event) { this.treeModel.fireEvent(event); };
+	    Object.defineProperty(TreeNode.prototype, "context", {
+	        get: function () { return this.options.context; },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    Object.defineProperty(TreeNode.prototype, "displayField", {
 	        // field accessors:
 	        get: function () {
@@ -15717,6 +15722,7 @@ webpackJsonp([2],{
 	        this.loadingComponent = 'loading...';
 	        this.getChildren = null;
 	        this.hasCustomContextMenu = false;
+	        this.context = null;
 	        _.extend(this, options);
 	    }
 	    return TreeOptions;
@@ -15732,7 +15738,8 @@ webpackJsonp([2],{
 	"use strict";
 	var core_1 = __webpack_require__(1);
 	var angular2_tree_component_1 = __webpack_require__(510);
-	var CUSTOM_TEMPLATE_STRING = '{{ node.data.name }}';
+	var CUSTOM_TEMPLATE_STRING = "\n  <span title=\"{{node.data.subTitle}}\">{{ node.data.name }}</span> {{ childrenCount() }}";
+	var CUSTOM_TEMPLATE_STRING_WITH_CONTEXT = "{{ node.data.name }} {{ childrenCount() }}\n  <button (click)=\"context.go($event)\">Custom Action</button>";
 	var App = (function () {
 	    function App() {
 	        this.nodes = [
@@ -15744,12 +15751,12 @@ webpackJsonp([2],{
 	                children: [
 	                    {
 	                        id: uuid(),
-	                        name: 'child11',
+	                        name: 'child1',
 	                        subTitle: 'a good child',
 	                        hasChildren: false
 	                    }, {
 	                        id: uuid(),
-	                        name: 'child12',
+	                        name: 'child2',
 	                        subTitle: 'a bad child',
 	                        hasChildren: false
 	                    }
@@ -15796,12 +15803,13 @@ webpackJsonp([2],{
 	            }
 	        ];
 	        this.customTemplateStringOptions = {
-	            treeNodeTemplate: CUSTOM_TEMPLATE_STRING,
-	            // treeNodeTemplate: MyTreeNodeTemplate,
+	            // treeNodeTemplate: CUSTOM_TEMPLATE_STRING,
+	            treeNodeTemplate: MyTreeNodeTemplate,
 	            // displayField: 'subTitle',
 	            expandedField: 'expanded',
 	            loadingComponent: MyTreeLoadingTemplate,
-	            getChildren: this.getChildren.bind(this)
+	            getChildren: this.getChildren.bind(this),
+	            context: this
 	        };
 	        this.onEvent = function ($event) { return console.log($event); };
 	    }
@@ -15815,6 +15823,10 @@ webpackJsonp([2],{
 	                });
 	            })); }, 1000);
 	        });
+	    };
+	    App.prototype.go = function ($event) {
+	        $event.stopPropagation();
+	        alert('this method is on the app component');
 	    };
 	    App = __decorate([
 	        core_1.Component({
@@ -15833,6 +15845,13 @@ webpackJsonp([2],{
 	var MyTreeNodeTemplate = (function () {
 	    function MyTreeNodeTemplate() {
 	    }
+	    MyTreeNodeTemplate.prototype.childrenCount = function () {
+	        return this.node.children ? "(" + this.node.children.length + ")" : '';
+	    };
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', (typeof (_a = typeof angular2_tree_component_1.TreeNode !== 'undefined' && angular2_tree_component_1.TreeNode) === 'function' && _a) || Object)
+	    ], MyTreeNodeTemplate.prototype, "node", void 0);
 	    MyTreeNodeTemplate = __decorate([
 	        core_1.Component({
 	            template: CUSTOM_TEMPLATE_STRING
@@ -15840,6 +15859,7 @@ webpackJsonp([2],{
 	        __metadata('design:paramtypes', [])
 	    ], MyTreeNodeTemplate);
 	    return MyTreeNodeTemplate;
+	    var _a;
 	}());
 	var MyTreeLoadingTemplate = (function () {
 	    function MyTreeLoadingTemplate() {
@@ -16199,6 +16219,7 @@ webpackJsonp([2],{
 	            .then(function (componentFactory) {
 	            var componentRef = _this.viewContainerRef.createComponent(componentFactory, 0, _this.viewContainerRef.injector);
 	            componentRef.instance.node = _this.node;
+	            componentRef.instance.context = _this.node.context;
 	            componentRef.changeDetectorRef.detectChanges();
 	        });
 	    };
@@ -16267,7 +16288,7 @@ webpackJsonp([2],{
 	                ".toggle-children {\n        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABAhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJ1dWlkOjY1RTYzOTA2ODZDRjExREJBNkUyRDg4N0NFQUNCNDA3IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkYzRkRFQjcxODUzNTExRTU4RTQwRkQwODFEOUZEMEE3IiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkYzRkRFQjcwODUzNTExRTU4RTQwRkQwODFEOUZEMEE3IiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE1IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MTk5NzA1OGEtZDI3OC00NDZkLWE4ODgtNGM4MGQ4YWI1NzNmIiBzdFJlZjpkb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6YzRkZmQxMGMtY2NlNS0xMTc4LWE5OGQtY2NkZmM5ODk5YWYwIi8+IDxkYzp0aXRsZT4gPHJkZjpBbHQ+IDxyZGY6bGkgeG1sOmxhbmc9IngtZGVmYXVsdCI+Z2x5cGhpY29uczwvcmRmOmxpPiA8L3JkZjpBbHQ+IDwvZGM6dGl0bGU+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+5iogFwAAAGhJREFUeNpiYGBgKABigf///zOQg0EARH4A4gZyDIIZ8B/JoAJKDIDhB0CcQIkBRBtEyABkgxwoMQCGD6AbRKoBGAYxQgXIBRuZGKgAKPIC3QLxArnRSHZCIjspk52ZKMrOFBUoAAEGAKnq593MQAZtAAAAAElFTkSuQmCC');\n        height: 8px;\n        width: 9px;\n        background-size: contain;\n        display: inline-block;\n        position: relative;\n        background-repeat: no-repeat;\n        background-position: center;\n    }",
 	                ".toggle-children-placeholder {\n        display: inline-block;\n        height: 10px;\n        width: 10px;\n        position: relative;\n        top: 1px;\n    }"
 	            ],
-	            template: "\n    <div class=\"tree-node tree-node-level-{{ node.level }}\"\n      [class.tree-node-expanded]=\"node.isExpanded && node.hasChildren\"\n      [class.tree-node-collapsed]=\"node.isCollapsed && node.hasChildren\"\n      [class.tree-node-leaf]=\"node.isLeaf\"\n      [class.tree-node-active]=\"node.isActive\"\n      [class.tree-node-focused]=\"node.isFocused\">\n      <span\n        *ngIf=\"node.hasChildren\"\n        class=\"toggle-children\"\n        (click)=\"node.toggle($event)\">\n      </span>\n      <span\n        *ngIf=\"!node.hasChildren\"\n        class=\"toggle-children-placeholder\">\n      </span>\n      <div class=\"node-content-wrapper\" (click)=\"node.toggleActivated($event)\" (dblclick)=\"node.doubleClick($event)\" (contextmenu)=\"node.contextMenu($event)\">\n        <TreeNodeContent [node]=\"node\"></TreeNodeContent>\n      </div>\n      <div class=\"tree-children\" *ngIf=\"node.isExpanded\">\n        <div *ngIf=\"node.children\">\n          <TreeNode\n            *ngFor=\"let node of node.children\"\n            [node]=\"node\">\n          </TreeNode>\n        </div>\n        <LoadingComponent\n          class=\"tree-node-loading\"\n          *ngIf=\"!node.children\"\n        ></LoadingComponent>\n      </div>\n    </div>\n  "
+	            template: "\n    <div class=\"tree-node tree-node-level-{{ node.level }}\"\n      [class.tree-node-expanded]=\"node.isExpanded && node.hasChildren\"\n      [class.tree-node-collapsed]=\"node.isCollapsed && node.hasChildren\"\n      [class.tree-node-leaf]=\"node.isLeaf\"\n      [class.tree-node-active]=\"node.isActive\"\n      [class.tree-node-focused]=\"node.isFocused\">\n      <span\n        *ngIf=\"node.hasChildren\"\n        class=\"toggle-children\"\n        (click)=\"node.toggle($event)\">\n      </span>\n      <span\n        *ngIf=\"!node.hasChildren\"\n        class=\"toggle-children-placeholder\">\n      </span>\n      <div class=\"node-content-wrapper\"\n        (click)=\"node.toggleActivated($event)\"\n        (dblclick)=\"node.doubleClick($event)\"\n        (contextmenu)=\"node.contextMenu($event)\">\n\n        <TreeNodeContent [node]=\"node\"></TreeNodeContent>\n      </div>\n      <div class=\"tree-children\" *ngIf=\"node.isExpanded\">\n        <div *ngIf=\"node.children\">\n          <TreeNode\n            *ngFor=\"let node of node.children\"\n            [node]=\"node\">\n          </TreeNode>\n        </div>\n        <LoadingComponent\n          class=\"tree-node-loading\"\n          *ngIf=\"!node.children\"\n        ></LoadingComponent>\n      </div>\n    </div>\n  "
 	        }), 
 	        __metadata('design:paramtypes', [core_1.DynamicComponentLoader, core_1.ElementRef])
 	    ], TreeNodeComponent);
