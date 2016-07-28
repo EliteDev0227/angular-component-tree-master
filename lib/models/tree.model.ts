@@ -247,12 +247,34 @@ export class TreeModel implements ITreeModel {
     return this.activeNodeIds[node.id];
   }
 
-  setActiveNode(node, value) {
+  setActiveNode(node, value, multi = false) {
+    if (multi) {
+      this._setActiveNodeMulti(node, value);
+    }
+    else {
+      this._setActiveNodeSingle(node, value); 
+    }
+  }
+
+  _setActiveNodeSingle(node, value) {
     this.activeNodeIds = {};
     this.activeNodes = [];
     if (value) {
       this.activeNodes.push(node);
       this.activeNodeIds[node.id] = true;
+    }
+  }
+
+  _setActiveNodeMulti(node, value) {
+    this.activeNodeIds[node.id] = value;
+    if (value) {
+      if (!_.contains(this.activeNodes, node)) {
+        this.activeNodes.push(node);
+      }
+    } else {
+      if (_.contains(this.activeNodes, node)) {
+        _.remove(this.activeNodes, node);
+      }
     }
   }
 

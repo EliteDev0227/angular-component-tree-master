@@ -129,9 +129,26 @@ export class TreeNode implements ITreeNode {
       });
   }
 
+  _setIsExpanded(value) {
+    this.isExpanded = value;
+    this.fireEvent({ eventName: TREE_EVENTS.onToggle, node: this, isExpanded: this.isExpanded });    
+  }
+
   toggle() {
     deprecated('toggle', 'toggleExpanded');
     this.toggleExpanded();
+  }
+
+  expand() {
+    if (!this.isExpanded) {    
+      this.toggleExpanded();
+    }
+  }
+
+  collapse() {
+    if (this.isExpanded) {    
+      this.toggleExpanded();
+    }
   }
 
   toggleExpanded() {
@@ -147,8 +164,8 @@ export class TreeNode implements ITreeNode {
     }
   };
 
-  setIsActive(value) {
-    this.treeModel.setActiveNode(this, value);
+  setIsActive(value, multi = false) {
+    this.treeModel.setActiveNode(this, value, multi);
     if (value) {
       this.fireEvent({ eventName: TREE_EVENTS.onActivate, node: this });
       this.focus();
@@ -158,8 +175,8 @@ export class TreeNode implements ITreeNode {
     }
   }
 
-  toggleActivated() {
-    this.setIsActive(!this.isActive);
+  toggleActivated(multi = false) {
+    this.setIsActive(!this.isActive, multi);
     this.fireEvent({ eventName: TREE_EVENTS.onActiveChanged, node: this, isActive: this.isActive });
   }
 
