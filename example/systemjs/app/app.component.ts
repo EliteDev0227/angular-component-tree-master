@@ -45,7 +45,7 @@ const CUSTOM_TEMPLATE_STRING = '{{ node.data.name }}';
   </button>
   <button
     [disabled]="!tree.treeModel.getFocusedNode()"
-    (click)="tree.treeModel.getFocusedNode().toggle()">
+    (click)="tree.treeModel.getFocusedNode().toggleExpanded()">
     {{ tree.treeModel.getFocusedNode()?.isExpanded ? 'collapse' : 'expand' }}
   </button>
   <button

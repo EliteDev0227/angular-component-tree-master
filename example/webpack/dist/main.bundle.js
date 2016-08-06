@@ -12,13 +12,13 @@ webpackJsonp([2],{
 	* Platform and Environment
 	* our providers/directives/pipes
 	*/
-	var browser_1 = __webpack_require__(488);
-	var environment_1 = __webpack_require__(489);
+	var browser_1 = __webpack_require__(489);
+	var environment_1 = __webpack_require__(490);
 	/*
 	* App Component
 	* our top level component that holds all of our components
 	*/
-	var app_1 = __webpack_require__(487);
+	var app_1 = __webpack_require__(488);
 	/*
 	 * Bootstrap our Angular app with a top level component `App` and inject
 	 * our Services and Providers into Angular's dependency injection
@@ -120,46 +120,39 @@ webpackJsonp([2],{
 
 	"use strict";
 	var events_1 = __webpack_require__(345);
-	var _ = __webpack_require__(158);
+	var deprecated_1 = __webpack_require__(346);
+	var _ = __webpack_require__(149);
 	var TreeNode = (function () {
 	    function TreeNode(data, parent, treeModel) {
 	        var _this = this;
-	        if (parent === void 0) { parent = null; }
 	        this.data = data;
 	        this.parent = parent;
 	        this.treeModel = treeModel;
 	        this._isExpanded = false;
-	        this._isActive = false;
+	        this.id = this.id || uuid(); // Make sure there's a unique ID
 	        this.level = this.parent ? this.parent.level + 1 : 0;
 	        this.path = this.parent ? this.parent.path.concat([this.id]) : [];
 	        if (this.getField('expanded'))
-	            this.isExpanded = true;
+	            this.setIsExpanded(true);
 	        if (this.getField('children')) {
 	            this.children = this.getField('children')
 	                .map(function (c) { return new TreeNode(c, _this, treeModel); });
 	        }
 	    }
 	    Object.defineProperty(TreeNode.prototype, "isExpanded", {
-	        get: function () { return this._isExpanded; },
-	        set: function (value) {
-	            this._isExpanded = value;
-	            if (!this.getField('children') && this.hasChildren && value) {
-	                this.loadChildren();
-	            }
-	        },
+	        get: function () { return this.treeModel.isExpanded(this); },
 	        enumerable: true,
 	        configurable: true
 	    });
 	    ;
-	    ;
 	    Object.defineProperty(TreeNode.prototype, "isActive", {
-	        get: function () { return this._isActive; },
+	        get: function () { return this.treeModel.isActive(this); },
 	        enumerable: true,
 	        configurable: true
 	    });
 	    ;
 	    Object.defineProperty(TreeNode.prototype, "isFocused", {
-	        get: function () { return this.treeModel.focusedNode == this; },
+	        get: function () { return this.treeModel.isNodeFocused(this); },
 	        enumerable: true,
 	        configurable: true
 	    });
@@ -173,7 +166,7 @@ webpackJsonp([2],{
 	    Object.defineProperty(TreeNode.prototype, "hasChildren", {
 	        // helper get functions:
 	        get: function () {
-	            return !!(this.data.hasChildren || (this.getField('children') && this.getField('children').length > 0));
+	            return !!(this.data.hasChildren || (this.children && this.children.length > 0));
 	        },
 	        enumerable: true,
 	        configurable: true
@@ -221,6 +214,9 @@ webpackJsonp([2],{
 	    Object.defineProperty(TreeNode.prototype, "id", {
 	        get: function () {
 	            return this.getField('id');
+	        },
+	        set: function (value) {
+	            this.data['idField'] = value;
 	        },
 	        enumerable: true,
 	        configurable: true
@@ -279,35 +275,39 @@ webpackJsonp([2],{
 	        }
 	        Promise.resolve(this.options.getChildren(this))
 	            .then(function (children) {
-	            _this.children = children
-	                .map(function (child) { return new TreeNode(child, _this, _this.treeModel); });
+	            if (children) {
+	                _this.children = children
+	                    .map(function (child) { return new TreeNode(child, _this, _this.treeModel); });
+	            }
 	        });
 	    };
 	    TreeNode.prototype.toggle = function () {
-	        this.isExpanded = !this.isExpanded;
+	        deprecated_1.deprecated('toggle', 'toggleExpanded');
+	        this.toggleExpanded();
+	    };
+	    TreeNode.prototype.toggleExpanded = function () {
+	        this.setIsExpanded(!this.isExpanded);
 	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onToggle, node: this, isExpanded: this.isExpanded });
 	    };
-	    TreeNode.prototype._activate = function () {
-	        this._isActive = true;
-	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onActivate, node: this });
-	        this.focus();
+	    TreeNode.prototype.setIsExpanded = function (value) {
+	        this.treeModel.setExpandedNode(this, value);
+	        if (!this.children && this.hasChildren && value) {
+	            this.loadChildren();
+	        }
 	    };
-	    TreeNode.prototype._deactivate = function () {
-	        this._isActive = false;
-	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onDeactivate, node: this });
-	    };
-	    TreeNode.prototype.toggleActivated = function () {
-	        if (this.isActive) {
-	            this._deactivate();
-	            this.treeModel.activeNode = null;
+	    ;
+	    TreeNode.prototype.setIsActive = function (value) {
+	        this.treeModel.setActiveNode(this, value);
+	        if (value) {
+	            this.fireEvent({ eventName: events_1.TREE_EVENTS.onActivate, node: this });
+	            this.focus();
 	        }
 	        else {
-	            if (this.treeModel.activeNode) {
-	                this.treeModel.activeNode._deactivate();
-	            }
-	            this._activate();
-	            this.treeModel.activeNode = this;
+	            this.fireEvent({ eventName: events_1.TREE_EVENTS.onDeactivate, node: this });
 	        }
+	    };
+	    TreeNode.prototype.toggleActivated = function () {
+	        this.setIsActive(!this.isActive);
 	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onActiveChanged, node: this, isActive: this.isActive });
 	    };
 	    TreeNode.prototype.scrollIntoView = function () {
@@ -315,8 +315,8 @@ webpackJsonp([2],{
 	        nativeElement.scrollIntoViewIfNeeded && nativeElement.scrollIntoViewIfNeeded();
 	    };
 	    TreeNode.prototype.focus = function () {
-	        var previousNode = this.treeModel.focusedNode;
-	        this.treeModel.focusedNode = this;
+	        var previousNode = this.treeModel.getFocusedNode();
+	        this.treeModel.setFocusedNode(this);
 	        this.scrollIntoView();
 	        if (previousNode) {
 	            this.fireEvent({ eventName: events_1.TREE_EVENTS.onBlur, node: previousNode });
@@ -324,8 +324,8 @@ webpackJsonp([2],{
 	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onFocus, node: this });
 	    };
 	    TreeNode.prototype.blur = function () {
-	        var previousNode = this.treeModel.focusedNode;
-	        this.treeModel.focusedNode = null;
+	        var previousNode = this.treeModel.getFocusedNode();
+	        this.treeModel.setFocusedNode(null);
 	        if (previousNode) {
 	            this.fireEvent({ eventName: events_1.TREE_EVENTS.onBlur, node: this });
 	        }
@@ -342,6 +342,9 @@ webpackJsonp([2],{
 	    return TreeNode;
 	}());
 	exports.TreeNode = TreeNode;
+	function uuid() {
+	    return Math.floor(Math.random() * 10000000000000);
+	}
 	
 
 /***/ },
@@ -361,32 +364,75 @@ webpackJsonp([2],{
 	};
 	var core_1 = __webpack_require__(1);
 	var tree_node_model_1 = __webpack_require__(147);
-	var tree_options_model_1 = __webpack_require__(346);
+	var tree_options_model_1 = __webpack_require__(347);
 	var events_1 = __webpack_require__(345);
-	var _ = __webpack_require__(158);
+	var deprecated_1 = __webpack_require__(346);
+	var _ = __webpack_require__(149);
 	var TreeModel = (function () {
 	    function TreeModel() {
 	        this.options = new tree_options_model_1.TreeOptions();
-	        this.activeNode = null;
-	        this.focusedNode = null;
+	        this.expandedNodeIds = {};
+	        this.activeNodeIds = {};
+	        this._focusedNode = null;
+	        this.focusedNodeId = null;
+	        this.firstUpdate = true;
 	        this.eventNames = Object.keys(events_1.TREE_EVENTS);
 	    }
 	    TreeModel.prototype.setData = function (_a) {
-	        var nodes = _a.nodes, options = _a.options, events = _a.events;
+	        var nodes = _a.nodes, _b = _a.options, options = _b === void 0 ? null : _b, _c = _a.events, events = _c === void 0 ? null : _c;
 	        if (options) {
 	            this.options = new tree_options_model_1.TreeOptions(options);
 	        }
+	        if (events) {
+	            this.events = events;
+	        }
+	        if (nodes) {
+	            this.nodes = nodes;
+	        }
+	        this.update();
+	    };
+	    TreeModel.prototype.update = function () {
+	        // Rebuild tree:
 	        var treeNodeConfig = { virtual: true };
-	        treeNodeConfig[this.options.childrenField] = nodes;
-	        var virtualRoot = new tree_node_model_1.TreeNode(treeNodeConfig, null, this);
-	        this.roots = virtualRoot.children;
+	        treeNodeConfig[this.options.childrenField] = this.nodes;
+	        this.virtualRoot = this.getTreeNode(treeNodeConfig, null);
+	        this.roots = this.virtualRoot.children;
 	        this._initTreeNodeContentComponent();
 	        this._initLoadingComponent();
-	        this.events = events;
-	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onInitialized });
+	        this._loadState();
+	        // Fire event:
+	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onUpdateData });
+	        if (this.firstUpdate) {
+	            this.fireEvent({ eventName: events_1.TREE_EVENTS.onInitialized });
+	            this.firstUpdate = false;
+	        }
 	    };
 	    TreeModel.prototype.fireEvent = function (event) {
 	        this.events[event.eventName].next(event);
+	    };
+	    Object.defineProperty(TreeModel.prototype, "focusedNode", {
+	        get: function () { deprecated_1.deprecated('focusedNode attribute', 'getFocusedNode'); return this.getFocusedNode(); },
+	        set: function (value) { deprecated_1.deprecated('focusedNode = ', 'setFocusedNode'); this.setFocusedNode(value); },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    ;
+	    TreeModel.prototype.getFocusedNode = function () {
+	        return this._focusedNode;
+	    };
+	    TreeModel.prototype.setFocusedNode = function (node) {
+	        console.log('setFocusedNode', node);
+	        this._focusedNode = node;
+	        this.focusedNodeId = node ? node.id : null;
+	    };
+	    TreeModel.prototype.getActiveNode = function () {
+	        return this.activeNodes[0];
+	    };
+	    TreeModel.prototype.getActiveNodes = function () {
+	        return this.activeNodes;
+	    };
+	    TreeModel.prototype.getTreeNode = function (node, parent) {
+	        return new tree_node_model_1.TreeNode(node, parent, this);
 	    };
 	    TreeModel.prototype.getFirstRoot = function () {
 	        return _.first(this.roots);
@@ -401,6 +447,9 @@ webpackJsonp([2],{
 	        enumerable: true,
 	        configurable: true
 	    });
+	    TreeModel.prototype.isNodeFocused = function (node) {
+	        return this._focusedNode === node;
+	    };
 	    TreeModel.prototype.setFocus = function (value) {
 	        TreeModel.focusedTree = value ? this : null;
 	    };
@@ -431,6 +480,57 @@ webpackJsonp([2],{
 	            this._loadingComponent = this._createAdHocComponent(this._loadingComponent);
 	        }
 	    };
+	    TreeModel.prototype._loadState = function () {
+	        var _this = this;
+	        if (this.focusedNodeId) {
+	            console.log('looking for', this.focusedNodeId);
+	            this._focusedNode = this.getNodeById(this.focusedNodeId);
+	            console.log('found', this._focusedNode);
+	        }
+	        this.expandedNodes = Object.keys(this.expandedNodeIds)
+	            .filter(function (id) { return _this.expandedNodeIds[id]; })
+	            .map(function (id) { return _this.getNodeById(id); });
+	        this.activeNodes = Object.keys(this.activeNodeIds)
+	            .filter(function (id) { return _this.expandedNodeIds[id]; })
+	            .map(function (id) { return _this.getNodeById(id); });
+	    };
+	    TreeModel.prototype.getNodeByPath = function (path, startNode) {
+	        if (startNode === void 0) { startNode = null; }
+	        if (!path)
+	            return null;
+	        startNode = startNode || this.virtualRoot;
+	        if (path.length === 0)
+	            return startNode;
+	        if (!startNode.children)
+	            return null;
+	        var childId = path.shift();
+	        var childNode = _.find(startNode.children, (_a = {}, _a[this.options.idField] = childId, _a));
+	        if (!childNode)
+	            return null;
+	        return this.getNodeByPath(path, childNode);
+	        var _a;
+	    };
+	    TreeModel.prototype.getNodeById = function (id) {
+	        return this.getNodeBy({ id: id });
+	    };
+	    TreeModel.prototype.getNodeBy = function (predicate, startNode) {
+	        if (startNode === void 0) { startNode = null; }
+	        startNode = startNode || this.virtualRoot;
+	        if (!startNode.children)
+	            return null;
+	        var found = _.find(startNode.children, predicate);
+	        if (found) {
+	            return found;
+	        }
+	        else {
+	            for (var _i = 0, _a = startNode.children; _i < _a.length; _i++) {
+	                var child = _a[_i];
+	                var found_1 = this.getNodeBy(predicate, child);
+	                if (found_1)
+	                    return found_1;
+	            }
+	        }
+	    };
 	    TreeModel.prototype._createAdHocComponent = function (templateStr) {
 	        var AdHocTreeNodeTemplateComponent = (function () {
 	            function AdHocTreeNodeTemplateComponent() {
@@ -451,17 +551,17 @@ webpackJsonp([2],{
 	        return AdHocTreeNodeTemplateComponent;
 	    };
 	    TreeModel.prototype.focusNextNode = function () {
-	        var previousNode = this.focusedNode;
+	        var previousNode = this.getFocusedNode();
 	        var nextNode = previousNode ? previousNode.findNextNode() : this.getFirstRoot();
 	        nextNode && nextNode.focus();
 	    };
 	    TreeModel.prototype.focusPreviousNode = function () {
-	        var previousNode = this.focusedNode;
+	        var previousNode = this.getFocusedNode();
 	        var nextNode = previousNode ? previousNode.findPreviousNode() : this.getLastRoot();
 	        nextNode && nextNode.focus();
 	    };
 	    TreeModel.prototype.focusDrillDown = function () {
-	        var previousNode = this.focusedNode;
+	        var previousNode = this.getFocusedNode();
 	        if (previousNode && previousNode.isCollapsed && previousNode.hasChildren) {
 	            previousNode.toggle();
 	        }
@@ -471,7 +571,7 @@ webpackJsonp([2],{
 	        }
 	    };
 	    TreeModel.prototype.focusDrillUp = function () {
-	        var previousNode = this.focusedNode;
+	        var previousNode = this.getFocusedNode();
 	        if (!previousNode)
 	            return;
 	        if (previousNode.isExpanded) {
@@ -481,6 +581,28 @@ webpackJsonp([2],{
 	            var nextNode = previousNode.realParent;
 	            nextNode && nextNode.focus();
 	        }
+	    };
+	    TreeModel.prototype.isActive = function (node) {
+	        return this.activeNodeIds[node.id];
+	    };
+	    TreeModel.prototype.setActiveNode = function (node, value) {
+	        this.activeNodeIds = {};
+	        this.activeNodes = [];
+	        if (value) {
+	            this.activeNodes.push(node);
+	            this.activeNodeIds[node.id] = true;
+	        }
+	    };
+	    TreeModel.prototype.isExpanded = function (node) {
+	        return this.expandedNodeIds[node.id];
+	    };
+	    TreeModel.prototype.setExpandedNode = function (node, value) {
+	        var index = _.indexOf(this.expandedNodes, node);
+	        if (value && !index)
+	            this.expandedNodes.push(node);
+	        else if (index)
+	            _.pullAt(this.expandedNodes, index);
+	        this.expandedNodeIds[node.id] = value;
 	    };
 	    TreeModel.focusedTree = null;
 	    TreeModel = __decorate([
@@ -494,7 +616,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 158:
+/***/ 149:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/**
@@ -15571,7 +15693,7 @@ webpackJsonp([2],{
 	  }
 	}.call(this));
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(377)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(378)(module), (function() { return this; }())))
 
 /***/ },
 
@@ -15580,7 +15702,7 @@ webpackJsonp([2],{
 
 	"use strict";
 	var core_1 = __webpack_require__(1);
-	var angular2_hmr_1 = __webpack_require__(508);
+	var angular2_hmr_1 = __webpack_require__(509);
 	var AppState = (function () {
 	    function AppState() {
 	        // @HmrState() is used by HMR to track the state of any object during HMR (hot module replacement)
@@ -15701,16 +15823,29 @@ webpackJsonp([2],{
 	    onDoubleClick: 'onDoubleClick',
 	    onContextMenu: 'onContextMenu',
 	    onInitialized: 'onInitialized',
+	    onUpdateData: 'onUpdateData',
 	};
 	
 
 /***/ },
 
 /***/ 346:
+/***/ function(module, exports) {
+
+	"use strict";
+	function deprecated(methodName, alternative) {
+	    console.warn(methodName + " is deprected.\n    please use " + alternative + " instead");
+	}
+	exports.deprecated = deprecated;
+	
+
+/***/ },
+
+/***/ 347:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _ = __webpack_require__(158);
+	var _ = __webpack_require__(149);
 	var TreeOptions = (function () {
 	    function TreeOptions(options) {
 	        if (options === void 0) { options = {}; }
@@ -15732,12 +15867,12 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 486:
+/***/ 487:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var core_1 = __webpack_require__(1);
-	var angular2_tree_component_1 = __webpack_require__(510);
+	var angular2_tree_component_1 = __webpack_require__(511);
 	var CUSTOM_TEMPLATE_STRING = "\n  <span title=\"{{node.data.subTitle}}\">{{ node.data.name }}</span> {{ childrenCount() }}";
 	var CUSTOM_TEMPLATE_STRING_WITH_CONTEXT = "{{ node.data.name }} {{ childrenCount() }}\n  <button (click)=\"context.go($event)\">Custom Action</button>";
 	var App = (function () {
@@ -15817,12 +15952,19 @@ webpackJsonp([2],{
 	        var _this = this;
 	        return new Promise(function (resolve, reject) {
 	            setTimeout(function () { return resolve(_this.asyncChildren.map(function (c) {
-	                return Object.assign(c, {
+	                return Object.assign({}, c, {
 	                    hasChildren: node.level < 5,
 	                    id: uuid()
 	                });
 	            })); }, 1000);
 	        });
+	    };
+	    App.prototype.addNode = function (tree) {
+	        this.nodes[0].children.push({
+	            id: uuid(),
+	            name: 'a new child'
+	        });
+	        tree.treeModel.update();
 	    };
 	    App.prototype.go = function ($event) {
 	        $event.stopPropagation();
@@ -15835,7 +15977,7 @@ webpackJsonp([2],{
 	            styles: [
 	                "button: {\n        line - height: 24px;\n        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);\n        border: none;\n        border-radius: 2px;\n        background: #A3D9F5;\n        cursor: pointer;\n        margin: 0 3px;\n      }"
 	            ],
-	            template: "<Tree\n    #tree\n    [nodes]=\"nodes\"\n    [focused]=\"true\"\n    [options]=\"customTemplateStringOptions\"\n    (onToggle)=\"onEvent($event)\"\n    (onActivate)=\"onEvent($event)\"\n    (onDeactivate)=\"onEvent($event)\"\n    (onActiveChanged)=\"onEvent($event)\"\n    (onFocus)=\"onEvent($event)\"\n    (onBlur)=\"onEvent($event)\"\n  ></Tree>\n  <br>\n  <p>Keys:</p>\n  down | up | left | right | space | enter\n  <p>API:</p>\n  <button (click)=\"tree.treeModel.focusNextNode()\">next node</button>\n  <button (click)=\"tree.treeModel.focusPreviousNode()\">previous node</button>\n  <button (click)=\"tree.treeModel.focusDrillDown()\">drill down</button>\n  <button (click)=\"tree.treeModel.focusDrillUp()\">drill up</button>\n  <p></p>\n  <button\n    [disabled]=\"!tree.treeModel.focusedNode\"\n    (click)=\"tree.treeModel.focusedNode.toggleActivated()\">\n    {{ tree.treeModel.focusedNode?.isActive ? 'deactivate' : 'activate' }}\n  </button>\n  <button\n    [disabled]=\"!tree.treeModel.focusedNode\"\n    (click)=\"tree.treeModel.focusedNode.toggle()\">\n    {{ tree.treeModel.focusedNode?.isExpanded ? 'collapse' : 'expand' }}\n  </button>\n  <button\n    [disabled]=\"!tree.treeModel.focusedNode\"\n    (click)=\"tree.treeModel.focusedNode.blur()\">\n    blur\n  </button>"
+	            template: "<Tree\n    #tree\n    [nodes]=\"nodes\"\n    [focused]=\"true\"\n    [options]=\"customTemplateStringOptions\"\n    (onToggle)=\"onEvent($event)\"\n    (onActivate)=\"onEvent($event)\"\n    (onDeactivate)=\"onEvent($event)\"\n    (onActiveChanged)=\"onEvent($event)\"\n    (onFocus)=\"onEvent($event)\"\n    (onBlur)=\"onEvent($event)\"\n  ></Tree>\n  <br>\n  <p>Keys:</p>\n  down | up | left | right | space | enter\n  <p>API:</p>\n  <button (click)=\"tree.treeModel.focusNextNode()\">next node</button>\n  <button (click)=\"tree.treeModel.focusPreviousNode()\">previous node</button>\n  <button (click)=\"tree.treeModel.focusDrillDown()\">drill down</button>\n  <button (click)=\"tree.treeModel.focusDrillUp()\">drill up</button>\n  <p></p>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().toggleActivated()\">\n    {{ tree.treeModel.getFocusedNode()?.isActive ? 'deactivate' : 'activate' }}\n  </button>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().toggleExpanded()\">\n    {{ tree.treeModel.getFocusedNode()?.isExpanded ? 'collapse' : 'expand' }}\n  </button>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().blur()\">\n    blur\n  </button>\n  <button\n    (click)=\"addNode(tree)\">\n    Add Node\n  </button>"
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], App);
@@ -15881,7 +16023,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 487:
+/***/ 488:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15889,7 +16031,7 @@ webpackJsonp([2],{
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
 	// App
-	__export(__webpack_require__(486));
+	__export(__webpack_require__(487));
 	__export(__webpack_require__(337));
 	var app_service_2 = __webpack_require__(337);
 	// Application wide providers
@@ -15900,7 +16042,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 488:
+/***/ 489:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15918,7 +16060,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 489:
+/***/ 490:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15940,7 +16082,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 507:
+/***/ 508:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {"use strict";
@@ -15994,11 +16136,11 @@ webpackJsonp([2],{
 	}
 	exports.HmrState = HmrState;
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(376)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(377)))
 
 /***/ },
 
-/***/ 508:
+/***/ 509:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16006,8 +16148,8 @@ webpackJsonp([2],{
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
 	var hmr_store_1 = __webpack_require__(146);
-	__export(__webpack_require__(509));
-	__export(__webpack_require__(507));
+	__export(__webpack_require__(510));
+	__export(__webpack_require__(508));
 	__export(__webpack_require__(146));
 	function provideHmrState(initialState) {
 	    if (initialState === void 0) { initialState = {}; }
@@ -16021,7 +16163,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 509:
+/***/ 510:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16132,7 +16274,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 510:
+/***/ 511:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16140,14 +16282,14 @@ webpackJsonp([2],{
 	exports.TreeModel = tree_model_1.TreeModel;
 	var tree_node_model_1 = __webpack_require__(147);
 	exports.TreeNode = tree_node_model_1.TreeNode;
-	var tree_component_1 = __webpack_require__(514);
+	var tree_component_1 = __webpack_require__(515);
 	exports.TreeComponent = tree_component_1.TreeComponent;
-	__webpack_require__(516);
+	__webpack_require__(517);
 		
 
 /***/ },
 
-/***/ 511:
+/***/ 512:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16188,7 +16330,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 512:
+/***/ 513:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16241,7 +16383,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 513:
+/***/ 514:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16256,8 +16398,8 @@ webpackJsonp([2],{
 	};
 	var core_1 = __webpack_require__(1);
 	var tree_node_model_1 = __webpack_require__(147);
-	var loading_component_1 = __webpack_require__(511);
-	var tree_node_content_component_1 = __webpack_require__(512);
+	var loading_component_1 = __webpack_require__(512);
+	var tree_node_content_component_1 = __webpack_require__(513);
 	var TreeNodeComponent = (function () {
 	    function TreeNodeComponent(componentLoader, elementRef) {
 	        this.componentLoader = componentLoader;
@@ -16299,7 +16441,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 514:
+/***/ 515:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16313,11 +16455,11 @@ webpackJsonp([2],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(1);
-	var tree_node_component_1 = __webpack_require__(513);
+	var tree_node_component_1 = __webpack_require__(514);
 	var tree_model_1 = __webpack_require__(148);
-	var tree_options_model_1 = __webpack_require__(346);
-	var keys_1 = __webpack_require__(515);
-	var _ = __webpack_require__(158);
+	var tree_options_model_1 = __webpack_require__(347);
+	var keys_1 = __webpack_require__(516);
+	var _ = __webpack_require__(149);
 	var TreeComponent = (function () {
 	    function TreeComponent(treeModel) {
 	        var _this = this;
@@ -16345,7 +16487,7 @@ webpackJsonp([2],{
 	        configurable: true
 	    });
 	    TreeComponent.prototype.onKeydown = function ($event) {
-	        var focusedNode = this.treeModel.focusedNode;
+	        var focusedNode = this.treeModel.getFocusedNode();
 	        if (!this.treeModel.isFocused)
 	            return;
 	        if (_.includes([keys_1.KEYS.DOWN, keys_1.KEYS.UP, keys_1.KEYS.LEFT,
@@ -16455,7 +16597,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 515:
+/***/ 516:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -16471,16 +16613,16 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 516:
+/***/ 517:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	__webpack_require__(517);
+	__webpack_require__(518);
 	
 
 /***/ },
 
-/***/ 517:
+/***/ 518:
 /***/ function(module, exports) {
 
 	// element-closest | CC0-1.0 | github.com/jonathantneal/closest
