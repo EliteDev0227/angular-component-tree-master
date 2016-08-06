@@ -128,12 +128,9 @@ webpackJsonp([2],{
 	        this.data = data;
 	        this.parent = parent;
 	        this.treeModel = treeModel;
-	        this._isExpanded = false;
 	        this.id = this.id || uuid(); // Make sure there's a unique ID
 	        this.level = this.parent ? this.parent.level + 1 : 0;
 	        this.path = this.parent ? this.parent.path.concat([this.id]) : [];
-	        if (this.getField('expanded'))
-	            this.setIsExpanded(true);
 	        if (this.getField('children')) {
 	            this.children = this.getField('children')
 	                .map(function (c) { return new TreeNode(c, _this, treeModel); });
@@ -399,12 +396,24 @@ webpackJsonp([2],{
 	        this.roots = this.virtualRoot.children;
 	        this._initTreeNodeContentComponent();
 	        this._initLoadingComponent();
-	        this._loadState();
 	        // Fire event:
 	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onUpdateData });
 	        if (this.firstUpdate) {
 	            this.fireEvent({ eventName: events_1.TREE_EVENTS.onInitialized });
 	            this.firstUpdate = false;
+	            this._calculateExpandedNodes();
+	        }
+	        this._loadState();
+	    };
+	    TreeModel.prototype._calculateExpandedNodes = function (startNode) {
+	        var _this = this;
+	        if (startNode === void 0) { startNode = null; }
+	        startNode = startNode || this.virtualRoot;
+	        if (startNode.data[this.options.isExpandedField]) {
+	            this.expandedNodeIds[startNode.id] = true;
+	        }
+	        if (startNode.children) {
+	            startNode.children.forEach(function (child) { return _this._calculateExpandedNodes(child); });
 	        }
 	    };
 	    TreeModel.prototype.fireEvent = function (event) {
@@ -421,7 +430,6 @@ webpackJsonp([2],{
 	        return this._focusedNode;
 	    };
 	    TreeModel.prototype.setFocusedNode = function (node) {
-	        console.log('setFocusedNode', node);
 	        this._focusedNode = node;
 	        this.focusedNodeId = node ? node.id : null;
 	    };
@@ -483,9 +491,7 @@ webpackJsonp([2],{
 	    TreeModel.prototype._loadState = function () {
 	        var _this = this;
 	        if (this.focusedNodeId) {
-	            console.log('looking for', this.focusedNodeId);
 	            this._focusedNode = this.getNodeById(this.focusedNodeId);
-	            console.log('found', this._focusedNode);
 	        }
 	        this.expandedNodes = Object.keys(this.expandedNodeIds)
 	            .filter(function (id) { return _this.expandedNodeIds[id]; })
@@ -15941,7 +15947,7 @@ webpackJsonp([2],{
 	            // treeNodeTemplate: CUSTOM_TEMPLATE_STRING,
 	            treeNodeTemplate: MyTreeNodeTemplate,
 	            // displayField: 'subTitle',
-	            expandedField: 'expanded',
+	            isExpandedField: 'expanded',
 	            loadingComponent: MyTreeLoadingTemplate,
 	            getChildren: this.getChildren.bind(this),
 	            context: this
