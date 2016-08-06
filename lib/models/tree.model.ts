@@ -51,13 +51,26 @@ export class TreeModel implements ITreeModel {
 
     this._initTreeNodeContentComponent();
     this._initLoadingComponent();
-    this._loadState();
 
     // Fire event:
     this.fireEvent({ eventName: TREE_EVENTS.onUpdateData });
     if (this.firstUpdate) {
       this.fireEvent({ eventName: TREE_EVENTS.onInitialized });
       this.firstUpdate = false;
+      this._calculateExpandedNodes();
+    }
+
+    this._loadState();
+  }
+
+  _calculateExpandedNodes(startNode = null) {
+    startNode = startNode || this.virtualRoot;
+    
+    if (startNode.data[this.options.isExpandedField]) {
+      this.expandedNodeIds[startNode.id] = true;
+    }
+    if (startNode.children) {
+      startNode.children.forEach((child) => this._calculateExpandedNodes(child));
     }
   }
 

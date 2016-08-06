@@ -148,7 +148,7 @@ export class App {
     // treeNodeTemplate: CUSTOM_TEMPLATE_STRING,
     treeNodeTemplate: MyTreeNodeTemplate,
     // displayField: 'subTitle',
-    expandedField: 'expanded',
+    isExpandedField: 'expanded',
     loadingComponent: MyTreeLoadingTemplate,
     getChildren: this.getChildren.bind(this),
     context: this

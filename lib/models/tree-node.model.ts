@@ -8,7 +8,6 @@ import { deprecated } from './deprecated';
 import * as _ from 'lodash';
 
 export class TreeNode implements ITreeNode {
-  private _isExpanded: boolean = false;
   get isExpanded() { return this.treeModel.isExpanded(this) };
   get isActive() { return this.treeModel.isActive(this) };
   get isFocused() { return this.treeModel.isNodeFocused(this) };
@@ -26,7 +25,6 @@ export class TreeNode implements ITreeNode {
     this.level = this.parent ? this.parent.level + 1 : 0;
     this.path = this.parent ? [...this.parent.path, this.id] : [];
     
-    if (this.getField('expanded')) this.setIsExpanded(true);
     if (this.getField('children')) {
       this.children = this.getField('children')
         .map(c => new TreeNode(c, this, treeModel));
