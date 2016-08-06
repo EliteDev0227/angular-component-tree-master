@@ -3,36 +3,30 @@ import { TreeModel } from './tree.model';
 import { TreeOptions } from './tree-options.model';
 import { ITreeNode } from '../defs/api';
 import { TREE_EVENTS } from '../constants/events';
+import { deprecated } from './deprecated';
 
 import * as _ from 'lodash';
 
 export class TreeNode implements ITreeNode {
   private _isExpanded: boolean = false;
-  get isExpanded() { return this._isExpanded };
-  set isExpanded(value) {
-    this._isExpanded = value
-    if (!this.getField('children') && this.hasChildren && value) {
-      this.loadChildren();
-    }
-  };
+  get isExpanded() { return this.treeModel.isExpanded(this) };
+  get isActive() { return this.treeModel.isActive(this) };
+  get isFocused() { return this.treeModel.isNodeFocused(this) };
 
-  private _isActive: boolean = false;
-  get isActive() { return this._isActive };
-
-  get isFocused() { return this.treeModel.focusedNode == this };
-  children: TreeNode[];
   level: number;
   path: string[];
   elementRef:ElementRef;
+  children: TreeNode[];
 
   private _originalNode: any;
   get originalNode() { return this._originalNode };
 
-  constructor(public data:any, public parent:TreeNode = null, public treeModel:TreeModel) {
+  constructor(public data:any, public parent:TreeNode, public treeModel:TreeModel) {
+    this.id = this.id || uuid(); // Make sure there's a unique ID
     this.level = this.parent ? this.parent.level + 1 : 0;
     this.path = this.parent ? [...this.parent.path, this.id] : [];
     
-    if (this.getField('expanded')) this.isExpanded = true;
+    if (this.getField('expanded')) this.setIsExpanded(true);
     if (this.getField('children')) {
       this.children = this.getField('children')
         .map(c => new TreeNode(c, this, treeModel));
@@ -41,7 +35,7 @@ export class TreeNode implements ITreeNode {
 
   // helper get functions:
   get hasChildren():boolean {
-    return !!(this.data.hasChildren || (this.getField('children') && this.getField('children').length > 0));
+    return !!(this.data.hasChildren || (this.children && this.children.length > 0));
   }
   get isCollapsed():boolean { return !this.isExpanded }
   get isLeaf():boolean { return !this.hasChildren }
@@ -60,6 +54,10 @@ export class TreeNode implements ITreeNode {
 
   get id() {
     return this.getField('id');
+  }
+
+  set id(value) {
+    this.data['idField'] = value;
   }
 
   getField(key) {
@@ -126,39 +124,44 @@ export class TreeNode implements ITreeNode {
     }
     Promise.resolve(this.options.getChildren(this))
       .then((children) => {
-        this.children = children
-          .map((child) => new TreeNode(child, this, this.treeModel));
+        if (children) {        
+          this.children = children
+            .map((child) => new TreeNode(child, this, this.treeModel));
+        }
       });
   }
 
   toggle() {
-    this.isExpanded = !this.isExpanded;
+    deprecated('toggle', 'toggleExpanded');
+    this.toggleExpanded();
+  }
+
+  toggleExpanded() {
+    this.setIsExpanded(!this.isExpanded);
     this.fireEvent({ eventName: TREE_EVENTS.onToggle, node: this, isExpanded: this.isExpanded });
   }
 
-  private _activate() {
-    this._isActive = true;
-    this.fireEvent({ eventName: TREE_EVENTS.onActivate, node: this });
-    this.focus();
-  }
+  setIsExpanded(value) {
+    this.treeModel.setExpandedNode(this, value);
 
-  private _deactivate() {
-    this._isActive = false;
-    this.fireEvent({ eventName: TREE_EVENTS.onDeactivate, node: this });
+    if (!this.children && this.hasChildren && value) {
+      this.loadChildren();
+    }
+  };
+
+  setIsActive(value) {
+    this.treeModel.setActiveNode(this, value);
+    if (value) {
+      this.fireEvent({ eventName: TREE_EVENTS.onActivate, node: this });
+      this.focus();
+    }
+    else {
+      this.fireEvent({ eventName: TREE_EVENTS.onDeactivate, node: this });    
+    }
   }
 
   toggleActivated() {
-    if (this.isActive) {
-      this._deactivate();
-      this.treeModel.activeNode = null;
-    }
-    else {
-      if (this.treeModel.activeNode) {
-        this.treeModel.activeNode._deactivate();
-      }
-      this._activate();
-      this.treeModel.activeNode = this;
-    }
+    this.setIsActive(!this.isActive);
     this.fireEvent({ eventName: TREE_EVENTS.onActiveChanged, node: this, isActive: this.isActive });
   }
 
@@ -168,8 +171,8 @@ export class TreeNode implements ITreeNode {
   }
 
   focus() {
-    let previousNode = this.treeModel.focusedNode;
-    this.treeModel.focusedNode = this;
+    let previousNode = this.treeModel.getFocusedNode();
+    this.treeModel.setFocusedNode(this);
     this.scrollIntoView();
     if (previousNode) {
       this.fireEvent({ eventName: TREE_EVENTS.onBlur, node: previousNode });
@@ -178,8 +181,8 @@ export class TreeNode implements ITreeNode {
   }
 
   blur() {
-    let previousNode = this.treeModel.focusedNode;
-    this.treeModel.focusedNode = null;
+    let previousNode = this.treeModel.getFocusedNode();
+    this.treeModel.setFocusedNode(null);
     if (previousNode) {
       this.fireEvent({ eventName: TREE_EVENTS.onBlur, node: this });
     }
@@ -195,4 +198,8 @@ export class TreeNode implements ITreeNode {
     }
     this.fireEvent({ eventName: TREE_EVENTS.onContextMenu, node: this, rawEvent: rawEvent });
   }
+}
+
+function uuid() {
+  return Math.floor(Math.random() * 10000000000000);
 }

@@ -8,4 +8,5 @@ export const TREE_EVENTS = {
   onDoubleClick: 'onDoubleClick',
   onContextMenu: 'onContextMenu',
   onInitialized: 'onInitialized',
+  onUpdateData: 'onUpdateData',
 }

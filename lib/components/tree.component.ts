@@ -44,6 +44,8 @@ export class TreeComponent implements OnChanges {
     treeModel.eventNames.forEach((name) => this[name] = new EventEmitter());
   }
 
+  _nodes:any[];
+  _options:TreeOptions;
   // Will be handled in ngOnChanges
   @Input() set nodes(nodes:any[]) { };
   @Input() set options(options:TreeOptions) { };
@@ -63,7 +65,7 @@ export class TreeComponent implements OnChanges {
   @Output() onInitialized;
 
   onKeydown($event) {
-    let focusedNode = this.treeModel.focusedNode;
+    let focusedNode = this.treeModel.getFocusedNode();
     if (!this.treeModel.isFocused) return;
     if (_.includes([KEYS.DOWN, KEYS.UP, KEYS.LEFT,
       KEYS.RIGHT, KEYS.ENTER, KEYS.SPACE], $event.keyCode)) {

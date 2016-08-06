@@ -119,7 +119,7 @@ export interface ITreeModel {
   /**
    * Current active (selected) node
    */
-  activeNode: ITreeNode;
+  getActiveNode(): ITreeNode;
   /**
    * Current focused node
    */

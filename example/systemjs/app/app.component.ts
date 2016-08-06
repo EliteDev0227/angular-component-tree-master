@@ -39,18 +39,18 @@ const CUSTOM_TEMPLATE_STRING = '{{ node.data.name }}';
   <button (click)="tree.treeModel.focusDrillUp()">drill up</button>
   <p></p>
   <button
-    [disabled]="!tree.treeModel.focusedNode"
-    (click)="tree.treeModel.focusedNode.toggleActivated()">
-    {{ tree.treeModel.focusedNode?.isActive ? 'deactivate' : 'activate' }}
+    [disabled]="!tree.treeModel.getFocusedNode()"
+    (click)="tree.treeModel.getFocusedNode().toggleActivated()">
+    {{ tree.treeModel.getFocusedNode()?.isActive ? 'deactivate' : 'activate' }}
   </button>
   <button
-    [disabled]="!tree.treeModel.focusedNode"
-    (click)="tree.treeModel.focusedNode.toggle()">
-    {{ tree.treeModel.focusedNode?.isExpanded ? 'collapse' : 'expand' }}
+    [disabled]="!tree.treeModel.getFocusedNode()"
+    (click)="tree.treeModel.getFocusedNode().toggle()">
+    {{ tree.treeModel.getFocusedNode()?.isExpanded ? 'collapse' : 'expand' }}
   </button>
   <button
-    [disabled]="!tree.treeModel.focusedNode"
-    (click)="tree.treeModel.focusedNode.blur()">
+    [disabled]="!tree.treeModel.getFocusedNode()"
+    (click)="tree.treeModel.getFocusedNode().blur()">
     blur
   </button>`
 })

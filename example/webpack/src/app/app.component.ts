@@ -43,23 +43,27 @@ const CUSTOM_TEMPLATE_STRING_WITH_CONTEXT = `{{ node.data.name }} {{ childrenCou
   <button (click)="tree.treeModel.focusDrillUp()">drill up</button>
   <p></p>
   <button
-    [disabled]="!tree.treeModel.focusedNode"
-    (click)="tree.treeModel.focusedNode.toggleActivated()">
-    {{ tree.treeModel.focusedNode?.isActive ? 'deactivate' : 'activate' }}
+    [disabled]="!tree.treeModel.getFocusedNode()"
+    (click)="tree.treeModel.getFocusedNode().toggleActivated()">
+    {{ tree.treeModel.getFocusedNode()?.isActive ? 'deactivate' : 'activate' }}
   </button>
   <button
-    [disabled]="!tree.treeModel.focusedNode"
-    (click)="tree.treeModel.focusedNode.toggle()">
-    {{ tree.treeModel.focusedNode?.isExpanded ? 'collapse' : 'expand' }}
+    [disabled]="!tree.treeModel.getFocusedNode()"
+    (click)="tree.treeModel.getFocusedNode().toggle()">
+    {{ tree.treeModel.getFocusedNode()?.isExpanded ? 'collapse' : 'expand' }}
   </button>
   <button
-    [disabled]="!tree.treeModel.focusedNode"
-    (click)="tree.treeModel.focusedNode.blur()">
+    [disabled]="!tree.treeModel.getFocusedNode()"
+    (click)="tree.treeModel.getFocusedNode().blur()">
     blur
+  </button>
+  <button
+    (click)="addNode(tree)">
+    Add Node
   </button>`
 })
 export class App {
-  nodes = [
+  nodes:any[] = [
     {
       id: uuid(),
       expanded: true,
@@ -124,12 +128,20 @@ export class App {
   getChildren(node:any) {
     return new Promise((resolve, reject) => {
       setTimeout(() => resolve(this.asyncChildren.map((c) => {
-        return Object.assign(c, {
+        return Object.assign({}, c, {
           hasChildren: node.level < 5,
           id: uuid()
         });
       })), 1000);
     });
+  }
+
+  addNode(tree) {
+    this.nodes[0].children.push({
+      id: uuid(),
+      name: 'a new child'
+    });
+    tree.treeModel.update();
   }
 
   customTemplateStringOptions = {
