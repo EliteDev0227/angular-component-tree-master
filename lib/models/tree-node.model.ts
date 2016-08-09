@@ -213,6 +213,20 @@ export class TreeNode implements ITreeNode {
     }
     this.fireEvent({ eventName: TREE_EVENTS.onContextMenu, node: this, rawEvent: rawEvent });
   }
+
+  mouseAction(actionName:string, $event) {
+    const actionMapping =
+      $event.shiftKey ? this.options.actionMapping.mouse.shift :
+      $event.ctrlKey ? this.options.actionMapping.mouse.ctrl :
+      $event.altKey ? this.options.actionMapping.mouse.alt :
+      this.options.actionMapping.mouse;
+
+    const action = actionMapping[actionName];
+
+    if (action) {
+      action(this.treeModel, this, $event);
+    }
+  }
 }
 
 function uuid() {

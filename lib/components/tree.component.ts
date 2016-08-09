@@ -65,29 +65,11 @@ export class TreeComponent implements OnChanges {
   @Output() onInitialized;
 
   onKeydown($event) {
-    let focusedNode = this.treeModel.getFocusedNode();
     if (!this.treeModel.isFocused) return;
-    if (_.includes([KEYS.DOWN, KEYS.UP, KEYS.LEFT,
-      KEYS.RIGHT, KEYS.ENTER, KEYS.SPACE], $event.keyCode)) {
+
+    const focusedNode = this.treeModel.getFocusedNode();
+    if (this.treeModel.performKeyAction(focusedNode, $event)) {
       $event.preventDefault();
-    }
-
-    switch ($event.keyCode) {
-      case KEYS.DOWN:
-        return this.treeModel.focusNextNode();
-
-      case KEYS.UP:
-        return this.treeModel.focusPreviousNode();
-
-      case KEYS.LEFT:
-        return this.treeModel.focusDrillUp();
-
-      case KEYS.RIGHT:
-        return this.treeModel.focusDrillDown();
-
-      case KEYS.ENTER:
-      case KEYS.SPACE:
-        return focusedNode && focusedNode.toggleActivated();
     }
   }
 

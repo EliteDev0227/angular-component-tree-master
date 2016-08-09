@@ -1,5 +1,16 @@
 import { Component, Input } from '@angular/core';
-import { TreeComponent, TreeNode } from 'angular2-tree-component';
+import { TreeComponent, TreeNode, TREE_ACTIONS, KEYS } from 'angular2-tree-component';
+
+const actionMapping = {
+  mouse: {
+    shift: {
+      click: TREE_ACTIONS.TOGGLE_SELECTED_MULTI
+    }
+  },
+  keys: {
+    [KEYS.ENTER]: (tree, node, $event) => alert(`This is ${node.data.name}`)
+  }
+};
 
 const CUSTOM_TEMPLATE_STRING = `
   <span title="{{node.data.subTitle}}">{{ node.data.name }}</span> {{ childrenCount() }}`;
@@ -36,6 +47,8 @@ const CUSTOM_TEMPLATE_STRING_WITH_CONTEXT = `{{ node.data.name }} {{ childrenCou
   <br>
   <p>Keys:</p>
   down | up | left | right | space | enter
+  <p>Mouse:</p>
+  click to select | shift+click to select multi
   <p>API:</p>
   <button (click)="tree.treeModel.focusNextNode()">next node</button>
   <button (click)="tree.treeModel.focusPreviousNode()">previous node</button>
@@ -151,7 +164,8 @@ export class App {
     isExpandedField: 'expanded',
     loadingComponent: MyTreeLoadingTemplate,
     getChildren: this.getChildren.bind(this),
-    context: this
+    context: this,
+    actionMapping
   }
   onEvent = ($event:any) => console.log($event);
 

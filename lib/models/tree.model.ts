@@ -268,11 +268,11 @@ export class TreeModel implements ITreeModel {
   _setActiveNodeMulti(node, value) {
     this.activeNodeIds[node.id] = value;
     if (value) {
-      if (!_.contains(this.activeNodes, node)) {
+      if (!_.includes(this.activeNodes, node)) {
         this.activeNodes.push(node);
       }
     } else {
-      if (_.contains(this.activeNodes, node)) {
+      if (_.includes(this.activeNodes, node)) {
         _.remove(this.activeNodes, node);
       }
     }
@@ -289,5 +289,15 @@ export class TreeModel implements ITreeModel {
     else if (index) _.pullAt(this.expandedNodes, index);
 
     this.expandedNodeIds[node.id] = value;
+  }
+
+  performKeyAction(node, $event) {
+    const action = this.options.actionMapping.keys[$event.keyCode]
+    if (action) {
+      action(this, node, $event);
+      return true;
+    } else {
+      return false;
+    }
   }
 }
