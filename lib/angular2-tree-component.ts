@@ -1,4 +1,4 @@
-import { ITreeOptions, TREE_ACTIONS } from './models/tree-options.model';
+import { ITreeOptions, TREE_ACTIONS, IActionMapping, IActionHandler } from './models/tree-options.model';
 import { KEYS } from './constants/keys';
 import { TreeModel } from './models/tree.model';
 import { TreeNode } from './models/tree-node.model';
@@ -11,5 +11,7 @@ export {
   ITreeOptions,
   TreeComponent,
   TREE_ACTIONS,
-  KEYS
+  KEYS,
+  IActionMapping,
+  IActionHandler
 };

@@ -223,7 +223,7 @@ export class TreeModel implements ITreeModel {
   focusDrillDown() {
     let previousNode = this.getFocusedNode();
     if (previousNode && previousNode.isCollapsed && previousNode.hasChildren) {
-      previousNode.toggle();
+      previousNode.toggleExpanded();
     }
     else {
       let nextNode = previousNode ? previousNode.getFirstChild() : this.getFirstRoot();
@@ -235,7 +235,7 @@ export class TreeModel implements ITreeModel {
     let previousNode = this.getFocusedNode();
     if (!previousNode) return;
     if (previousNode.isExpanded) {
-      previousNode.toggle();
+      previousNode.toggleExpanded();
     }
     else {
       let nextNode = previousNode.realParent;

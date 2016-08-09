@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { TreeComponent, TreeNode, TREE_ACTIONS, KEYS } from 'angular2-tree-component';
+import { TreeComponent, TreeNode, TREE_ACTIONS, KEYS, IActionMapping } from 'angular2-tree-component';
 
-const actionMapping = {
+const actionMapping:IActionMapping = {
   mouse: {
+    contextMenu: (tree, node) => alert(`context menu for ${node.data.name}`),
     shift: {
       click: TREE_ACTIONS.TOGGLE_SELECTED_MULTI
     }
@@ -165,7 +166,8 @@ export class App {
     loadingComponent: MyTreeLoadingTemplate,
     getChildren: this.getChildren.bind(this),
     context: this,
-    actionMapping
+    actionMapping,
+    hasCustomContextMenu: true
   }
   onEvent = ($event:any) => console.log($event);
 

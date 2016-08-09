@@ -1,8 +1,13 @@
 import { TreeNode } from './tree-node.model';
 import { TreeModel } from './tree.model';
 import { KEYS } from '../constants/keys';
+import { deprecated } from './deprecated';
 
 import * as _ from 'lodash';
+
+export interface IActionHandler {
+  (tree:TreeModel, node:TreeNode, $event:any);
+}
 
 export const TREE_ACTIONS = {
   TOGGLE_SELECTED: (tree:TreeModel, node:TreeNode, $event:any) => node.toggleActivated(),
@@ -19,7 +24,7 @@ export const TREE_ACTIONS = {
   PREVIOUS_NODE: (tree:TreeModel, node:TreeNode, $event:any) =>  tree.focusPreviousNode(),
 }
 
-const defaultActionMapping = {
+const defaultActionMapping:IActionMapping = {
   mouse: {    
     click: TREE_ACTIONS.TOGGLE_SELECTED,
     dblClick: null,
@@ -38,6 +43,36 @@ const defaultActionMapping = {
     [KEYS.ENTER]: TREE_ACTIONS.TOGGLE_SELECTED
   }
 };
+
+export interface IActionMapping {
+  mouse?: {
+    click?: IActionHandler,
+    dblClick?: IActionHandler,
+    contextMenu?: IActionHandler,
+    expanderClick?: IActionHandler,
+    shift?: {
+      click?: IActionHandler,
+      dblClick?: IActionHandler,
+      contextMenu?: IActionHandler,
+      expanderClick?: IActionHandler,
+    },
+    ctrl?: {
+      click?: IActionHandler,
+      dblClick?: IActionHandler,
+      contextMenu?: IActionHandler,
+      expanderClick?: IActionHandler,
+    }
+    alt?: {
+      click?: IActionHandler,
+      dblClick?: IActionHandler,
+      contextMenu?: IActionHandler,
+      expanderClick?: IActionHandler,
+    }
+  },
+  keys?: {
+    [key:number]: IActionHandler
+  }
+}
 
 export interface ITreeOptions {
   childrenField: string;
@@ -79,5 +114,9 @@ export class TreeOptions {
     });
 
     _.extend(this, optionsWithDefaults);
+
+    if (options.hasCustomContextMenu) {
+      deprecated('hasCustomContextMenu', 'actionMapping: mouse: contextMenu');
+    }
   }
 }

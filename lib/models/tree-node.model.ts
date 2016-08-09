@@ -207,13 +207,6 @@ export class TreeNode implements ITreeNode {
     this.fireEvent({ eventName: TREE_EVENTS.onDoubleClick, node: this, rawEvent: rawEvent });
   }
 
-  contextMenu(rawEvent: MouseEvent) {
-    if (this.options.hasCustomContextMenu) {
-      rawEvent.preventDefault();
-    }
-    this.fireEvent({ eventName: TREE_EVENTS.onContextMenu, node: this, rawEvent: rawEvent });
-  }
-
   mouseAction(actionName:string, $event) {
     const actionMapping =
       $event.shiftKey ? this.options.actionMapping.mouse.shift :
@@ -224,7 +217,14 @@ export class TreeNode implements ITreeNode {
     const action = actionMapping[actionName];
 
     if (action) {
+      $event.preventDefault();
+      $event.stopPropagation();
       action(this.treeModel, this, $event);
+
+      // TODO: remove after deprecation of context menu
+      if (actionName === 'dblClick') {
+        this.fireEvent({ eventName: TREE_EVENTS.onContextMenu, node: this, rawEvent: $event });
+      }
     }
   }
 }
