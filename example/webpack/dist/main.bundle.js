@@ -7,18 +7,18 @@ webpackJsonp([2],{
 	/*
 	 * Providers provided by Angular
 	 */
-	var platform_browser_dynamic_1 = __webpack_require__(313);
+	var platform_browser_dynamic_1 = __webpack_require__(315);
 	/*
 	* Platform and Environment
 	* our providers/directives/pipes
 	*/
-	var browser_1 = __webpack_require__(489);
-	var environment_1 = __webpack_require__(490);
+	var browser_1 = __webpack_require__(490);
+	var environment_1 = __webpack_require__(491);
 	/*
 	* App Component
 	* our top level component that holds all of our components
 	*/
-	var app_1 = __webpack_require__(488);
+	var app_1 = __webpack_require__(489);
 	/*
 	 * Bootstrap our Angular app with a top level component `App` and inject
 	 * our Services and Providers into Angular's dependency injection
@@ -119,8 +119,8 @@ webpackJsonp([2],{
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var events_1 = __webpack_require__(345);
-	var deprecated_1 = __webpack_require__(346);
+	var events_1 = __webpack_require__(347);
+	var deprecated_1 = __webpack_require__(221);
 	var _ = __webpack_require__(149);
 	var TreeNode = (function () {
 	    function TreeNode(data, parent, treeModel) {
@@ -278,9 +278,23 @@ webpackJsonp([2],{
 	            }
 	        });
 	    };
+	    TreeNode.prototype._setIsExpanded = function (value) {
+	        this.isExpanded = value;
+	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onToggle, node: this, isExpanded: this.isExpanded });
+	    };
 	    TreeNode.prototype.toggle = function () {
 	        deprecated_1.deprecated('toggle', 'toggleExpanded');
 	        this.toggleExpanded();
+	    };
+	    TreeNode.prototype.expand = function () {
+	        if (!this.isExpanded) {
+	            this.toggleExpanded();
+	        }
+	    };
+	    TreeNode.prototype.collapse = function () {
+	        if (this.isExpanded) {
+	            this.toggleExpanded();
+	        }
 	    };
 	    TreeNode.prototype.toggleExpanded = function () {
 	        this.setIsExpanded(!this.isExpanded);
@@ -293,8 +307,9 @@ webpackJsonp([2],{
 	        }
 	    };
 	    ;
-	    TreeNode.prototype.setIsActive = function (value) {
-	        this.treeModel.setActiveNode(this, value);
+	    TreeNode.prototype.setIsActive = function (value, multi) {
+	        if (multi === void 0) { multi = false; }
+	        this.treeModel.setActiveNode(this, value, multi);
 	        if (value) {
 	            this.fireEvent({ eventName: events_1.TREE_EVENTS.onActivate, node: this });
 	            this.focus();
@@ -303,8 +318,9 @@ webpackJsonp([2],{
 	            this.fireEvent({ eventName: events_1.TREE_EVENTS.onDeactivate, node: this });
 	        }
 	    };
-	    TreeNode.prototype.toggleActivated = function () {
-	        this.setIsActive(!this.isActive);
+	    TreeNode.prototype.toggleActivated = function (multi) {
+	        if (multi === void 0) { multi = false; }
+	        this.setIsActive(!this.isActive, multi);
 	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onActiveChanged, node: this, isActive: this.isActive });
 	    };
 	    TreeNode.prototype.scrollIntoView = function () {
@@ -330,11 +346,21 @@ webpackJsonp([2],{
 	    TreeNode.prototype.doubleClick = function (rawEvent) {
 	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onDoubleClick, node: this, rawEvent: rawEvent });
 	    };
-	    TreeNode.prototype.contextMenu = function (rawEvent) {
-	        if (this.options.hasCustomContextMenu) {
-	            rawEvent.preventDefault();
+	    TreeNode.prototype.mouseAction = function (actionName, $event) {
+	        var actionMapping = $event.shiftKey ? this.options.actionMapping.mouse.shift :
+	            $event.ctrlKey ? this.options.actionMapping.mouse.ctrl :
+	                $event.altKey ? this.options.actionMapping.mouse.alt :
+	                    this.options.actionMapping.mouse;
+	        var action = actionMapping[actionName];
+	        if (action) {
+	            $event.preventDefault();
+	            $event.stopPropagation();
+	            action(this.treeModel, this, $event);
+	            // TODO: remove after deprecation of context menu
+	            if (actionName === 'dblClick') {
+	                this.fireEvent({ eventName: events_1.TREE_EVENTS.onContextMenu, node: this, rawEvent: $event });
+	            }
 	        }
-	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onContextMenu, node: this, rawEvent: rawEvent });
 	    };
 	    return TreeNode;
 	}());
@@ -361,9 +387,9 @@ webpackJsonp([2],{
 	};
 	var core_1 = __webpack_require__(1);
 	var tree_node_model_1 = __webpack_require__(147);
-	var tree_options_model_1 = __webpack_require__(347);
-	var events_1 = __webpack_require__(345);
-	var deprecated_1 = __webpack_require__(346);
+	var tree_options_model_1 = __webpack_require__(222);
+	var events_1 = __webpack_require__(347);
+	var deprecated_1 = __webpack_require__(221);
 	var _ = __webpack_require__(149);
 	var TreeModel = (function () {
 	    function TreeModel() {
@@ -591,12 +617,34 @@ webpackJsonp([2],{
 	    TreeModel.prototype.isActive = function (node) {
 	        return this.activeNodeIds[node.id];
 	    };
-	    TreeModel.prototype.setActiveNode = function (node, value) {
+	    TreeModel.prototype.setActiveNode = function (node, value, multi) {
+	        if (multi === void 0) { multi = false; }
+	        if (multi) {
+	            this._setActiveNodeMulti(node, value);
+	        }
+	        else {
+	            this._setActiveNodeSingle(node, value);
+	        }
+	    };
+	    TreeModel.prototype._setActiveNodeSingle = function (node, value) {
 	        this.activeNodeIds = {};
 	        this.activeNodes = [];
 	        if (value) {
 	            this.activeNodes.push(node);
 	            this.activeNodeIds[node.id] = true;
+	        }
+	    };
+	    TreeModel.prototype._setActiveNodeMulti = function (node, value) {
+	        this.activeNodeIds[node.id] = value;
+	        if (value) {
+	            if (!_.includes(this.activeNodes, node)) {
+	                this.activeNodes.push(node);
+	            }
+	        }
+	        else {
+	            if (_.includes(this.activeNodes, node)) {
+	                _.remove(this.activeNodes, node);
+	            }
 	        }
 	    };
 	    TreeModel.prototype.isExpanded = function (node) {
@@ -609,6 +657,16 @@ webpackJsonp([2],{
 	        else if (index)
 	            _.pullAt(this.expandedNodes, index);
 	        this.expandedNodeIds[node.id] = value;
+	    };
+	    TreeModel.prototype.performKeyAction = function (node, $event) {
+	        var action = this.options.actionMapping.keys[$event.keyCode];
+	        if (action) {
+	            action(this, node, $event);
+	            return true;
+	        }
+	        else {
+	            return false;
+	        }
 	    };
 	    TreeModel.focusedTree = null;
 	    TreeModel = __decorate([
@@ -15699,16 +15757,98 @@ webpackJsonp([2],{
 	  }
 	}.call(this));
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(378)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(379)(module), (function() { return this; }())))
 
 /***/ },
 
-/***/ 337:
+/***/ 221:
+/***/ function(module, exports) {
+
+	"use strict";
+	function deprecated(methodName, alternative) {
+	    console.warn(methodName + " is deprected.\n    please use " + alternative + " instead");
+	}
+	exports.deprecated = deprecated;
+	
+
+/***/ },
+
+/***/ 222:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var keys_1 = __webpack_require__(348);
+	var deprecated_1 = __webpack_require__(221);
+	var _ = __webpack_require__(149);
+	exports.TREE_ACTIONS = {
+	    TOGGLE_SELECTED: function (tree, node, $event) { return node.toggleActivated(); },
+	    TOGGLE_SELECTED_MULTI: function (tree, node, $event) { return node.toggleActivated(true); },
+	    SELECT: function (tree, node, $event) { return node.setIsActive(true); },
+	    DESELECT: function (tree, node, $event) { return node.setIsActive(false); },
+	    FOCUS: function (tree, node, $event) { return node.focus(); },
+	    TOGGLE_EXPANDED: function (tree, node, $event) { return node.toggleExpanded(); },
+	    EXPAND: function (tree, node, $event) { return node.expand(); },
+	    COLLAPSE: function (tree, node, $event) { return node.collapse(); },
+	    DRILL_DOWN: function (tree, node, $event) { return tree.focusDrillDown(); },
+	    DRILL_UP: function (tree, node, $event) { return tree.focusDrillUp(); },
+	    NEXT_NODE: function (tree, node, $event) { return tree.focusNextNode(); },
+	    PREVIOUS_NODE: function (tree, node, $event) { return tree.focusPreviousNode(); },
+	};
+	var defaultActionMapping = {
+	    mouse: {
+	        click: exports.TREE_ACTIONS.TOGGLE_SELECTED,
+	        dblClick: null,
+	        contextMenu: null,
+	        expanderClick: exports.TREE_ACTIONS.TOGGLE_EXPANDED,
+	        shift: {},
+	        ctrl: {},
+	        alt: {}
+	    },
+	    keys: (_a = {},
+	        _a[keys_1.KEYS.RIGHT] = exports.TREE_ACTIONS.DRILL_DOWN,
+	        _a[keys_1.KEYS.LEFT] = exports.TREE_ACTIONS.DRILL_UP,
+	        _a[keys_1.KEYS.DOWN] = exports.TREE_ACTIONS.NEXT_NODE,
+	        _a[keys_1.KEYS.UP] = exports.TREE_ACTIONS.PREVIOUS_NODE,
+	        _a[keys_1.KEYS.SPACE] = exports.TREE_ACTIONS.TOGGLE_SELECTED,
+	        _a[keys_1.KEYS.ENTER] = exports.TREE_ACTIONS.TOGGLE_SELECTED,
+	        _a
+	    )
+	};
+	var TreeOptions = (function () {
+	    function TreeOptions(options) {
+	        if (options === void 0) { options = {}; }
+	        this.getChildren = null;
+	        var optionsWithDefaults = _.defaultsDeep({}, options, {
+	            childrenField: 'children',
+	            displayField: 'name',
+	            idField: 'id',
+	            isExpandedField: 'isExpanded',
+	            treeNodeTemplate: '{{ node.displayField }}',
+	            loadingComponent: 'loading...',
+	            getChildren: null,
+	            hasCustomContextMenu: false,
+	            context: null,
+	            actionMapping: defaultActionMapping
+	        });
+	        _.extend(this, optionsWithDefaults);
+	        if (options.hasCustomContextMenu) {
+	            deprecated_1.deprecated('hasCustomContextMenu', 'actionMapping: mouse: contextMenu');
+	        }
+	    }
+	    return TreeOptions;
+	}());
+	exports.TreeOptions = TreeOptions;
+	var _a;
+
+
+/***/ },
+
+/***/ 339:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var core_1 = __webpack_require__(1);
-	var angular2_hmr_1 = __webpack_require__(509);
+	var angular2_hmr_1 = __webpack_require__(510);
 	var AppState = (function () {
 	    function AppState() {
 	        // @HmrState() is used by HMR to track the state of any object during HMR (hot module replacement)
@@ -15754,7 +15894,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 338:
+/***/ 340:
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -15773,7 +15913,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 339:
+/***/ 341:
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -15790,7 +15930,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 340:
+/***/ 342:
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -15800,7 +15940,7 @@ webpackJsonp([2],{
 	// Angular 2
 	var common_1 = __webpack_require__(31);
 	// Angular 2 Http
-	var http_1 = __webpack_require__(305);
+	var http_1 = __webpack_require__(307);
 	// Angular 2 Router
 	var router_deprecated_1 = __webpack_require__(215);
 	/*
@@ -15815,7 +15955,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 345:
+/***/ 347:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -15835,50 +15975,40 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 346:
+/***/ 348:
 /***/ function(module, exports) {
 
 	"use strict";
-	function deprecated(methodName, alternative) {
-	    console.warn(methodName + " is deprected.\n    please use " + alternative + " instead");
-	}
-	exports.deprecated = deprecated;
+	exports.KEYS = {
+	    LEFT: 37,
+	    UP: 38,
+	    RIGHT: 39,
+	    DOWN: 40,
+	    ENTER: 13,
+	    SPACE: 32
+	};
 	
 
 /***/ },
 
-/***/ 347:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var _ = __webpack_require__(149);
-	var TreeOptions = (function () {
-	    function TreeOptions(options) {
-	        if (options === void 0) { options = {}; }
-	        this.childrenField = 'children';
-	        this.displayField = 'name';
-	        this.idField = 'id';
-	        this.isExpandedField = 'isExpanded';
-	        this.treeNodeTemplate = '{{ node.displayField }}';
-	        this.loadingComponent = 'loading...';
-	        this.getChildren = null;
-	        this.hasCustomContextMenu = false;
-	        this.context = null;
-	        _.extend(this, options);
-	    }
-	    return TreeOptions;
-	}());
-	exports.TreeOptions = TreeOptions;
-	
-
-/***/ },
-
-/***/ 487:
+/***/ 488:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var core_1 = __webpack_require__(1);
-	var angular2_tree_component_1 = __webpack_require__(511);
+	var angular2_tree_component_1 = __webpack_require__(512);
+	var actionMapping = {
+	    mouse: {
+	        contextMenu: function (tree, node) { return alert("context menu for " + node.data.name); },
+	        shift: {
+	            click: angular2_tree_component_1.TREE_ACTIONS.TOGGLE_SELECTED_MULTI
+	        }
+	    },
+	    keys: (_a = {},
+	        _a[angular2_tree_component_1.KEYS.ENTER] = function (tree, node, $event) { return alert("This is " + node.data.name); },
+	        _a
+	    )
+	};
 	var CUSTOM_TEMPLATE_STRING = "\n  <span title=\"{{node.data.subTitle}}\">{{ node.data.name }}</span> {{ childrenCount() }}";
 	var CUSTOM_TEMPLATE_STRING_WITH_CONTEXT = "{{ node.data.name }} {{ childrenCount() }}\n  <button (click)=\"context.go($event)\">Custom Action</button>";
 	var App = (function () {
@@ -15950,7 +16080,9 @@ webpackJsonp([2],{
 	            isExpandedField: 'expanded',
 	            loadingComponent: MyTreeLoadingTemplate,
 	            getChildren: this.getChildren.bind(this),
-	            context: this
+	            context: this,
+	            actionMapping: actionMapping,
+	            hasCustomContextMenu: true
 	        };
 	        this.onEvent = function ($event) { return console.log($event); };
 	    }
@@ -15983,7 +16115,7 @@ webpackJsonp([2],{
 	            styles: [
 	                "button: {\n        line - height: 24px;\n        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);\n        border: none;\n        border-radius: 2px;\n        background: #A3D9F5;\n        cursor: pointer;\n        margin: 0 3px;\n      }"
 	            ],
-	            template: "<Tree\n    #tree\n    [nodes]=\"nodes\"\n    [focused]=\"true\"\n    [options]=\"customTemplateStringOptions\"\n    (onToggle)=\"onEvent($event)\"\n    (onActivate)=\"onEvent($event)\"\n    (onDeactivate)=\"onEvent($event)\"\n    (onActiveChanged)=\"onEvent($event)\"\n    (onFocus)=\"onEvent($event)\"\n    (onBlur)=\"onEvent($event)\"\n  ></Tree>\n  <br>\n  <p>Keys:</p>\n  down | up | left | right | space | enter\n  <p>API:</p>\n  <button (click)=\"tree.treeModel.focusNextNode()\">next node</button>\n  <button (click)=\"tree.treeModel.focusPreviousNode()\">previous node</button>\n  <button (click)=\"tree.treeModel.focusDrillDown()\">drill down</button>\n  <button (click)=\"tree.treeModel.focusDrillUp()\">drill up</button>\n  <p></p>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().toggleActivated()\">\n    {{ tree.treeModel.getFocusedNode()?.isActive ? 'deactivate' : 'activate' }}\n  </button>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().toggleExpanded()\">\n    {{ tree.treeModel.getFocusedNode()?.isExpanded ? 'collapse' : 'expand' }}\n  </button>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().blur()\">\n    blur\n  </button>\n  <button\n    (click)=\"addNode(tree)\">\n    Add Node\n  </button>"
+	            template: "<Tree\n    #tree\n    [nodes]=\"nodes\"\n    [focused]=\"true\"\n    [options]=\"customTemplateStringOptions\"\n    (onToggle)=\"onEvent($event)\"\n    (onActivate)=\"onEvent($event)\"\n    (onDeactivate)=\"onEvent($event)\"\n    (onActiveChanged)=\"onEvent($event)\"\n    (onFocus)=\"onEvent($event)\"\n    (onBlur)=\"onEvent($event)\"\n  ></Tree>\n  <br>\n  <p>Keys:</p>\n  down | up | left | right | space | enter\n  <p>Mouse:</p>\n  click to select | shift+click to select multi\n  <p>API:</p>\n  <button (click)=\"tree.treeModel.focusNextNode()\">next node</button>\n  <button (click)=\"tree.treeModel.focusPreviousNode()\">previous node</button>\n  <button (click)=\"tree.treeModel.focusDrillDown()\">drill down</button>\n  <button (click)=\"tree.treeModel.focusDrillUp()\">drill up</button>\n  <p></p>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().toggleActivated()\">\n    {{ tree.treeModel.getFocusedNode()?.isActive ? 'deactivate' : 'activate' }}\n  </button>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().toggleExpanded()\">\n    {{ tree.treeModel.getFocusedNode()?.isExpanded ? 'collapse' : 'expand' }}\n  </button>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().blur()\">\n    blur\n  </button>\n  <button\n    (click)=\"addNode(tree)\">\n    Add Node\n  </button>"
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], App);
@@ -16025,26 +16157,8 @@ webpackJsonp([2],{
 	    id = id + 1;
 	    return id;
 	}
-	
+	var _a;
 
-/***/ },
-
-/***/ 488:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	function __export(m) {
-	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-	}
-	// App
-	__export(__webpack_require__(487));
-	__export(__webpack_require__(337));
-	var app_service_2 = __webpack_require__(337);
-	// Application wide providers
-	exports.APP_PROVIDERS = [
-	    app_service_2.AppState
-	];
-	
 
 /***/ },
 
@@ -16055,18 +16169,37 @@ webpackJsonp([2],{
 	function __export(m) {
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
-	__export(__webpack_require__(338));
+	// App
+	__export(__webpack_require__(488));
 	__export(__webpack_require__(339));
-	__export(__webpack_require__(340));
-	var browser_directives_2 = __webpack_require__(338);
-	var browser_pipes_2 = __webpack_require__(339);
-	var browser_providers_2 = __webpack_require__(340);
-	exports.PLATFORM_PROVIDERS = browser_providers_2.PROVIDERS.concat(browser_directives_2.DIRECTIVES, browser_pipes_2.PIPES);
+	var app_service_2 = __webpack_require__(339);
+	// Application wide providers
+	exports.APP_PROVIDERS = [
+	    app_service_2.AppState
+	];
 	
 
 /***/ },
 
 /***/ 490:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	function __export(m) {
+	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+	}
+	__export(__webpack_require__(340));
+	__export(__webpack_require__(341));
+	__export(__webpack_require__(342));
+	var browser_directives_2 = __webpack_require__(340);
+	var browser_pipes_2 = __webpack_require__(341);
+	var browser_providers_2 = __webpack_require__(342);
+	exports.PLATFORM_PROVIDERS = browser_providers_2.PROVIDERS.concat(browser_directives_2.DIRECTIVES, browser_pipes_2.PIPES);
+	
+
+/***/ },
+
+/***/ 491:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16088,7 +16221,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 508:
+/***/ 509:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {"use strict";
@@ -16142,11 +16275,11 @@ webpackJsonp([2],{
 	}
 	exports.HmrState = HmrState;
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(377)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(378)))
 
 /***/ },
 
-/***/ 509:
+/***/ 510:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16154,8 +16287,8 @@ webpackJsonp([2],{
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
 	var hmr_store_1 = __webpack_require__(146);
-	__export(__webpack_require__(510));
-	__export(__webpack_require__(508));
+	__export(__webpack_require__(511));
+	__export(__webpack_require__(509));
 	__export(__webpack_require__(146));
 	function provideHmrState(initialState) {
 	    if (initialState === void 0) { initialState = {}; }
@@ -16169,7 +16302,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 510:
+/***/ 511:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16280,22 +16413,26 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 511:
+/***/ 512:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
+	var tree_options_model_1 = __webpack_require__(222);
+	exports.TREE_ACTIONS = tree_options_model_1.TREE_ACTIONS;
+	var keys_1 = __webpack_require__(348);
+	exports.KEYS = keys_1.KEYS;
 	var tree_model_1 = __webpack_require__(148);
 	exports.TreeModel = tree_model_1.TreeModel;
 	var tree_node_model_1 = __webpack_require__(147);
 	exports.TreeNode = tree_node_model_1.TreeNode;
-	var tree_component_1 = __webpack_require__(515);
+	var tree_component_1 = __webpack_require__(516);
 	exports.TreeComponent = tree_component_1.TreeComponent;
 	__webpack_require__(517);
 		
 
 /***/ },
 
-/***/ 512:
+/***/ 513:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16336,7 +16473,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 513:
+/***/ 514:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16389,7 +16526,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 514:
+/***/ 515:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16404,8 +16541,8 @@ webpackJsonp([2],{
 	};
 	var core_1 = __webpack_require__(1);
 	var tree_node_model_1 = __webpack_require__(147);
-	var loading_component_1 = __webpack_require__(512);
-	var tree_node_content_component_1 = __webpack_require__(513);
+	var loading_component_1 = __webpack_require__(513);
+	var tree_node_content_component_1 = __webpack_require__(514);
 	var TreeNodeComponent = (function () {
 	    function TreeNodeComponent(componentLoader, elementRef) {
 	        this.componentLoader = componentLoader;
@@ -16433,10 +16570,11 @@ webpackJsonp([2],{
 	                '.tree-node-active > .node-content-wrapper, .tree-node-focused > .node-content-wrapper, .node-content-wrapper:hover { box-shadow: inset 0 0 1px #999; }',
 	                '.tree-node-expanded > .toggle-children { transform: rotate(90deg) }',
 	                '.tree-node-collapsed > .toggle-children { transform: rotate(0); }',
+	                ".toggle-children-wrapper {\n      padding: 5px 0 5px 5px;\n    }",
 	                ".toggle-children {\n        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABAhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJ1dWlkOjY1RTYzOTA2ODZDRjExREJBNkUyRDg4N0NFQUNCNDA3IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkYzRkRFQjcxODUzNTExRTU4RTQwRkQwODFEOUZEMEE3IiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkYzRkRFQjcwODUzNTExRTU4RTQwRkQwODFEOUZEMEE3IiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE1IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MTk5NzA1OGEtZDI3OC00NDZkLWE4ODgtNGM4MGQ4YWI1NzNmIiBzdFJlZjpkb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6YzRkZmQxMGMtY2NlNS0xMTc4LWE5OGQtY2NkZmM5ODk5YWYwIi8+IDxkYzp0aXRsZT4gPHJkZjpBbHQ+IDxyZGY6bGkgeG1sOmxhbmc9IngtZGVmYXVsdCI+Z2x5cGhpY29uczwvcmRmOmxpPiA8L3JkZjpBbHQ+IDwvZGM6dGl0bGU+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+5iogFwAAAGhJREFUeNpiYGBgKABigf///zOQg0EARH4A4gZyDIIZ8B/JoAJKDIDhB0CcQIkBRBtEyABkgxwoMQCGD6AbRKoBGAYxQgXIBRuZGKgAKPIC3QLxArnRSHZCIjspk52ZKMrOFBUoAAEGAKnq593MQAZtAAAAAElFTkSuQmCC');\n        height: 8px;\n        width: 9px;\n        background-size: contain;\n        display: inline-block;\n        position: relative;\n        background-repeat: no-repeat;\n        background-position: center;\n    }",
 	                ".toggle-children-placeholder {\n        display: inline-block;\n        height: 10px;\n        width: 10px;\n        position: relative;\n        top: 1px;\n    }"
 	            ],
-	            template: "\n    <div class=\"tree-node tree-node-level-{{ node.level }}\"\n      [class.tree-node-expanded]=\"node.isExpanded && node.hasChildren\"\n      [class.tree-node-collapsed]=\"node.isCollapsed && node.hasChildren\"\n      [class.tree-node-leaf]=\"node.isLeaf\"\n      [class.tree-node-active]=\"node.isActive\"\n      [class.tree-node-focused]=\"node.isFocused\">\n      <span\n        *ngIf=\"node.hasChildren\"\n        class=\"toggle-children\"\n        (click)=\"node.toggle($event)\">\n      </span>\n      <span\n        *ngIf=\"!node.hasChildren\"\n        class=\"toggle-children-placeholder\">\n      </span>\n      <div class=\"node-content-wrapper\"\n        (click)=\"node.toggleActivated($event)\"\n        (dblclick)=\"node.doubleClick($event)\"\n        (contextmenu)=\"node.contextMenu($event)\">\n\n        <TreeNodeContent [node]=\"node\"></TreeNodeContent>\n      </div>\n      <div class=\"tree-children\" *ngIf=\"node.isExpanded\">\n        <div *ngIf=\"node.children\">\n          <TreeNode\n            *ngFor=\"let node of node.children\"\n            [node]=\"node\">\n          </TreeNode>\n        </div>\n        <LoadingComponent\n          class=\"tree-node-loading\"\n          *ngIf=\"!node.children\"\n        ></LoadingComponent>\n      </div>\n    </div>\n  "
+	            template: "\n    <div class=\"tree-node tree-node-level-{{ node.level }}\"\n      [class.tree-node-expanded]=\"node.isExpanded && node.hasChildren\"\n      [class.tree-node-collapsed]=\"node.isCollapsed && node.hasChildren\"\n      [class.tree-node-leaf]=\"node.isLeaf\"\n      [class.tree-node-active]=\"node.isActive\"\n      [class.tree-node-focused]=\"node.isFocused\">\n      <span\n        *ngIf=\"node.hasChildren\"\n        class=\"toggle-children-wrapper\"\n        (click)=\"node.mouseAction('expanderClick', $event)\">\n\n        <span class=\"toggle-children\"></span>\n      </span>\n      <span\n        *ngIf=\"!node.hasChildren\"\n        class=\"toggle-children-placeholder\">\n      </span>\n      <div class=\"node-content-wrapper\"\n        (click)=\"node.mouseAction('click', $event)\"\n        (dblclick)=\"node.mouseAction('dblClick', $event)\"\n        (contextmenu)=\"node.mouseAction('contextMenu', $event)\">\n\n        <TreeNodeContent [node]=\"node\"></TreeNodeContent>\n      </div>\n      <div class=\"tree-children\" *ngIf=\"node.isExpanded\">\n        <div *ngIf=\"node.children\">\n          <TreeNode\n            *ngFor=\"let node of node.children\"\n            [node]=\"node\">\n          </TreeNode>\n        </div>\n        <LoadingComponent\n          class=\"tree-node-loading\"\n          *ngIf=\"!node.children\"\n        ></LoadingComponent>\n      </div>\n    </div>\n  "
 	        }), 
 	        __metadata('design:paramtypes', [core_1.DynamicComponentLoader, core_1.ElementRef])
 	    ], TreeNodeComponent);
@@ -16447,7 +16585,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 515:
+/***/ 516:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16461,10 +16599,9 @@ webpackJsonp([2],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(1);
-	var tree_node_component_1 = __webpack_require__(514);
+	var tree_node_component_1 = __webpack_require__(515);
 	var tree_model_1 = __webpack_require__(148);
-	var tree_options_model_1 = __webpack_require__(347);
-	var keys_1 = __webpack_require__(516);
+	var tree_options_model_1 = __webpack_require__(222);
 	var _ = __webpack_require__(149);
 	var TreeComponent = (function () {
 	    function TreeComponent(treeModel) {
@@ -16493,25 +16630,11 @@ webpackJsonp([2],{
 	        configurable: true
 	    });
 	    TreeComponent.prototype.onKeydown = function ($event) {
-	        var focusedNode = this.treeModel.getFocusedNode();
 	        if (!this.treeModel.isFocused)
 	            return;
-	        if (_.includes([keys_1.KEYS.DOWN, keys_1.KEYS.UP, keys_1.KEYS.LEFT,
-	            keys_1.KEYS.RIGHT, keys_1.KEYS.ENTER, keys_1.KEYS.SPACE], $event.keyCode)) {
+	        var focusedNode = this.treeModel.getFocusedNode();
+	        if (this.treeModel.performKeyAction(focusedNode, $event)) {
 	            $event.preventDefault();
-	        }
-	        switch ($event.keyCode) {
-	            case keys_1.KEYS.DOWN:
-	                return this.treeModel.focusNextNode();
-	            case keys_1.KEYS.UP:
-	                return this.treeModel.focusPreviousNode();
-	            case keys_1.KEYS.LEFT:
-	                return this.treeModel.focusDrillUp();
-	            case keys_1.KEYS.RIGHT:
-	                return this.treeModel.focusDrillDown();
-	            case keys_1.KEYS.ENTER:
-	            case keys_1.KEYS.SPACE:
-	                return focusedNode && focusedNode.toggleActivated();
 	        }
 	    };
 	    TreeComponent.prototype.onMousedown = function ($event) {
@@ -16599,22 +16722,6 @@ webpackJsonp([2],{
 	    return TreeComponent;
 	}());
 	exports.TreeComponent = TreeComponent;
-	
-
-/***/ },
-
-/***/ 516:
-/***/ function(module, exports) {
-
-	"use strict";
-	exports.KEYS = {
-	    LEFT: 37,
-	    UP: 38,
-	    RIGHT: 39,
-	    DOWN: 40,
-	    ENTER: 13,
-	    SPACE: 32
-	};
 	
 
 /***/ },
