@@ -1,3 +1,8 @@
+<a name="1.1.13"></a>
+# 1.1.13 (2016-08-06)
+* Added action mappings (#19)
+* Moved typings to dependency (#13)
+
 <a name="1.1.12"></a>
 # 1.1.12 (2016-08-06)
 * Fixed update() re-expanding nodes marked with isExpanded field
