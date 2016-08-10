@@ -32,7 +32,6 @@ import * as _ from 'lodash'
   template: `
     <div class="tree">
       <TreeNode
-        (click)="treeModel.setFocus(true)"
         *ngFor="let node of treeModel.roots"
         [node]="node">
       </TreeNode>

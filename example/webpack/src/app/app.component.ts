@@ -166,8 +166,7 @@ export class App {
     loadingComponent: MyTreeLoadingTemplate,
     getChildren: this.getChildren.bind(this),
     context: this,
-    actionMapping,
-    hasCustomContextMenu: true
+    actionMapping
   }
   onEvent = ($event:any) => console.log($event);
 

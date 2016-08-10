@@ -124,7 +124,6 @@ webpackJsonp([2],{
 	var _ = __webpack_require__(149);
 	var TreeNode = (function () {
 	    function TreeNode(data, parent, treeModel) {
-	        var _this = this;
 	        this.data = data;
 	        this.parent = parent;
 	        this.treeModel = treeModel;
@@ -132,8 +131,7 @@ webpackJsonp([2],{
 	        this.level = this.parent ? this.parent.level + 1 : 0;
 	        this.path = this.parent ? this.parent.path.concat([this.id]) : [];
 	        if (this.getField('children')) {
-	            this.children = this.getField('children')
-	                .map(function (c) { return new TreeNode(c, _this, treeModel); });
+	            this._initChildren();
 	        }
 	    }
 	    Object.defineProperty(TreeNode.prototype, "isExpanded", {
@@ -221,6 +219,9 @@ webpackJsonp([2],{
 	    TreeNode.prototype.getField = function (key) {
 	        return this.data[this.options[(key + "Field")]];
 	    };
+	    TreeNode.prototype.setField = function (key, value) {
+	        this.data[this.options[(key + "Field")]] = value;
+	    };
 	    // traversing:
 	    TreeNode.prototype.findAdjacentSibling = function (steps) {
 	        var index = this._getIndexInParent();
@@ -273,8 +274,8 @@ webpackJsonp([2],{
 	        Promise.resolve(this.options.getChildren(this))
 	            .then(function (children) {
 	            if (children) {
-	                _this.children = children
-	                    .map(function (child) { return new TreeNode(child, _this, _this.treeModel); });
+	                _this.setField('children', children);
+	                _this._initChildren();
 	            }
 	        });
 	    };
@@ -347,6 +348,7 @@ webpackJsonp([2],{
 	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onDoubleClick, node: this, rawEvent: rawEvent });
 	    };
 	    TreeNode.prototype.mouseAction = function (actionName, $event) {
+	        this.treeModel.setFocus(true);
 	        var actionMapping = $event.shiftKey ? this.options.actionMapping.mouse.shift :
 	            $event.ctrlKey ? this.options.actionMapping.mouse.ctrl :
 	                $event.altKey ? this.options.actionMapping.mouse.alt :
@@ -354,13 +356,17 @@ webpackJsonp([2],{
 	        var action = actionMapping[actionName];
 	        if (action) {
 	            $event.preventDefault();
-	            $event.stopPropagation();
 	            action(this.treeModel, this, $event);
 	            // TODO: remove after deprecation of context menu
 	            if (actionName === 'dblClick') {
 	                this.fireEvent({ eventName: events_1.TREE_EVENTS.onContextMenu, node: this, rawEvent: $event });
 	            }
 	        }
+	    };
+	    TreeNode.prototype._initChildren = function () {
+	        var _this = this;
+	        this.children = this.getField('children')
+	            .map(function (c) { return new TreeNode(c, _this, _this.treeModel); });
 	    };
 	    return TreeNode;
 	}());
@@ -595,7 +601,7 @@ webpackJsonp([2],{
 	    TreeModel.prototype.focusDrillDown = function () {
 	        var previousNode = this.getFocusedNode();
 	        if (previousNode && previousNode.isCollapsed && previousNode.hasChildren) {
-	            previousNode.toggle();
+	            previousNode.toggleExpanded();
 	        }
 	        else {
 	            var nextNode = previousNode ? previousNode.getFirstChild() : this.getFirstRoot();
@@ -607,7 +613,7 @@ webpackJsonp([2],{
 	        if (!previousNode)
 	            return;
 	        if (previousNode.isExpanded) {
-	            previousNode.toggle();
+	            previousNode.toggleExpanded();
 	        }
 	        else {
 	            var nextNode = previousNode.realParent;
@@ -15766,7 +15772,7 @@ webpackJsonp([2],{
 
 	"use strict";
 	function deprecated(methodName, alternative) {
-	    console.warn(methodName + " is deprected.\n    please use " + alternative + " instead");
+	    console.warn(methodName + " is deprecated.\n    please use " + alternative + " instead");
 	}
 	exports.deprecated = deprecated;
 	
@@ -16081,8 +16087,7 @@ webpackJsonp([2],{
 	            loadingComponent: MyTreeLoadingTemplate,
 	            getChildren: this.getChildren.bind(this),
 	            context: this,
-	            actionMapping: actionMapping,
-	            hasCustomContextMenu: true
+	            actionMapping: actionMapping
 	        };
 	        this.onEvent = function ($event) { return console.log($event); };
 	    }
@@ -16715,7 +16720,7 @@ webpackJsonp([2],{
 	                '.tree-children { padding-left: 20px }',
 	                ".tree {\n      display: inline-block;\n      cursor: pointer;\n      -webkit-touch-callout: none; /* iOS Safari */\n      -webkit-user-select: none;   /* Chrome/Safari/Opera */\n      -khtml-user-select: none;    /* Konqueror */\n      -moz-user-select: none;      /* Firefox */\n      -ms-user-select: none;       /* IE/Edge */\n      user-select: none;           /* non-prefixed version, currently not supported by any browser */\n    }"
 	            ],
-	            template: "\n    <div class=\"tree\">\n      <TreeNode\n        (click)=\"treeModel.setFocus(true)\"\n        *ngFor=\"let node of treeModel.roots\"\n        [node]=\"node\">\n      </TreeNode>\n    </div>\n  "
+	            template: "\n    <div class=\"tree\">\n      <TreeNode\n        *ngFor=\"let node of treeModel.roots\"\n        [node]=\"node\">\n      </TreeNode>\n    </div>\n  "
 	        }), 
 	        __metadata('design:paramtypes', [tree_model_1.TreeModel])
 	    ], TreeComponent);

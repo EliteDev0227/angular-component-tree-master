@@ -26,8 +26,7 @@ export class TreeNode implements ITreeNode {
     this.path = this.parent ? [...this.parent.path, this.id] : [];
     
     if (this.getField('children')) {
-      this.children = this.getField('children')
-        .map(c => new TreeNode(c, this, treeModel));
+      this._initChildren();
     }
   }
 
@@ -60,6 +59,10 @@ export class TreeNode implements ITreeNode {
 
   getField(key) {
     return this.data[this.options[`${key}Field`]];
+  }
+
+  setField(key, value) {
+    this.data[this.options[`${key}Field`]] = value;
   }
 
   // traversing:
@@ -122,9 +125,9 @@ export class TreeNode implements ITreeNode {
     }
     Promise.resolve(this.options.getChildren(this))
       .then((children) => {
-        if (children) {        
-          this.children = children
-            .map((child) => new TreeNode(child, this, this.treeModel));
+        if (children) {
+          this.setField('children', children);
+          this._initChildren();
         }
       });
   }
@@ -208,6 +211,8 @@ export class TreeNode implements ITreeNode {
   }
 
   mouseAction(actionName:string, $event) {
+    this.treeModel.setFocus(true);
+
     const actionMapping =
       $event.shiftKey ? this.options.actionMapping.mouse.shift :
       $event.ctrlKey ? this.options.actionMapping.mouse.ctrl :
@@ -218,7 +223,6 @@ export class TreeNode implements ITreeNode {
 
     if (action) {
       $event.preventDefault();
-      $event.stopPropagation();
       action(this.treeModel, this, $event);
 
       // TODO: remove after deprecation of context menu
@@ -226,6 +230,11 @@ export class TreeNode implements ITreeNode {
         this.fireEvent({ eventName: TREE_EVENTS.onContextMenu, node: this, rawEvent: $event });
       }
     }
+  }
+
+  _initChildren() {
+    this.children = this.getField('children')
+      .map(c => new TreeNode(c, this, this.treeModel));
   }
 }
 
