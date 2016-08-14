@@ -1,5 +1,9 @@
+<a name="1.1.15"></a>
+# 1.1.15 (2016-08-14)
+* Fixed expander not turning on expand
+
 <a name="1.1.14"></a>
-# 1.1.13 (2016-10-06)
+# 1.1.14 (2016-08-11)
 * Widen expander click area (#24)
 * Not using deprecated methods (#24)
 * Fixed bug when running update() after async children were loaded

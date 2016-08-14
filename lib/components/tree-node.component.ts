@@ -21,8 +21,8 @@ import { TreeNodeContent } from './tree-node-content.component';
     '.node-content-wrapper:hover { background: #f7fbff }',
     '.tree-node-active > .node-content-wrapper, .tree-node-focused > .node-content-wrapper, .node-content-wrapper:hover { box-shadow: inset 0 0 1px #999; }',
 
-    '.tree-node-expanded > .toggle-children { transform: rotate(90deg) }',
-    '.tree-node-collapsed > .toggle-children { transform: rotate(0); }',
+    '.tree-node-expanded > .toggle-children-wrapper > .toggle-children { transform: rotate(90deg) }',
+    '.tree-node-collapsed > .toggle-children-wrapper > .toggle-children { transform: rotate(0); }',
     `.toggle-children-wrapper {
       padding: 5px 0 5px 5px;
     }`,
