@@ -4,6 +4,7 @@ import { TreeComponent, TreeNode, TREE_ACTIONS, KEYS, IActionMapping } from 'ang
 const actionMapping:IActionMapping = {
   mouse: {
     contextMenu: (tree, node) => alert(`context menu for ${node.data.name}`),
+    dblClick: TREE_ACTIONS.TOGGLE_EXPANDED,
     shift: {
       click: TREE_ACTIONS.TOGGLE_SELECTED_MULTI
     }
@@ -38,12 +39,7 @@ const CUSTOM_TEMPLATE_STRING_WITH_CONTEXT = `{{ node.data.name }} {{ childrenCou
     [nodes]="nodes"
     [focused]="true"
     [options]="customTemplateStringOptions"
-    (onToggle)="onEvent($event)"
-    (onActivate)="onEvent($event)"
-    (onDeactivate)="onEvent($event)"
-    (onActiveChanged)="onEvent($event)"
-    (onFocus)="onEvent($event)"
-    (onBlur)="onEvent($event)"
+    (onEvent)="onEvent($event)"
   ></Tree>
   <br>
   <p>Keys:</p>
@@ -77,57 +73,62 @@ const CUSTOM_TEMPLATE_STRING_WITH_CONTEXT = `{{ node.data.name }} {{ childrenCou
   </button>`
 })
 export class App {
-  nodes:any[] = [
-    {
-      id: uuid(),
-      expanded: true,
-      name: 'root expanded',
-      subTitle: 'the root',
-      children: [
+  nodes:any[] = null;
+  constructor() {
+    setTimeout(() => {
+      this.nodes = [
         {
           id: uuid(),
-          name: 'child1',
-          subTitle: 'a good child',
-          hasChildren: false
-        }, {
-          id: uuid(),
-          name: 'child2',
-          subTitle: 'a bad child',
-          hasChildren: false
-        }
-      ]
-    },
-    {
-      id: uuid(),
-      name: 'root2',
-      subTitle: 'the second root',
-      children: [
-        {
-          id: uuid(),
-          name: 'child2.1',
-          subTitle: 'new and improved',
-          hasChildren: false
-        }, {
-          id: uuid(),
-          name: 'child2.2',
-          subTitle: 'new and improved2',
+          expanded: true,
+          name: 'root expanded',
+          subTitle: 'the root',
           children: [
             {
               id: uuid(),
-              name: 'subsub',
-              subTitle: 'subsub',
+              name: 'child1',
+              subTitle: 'a good child',
+              hasChildren: false
+            }, {
+              id: uuid(),
+              name: 'child2',
+              subTitle: 'a bad child',
               hasChildren: false
             }
           ]
+        },
+        {
+          id: uuid(),
+          name: 'root2',
+          subTitle: 'the second root',
+          children: [
+            {
+              id: uuid(),
+              name: 'child2.1',
+              subTitle: 'new and improved',
+              hasChildren: false
+            }, {
+              id: uuid(),
+              name: 'child2.2',
+              subTitle: 'new and improved2',
+              children: [
+                {
+                  id: uuid(),
+                  name: 'subsub',
+                  subTitle: 'subsub',
+                  hasChildren: false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          id: uuid(),
+          name: 'asyncroot',
+          hasChildren: true
         }
-      ]
-    },
-    {
-      id: uuid(),
-      name: 'asyncroot',
-      hasChildren: true
-    }
-  ];
+      ];
+    }, 1);
+  }
 
   asyncChildren = [
     {

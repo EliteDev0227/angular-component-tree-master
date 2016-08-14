@@ -46,6 +46,11 @@ export interface ITreeNode {
    */
   id: any;
 
+  /**
+   * The context that was given in the options object.
+   */
+  context:any;
+
   // helpers
   isExpanded: boolean;
   isActive: boolean;
@@ -88,7 +93,15 @@ export interface ITreeNode {
   /**
    * Expands / Collapses the node
    */
-  toggle();
+  toggleExpanded();
+  /**
+   * Expands the node
+   */
+  expand();
+  /**
+   * Collapses the node
+   */
+  collapse();
   /**
    * Activates / Deactivates the node (selects / deselects)
    */
@@ -101,6 +114,10 @@ export interface ITreeNode {
    * Blur (unfocus) the node
    */
   blur();
+  /**
+   * Scroll the screen to make the node visible
+   */
+  scrollIntoView();
   /**
    * Fire an event to the renderer of the tree (if it was registered)
    */

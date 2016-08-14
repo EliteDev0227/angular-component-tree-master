@@ -1,5 +1,6 @@
 export const TREE_EVENTS = {
   onToggle: 'onToggle',
+  onToggleExpanded: 'onToggleExpanded',
   onActiveChanged: 'onActiveChanged',
   onActivate: 'onActivate',
   onDeactivate: 'onDeactivate',
@@ -9,4 +10,5 @@ export const TREE_EVENTS = {
   onContextMenu: 'onContextMenu',
   onInitialized: 'onInitialized',
   onUpdateData: 'onUpdateData',
+  onEvent: 'onEvent'
 }

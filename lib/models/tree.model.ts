@@ -4,7 +4,7 @@ import { TreeOptions } from './tree-options.model';
 import { ITreeModel } from '../defs/api';
 import { TREE_EVENTS } from '../constants/events';
 
-import { deprecated } from './deprecated';
+import { deprecated } from '../deprecated';
 
 import * as _ from 'lodash';
 
@@ -42,10 +42,12 @@ export class TreeModel implements ITreeModel {
 
   update() {
     // Rebuild tree:
-    let treeNodeConfig = { virtual: true };
-    treeNodeConfig[this.options.childrenField] = this.nodes;
+    let virtualRootConfig = {
+      virtual: true,
+      [this.options.childrenField]: this.nodes
+    };
 
-    this.virtualRoot = this.getTreeNode(treeNodeConfig, null);
+    this.virtualRoot = this.getTreeNode(virtualRootConfig, null);
 
     this.roots = this.virtualRoot.children;
 
@@ -53,11 +55,15 @@ export class TreeModel implements ITreeModel {
     this._initLoadingComponent();
 
     // Fire event:
-    this.fireEvent({ eventName: TREE_EVENTS.onUpdateData });
     if (this.firstUpdate) {
-      this.fireEvent({ eventName: TREE_EVENTS.onInitialized });
-      this.firstUpdate = false;
-      this._calculateExpandedNodes();
+      console.log('roots', this.roots);
+      if (this.roots) {
+        this.fireEvent({ eventName: TREE_EVENTS.onInitialized });
+        this.firstUpdate = false;
+        this._calculateExpandedNodes();
+      }
+    } else {
+      this.fireEvent({ eventName: TREE_EVENTS.onUpdateData });
     }
 
     this._loadState();
@@ -75,7 +81,8 @@ export class TreeModel implements ITreeModel {
   }
 
   fireEvent(event) {
-    this.events[event.eventName].next(event);
+    this.events[event.eventName].emit(event);
+    this.events.onEvent.emit(event);
   }
 
   get focusedNode() { deprecated('focusedNode attribute', 'getFocusedNode'); return this.getFocusedNode(); }
@@ -154,10 +161,12 @@ export class TreeModel implements ITreeModel {
     this.expandedNodes = Object.keys(this.expandedNodeIds)
       .filter((id) => this.expandedNodeIds[id])
       .map((id) => this.getNodeById(id))
+    this.expandedNodes = _.compact(this.expandedNodes);
 
     this.activeNodes = Object.keys(this.activeNodeIds)
       .filter((id) => this.expandedNodeIds[id])
       .map((id) => this.getNodeById(id))
+    this.activeNodes = _.compact(this.activeNodes);
   }
 
   getNodeByPath(path, startNode=null):TreeNode {

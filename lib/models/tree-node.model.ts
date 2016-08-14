@@ -3,7 +3,7 @@ import { TreeModel } from './tree.model';
 import { TreeOptions } from './tree-options.model';
 import { ITreeNode } from '../defs/api';
 import { TREE_EVENTS } from '../constants/events';
-import { deprecated } from './deprecated';
+import { deprecated } from '../deprecated';
 
 import * as _ from 'lodash';
 
@@ -54,7 +54,7 @@ export class TreeNode implements ITreeNode {
   }
 
   set id(value) {
-    this.data['idField'] = value;
+    this.setField('id', value);
   }
 
   getField(key) {
@@ -66,17 +66,17 @@ export class TreeNode implements ITreeNode {
   }
 
   // traversing:
-  findAdjacentSibling(steps) {
+  _findAdjacentSibling(steps) {
     let index = this._getIndexInParent();
     return this._getParentsChildren()[index + steps];
   }
 
   findNextSibling() {
-    return this.findAdjacentSibling(+1);
+    return this._findAdjacentSibling(+1);
   }
 
   findPreviousSibling() {
-    return this.findAdjacentSibling(-1);
+    return this._findAdjacentSibling(-1);
   }
 
   getFirstChild() {
@@ -132,16 +132,6 @@ export class TreeNode implements ITreeNode {
       });
   }
 
-  _setIsExpanded(value) {
-    this.isExpanded = value;
-    this.fireEvent({ eventName: TREE_EVENTS.onToggle, node: this, isExpanded: this.isExpanded });    
-  }
-
-  toggle() {
-    deprecated('toggle', 'toggleExpanded');
-    this.toggleExpanded();
-  }
-
   expand() {
     if (!this.isExpanded) {    
       this.toggleExpanded();
@@ -154,9 +144,15 @@ export class TreeNode implements ITreeNode {
     }
   }
 
+  toggle() {
+    deprecated('toggle', 'toggleExpanded');
+    this.toggleExpanded();
+  }
+
   toggleExpanded() {
     this.setIsExpanded(!this.isExpanded);
-    this.fireEvent({ eventName: TREE_EVENTS.onToggle, node: this, isExpanded: this.isExpanded });
+    this.fireEvent({ eventName: TREE_EVENTS.onToggle, warning: 'this event is deprecated, please use onToggleExpanded instead', node: this, isExpanded: this.isExpanded });
+    this.fireEvent({ eventName: TREE_EVENTS.onToggleExpanded, node: this, isExpanded: this.isExpanded });
   }
 
   setIsExpanded(value) {
@@ -206,10 +202,6 @@ export class TreeNode implements ITreeNode {
     }
   }
 
-  doubleClick(rawEvent: MouseEvent) {
-    this.fireEvent({ eventName: TREE_EVENTS.onDoubleClick, node: this, rawEvent: rawEvent });
-  }
-
   mouseAction(actionName:string, $event) {
     this.treeModel.setFocus(true);
 
@@ -225,9 +217,12 @@ export class TreeNode implements ITreeNode {
       $event.preventDefault();
       action(this.treeModel, this, $event);
 
-      // TODO: remove after deprecation of context menu
-      if (actionName === 'dblClick') {
+      // TODO: remove after deprecation of context menu and dbl click
+      if (actionName === 'contextMenu') {
         this.fireEvent({ eventName: TREE_EVENTS.onContextMenu, node: this, rawEvent: $event });
+      }
+      if (actionName === 'dblClick') {
+        this.fireEvent({ eventName: TREE_EVENTS.onDoubleClick, warning: 'This event is deprecated, please use actionMapping to handle double clicks', node: this, rawEvent: $event });
       }
     }
   }

@@ -61,7 +61,9 @@ export class TreeComponent implements OnChanges {
   @Output() onBlur;
   @Output() onDoubleClick;
   @Output() onContextMenu;
+  @Output() onUpdateData;
   @Output() onInitialized;
+  @Output() onEvent;
 
   onKeydown($event) {
     if (!this.treeModel.isFocused) return;

@@ -1,7 +1,7 @@
 import { TreeNode } from './tree-node.model';
 import { TreeModel } from './tree.model';
 import { KEYS } from '../constants/keys';
-import { deprecated } from './deprecated';
+import { deprecated } from '../deprecated';
 
 import * as _ from 'lodash';
 
