@@ -152,6 +152,24 @@ webpackJsonp([2],{
 	        configurable: true
 	    });
 	    ;
+	    Object.defineProperty(TreeNode.prototype, "isDropNode", {
+	        get: function () {
+	            return this.treeModel.isDropNode(this)
+	                && this.treeModel.getDroppedNodePosition() === 'on';
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    ;
+	    Object.defineProperty(TreeNode.prototype, "isDropNodeAfter", {
+	        get: function () {
+	            return this.treeModel.isDropNode(this)
+	                && this.treeModel.getDroppedNodePosition() === 'after';
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    ;
 	    Object.defineProperty(TreeNode.prototype, "originalNode", {
 	        get: function () { return this._originalNode; },
 	        enumerable: true,
@@ -211,7 +229,7 @@ webpackJsonp([2],{
 	            return this.getField('id');
 	        },
 	        set: function (value) {
-	            this.data['idField'] = value;
+	            this.setField('id', value);
 	        },
 	        enumerable: true,
 	        configurable: true
@@ -223,15 +241,15 @@ webpackJsonp([2],{
 	        this.data[this.options[(key + "Field")]] = value;
 	    };
 	    // traversing:
-	    TreeNode.prototype.findAdjacentSibling = function (steps) {
+	    TreeNode.prototype._findAdjacentSibling = function (steps) {
 	        var index = this._getIndexInParent();
 	        return this._getParentsChildren()[index + steps];
 	    };
 	    TreeNode.prototype.findNextSibling = function () {
-	        return this.findAdjacentSibling(+1);
+	        return this._findAdjacentSibling(+1);
 	    };
 	    TreeNode.prototype.findPreviousSibling = function () {
-	        return this.findAdjacentSibling(-1);
+	        return this._findAdjacentSibling(-1);
 	    };
 	    TreeNode.prototype.getFirstChild = function () {
 	        return _.first(this.children || []);
@@ -279,14 +297,6 @@ webpackJsonp([2],{
 	            }
 	        });
 	    };
-	    TreeNode.prototype._setIsExpanded = function (value) {
-	        this.isExpanded = value;
-	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onToggle, node: this, isExpanded: this.isExpanded });
-	    };
-	    TreeNode.prototype.toggle = function () {
-	        deprecated_1.deprecated('toggle', 'toggleExpanded');
-	        this.toggleExpanded();
-	    };
 	    TreeNode.prototype.expand = function () {
 	        if (!this.isExpanded) {
 	            this.toggleExpanded();
@@ -297,9 +307,14 @@ webpackJsonp([2],{
 	            this.toggleExpanded();
 	        }
 	    };
+	    TreeNode.prototype.toggle = function () {
+	        deprecated_1.deprecated('toggle', 'toggleExpanded');
+	        this.toggleExpanded();
+	    };
 	    TreeNode.prototype.toggleExpanded = function () {
 	        this.setIsExpanded(!this.isExpanded);
-	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onToggle, node: this, isExpanded: this.isExpanded });
+	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onToggle, warning: 'this event is deprecated, please use onToggleExpanded instead', node: this, isExpanded: this.isExpanded });
+	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onToggleExpanded, node: this, isExpanded: this.isExpanded });
 	    };
 	    TreeNode.prototype.setIsExpanded = function (value) {
 	        this.treeModel.setExpandedNode(this, value);
@@ -344,23 +359,36 @@ webpackJsonp([2],{
 	            this.fireEvent({ eventName: events_1.TREE_EVENTS.onBlur, node: this });
 	        }
 	    };
-	    TreeNode.prototype.doubleClick = function (rawEvent) {
-	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onDoubleClick, node: this, rawEvent: rawEvent });
-	    };
 	    TreeNode.prototype.mouseAction = function (actionName, $event) {
+	        var extra = null;
 	        this.treeModel.setFocus(true);
-	        var actionMapping = $event.shiftKey ? this.options.actionMapping.mouse.shift :
-	            $event.ctrlKey ? this.options.actionMapping.mouse.ctrl :
-	                $event.altKey ? this.options.actionMapping.mouse.alt :
-	                    this.options.actionMapping.mouse;
+	        var actionMapping = this.options.actionMapping.mouse;
 	        var action = actionMapping[actionName];
+	        if (actionName === 'dragStart') {
+	            this.treeModel.setDraggedNode(this);
+	        }
+	        if (actionName === 'dragOver') {
+	            this.treeModel.setDroppedNode(this, 'on');
+	        }
+	        if (actionName === 'dragAfter') {
+	            this.treeModel.setDroppedNode(this, 'after');
+	        }
+	        if (actionName === 'dragEnd') {
+	            extra = this.treeModel.getDroppedNodePosition();
+	        }
 	        if (action) {
-	            $event.preventDefault();
-	            action(this.treeModel, this, $event);
-	            // TODO: remove after deprecation of context menu
-	            if (actionName === 'dblClick') {
+	            action(this.treeModel, this, $event, extra);
+	            // TODO: remove after deprecation of context menu and dbl click
+	            if (actionName === 'contextMenu') {
 	                this.fireEvent({ eventName: events_1.TREE_EVENTS.onContextMenu, node: this, rawEvent: $event });
 	            }
+	            if (actionName === 'dblClick') {
+	                this.fireEvent({ eventName: events_1.TREE_EVENTS.onDoubleClick, warning: 'This event is deprecated, please use actionMapping to handle double clicks', node: this, rawEvent: $event });
+	            }
+	        }
+	        if (actionName === 'dragEnd') {
+	            this.treeModel.setDraggedNode(null);
+	            this.treeModel.setDroppedNode(null);
 	        }
 	    };
 	    TreeNode.prototype._initChildren = function () {
@@ -404,6 +432,9 @@ webpackJsonp([2],{
 	        this.activeNodeIds = {};
 	        this._focusedNode = null;
 	        this.focusedNodeId = null;
+	        this._draggedNode = null;
+	        this._droppedNode = null;
+	        this._droppedNodePosition = null;
 	        this.firstUpdate = true;
 	        this.eventNames = Object.keys(events_1.TREE_EVENTS);
 	    }
@@ -422,20 +453,29 @@ webpackJsonp([2],{
 	    };
 	    TreeModel.prototype.update = function () {
 	        // Rebuild tree:
-	        var treeNodeConfig = { virtual: true };
-	        treeNodeConfig[this.options.childrenField] = this.nodes;
-	        this.virtualRoot = this.getTreeNode(treeNodeConfig, null);
+	        var virtualRootConfig = (_a = {
+	                virtual: true
+	            },
+	            _a[this.options.childrenField] = this.nodes,
+	            _a
+	        );
+	        this.virtualRoot = this.getTreeNode(virtualRootConfig, null);
 	        this.roots = this.virtualRoot.children;
 	        this._initTreeNodeContentComponent();
 	        this._initLoadingComponent();
 	        // Fire event:
-	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onUpdateData });
 	        if (this.firstUpdate) {
-	            this.fireEvent({ eventName: events_1.TREE_EVENTS.onInitialized });
-	            this.firstUpdate = false;
-	            this._calculateExpandedNodes();
+	            if (this.roots) {
+	                this.fireEvent({ eventName: events_1.TREE_EVENTS.onInitialized });
+	                this.firstUpdate = false;
+	                this._calculateExpandedNodes();
+	            }
+	        }
+	        else {
+	            this.fireEvent({ eventName: events_1.TREE_EVENTS.onUpdateData });
 	        }
 	        this._loadState();
+	        var _a;
 	    };
 	    TreeModel.prototype._calculateExpandedNodes = function (startNode) {
 	        var _this = this;
@@ -449,7 +489,8 @@ webpackJsonp([2],{
 	        }
 	    };
 	    TreeModel.prototype.fireEvent = function (event) {
-	        this.events[event.eventName].next(event);
+	        this.events[event.eventName].emit(event);
+	        this.events.onEvent.emit(event);
 	    };
 	    Object.defineProperty(TreeModel.prototype, "focusedNode", {
 	        get: function () { deprecated_1.deprecated('focusedNode attribute', 'getFocusedNode'); return this.getFocusedNode(); },
@@ -528,9 +569,11 @@ webpackJsonp([2],{
 	        this.expandedNodes = Object.keys(this.expandedNodeIds)
 	            .filter(function (id) { return _this.expandedNodeIds[id]; })
 	            .map(function (id) { return _this.getNodeById(id); });
+	        this.expandedNodes = _.compact(this.expandedNodes);
 	        this.activeNodes = Object.keys(this.activeNodeIds)
 	            .filter(function (id) { return _this.expandedNodeIds[id]; })
 	            .map(function (id) { return _this.getNodeById(id); });
+	        this.activeNodes = _.compact(this.activeNodes);
 	    };
 	    TreeModel.prototype.getNodeByPath = function (path, startNode) {
 	        if (startNode === void 0) { startNode = null; }
@@ -667,12 +710,33 @@ webpackJsonp([2],{
 	    TreeModel.prototype.performKeyAction = function (node, $event) {
 	        var action = this.options.actionMapping.keys[$event.keyCode];
 	        if (action) {
+	            $event.preventDefault();
 	            action(this, node, $event);
 	            return true;
 	        }
 	        else {
 	            return false;
 	        }
+	    };
+	    TreeModel.prototype.getDraggedNode = function () {
+	        return this._draggedNode;
+	    };
+	    TreeModel.prototype.setDraggedNode = function (node) {
+	        this._draggedNode = node;
+	    };
+	    TreeModel.prototype.getDroppedNode = function () {
+	        return this._droppedNode;
+	    };
+	    TreeModel.prototype.getDroppedNodePosition = function () {
+	        return this._droppedNodePosition;
+	    };
+	    TreeModel.prototype.isDropNode = function (node) {
+	        return this.getDroppedNode() === node;
+	    };
+	    TreeModel.prototype.setDroppedNode = function (node, position) {
+	        if (position === void 0) { position = null; }
+	        this._droppedNode = node;
+	        this._droppedNodePosition = position;
 	    };
 	    TreeModel.focusedTree = null;
 	    TreeModel = __decorate([
@@ -15805,10 +15869,7 @@ webpackJsonp([2],{
 	        click: exports.TREE_ACTIONS.TOGGLE_SELECTED,
 	        dblClick: null,
 	        contextMenu: null,
-	        expanderClick: exports.TREE_ACTIONS.TOGGLE_EXPANDED,
-	        shift: {},
-	        ctrl: {},
-	        alt: {}
+	        expanderClick: exports.TREE_ACTIONS.TOGGLE_EXPANDED
 	    },
 	    keys: (_a = {},
 	        _a[keys_1.KEYS.RIGHT] = exports.TREE_ACTIONS.DRILL_DOWN,
@@ -15839,6 +15900,15 @@ webpackJsonp([2],{
 	        _.extend(this, optionsWithDefaults);
 	        if (options.hasCustomContextMenu) {
 	            deprecated_1.deprecated('hasCustomContextMenu', 'actionMapping: mouse: contextMenu');
+	        }
+	        if (_.get(options, 'mouse.shift')) {
+	            deprecated_1.deprecated('mouse.shift', '$event.shiftKey in click action instead');
+	        }
+	        if (_.get(options, 'mouse.ctrl')) {
+	            deprecated_1.deprecated('mouse.ctrl', '$event.ctrlKey in click action instead');
+	        }
+	        if (_.get(options, 'mouse.alt')) {
+	            deprecated_1.deprecated('mouse.alt', '$event.altKey in click action instead');
 	        }
 	    }
 	    return TreeOptions;
@@ -15967,6 +16037,7 @@ webpackJsonp([2],{
 	"use strict";
 	exports.TREE_EVENTS = {
 	    onToggle: 'onToggle',
+	    onToggleExpanded: 'onToggleExpanded',
 	    onActiveChanged: 'onActiveChanged',
 	    onActivate: 'onActivate',
 	    onDeactivate: 'onDeactivate',
@@ -15976,6 +16047,7 @@ webpackJsonp([2],{
 	    onContextMenu: 'onContextMenu',
 	    onInitialized: 'onInitialized',
 	    onUpdateData: 'onUpdateData',
+	    onEvent: 'onEvent'
 	};
 	
 
@@ -16005,71 +16077,39 @@ webpackJsonp([2],{
 	var angular2_tree_component_1 = __webpack_require__(512);
 	var actionMapping = {
 	    mouse: {
-	        contextMenu: function (tree, node) { return alert("context menu for " + node.data.name); },
-	        shift: {
-	            click: angular2_tree_component_1.TREE_ACTIONS.TOGGLE_SELECTED_MULTI
-	        }
+	        contextMenu: function (tree, node, $event) {
+	            $event.preventDefault();
+	            alert("context menu for " + node.data.name);
+	        },
+	        dblClick: angular2_tree_component_1.TREE_ACTIONS.TOGGLE_EXPANDED,
+	        click: function (node, tree, $event) {
+	            $event.shiftKey
+	                ? angular2_tree_component_1.TREE_ACTIONS.TOGGLE_SELECTED_MULTI(node, tree, $event)
+	                : angular2_tree_component_1.TREE_ACTIONS.TOGGLE_SELECTED(node, tree, $event);
+	        },
+	        dragStart: function (tree, node) { return console.log('start drag', node); },
+	        drag: function (tree, node) { return console.log('drag', node); },
+	        dragEnd: function (tree, node, $event) {
+	            var rest = [];
+	            for (var _i = 3; _i < arguments.length; _i++) {
+	                rest[_i - 3] = arguments[_i];
+	            }
+	            return console.log('drag end', node, rest[0]);
+	        },
+	        dragOver: function (tree, node) { return console.log('drag over', node); },
+	        drop: function (tree, node) { return console.log('drop', node); },
 	    },
 	    keys: (_a = {},
 	        _a[angular2_tree_component_1.KEYS.ENTER] = function (tree, node, $event) { return alert("This is " + node.data.name); },
 	        _a
 	    )
 	};
-	var CUSTOM_TEMPLATE_STRING = "\n  <span title=\"{{node.data.subTitle}}\">{{ node.data.name }}</span> {{ childrenCount() }}";
+	var CUSTOM_TEMPLATE_STRING = "\n  <span title=\"{{node.data.subTitle}}\">{{ node.data.name }}</span>\n<!--  <input type=\"text\"/> -->\n  <span class=\"pull-right\">{{ childrenCount() }}</span>";
 	var CUSTOM_TEMPLATE_STRING_WITH_CONTEXT = "{{ node.data.name }} {{ childrenCount() }}\n  <button (click)=\"context.go($event)\">Custom Action</button>";
 	var App = (function () {
 	    function App() {
-	        this.nodes = [
-	            {
-	                id: uuid(),
-	                expanded: true,
-	                name: 'root expanded',
-	                subTitle: 'the root',
-	                children: [
-	                    {
-	                        id: uuid(),
-	                        name: 'child1',
-	                        subTitle: 'a good child',
-	                        hasChildren: false
-	                    }, {
-	                        id: uuid(),
-	                        name: 'child2',
-	                        subTitle: 'a bad child',
-	                        hasChildren: false
-	                    }
-	                ]
-	            },
-	            {
-	                id: uuid(),
-	                name: 'root2',
-	                subTitle: 'the second root',
-	                children: [
-	                    {
-	                        id: uuid(),
-	                        name: 'child2.1',
-	                        subTitle: 'new and improved',
-	                        hasChildren: false
-	                    }, {
-	                        id: uuid(),
-	                        name: 'child2.2',
-	                        subTitle: 'new and improved2',
-	                        children: [
-	                            {
-	                                id: uuid(),
-	                                name: 'subsub',
-	                                subTitle: 'subsub',
-	                                hasChildren: false
-	                            }
-	                        ]
-	                    }
-	                ]
-	            },
-	            {
-	                id: uuid(),
-	                name: 'asyncroot',
-	                hasChildren: true
-	            }
-	        ];
+	        var _this = this;
+	        this.nodes = null;
 	        this.asyncChildren = [
 	            {
 	                name: 'child2.1',
@@ -16090,21 +16130,64 @@ webpackJsonp([2],{
 	            actionMapping: actionMapping
 	        };
 	        this.onEvent = function ($event) { return console.log($event); };
+	        setTimeout(function () {
+	            _this.nodes = [
+	                {
+	                    expanded: true,
+	                    name: 'root expanded',
+	                    subTitle: 'the root',
+	                    children: [
+	                        {
+	                            name: 'child1',
+	                            subTitle: 'a good child',
+	                            hasChildren: false
+	                        }, {
+	                            name: 'child2',
+	                            subTitle: 'a bad child',
+	                            hasChildren: false
+	                        }
+	                    ]
+	                },
+	                {
+	                    name: 'root2',
+	                    subTitle: 'the second root',
+	                    children: [
+	                        {
+	                            name: 'child2.1',
+	                            subTitle: 'new and improved',
+	                            hasChildren: false
+	                        }, {
+	                            name: 'child2.2',
+	                            subTitle: 'new and improved2',
+	                            children: [
+	                                {
+	                                    name: 'subsub',
+	                                    subTitle: 'subsub',
+	                                    hasChildren: false
+	                                }
+	                            ]
+	                        }
+	                    ]
+	                },
+	                {
+	                    name: 'asyncroot',
+	                    hasChildren: true
+	                }
+	            ];
+	        }, 1);
 	    }
 	    App.prototype.getChildren = function (node) {
 	        var _this = this;
 	        return new Promise(function (resolve, reject) {
 	            setTimeout(function () { return resolve(_this.asyncChildren.map(function (c) {
 	                return Object.assign({}, c, {
-	                    hasChildren: node.level < 5,
-	                    id: uuid()
+	                    hasChildren: node.level < 5
 	                });
 	            })); }, 1000);
 	        });
 	    };
 	    App.prototype.addNode = function (tree) {
 	        this.nodes[0].children.push({
-	            id: uuid(),
 	            name: 'a new child'
 	        });
 	        tree.treeModel.update();
@@ -16120,7 +16203,7 @@ webpackJsonp([2],{
 	            styles: [
 	                "button: {\n        line - height: 24px;\n        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);\n        border: none;\n        border-radius: 2px;\n        background: #A3D9F5;\n        cursor: pointer;\n        margin: 0 3px;\n      }"
 	            ],
-	            template: "<Tree\n    #tree\n    [nodes]=\"nodes\"\n    [focused]=\"true\"\n    [options]=\"customTemplateStringOptions\"\n    (onToggle)=\"onEvent($event)\"\n    (onActivate)=\"onEvent($event)\"\n    (onDeactivate)=\"onEvent($event)\"\n    (onActiveChanged)=\"onEvent($event)\"\n    (onFocus)=\"onEvent($event)\"\n    (onBlur)=\"onEvent($event)\"\n  ></Tree>\n  <br>\n  <p>Keys:</p>\n  down | up | left | right | space | enter\n  <p>Mouse:</p>\n  click to select | shift+click to select multi\n  <p>API:</p>\n  <button (click)=\"tree.treeModel.focusNextNode()\">next node</button>\n  <button (click)=\"tree.treeModel.focusPreviousNode()\">previous node</button>\n  <button (click)=\"tree.treeModel.focusDrillDown()\">drill down</button>\n  <button (click)=\"tree.treeModel.focusDrillUp()\">drill up</button>\n  <p></p>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().toggleActivated()\">\n    {{ tree.treeModel.getFocusedNode()?.isActive ? 'deactivate' : 'activate' }}\n  </button>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().toggleExpanded()\">\n    {{ tree.treeModel.getFocusedNode()?.isExpanded ? 'collapse' : 'expand' }}\n  </button>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().blur()\">\n    blur\n  </button>\n  <button\n    (click)=\"addNode(tree)\">\n    Add Node\n  </button>"
+	            template: "<Tree\n    #tree\n    [nodes]=\"nodes\"\n    [focused]=\"true\"\n    [options]=\"customTemplateStringOptions\"\n    (onEvent)=\"onEvent($event)\"\n  ></Tree>\n  <br>\n  <p>Keys:</p>\n  down | up | left | right | space | enter\n  <p>Mouse:</p>\n  click to select | shift+click to select multi\n  <p>API:</p>\n  <button (click)=\"tree.treeModel.focusNextNode()\">next node</button>\n  <button (click)=\"tree.treeModel.focusPreviousNode()\">previous node</button>\n  <button (click)=\"tree.treeModel.focusDrillDown()\">drill down</button>\n  <button (click)=\"tree.treeModel.focusDrillUp()\">drill up</button>\n  <p></p>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().toggleActivated()\">\n    {{ tree.treeModel.getFocusedNode()?.isActive ? 'deactivate' : 'activate' }}\n  </button>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().toggleExpanded()\">\n    {{ tree.treeModel.getFocusedNode()?.isExpanded ? 'collapse' : 'expand' }}\n  </button>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().blur()\">\n    blur\n  </button>\n  <button\n    (click)=\"addNode(tree)\">\n    Add Node\n  </button>"
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], App);
@@ -16573,13 +16656,17 @@ webpackJsonp([2],{
 	                '.tree-node-focused > .node-content-wrapper { background: #e7f4f9 }',
 	                '.node-content-wrapper:hover { background: #f7fbff }',
 	                '.tree-node-active > .node-content-wrapper, .tree-node-focused > .node-content-wrapper, .node-content-wrapper:hover { box-shadow: inset 0 0 1px #999; }',
+	                '.tree-node-dropzone > .node-content-wrapper { background: #f7fbff; box-shadow: inset 0 0 1px #999; transform: scale(1.2); position: relative;left: 6px;}',
+	                '.tree-node-dropzone > .toggle-children-wrapper > .toggle-children { transform: scale(1.2) }',
 	                '.tree-node-expanded > .toggle-children-wrapper > .toggle-children { transform: rotate(90deg) }',
 	                '.tree-node-collapsed > .toggle-children-wrapper > .toggle-children { transform: rotate(0); }',
+	                '.node-after { height: 10px; width: 100%; background: red }',
+	                '.tree-node-dropzone-after.node-after { background: #f7fbff }',
 	                ".toggle-children-wrapper {\n      padding: 5px 0 5px 5px;\n    }",
 	                ".toggle-children {\n        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABAhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJ1dWlkOjY1RTYzOTA2ODZDRjExREJBNkUyRDg4N0NFQUNCNDA3IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkYzRkRFQjcxODUzNTExRTU4RTQwRkQwODFEOUZEMEE3IiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkYzRkRFQjcwODUzNTExRTU4RTQwRkQwODFEOUZEMEE3IiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE1IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MTk5NzA1OGEtZDI3OC00NDZkLWE4ODgtNGM4MGQ4YWI1NzNmIiBzdFJlZjpkb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6YzRkZmQxMGMtY2NlNS0xMTc4LWE5OGQtY2NkZmM5ODk5YWYwIi8+IDxkYzp0aXRsZT4gPHJkZjpBbHQ+IDxyZGY6bGkgeG1sOmxhbmc9IngtZGVmYXVsdCI+Z2x5cGhpY29uczwvcmRmOmxpPiA8L3JkZjpBbHQ+IDwvZGM6dGl0bGU+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+5iogFwAAAGhJREFUeNpiYGBgKABigf///zOQg0EARH4A4gZyDIIZ8B/JoAJKDIDhB0CcQIkBRBtEyABkgxwoMQCGD6AbRKoBGAYxQgXIBRuZGKgAKPIC3QLxArnRSHZCIjspk52ZKMrOFBUoAAEGAKnq593MQAZtAAAAAElFTkSuQmCC');\n        height: 8px;\n        width: 9px;\n        background-size: contain;\n        display: inline-block;\n        position: relative;\n        background-repeat: no-repeat;\n        background-position: center;\n    }",
 	                ".toggle-children-placeholder {\n        display: inline-block;\n        height: 10px;\n        width: 10px;\n        position: relative;\n        top: 1px;\n    }"
 	            ],
-	            template: "\n    <div class=\"tree-node tree-node-level-{{ node.level }}\"\n      [class.tree-node-expanded]=\"node.isExpanded && node.hasChildren\"\n      [class.tree-node-collapsed]=\"node.isCollapsed && node.hasChildren\"\n      [class.tree-node-leaf]=\"node.isLeaf\"\n      [class.tree-node-active]=\"node.isActive\"\n      [class.tree-node-focused]=\"node.isFocused\">\n      <span\n        *ngIf=\"node.hasChildren\"\n        class=\"toggle-children-wrapper\"\n        (click)=\"node.mouseAction('expanderClick', $event)\">\n\n        <span class=\"toggle-children\"></span>\n      </span>\n      <span\n        *ngIf=\"!node.hasChildren\"\n        class=\"toggle-children-placeholder\">\n      </span>\n      <div class=\"node-content-wrapper\"\n        (click)=\"node.mouseAction('click', $event)\"\n        (dblclick)=\"node.mouseAction('dblClick', $event)\"\n        (contextmenu)=\"node.mouseAction('contextMenu', $event)\">\n\n        <TreeNodeContent [node]=\"node\"></TreeNodeContent>\n      </div>\n      <div class=\"tree-children\" *ngIf=\"node.isExpanded\">\n        <div *ngIf=\"node.children\">\n          <TreeNode\n            *ngFor=\"let node of node.children\"\n            [node]=\"node\">\n          </TreeNode>\n        </div>\n        <LoadingComponent\n          class=\"tree-node-loading\"\n          *ngIf=\"!node.children\"\n        ></LoadingComponent>\n      </div>\n    </div>\n  "
+	            template: "\n    <div\n      class=\"tree-node tree-node-level-{{ node.level }}\"\n      [class.tree-node-expanded]=\"node.isExpanded && node.hasChildren\"\n      [class.tree-node-collapsed]=\"node.isCollapsed && node.hasChildren\"\n      [class.tree-node-leaf]=\"node.isLeaf\"\n      [class.tree-node-active]=\"node.isActive\"\n      [class.tree-node-focused]=\"node.isFocused\"\n      [class.tree-node-dropzone]=\"node.isDropNode\">\n\n      <span\n        *ngIf=\"node.hasChildren\"\n        class=\"toggle-children-wrapper\"\n        (click)=\"node.mouseAction('expanderClick', $event)\">\n\n        <span class=\"toggle-children\"></span>\n      </span>\n      <span\n        *ngIf=\"!node.hasChildren\"\n        class=\"toggle-children-placeholder\">\n      </span>\n      <div class=\"node-content-wrapper\"\n        (click)=\"node.mouseAction('click', $event)\"\n        (dblclick)=\"node.mouseAction('dblClick', $event)\"\n        (contextmenu)=\"node.mouseAction('contextMenu', $event)\"\n        draggable=\"true\"\n        (dragstart)=\"node.mouseAction('dragStart', $event)\"\n        (drag)=\"node.mouseAction('drag', $event)\"\n        (dragover)=\"node.mouseAction('dragOver', $event)\"\n        (dragend)=\"node.mouseAction('dragEnd', $event)\">\n\n        <TreeNodeContent [node]=\"node\"></TreeNodeContent>\n      </div>\n<!--      <div\n        class=\"node-after\"\n        [class.tree-node-dropzone-after]=\"node.isDropNodeAfter\"\n        (dragover)=\"node.mouseAction('dragAfter', $event)\">\n      </div> -->\n      <div class=\"tree-children\" *ngIf=\"node.isExpanded\">\n        <div *ngIf=\"node.children\">\n          <TreeNode\n            *ngFor=\"let node of node.children\"\n            [node]=\"node\">\n          </TreeNode>\n        </div>\n        <LoadingComponent\n          class=\"tree-node-loading\"\n          *ngIf=\"!node.children\"\n        ></LoadingComponent>\n      </div>\n    </div>\n  "
 	        }), 
 	        __metadata('design:paramtypes', [core_1.DynamicComponentLoader, core_1.ElementRef])
 	    ], TreeNodeComponent);
@@ -16637,10 +16724,10 @@ webpackJsonp([2],{
 	    TreeComponent.prototype.onKeydown = function ($event) {
 	        if (!this.treeModel.isFocused)
 	            return;
+	        if (_.includes(['input', 'textarea'], document.activeElement.tagName.toLowerCase()))
+	            return;
 	        var focusedNode = this.treeModel.getFocusedNode();
-	        if (this.treeModel.performKeyAction(focusedNode, $event)) {
-	            $event.preventDefault();
-	        }
+	        this.treeModel.performKeyAction(focusedNode, $event);
 	    };
 	    TreeComponent.prototype.onMousedown = function ($event) {
 	        var insideClick = $event.target.closest('Tree');
@@ -16705,7 +16792,15 @@ webpackJsonp([2],{
 	    __decorate([
 	        core_1.Output(), 
 	        __metadata('design:type', Object)
+	    ], TreeComponent.prototype, "onUpdateData", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
 	    ], TreeComponent.prototype, "onInitialized", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], TreeComponent.prototype, "onEvent", void 0);
 	    TreeComponent = __decorate([
 	        core_1.Component({
 	            selector: 'Tree',
