@@ -54,9 +54,10 @@ export class TreeModel implements ITreeModel {
     this._initTreeNodeContentComponent();
     this._initLoadingComponent();
 
+    this._loadState();
+
     // Fire event:
     if (this.firstUpdate) {
-      console.log('roots', this.roots);
       if (this.roots) {
         this.fireEvent({ eventName: TREE_EVENTS.onInitialized });
         this.firstUpdate = false;
@@ -65,8 +66,6 @@ export class TreeModel implements ITreeModel {
     } else {
       this.fireEvent({ eventName: TREE_EVENTS.onUpdateData });
     }
-
-    this._loadState();
   }
 
   _calculateExpandedNodes(startNode = null) {
@@ -303,6 +302,7 @@ export class TreeModel implements ITreeModel {
   performKeyAction(node, $event) {
     const action = this.options.actionMapping.keys[$event.keyCode]
     if (action) {
+      $event.preventDefault();
       action(this, node, $event);
       return true;
     } else {

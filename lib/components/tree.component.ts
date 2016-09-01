@@ -67,11 +67,12 @@ export class TreeComponent implements OnChanges {
 
   onKeydown($event) {
     if (!this.treeModel.isFocused) return;
+    if (_.includes(['input', 'textarea'],
+        document.activeElement.tagName.toLowerCase())) return;
 
     const focusedNode = this.treeModel.getFocusedNode();
-    if (this.treeModel.performKeyAction(focusedNode, $event)) {
-      $event.preventDefault();
-    }
+
+    this.treeModel.performKeyAction(focusedNode, $event);
   }
 
   onMousedown($event) {

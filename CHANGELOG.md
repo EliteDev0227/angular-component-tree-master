@@ -1,3 +1,11 @@
+<a name="1.1.16"></a>
+# 1.1.16 (2016-08-15)
+* Handling empty nodes
+* Rename onToggle to onToggleExpanded
+* Added onEvent
+* Not trigerring key actions when input is focused
+* Removed shift, ctrl and alt from action mappings
+
 <a name="1.1.15"></a>
 # 1.1.15 (2016-08-14)
 * Fixed expander not turning on expand

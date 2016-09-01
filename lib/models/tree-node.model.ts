@@ -203,19 +203,15 @@ export class TreeNode implements ITreeNode {
   }
 
   mouseAction(actionName:string, $event) {
+    let extra = null;
     this.treeModel.setFocus(true);
 
-    const actionMapping =
-      $event.shiftKey ? this.options.actionMapping.mouse.shift :
-      $event.ctrlKey ? this.options.actionMapping.mouse.ctrl :
-      $event.altKey ? this.options.actionMapping.mouse.alt :
-      this.options.actionMapping.mouse;
+    const actionMapping = this.options.actionMapping.mouse;
 
     const action = actionMapping[actionName];
 
     if (action) {
-      $event.preventDefault();
-      action(this.treeModel, this, $event);
+      action(this.treeModel, this, $event, extra);
 
       // TODO: remove after deprecation of context menu and dbl click
       if (actionName === 'contextMenu') {

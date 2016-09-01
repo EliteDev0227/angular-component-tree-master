@@ -6,7 +6,7 @@ import { deprecated } from '../deprecated';
 import * as _ from 'lodash';
 
 export interface IActionHandler {
-  (tree:TreeModel, node:TreeNode, $event:any);
+  (tree:TreeModel, node:TreeNode, $event:any, ...rest);
 }
 
 export const TREE_ACTIONS = {
@@ -29,10 +29,7 @@ const defaultActionMapping:IActionMapping = {
     click: TREE_ACTIONS.TOGGLE_SELECTED,
     dblClick: null,
     contextMenu: null,
-    expanderClick: TREE_ACTIONS.TOGGLE_EXPANDED,
-    shift: {},
-    ctrl: {},
-    alt: {}
+    expanderClick: TREE_ACTIONS.TOGGLE_EXPANDED
   },
   keys: {
     [KEYS.RIGHT]: TREE_ACTIONS.DRILL_DOWN,
@@ -49,25 +46,7 @@ export interface IActionMapping {
     click?: IActionHandler,
     dblClick?: IActionHandler,
     contextMenu?: IActionHandler,
-    expanderClick?: IActionHandler,
-    shift?: {
-      click?: IActionHandler,
-      dblClick?: IActionHandler,
-      contextMenu?: IActionHandler,
-      expanderClick?: IActionHandler,
-    },
-    ctrl?: {
-      click?: IActionHandler,
-      dblClick?: IActionHandler,
-      contextMenu?: IActionHandler,
-      expanderClick?: IActionHandler,
-    }
-    alt?: {
-      click?: IActionHandler,
-      dblClick?: IActionHandler,
-      contextMenu?: IActionHandler,
-      expanderClick?: IActionHandler,
-    }
+    expanderClick?: IActionHandler
   },
   keys?: {
     [key:number]: IActionHandler
@@ -117,6 +96,18 @@ export class TreeOptions {
 
     if (options.hasCustomContextMenu) {
       deprecated('hasCustomContextMenu', 'actionMapping: mouse: contextMenu');
+    }
+
+    if (_.get(options, 'mouse.shift')) {
+      deprecated('mouse.shift', '$event.shiftKey in click action instead');
+    }
+
+    if (_.get(options, 'mouse.ctrl')) {
+      deprecated('mouse.ctrl', '$event.ctrlKey in click action instead');
+    }
+
+    if (_.get(options, 'mouse.alt')) {
+      deprecated('mouse.alt', '$event.altKey in click action instead');
     }
   }
 }

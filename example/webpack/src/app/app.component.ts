@@ -3,10 +3,15 @@ import { TreeComponent, TreeNode, TREE_ACTIONS, KEYS, IActionMapping } from 'ang
 
 const actionMapping:IActionMapping = {
   mouse: {
-    contextMenu: (tree, node) => alert(`context menu for ${node.data.name}`),
+    contextMenu: (tree, node, $event) => {
+      $event.preventDefault();
+      alert(`context menu for ${node.data.name}`);
+    },
     dblClick: TREE_ACTIONS.TOGGLE_EXPANDED,
-    shift: {
-      click: TREE_ACTIONS.TOGGLE_SELECTED_MULTI
+    click: (node, tree, $event) => {
+      $event.shiftKey
+        ? TREE_ACTIONS.TOGGLE_SELECTED_MULTI(node, tree, $event)
+        : TREE_ACTIONS.TOGGLE_SELECTED(node, tree, $event)
     }
   },
   keys: {
@@ -15,7 +20,9 @@ const actionMapping:IActionMapping = {
 };
 
 const CUSTOM_TEMPLATE_STRING = `
-  <span title="{{node.data.subTitle}}">{{ node.data.name }}</span> {{ childrenCount() }}`;
+  <span title="{{node.data.subTitle}}">{{ node.data.name }}</span>
+<!--  <input type="text"/> -->
+  <span class="pull-right">{{ childrenCount() }}</span>`;
 
 const CUSTOM_TEMPLATE_STRING_WITH_CONTEXT = `{{ node.data.name }} {{ childrenCount() }}
   <button (click)="context.go($event)">Custom Action</button>`;
@@ -78,18 +85,18 @@ export class App {
     setTimeout(() => {
       this.nodes = [
         {
-          id: uuid(),
+          
           expanded: true,
           name: 'root expanded',
           subTitle: 'the root',
           children: [
             {
-              id: uuid(),
+              
               name: 'child1',
               subTitle: 'a good child',
               hasChildren: false
             }, {
-              id: uuid(),
+              
               name: 'child2',
               subTitle: 'a bad child',
               hasChildren: false
@@ -97,22 +104,22 @@ export class App {
           ]
         },
         {
-          id: uuid(),
+          
           name: 'root2',
           subTitle: 'the second root',
           children: [
             {
-              id: uuid(),
+              
               name: 'child2.1',
               subTitle: 'new and improved',
               hasChildren: false
             }, {
-              id: uuid(),
+              
               name: 'child2.2',
               subTitle: 'new and improved2',
               children: [
                 {
-                  id: uuid(),
+                  
                   name: 'subsub',
                   subTitle: 'subsub',
                   hasChildren: false
@@ -122,7 +129,7 @@ export class App {
           ]
         },
         {
-          id: uuid(),
+          
           name: 'asyncroot',
           hasChildren: true
         }
@@ -144,8 +151,7 @@ export class App {
     return new Promise((resolve, reject) => {
       setTimeout(() => resolve(this.asyncChildren.map((c) => {
         return Object.assign({}, c, {
-          hasChildren: node.level < 5,
-          id: uuid()
+          hasChildren: node.level < 5
         });
       })), 1000);
     });
@@ -153,7 +159,7 @@ export class App {
 
   addNode(tree) {
     this.nodes[0].children.push({
-      id: uuid(),
+      
       name: 'a new child'
     });
     tree.treeModel.update();
