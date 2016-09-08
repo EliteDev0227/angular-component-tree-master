@@ -1,4 +1,5 @@
-import { Injectable, Component, Input, EventEmitter } from '@angular/core';
+import { Injectable, Component, Input, EventEmitter, TemplateRef } from '@angular/core';
+import { ITreeNodeTemplate } from '../components/tree-node-content.component';
 import { TreeNode } from './tree-node.model';
 import { TreeOptions } from './tree-options.model';
 import { ITreeModel } from '../defs/api';
@@ -50,9 +51,6 @@ export class TreeModel implements ITreeModel {
     this.virtualRoot = this.getTreeNode(virtualRootConfig, null);
 
     this.roots = this.virtualRoot.children;
-
-    this._initTreeNodeContentComponent();
-    this._initLoadingComponent();
 
     this._loadState();
 
@@ -129,29 +127,21 @@ export class TreeModel implements ITreeModel {
   }
 
 
-  private _treeNodeContentComponent:any;
-  get treeNodeContentComponent() { return this._treeNodeContentComponent };
+  private _treeNodeContentTemplate:any;
+  get treeNodeContentTemplate() { return this._treeNodeContentTemplate };
 
-  private _loadingComponent:any;
-  get loadingComponent() { return this._loadingComponent };
+  private _loadingTemplate:any;
+  get loadingTemplate() { return this._loadingTemplate };
 
-  // if treeNodeTemplate is a component - use it,
-  // otherwise - it's a template, so wrap it with an AdHoc component
-  _initTreeNodeContentComponent() {
-    this._treeNodeContentComponent = this.options.treeNodeTemplate;
-    if (typeof this._treeNodeContentComponent === 'string') {
-        throw 'String templates are no longer supported.  Please use a component template.'
-    //   this._treeNodeContentComponent = this._createAdHocComponent(this._treeNodeContentComponent);
-    }
+  // if treeNodeTemplate is defined - use it,
+  // otherwise - the treeNodeContentComponent will display default data
+  initTreeNodeContentTemplate(treeNodeTemplate: TemplateRef<ITreeNodeTemplate>) {
+    this._treeNodeContentTemplate = treeNodeTemplate;
   }
 
   // same for loading component
-  _initLoadingComponent() {
-    this._loadingComponent = this.options.loadingComponent;
-    if (typeof this._loadingComponent === 'string') {
-        throw 'String templates are no longer supported.  Please use a component template.'
-    //   this._loadingComponent = this._createAdHocComponent(this._loadingComponent);
-    }
+  initLoadingTemplate(loadingTemplate: TemplateRef<any>) {
+    this._loadingTemplate = loadingTemplate;
   }
 
   _loadState() {
@@ -206,17 +196,6 @@ export class TreeModel implements ITreeModel {
       }
     }
   }
-
-//   _createAdHocComponent(templateStr): any {
-//     @Component({
-//         selector: 'TreeNodeTemplate',
-//         template: templateStr
-//     })
-//     class AdHocTreeNodeTemplateComponent {
-//         @Input() node: TreeNode;
-//     }
-//     return AdHocTreeNodeTemplateComponent;
-//   }
 
   focusNextNode() {
     let previousNode = this.getFocusedNode();

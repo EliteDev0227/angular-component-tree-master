@@ -1,6 +1,5 @@
-import { Component, Input, ComponentFactory, ComponentFactoryResolver, ComponentRef, AfterViewInit, ViewContainerRef } from '@angular/core';
+import { Component, Input, TemplateRef } from '@angular/core';
 import { TreeNode } from '../models/tree-node.model';
-import { TreeModel } from '../models/tree.model';
 
 export interface ITreeNodeTemplate {
   node: TreeNode;
@@ -9,30 +8,10 @@ export interface ITreeNodeTemplate {
 
 @Component({
   selector: 'TreeNodeContent',
-  template: '',
+  template: `<span *ngIf="!treeNodeContentTemplate">{{ node.displayField }}</span>
+  <template [ngTemplateOutlet]="treeNodeContentTemplate" [ngOutletContext]="{ $implicit: node }"></template>`,
 })
-export class TreeNodeContent implements AfterViewInit {
+export class TreeNodeContent {
   @Input() node: TreeNode;
-
-  constructor(
-    private treeModel: TreeModel,
-    private componentResolver: ComponentFactoryResolver,
-    private viewContainerRef: ViewContainerRef
-    ) {
-  }
-
-  ngAfterViewInit() {
-    this._loadTreeNodeContent();
-  }
-
-  _loadTreeNodeContent() {
-    let componentFactory: ComponentFactory<ITreeNodeTemplate>
-        = this.componentResolver.resolveComponentFactory<ITreeNodeTemplate>(this.treeModel.treeNodeContentComponent);
-    let componentRef: ComponentRef<ITreeNodeTemplate>
-        = this.viewContainerRef.createComponent(componentFactory, 0, this.viewContainerRef.injector);
-    componentRef.instance.node = this.node;
-    componentRef.instance.context = this.node.context;
-
-    componentRef.changeDetectorRef.detectChanges();
-  }
+  @Input() treeNodeContentTemplate: TemplateRef<ITreeNodeTemplate>;
 }

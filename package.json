@@ -51,7 +51,7 @@
     "typings": "^0.8.1"
   },
   "devDependencies": {
-    "zone.js": "^0.6.12",
+    "zone.js": "^0.6.17",
     "@angular/common": "^2.0.0-rc.6",
     "@angular/compiler": "^2.0.0-rc.6",
     "@angular/core": "^2.0.0-rc.6",
