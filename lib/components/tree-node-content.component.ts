@@ -1,4 +1,4 @@
-import { Component, Input, ComponentResolver, ComponentFactory, ComponentRef, AfterViewInit, ViewContainerRef } from '@angular/core';
+import { Component, Input, ComponentFactoryResolver, ComponentFactory, ComponentRef, AfterViewInit, ViewContainerRef } from '@angular/core';
 import { TreeNode } from '../models/tree-node.model';
 import { TreeModel } from '../models/tree.model';
 
@@ -16,7 +16,7 @@ export class TreeNodeContent implements AfterViewInit {
 
   constructor(
     private treeModel: TreeModel,
-    private componentResolver: ComponentResolver,
+    private componentResolver: ComponentFactoryResolver,
     private viewContainerRef: ViewContainerRef
     ) {
   }
@@ -26,14 +26,13 @@ export class TreeNodeContent implements AfterViewInit {
   }
 
   _loadTreeNodeContent() {
-    this.componentResolver.resolveComponent(this.treeModel.treeNodeContentComponent)
-      .then((componentFactory: ComponentFactory<ITreeNodeTemplate>) => {
-        let componentRef: ComponentRef<ITreeNodeTemplate>
-          = this.viewContainerRef.createComponent(componentFactory, 0, this.viewContainerRef.injector);
-        componentRef.instance.node = this.node;
-        componentRef.instance.context = this.node.context;
+    let componentFactory: ComponentFactory<ITreeNodeTemplate>
+      = this.componentResolver.resolveComponentFactory<ITreeNodeTemplate>(this.treeModel.treeNodeContentComponent)
+    let componentRef: ComponentRef<ITreeNodeTemplate>
+      = this.viewContainerRef.createComponent(componentFactory);
+    componentRef.instance.node = this.node;
+    componentRef.instance.context = this.node.context;
 
-        componentRef.changeDetectorRef.detectChanges();
-      });
+    componentRef.changeDetectorRef.detectChanges();
   }
 }

@@ -1,4 +1,5 @@
-import { Component, Input, Output, OnChanges, SimpleChange, EventEmitter, ViewEncapsulation } from '@angular/core';
+import { Component, Input, Output, OnChanges, SimpleChange, EventEmitter, ViewEncapsulation, ContentChild, TemplateRef, AfterContentInit } from '@angular/core';
+import { ITreeNodeTemplate } from './tree-node-content.component';
 import { TreeNodeComponent } from './tree-node.component';
 import { TreeModel } from '../models/tree.model';
 import { TreeNode } from '../models/tree-node.model';
@@ -9,7 +10,6 @@ import * as _ from 'lodash'
 
 @Component({
   selector: 'Tree',
-  directives: [TreeNodeComponent],
   encapsulation: ViewEncapsulation.None,
   host: {
     '(body: keydown)': "onKeydown($event)",
@@ -38,13 +38,17 @@ import * as _ from 'lodash'
     </div>
   `
 })
-export class TreeComponent implements OnChanges {
+export class TreeComponent implements AfterContentInit, OnChanges {
   constructor(public treeModel:TreeModel) {
     treeModel.eventNames.forEach((name) => this[name] = new EventEmitter());
   }
 
   _nodes:any[];
   _options:TreeOptions;
+
+  @ContentChild('loadingTemplate') loadingTemplate: TemplateRef<any>;
+  @ContentChild('treeNodeTemplate') treeNodeTemplate: TemplateRef<ITreeNodeTemplate>;
+
   // Will be handled in ngOnChanges
   @Input() set nodes(nodes:any[]) { };
   @Input() set options(options:TreeOptions) { };
@@ -80,6 +84,10 @@ export class TreeComponent implements OnChanges {
     if (!insideClick) {
       this.treeModel.setFocus(false);
     }
+  }
+
+  ngAfterContentInit() {
+    // Do something with templateRefs
   }
 
   ngOnChanges(changes) {

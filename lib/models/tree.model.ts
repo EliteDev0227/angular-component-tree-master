@@ -1,4 +1,5 @@
-import { Injectable, Component, Input, EventEmitter } from '@angular/core';
+import { Injectable, Component, Input, EventEmitter, TemplateRef } from '@angular/core';
+import { ITreeNodeTemplate } from '../components/tree-node-content.component';
 import { TreeNode } from './tree-node.model';
 import { TreeOptions } from './tree-options.model';
 import { ITreeModel } from '../defs/api';
@@ -137,19 +138,16 @@ export class TreeModel implements ITreeModel {
 
   // if treeNodeTemplate is a component - use it,
   // otherwise - it's a template, so wrap it with an AdHoc component
-  _initTreeNodeContentComponent() {
+  _initTreeNodeContentComponent(treeNodeTemplate: TemplateRef<ITreeNodeTemplate>) {
     this._treeNodeContentComponent = this.options.treeNodeTemplate;
-    if (typeof this._treeNodeContentComponent === 'string') {
-      this._treeNodeContentComponent = this._createAdHocComponent(this._treeNodeContentComponent);
-    }
+    // if (typeof this._treeNodeContentComponent === 'string') {
+    //   this._treeNodeContentComponent = this._createAdHocComponent(this._treeNodeContentComponent);
+    // }
   }
 
   // same for loading component
   _initLoadingComponent() {
     this._loadingComponent = this.options.loadingComponent;
-    if (typeof this._loadingComponent === 'string') {
-      this._loadingComponent = this._createAdHocComponent(this._loadingComponent);
-    }
   }
 
   _loadState() {
