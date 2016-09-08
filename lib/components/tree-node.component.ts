@@ -1,11 +1,10 @@
-import { Component, Input, Output, EventEmitter, DynamicComponentLoader, QueryList, Query, ElementRef, AfterViewInit, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
+import { Component, Input, Output, EventEmitter, QueryList, ElementRef, AfterViewInit, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { TreeNode } from '../models/tree-node.model';
 import { LoadingComponent } from './loading.component';
 import { TreeNodeContent } from './tree-node-content.component';
 
 @Component({
   selector: 'TreeNode',
-  directives: [TreeNodeComponent, LoadingComponent, TreeNodeContent],
   encapsulation: ViewEncapsulation.None,
   styles: [
     '.tree-children { padding-left: 20px }',
@@ -88,8 +87,7 @@ import { TreeNodeContent } from './tree-node-content.component';
 export class TreeNodeComponent implements AfterViewInit {
   @Input() node:TreeNode;
 
-  constructor(private componentLoader: DynamicComponentLoader,
-              private elementRef: ElementRef) {
+  constructor(private elementRef: ElementRef) {
   }
 
   ngAfterViewInit() {

@@ -9,7 +9,6 @@ import * as _ from 'lodash'
 
 @Component({
   selector: 'Tree',
-  directives: [TreeNodeComponent],
   encapsulation: ViewEncapsulation.None,
   host: {
     '(body: keydown)': "onKeydown($event)",

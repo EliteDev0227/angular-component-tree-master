@@ -140,7 +140,8 @@ export class TreeModel implements ITreeModel {
   _initTreeNodeContentComponent() {
     this._treeNodeContentComponent = this.options.treeNodeTemplate;
     if (typeof this._treeNodeContentComponent === 'string') {
-      this._treeNodeContentComponent = this._createAdHocComponent(this._treeNodeContentComponent);
+        throw 'String templates are no longer supported.  Please use a component template.'
+    //   this._treeNodeContentComponent = this._createAdHocComponent(this._treeNodeContentComponent);
     }
   }
 
@@ -148,7 +149,8 @@ export class TreeModel implements ITreeModel {
   _initLoadingComponent() {
     this._loadingComponent = this.options.loadingComponent;
     if (typeof this._loadingComponent === 'string') {
-      this._loadingComponent = this._createAdHocComponent(this._loadingComponent);
+        throw 'String templates are no longer supported.  Please use a component template.'
+    //   this._loadingComponent = this._createAdHocComponent(this._loadingComponent);
     }
   }
 
@@ -205,16 +207,16 @@ export class TreeModel implements ITreeModel {
     }
   }
 
-  _createAdHocComponent(templateStr): any {
-    @Component({
-        selector: 'TreeNodeTemplate',
-        template: templateStr
-    })
-    class AdHocTreeNodeTemplateComponent {
-        @Input() node: TreeNode;
-    }
-    return AdHocTreeNodeTemplateComponent;
-  }
+//   _createAdHocComponent(templateStr): any {
+//     @Component({
+//         selector: 'TreeNodeTemplate',
+//         template: templateStr
+//     })
+//     class AdHocTreeNodeTemplateComponent {
+//         @Input() node: TreeNode;
+//     }
+//     return AdHocTreeNodeTemplateComponent;
+//   }
 
   focusNextNode() {
     let previousNode = this.getFocusedNode();
