@@ -1,8 +1,6 @@
 import { Component, Input, Output, OnChanges, SimpleChange, EventEmitter, ViewEncapsulation, ContentChild, TemplateRef } from '@angular/core';
 import { ITreeNodeTemplate } from './tree-node-content.component';
-import { TreeNodeComponent } from './tree-node.component';
 import { TreeModel } from '../models/tree.model';
-import { TreeNode } from '../models/tree-node.model';
 import { TreeOptions } from '../models/tree-options.model';
 import { KEYS } from '../constants/keys';
 

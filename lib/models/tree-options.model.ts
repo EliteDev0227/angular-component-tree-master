@@ -58,6 +58,8 @@ export interface ITreeOptions {
   displayField: string;
   idField: string;
   isExpandedField:string;
+  treeNodeTemplate?: any;
+  loadingComponent?: any;
   getChildren(node:TreeNode): any;
   hasCustomContextMenu: boolean;
   context: any;
@@ -69,6 +71,8 @@ export class TreeOptions {
   displayField: string;
   idField: string;
   isExpandedField:string;
+  treeNodeTemplate: any;
+  loadingComponent: any;
   getChildren: any = null;
   hasCustomContextMenu: boolean;
   context: any;
@@ -90,6 +94,14 @@ export class TreeOptions {
 
     if (options.hasCustomContextMenu) {
       deprecated('hasCustomContextMenu', 'actionMapping: mouse: contextMenu');
+    }
+
+    if (options.treeNodeTemplate) {
+      deprecated('treeNodeTemplate', 'a template in the content of the <Tree> component like this: <Tree><template #treeNodeTemplate let-node>...</template></Tree>.  If you don\'t have time to update your code and don\'t need AoT compilation, use DeprecatedTreeModule');
+    }
+
+    if (options.loadingComponent) {
+      deprecated('loadingComponent', 'a template in the content of the <Tree> component like this: <Tree><template #loadingTemplate>...</template></Tree>.  If you don\'t have time to update your code and don\'t need AoT compilation, use DeprecatedTreeModule');
     }
 
     if (_.get(options, 'mouse.shift')) {

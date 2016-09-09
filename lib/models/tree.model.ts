@@ -52,6 +52,9 @@ export class TreeModel implements ITreeModel {
 
     this.roots = this.virtualRoot.children;
 
+    this._initTreeNodeContentComponent();
+    this._initLoadingComponent();
+
     this._loadState();
 
     // Fire event:
@@ -127,21 +130,27 @@ export class TreeModel implements ITreeModel {
   }
 
 
-  private _treeNodeContentTemplate:any;
-  get treeNodeContentTemplate() { return this._treeNodeContentTemplate };
+  private _treeNodeContentComponent:any;
+  get treeNodeContentComponent() { return this._treeNodeContentComponent };
 
-  private _loadingTemplate:any;
-  get loadingTemplate() { return this._loadingTemplate };
+  private _loadingComponent:any;
+  get loadingComponent() { return this._loadingComponent };
 
-  // if treeNodeTemplate is defined - use it,
-  // otherwise - the treeNodeContentComponent will display default data
-  initTreeNodeContentTemplate(treeNodeTemplate: TemplateRef<ITreeNodeTemplate>) {
-    this._treeNodeContentTemplate = treeNodeTemplate;
+  // if treeNodeTemplate is a component - use it,
+  // otherwise - it's a template, so wrap it with an AdHoc component
+  _initTreeNodeContentComponent() {
+    this._treeNodeContentComponent = this.options.treeNodeTemplate;
+    if (typeof this._treeNodeContentComponent === 'string') {
+      this._treeNodeContentComponent = this._createAdHocComponent(this._treeNodeContentComponent);
+    }
   }
 
   // same for loading component
-  initLoadingTemplate(loadingTemplate: TemplateRef<any>) {
-    this._loadingTemplate = loadingTemplate;
+  _initLoadingComponent() {
+    this._loadingComponent = this.options.loadingComponent;
+    if (typeof this._loadingComponent === 'string') {
+      this._loadingComponent = this._createAdHocComponent(this._loadingComponent);
+    }
   }
 
   _loadState() {
@@ -195,6 +204,17 @@ export class TreeModel implements ITreeModel {
         if (found) return found;
       }
     }
+  }
+
+  _createAdHocComponent(templateStr): any {
+    @Component({
+        selector: 'TreeNodeTemplate',
+        template: templateStr
+    })
+    class AdHocTreeNodeTemplateComponent {
+        @Input() node: TreeNode;
+    }
+    return AdHocTreeNodeTemplateComponent;
   }
 
   focusNextNode() {
