@@ -45,7 +45,9 @@ import { TreeNodeContent } from './tree-node-content.component';
     }`
   ],
   template: `
-    <div class="tree-node tree-node-level-{{ node.level }}"
+    <div
+      *ngIf="!node.isHidden"
+      class="tree-node tree-node-level-{{ node.level }}"
       [class.tree-node-expanded]="node.isExpanded && node.hasChildren"
       [class.tree-node-collapsed]="node.isCollapsed && node.hasChildren"
       [class.tree-node-leaf]="node.isLeaf"

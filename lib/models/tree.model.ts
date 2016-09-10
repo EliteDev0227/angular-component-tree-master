@@ -309,4 +309,8 @@ export class TreeModel implements ITreeModel {
       return false;
     }
   }
+
+  filterNodes(filterFn) {
+    this.roots.forEach((node) => node.filter(filterFn));
+  }
 }

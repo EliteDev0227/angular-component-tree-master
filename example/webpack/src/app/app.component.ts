@@ -41,7 +41,11 @@ const CUSTOM_TEMPLATE_STRING_WITH_CONTEXT = `{{ node.data.name }} {{ childrenCou
         margin: 0 3px;
       }`
   ],
-  template: `<Tree
+  template: `
+  <form>
+    <input #filter (keyup)="filterNodes(filter.value, tree)" placeholder="filter nodes"/>
+  </form>
+  <Tree
     #tree
     [nodes]="nodes"
     [focused]="true"
@@ -163,6 +167,10 @@ export class App {
       name: 'a new child'
     });
     tree.treeModel.update();
+  }
+
+  filterNodes(text, tree) {
+    tree.treeModel.filterNodes((node) => node.name.toLowerCase().indexOf(text.toLowerCase()) != -1);
   }
 
   customTemplateStringOptions = {

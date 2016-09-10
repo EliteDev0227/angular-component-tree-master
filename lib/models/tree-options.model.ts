@@ -58,6 +58,7 @@ export interface ITreeOptions {
   displayField: string;
   idField: string;
   isExpandedField:string;
+  isHiddenField:string;
   treeNodeTemplate: any;
   loadingComponent: any;
   getChildren(node:TreeNode): any;
@@ -71,6 +72,7 @@ export class TreeOptions {
   displayField: string;
   idField: string;
   isExpandedField:string;
+  isHiddenField:string;
   treeNodeTemplate: any;
   loadingComponent: any;
   getChildren: any = null;
@@ -84,6 +86,7 @@ export class TreeOptions {
       displayField: 'name',
       idField: 'id',
       isExpandedField: 'isExpanded',
+      isHiddenField: 'isHidden',
       treeNodeTemplate: '{{ node.displayField }}',
       loadingComponent: 'loading...',
       getChildren: null,
