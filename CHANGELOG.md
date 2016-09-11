@@ -1,7 +1,11 @@
-<a name="1.1.17"></a>
-# 1.1.17 (2016-09-10)
+<a name="1.1.18"></a>
+# 1.1.18 (2016-09-11)
 * Added isHidden field
 * Added filterNodes function
+
+<a name="1.1.17"></a>
+# 1.1.17 (2016-09-10)
+* Unused version - please use 1.1.18
 
 <a name="1.1.16"></a>
 # 1.1.16 (2016-08-15)
