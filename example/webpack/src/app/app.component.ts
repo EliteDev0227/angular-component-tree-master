@@ -170,7 +170,7 @@ export class App {
   }
 
   filterNodes(text, tree) {
-    tree.treeModel.filterNodes((node) => node.name.toLowerCase().indexOf(text.toLowerCase()) != -1);
+    tree.treeModel.filterNodes(text);
   }
 
   customTemplateStringOptions = {

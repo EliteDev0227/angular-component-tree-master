@@ -205,7 +205,7 @@ export class TreeNode implements ITreeNode {
   }
 
   filter(filterFn) {
-    let isVisible = filterFn(this.data);
+    let isVisible = filterFn(this);
 
     if (this.children) {
       this.children.forEach((child) => {

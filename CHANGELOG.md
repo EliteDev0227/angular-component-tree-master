@@ -1,3 +1,8 @@
+<a name="1.1.17"></a>
+# 1.1.17 (2016-09-10)
+* Added isHidden field
+* Added filterNodes function
+
 <a name="1.1.16"></a>
 # 1.1.16 (2016-08-15)
 * Handling empty nodes
