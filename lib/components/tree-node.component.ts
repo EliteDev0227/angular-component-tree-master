@@ -72,8 +72,8 @@ import { ITreeNodeTemplate } from './tree-node-content.component';
           <TreeNode
             *ngFor="let node of node.children"
             [node]="node"
-            [treeNodeContentTemplate]="treeNodeContentTemplate">
-            [loadingTemplate]="loadingTemplate"
+            [treeNodeContentTemplate]="treeNodeContentTemplate"
+            [loadingTemplate]="loadingTemplate">
           </TreeNode>
         </div>
         <LoadingComponent

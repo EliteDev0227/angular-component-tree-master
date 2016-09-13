@@ -29,7 +29,6 @@ const CUSTOM_TEMPLATE_STRING_WITH_CONTEXT = `{{ node.data.name }} {{ childrenCou
 
 @Component({
   selector: 'app',
-  directives: [TreeComponent],
   styles: [
     `button: {
         line - height: 24px;
@@ -47,7 +46,14 @@ const CUSTOM_TEMPLATE_STRING_WITH_CONTEXT = `{{ node.data.name }} {{ childrenCou
     [focused]="true"
     [options]="customTemplateStringOptions"
     (onEvent)="onEvent($event)"
-  ></Tree>
+  >
+  <template #treeNodeTemplate let-node>
+  <span title="{{node.data.subTitle}}">{{ node.data.name }}</span>
+<!--  <input type="text"/> -->
+  <span class="pull-right">{{ childrenCount(node) }}</span>
+  </template>
+  <template #loadingTemplate>Loading, please hold....</template>
+  </Tree>
   <br>
   <p>Keys:</p>
   down | up | left | right | space | enter
@@ -165,14 +171,18 @@ export class App {
     tree.treeModel.update();
   }
 
+  childrenCount(node: TreeNode) {
+    return node && node.children ? `(${node.children.length})` : '';
+  }
+
   customTemplateStringOptions = {
     // treeNodeTemplate: CUSTOM_TEMPLATE_STRING,
-    treeNodeTemplate: MyTreeNodeTemplate,
+    // treeNodeTemplate: MyTreeNodeTemplate,
     // displayField: 'subTitle',
     isExpandedField: 'expanded',
-    loadingComponent: MyTreeLoadingTemplate,
+    // loadingComponent: MyTreeLoadingTemplate,
     getChildren: this.getChildren.bind(this),
-    context: this,
+    // context: this,
     actionMapping
   }
   onEvent = ($event:any) => console.log($event);
