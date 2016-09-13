@@ -8,6 +8,8 @@ import { deprecated } from '../deprecated';
 import * as _ from 'lodash';
 
 export class TreeNode implements ITreeNode {
+  get isHidden() { return this.getField('isHidden') };
+  set isHidden(value) { this.setField('isHidden', value) };
   get isExpanded() { return this.treeModel.isExpanded(this) };
   get isActive() { return this.treeModel.isActive(this) };
   get isFocused() { return this.treeModel.isNodeFocused(this) };
@@ -200,6 +202,19 @@ export class TreeNode implements ITreeNode {
     if (previousNode) {
       this.fireEvent({ eventName: TREE_EVENTS.onBlur, node: this });
     }
+  }
+
+  filter(filterFn) {
+    let isVisible = filterFn(this);
+
+    if (this.children) {
+      this.children.forEach((child) => {
+        child.filter(filterFn);
+        isVisible = isVisible || !child.isHidden;
+      });
+    }
+
+    this.isHidden = !isVisible;
   }
 
   mouseAction(actionName:string, $event) {

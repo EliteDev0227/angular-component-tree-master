@@ -310,4 +310,20 @@ export class TreeModel implements ITreeModel {
       return false;
     }
   }
+
+  filterNodes(filter) {
+    let filterFn;
+
+    if (_.isString(filter)) {
+      filterFn = (node) => node.displayField.toLowerCase().indexOf(filter.toLowerCase()) != -1
+    }
+    else if (_.isFunction(filter)) {
+       filterFn = filter;
+    }
+    else {
+      console.error('Don\'t know what to do with filter', filter);
+      console.error('Should be either a string or function', filter);
+    }
+    this.roots.forEach((node) => node.filter(filterFn));
+  }
 }

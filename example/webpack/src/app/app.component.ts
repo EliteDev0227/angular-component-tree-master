@@ -32,7 +32,11 @@ const actionMapping:IActionMapping = {
         margin: 0 3px;
       }`
   ],
-  template: `<Tree
+  template: `
+  <form>
+    <input #filter (keyup)="filterNodes(filter.value, tree)" placeholder="filter nodes"/>
+  </form>
+  <Tree
     #tree
     [nodes]="nodes"
     [focused]="true"
@@ -163,8 +167,12 @@ export class App {
     tree.treeModel.update();
   }
 
-  childrenCount(node: TreeNode) {
+  childrenCount(node: TreeNode): string {
     return node && node.children ? `(${node.children.length})` : '';
+  }
+
+  filterNodes(text, tree) {
+    tree.treeModel.filterNodes(text);
   }
 
   customTemplateStringOptions = {

@@ -32,7 +32,7 @@
     "zone.js": "^0.6.12",
     "systemjs": "0.19.27",
 
-    "angular2-tree-component": "1.1.16",
+    "angular2-tree-component": "1.1.18",
     "bootstrap": "^3.3.6",
 
     "lodash": "^4.11.1"
