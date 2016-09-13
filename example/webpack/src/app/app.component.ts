@@ -19,14 +19,6 @@ const actionMapping:IActionMapping = {
   }
 };
 
-const CUSTOM_TEMPLATE_STRING = `
-  <span title="{{node.data.subTitle}}">{{ node.data.name }}</span>
-<!--  <input type="text"/> -->
-  <span class="pull-right">{{ childrenCount() }}</span>`;
-
-const CUSTOM_TEMPLATE_STRING_WITH_CONTEXT = `{{ node.data.name }} {{ childrenCount() }}
-  <button (click)="context.go($event)">Custom Action</button>`;
-
 @Component({
   selector: 'app',
   styles: [
@@ -49,8 +41,8 @@ const CUSTOM_TEMPLATE_STRING_WITH_CONTEXT = `{{ node.data.name }} {{ childrenCou
   >
   <template #treeNodeTemplate let-node>
   <span title="{{node.data.subTitle}}">{{ node.data.name }}</span>
-<!--  <input type="text"/> -->
   <span class="pull-right">{{ childrenCount(node) }}</span>
+  <button (click)="go($event)">Custom Action</button>
   </template>
   <template #loadingTemplate>Loading, please hold....</template>
   </Tree>
@@ -176,13 +168,9 @@ export class App {
   }
 
   customTemplateStringOptions = {
-    // treeNodeTemplate: CUSTOM_TEMPLATE_STRING,
-    // treeNodeTemplate: MyTreeNodeTemplate,
     // displayField: 'subTitle',
     isExpandedField: 'expanded',
-    // loadingComponent: MyTreeLoadingTemplate,
     getChildren: this.getChildren.bind(this),
-    // context: this,
     actionMapping
   }
   onEvent = ($event:any) => console.log($event);
@@ -191,27 +179,4 @@ export class App {
     $event.stopPropagation();
     alert('this method is on the app component')
   }
-}
-
-@Component({
-  template: CUSTOM_TEMPLATE_STRING
-})
-class MyTreeNodeTemplate {
-  @Input() node:TreeNode;
-
-  childrenCount() {
-    return this.node.children ? `(${this.node.children.length})` : '';
-  }
-}
-
-@Component({
-  template: 'Loading, please hold....'
-})
-class MyTreeLoadingTemplate {
-}
-
-let id = 0;
-function uuid() {
-  id = id + 1;
-  return id;
 }
