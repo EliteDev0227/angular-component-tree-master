@@ -1,7 +1,6 @@
-import { Component, Input, Output, OnChanges, SimpleChange, EventEmitter, ViewEncapsulation } from '@angular/core';
-import { TreeNodeComponent } from './tree-node.component';
+import { Component, Input, Output, OnChanges, SimpleChange, EventEmitter, ViewEncapsulation, ContentChild, TemplateRef } from '@angular/core';
+import { ITreeNodeTemplate } from './tree-node-content.component';
 import { TreeModel } from '../models/tree.model';
-import { TreeNode } from '../models/tree-node.model';
 import { TreeOptions } from '../models/tree-options.model';
 import { KEYS } from '../constants/keys';
 
@@ -9,7 +8,6 @@ import * as _ from 'lodash'
 
 @Component({
   selector: 'Tree',
-  directives: [TreeNodeComponent],
   encapsulation: ViewEncapsulation.None,
   host: {
     '(body: keydown)': "onKeydown($event)",
@@ -33,7 +31,9 @@ import * as _ from 'lodash'
     <div class="tree">
       <TreeNode
         *ngFor="let node of treeModel.roots"
-        [node]="node">
+        [node]="node"
+        [loadingTemplate]="loadingTemplate"
+        [treeNodeContentTemplate]="treeNodeTemplate">
       </TreeNode>
     </div>
   `
@@ -45,6 +45,10 @@ export class TreeComponent implements OnChanges {
 
   _nodes:any[];
   _options:TreeOptions;
+
+  @ContentChild('loadingTemplate') loadingTemplate: TemplateRef<any>;
+  @ContentChild('treeNodeTemplate') treeNodeTemplate: TemplateRef<ITreeNodeTemplate>;
+
   // Will be handled in ngOnChanges
   @Input() set nodes(nodes:any[]) { };
   @Input() set options(options:TreeOptions) { };

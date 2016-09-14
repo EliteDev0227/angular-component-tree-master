@@ -1,11 +1,9 @@
-import { Component, Input, Output, EventEmitter, DynamicComponentLoader, QueryList, Query, ElementRef, AfterViewInit, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ElementRef, AfterViewInit, ViewEncapsulation, TemplateRef } from '@angular/core';
 import { TreeNode } from '../models/tree-node.model';
-import { LoadingComponent } from './loading.component';
-import { TreeNodeContent } from './tree-node-content.component';
+import { ITreeNodeTemplate } from './tree-node-content.component';
 
 @Component({
   selector: 'TreeNode',
-  directives: [TreeNodeComponent, LoadingComponent, TreeNodeContent],
   encapsulation: ViewEncapsulation.None,
   styles: [
     '.tree-children { padding-left: 20px }',
@@ -69,18 +67,21 @@ import { TreeNodeContent } from './tree-node-content.component';
         (dblclick)="node.mouseAction('dblClick', $event)"
         (contextmenu)="node.mouseAction('contextMenu', $event)">
 
-        <TreeNodeContent [node]="node"></TreeNodeContent>
+        <TreeNodeContent [node]="node" [treeNodeContentTemplate]="treeNodeContentTemplate"></TreeNodeContent>
       </div>
       <div class="tree-children" *ngIf="node.isExpanded">
         <div *ngIf="node.children">
           <TreeNode
             *ngFor="let node of node.children"
-            [node]="node">
+            [node]="node"
+            [treeNodeContentTemplate]="treeNodeContentTemplate"
+            [loadingTemplate]="loadingTemplate">
           </TreeNode>
         </div>
         <LoadingComponent
           class="tree-node-loading"
           *ngIf="!node.children"
+          [loadingTemplate]="loadingTemplate"
         ></LoadingComponent>
       </div>
     </div>
@@ -89,9 +90,10 @@ import { TreeNodeContent } from './tree-node-content.component';
 
 export class TreeNodeComponent implements AfterViewInit {
   @Input() node:TreeNode;
+  @Input() treeNodeContentTemplate: TemplateRef<ITreeNodeTemplate>;
+  @Input() loadingTemplate: TemplateRef<any>;
 
-  constructor(private componentLoader: DynamicComponentLoader,
-              private elementRef: ElementRef) {
+  constructor(private elementRef: ElementRef) {
   }
 
   ngAfterViewInit() {

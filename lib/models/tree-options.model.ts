@@ -54,17 +54,17 @@ export interface IActionMapping {
 }
 
 export interface ITreeOptions {
-  childrenField: string;
-  displayField: string;
-  idField: string;
-  isExpandedField:string;
-  isHiddenField:string;
-  treeNodeTemplate: any;
-  loadingComponent: any;
-  getChildren(node:TreeNode): any;
-  hasCustomContextMenu: boolean;
-  context: any;
-  actionMapping: any;
+  childrenField?: string;
+  displayField?: string;
+  idField?: string;
+  isExpandedField?:string;
+  isHiddenField?:string;
+  treeNodeTemplate?: any;
+  loadingComponent?: any;
+  getChildren?: (node:TreeNode) => any;
+  hasCustomContextMenu?: boolean;
+  context?: any;
+  actionMapping?: any;
 }
 
 export class TreeOptions {
@@ -87,8 +87,6 @@ export class TreeOptions {
       idField: 'id',
       isExpandedField: 'isExpanded',
       isHiddenField: 'isHidden',
-      treeNodeTemplate: '{{ node.displayField }}',
-      loadingComponent: 'loading...',
       getChildren: null,
       hasCustomContextMenu: false,
       context: null,
@@ -99,6 +97,18 @@ export class TreeOptions {
 
     if (options.hasCustomContextMenu) {
       deprecated('hasCustomContextMenu', 'actionMapping: mouse: contextMenu');
+    }
+
+    if (options.context) {
+      deprecated('context', 'values directly in a template in the content of the <Tree> component like this: <Tree><template #treeNodeTemplate let-node>{{ outsideValue }}</template></Tree>.  If you don\'t have time to update your code and don\'t need AoT compilation, use DeprecatedTreeModule');
+    }
+
+    if (options.treeNodeTemplate) {
+      deprecated('treeNodeTemplate', 'a template in the content of the <Tree> component like this: <Tree><template #treeNodeTemplate let-node>...</template></Tree>.  If you don\'t have time to update your code and don\'t need AoT compilation, use DeprecatedTreeModule');
+    }
+
+    if (options.loadingComponent) {
+      deprecated('loadingComponent', 'a template in the content of the <Tree> component like this: <Tree><template #loadingTemplate>...</template></Tree>.  If you don\'t have time to update your code and don\'t need AoT compilation, use DeprecatedTreeModule');
     }
 
     if (_.get(options, 'mouse.shift')) {

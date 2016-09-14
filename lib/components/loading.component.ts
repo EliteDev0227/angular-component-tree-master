@@ -1,22 +1,11 @@
-import { Component, ViewContainerRef, DynamicComponentLoader, Input } from '@angular/core'
+import { Component, Input, TemplateRef } from '@angular/core'
 import { TreeModel } from '../models/tree.model';
 
 @Component({
   selector: 'LoadingComponent',
-  template: ''
+  template: `<span *ngIf="!loadingTemplate">loading...</span>
+  <template [ngTemplateOutlet]="loadingTemplate"></template>`,
 })
 export class LoadingComponent {
-  constructor(private treeModel: TreeModel,
-              private componentLoader: DynamicComponentLoader,
-              private viewContainerRef: ViewContainerRef) {
-  }
-
-  ngAfterViewInit() {
-    this._loadTreeNodeContent();
-  }
-
-  _loadTreeNodeContent() {
-    this.componentLoader.loadNextToLocation(this.treeModel.loadingComponent,
-      this.viewContainerRef);
-  }  
+  @Input() loadingTemplate: TemplateRef<any>;
 }
