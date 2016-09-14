@@ -5,123 +5,40 @@ webpackJsonp([2],{
 
 	"use strict";
 	/*
-	 * Providers provided by Angular
+	 * Angular bootstraping
 	 */
-	var platform_browser_dynamic_1 = __webpack_require__(314);
+	var platform_browser_dynamic_1 = __webpack_require__(91);
+	var environment_1 = __webpack_require__(93);
+	var hmr_1 = __webpack_require__(92);
 	/*
-	* Platform and Environment
-	* our providers/directives/pipes
-	*/
-	var browser_1 = __webpack_require__(490);
-	var environment_1 = __webpack_require__(491);
-	/*
-	* App Component
-	* our top level component that holds all of our components
-	*/
-	var app_1 = __webpack_require__(489);
-	/*
-	 * Bootstrap our Angular app with a top level component `App` and inject
-	 * our Services and Providers into Angular's dependency injection
+	 * App Module
+	 * our top level module that holds all of our components
 	 */
-	function main(initialHmrState) {
-	    return platform_browser_dynamic_1.bootstrap(app_1.App, browser_1.PLATFORM_PROVIDERS.concat(environment_1.ENV_PROVIDERS, app_1.APP_PROVIDERS))
+	var app_1 = __webpack_require__(136);
+	/*
+	 * Bootstrap our Angular app with a top level NgModule
+	 */
+	function main() {
+	    return platform_browser_dynamic_1.platformBrowserDynamic()
+	        .bootstrapModule(app_1.AppModule)
+	        .then(environment_1.decorateModuleRef)
 	        .catch(function (err) { return console.error(err); });
 	}
 	exports.main = main;
-	/*
-	 * Vendors
-	 * For vendors for example jQuery, Lodash, angular2-jwt just import them anywhere in your app
-	 * You can also import them in vendors to ensure that they are bundled in one file
-	 * Also see custom-typings.d.ts as you also need to do `typings install x` where `x` is your module
-	 */
-	/*
-	 * Hot Module Reload
-	 * experimental version by @gdi2290
-	 */
-	if (false) {
-	    // activate hot module reload
-	    var ngHmr = require('angular2-hmr');
-	    ngHmr.hotModuleReplacement(main, module);
-	}
-	else {
-	    // bootstrap when document is ready
-	    document.addEventListener('DOMContentLoaded', function () { return main(); });
-	}
+	// needed for hmr
+	// in prod this is replace for document ready
+	hmr_1.bootloader(main);
 	
 
 /***/ },
 
-/***/ 145:
-/***/ function(module, exports) {
-
-	"use strict";
-	var OpaqueToken = (function () {
-	    function OpaqueToken(_desc) {
-	        this._desc = _desc;
-	    }
-	    OpaqueToken.prototype.toString = function () { return "Token " + this._desc; };
-	    return OpaqueToken;
-	}());
-	exports.OpaqueToken = OpaqueToken;
-	exports.HMR_STATE = new OpaqueToken('hmrState');
-	var HmrStore = (function () {
-	    function HmrStore() {
-	    }
-	    HmrStore.set = function (prop, value) {
-	        HmrStore._state[prop] = value;
-	        return HmrStore._state[prop];
-	    };
-	    HmrStore.get = function (prop) {
-	        return HmrStore._state[prop];
-	    };
-	    HmrStore.select = function (name, getState) {
-	        HmrStore._states.push({ name: name, getState: getState });
-	        var defaultData = getState();
-	        var currentData = HmrStore.get(name);
-	        if (defaultData && !currentData) {
-	            return HmrStore.set(name, defaultData);
-	        }
-	        else if (defaultData && currentData) {
-	            return HmrStore.set(name, Object.assign({}, defaultData, currentData));
-	        }
-	        else {
-	            return HmrStore.set(name, currentData || defaultData);
-	        }
-	    };
-	    HmrStore.dispose = function () {
-	        HmrStore._states = [];
-	        HmrStore._state = {};
-	        HmrStore._initialValues = {};
-	    };
-	    HmrStore.getState = function () {
-	        var initialState = Object.assign({}, HmrStore._state);
-	        return HmrStore._states
-	            .reduce(function (memo, item) {
-	            memo[item.name] = item.getState();
-	            return memo;
-	        }, initialState);
-	    };
-	    HmrStore.toJSON = function () {
-	        return HmrStore.getState();
-	    };
-	    HmrStore.dev = false;
-	    HmrStore._state = {};
-	    HmrStore._initialValues = {};
-	    HmrStore._states = [];
-	    return HmrStore;
-	}());
-	exports.HmrStore = HmrStore;
-	
-
-/***/ },
-
-/***/ 146:
+/***/ 47:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var events_1 = __webpack_require__(346);
-	var deprecated_1 = __webpack_require__(220);
-	var _ = __webpack_require__(148);
+	var events_1 = __webpack_require__(99);
+	var deprecated_1 = __webpack_require__(53);
+	var _ = __webpack_require__(55);
 	var TreeNode = (function () {
 	    function TreeNode(data, parent, treeModel) {
 	        this.data = data;
@@ -390,7 +307,19 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 147:
+/***/ 53:
+/***/ function(module, exports) {
+
+	"use strict";
+	function deprecated(methodName, alternative) {
+	    console.warn(methodName + " is deprecated.\n    please use " + alternative + " instead");
+	}
+	exports.deprecated = deprecated;
+	
+
+/***/ },
+
+/***/ 54:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -403,12 +332,12 @@ webpackJsonp([2],{
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var core_1 = __webpack_require__(1);
-	var tree_node_model_1 = __webpack_require__(146);
-	var tree_options_model_1 = __webpack_require__(221);
-	var events_1 = __webpack_require__(346);
-	var deprecated_1 = __webpack_require__(220);
-	var _ = __webpack_require__(148);
+	var core_1 = __webpack_require__(7);
+	var tree_node_model_1 = __webpack_require__(47);
+	var tree_options_model_1 = __webpack_require__(68);
+	var events_1 = __webpack_require__(99);
+	var deprecated_1 = __webpack_require__(53);
+	var _ = __webpack_require__(55);
 	var TreeModel = (function () {
 	    function TreeModel() {
 	        this.options = new tree_options_model_1.TreeOptions();
@@ -725,7 +654,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 148:
+/***/ 55:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/**
@@ -15802,29 +15731,74 @@ webpackJsonp([2],{
 	  }
 	}.call(this));
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(379)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(316)(module), (function() { return this; }())))
 
 /***/ },
 
-/***/ 220:
-/***/ function(module, exports) {
+/***/ 67:
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	function deprecated(methodName, alternative) {
-	    console.warn(methodName + " is deprecated.\n    please use " + alternative + " instead");
-	}
-	exports.deprecated = deprecated;
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(7);
+	var common_1 = __webpack_require__(52);
+	var AdHocComponentFactoryCreator = (function () {
+	    function AdHocComponentFactoryCreator(compiler) {
+	        this.compiler = compiler;
+	        this.factories = [];
+	    }
+	    AdHocComponentFactoryCreator.prototype.getFactory = function (component) {
+	        var factory = this.factories.find(function (factory) { return factory.componentType === component; });
+	        if (!factory) {
+	            factory = this._createAdHocComponentFactory(component);
+	        }
+	        return factory;
+	    };
+	    AdHocComponentFactoryCreator.prototype._createAdHocComponentFactory = function (component) {
+	        var AdHocModule = (function () {
+	            function AdHocModule() {
+	            }
+	            AdHocModule = __decorate([
+	                core_1.NgModule({
+	                    declarations: [component],
+	                    entryComponents: [component],
+	                    imports: [common_1.CommonModule],
+	                }), 
+	                __metadata('design:paramtypes', [])
+	            ], AdHocModule);
+	            return AdHocModule;
+	        }());
+	        var factory = this.compiler.compileModuleAndAllComponentsSync(AdHocModule).componentFactories
+	            .find(function (factory) { return factory.componentType === component; });
+	        this.factories.push(factory);
+	        return factory;
+	    };
+	    AdHocComponentFactoryCreator = __decorate([
+	        core_1.Injectable(), 
+	        __metadata('design:paramtypes', [core_1.Compiler])
+	    ], AdHocComponentFactoryCreator);
+	    return AdHocComponentFactoryCreator;
+	}());
+	exports.AdHocComponentFactoryCreator = AdHocComponentFactoryCreator;
 	
 
 /***/ },
 
-/***/ 221:
+/***/ 68:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var keys_1 = __webpack_require__(347);
-	var deprecated_1 = __webpack_require__(220);
-	var _ = __webpack_require__(148);
+	var keys_1 = __webpack_require__(100);
+	var deprecated_1 = __webpack_require__(53);
+	var _ = __webpack_require__(55);
 	exports.TREE_ACTIONS = {
 	    TOGGLE_SELECTED: function (tree, node, $event) { return node.toggleActivated(); },
 	    TOGGLE_SELECTED_MULTI: function (tree, node, $event) { return node.toggleActivated(true); },
@@ -15866,8 +15840,6 @@ webpackJsonp([2],{
 	            idField: 'id',
 	            isExpandedField: 'isExpanded',
 	            isHiddenField: 'isHidden',
-	            treeNodeTemplate: '{{ node.displayField }}',
-	            loadingComponent: 'loading...',
 	            getChildren: null,
 	            hasCustomContextMenu: false,
 	            context: null,
@@ -15876,6 +15848,15 @@ webpackJsonp([2],{
 	        _.extend(this, optionsWithDefaults);
 	        if (options.hasCustomContextMenu) {
 	            deprecated_1.deprecated('hasCustomContextMenu', 'actionMapping: mouse: contextMenu');
+	        }
+	        if (options.context) {
+	            deprecated_1.deprecated('context', 'values directly in a template in the content of the <Tree> component like this: <Tree><template #treeNodeTemplate let-node>{{ outsideValue }}</template></Tree>.  If you don\'t have time to update your code and don\'t need AoT compilation, use DeprecatedTreeModule');
+	        }
+	        if (options.treeNodeTemplate) {
+	            deprecated_1.deprecated('treeNodeTemplate', 'a template in the content of the <Tree> component like this: <Tree><template #treeNodeTemplate let-node>...</template></Tree>.  If you don\'t have time to update your code and don\'t need AoT compilation, use DeprecatedTreeModule');
+	        }
+	        if (options.loadingComponent) {
+	            deprecated_1.deprecated('loadingComponent', 'a template in the content of the <Tree> component like this: <Tree><template #loadingTemplate>...</template></Tree>.  If you don\'t have time to update your code and don\'t need AoT compilation, use DeprecatedTreeModule');
 	        }
 	        if (_.get(options, 'mouse.shift')) {
 	            deprecated_1.deprecated('mouse.shift', '$event.shiftKey in click action instead');
@@ -15895,119 +15876,147 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 338:
+/***/ 92:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var core_1 = __webpack_require__(1);
-	var angular2_hmr_1 = __webpack_require__(510);
-	var AppState = (function () {
-	    function AppState() {
-	        // @HmrState() is used by HMR to track the state of any object during HMR (hot module replacement)
-	        this._state = {};
-	    }
-	    Object.defineProperty(AppState.prototype, "state", {
-	        // already return a clone of the current state
-	        get: function () {
-	            return this._state = this._clone(this._state);
-	        },
-	        // never allow mutation
-	        set: function (value) {
-	            throw new Error('do not mutate the `.state` directly');
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    AppState.prototype.get = function (prop) {
-	        // use our state getter for the clone
-	        var state = this.state;
-	        return state.hasOwnProperty(prop) ? state[prop] : state;
-	    };
-	    AppState.prototype.set = function (prop, value) {
-	        // internally mutate our state
-	        return this._state[prop] = value;
-	    };
-	    AppState.prototype._clone = function (object) {
-	        // simple object clone
-	        return JSON.parse(JSON.stringify(object));
-	    };
-	    __decorate([
-	        angular2_hmr_1.HmrState(), 
-	        __metadata('design:type', Object)
-	    ], AppState.prototype, "_state", void 0);
-	    AppState = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [])
-	    ], AppState);
-	    return AppState;
-	}());
-	exports.AppState = AppState;
-	
+	function __export(m) {
+	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+	}
+	// Hot Module Replacement
+	__export(__webpack_require__(132));
+	//# sourceMappingURL=index.js.map
 
 /***/ },
 
-/***/ 339:
+/***/ 93:
 /***/ function(module, exports, __webpack_require__) {
 
-	/*
-	 * These are globally available directives in any template
-	 */
-	"use strict";
-	var core_1 = __webpack_require__(1);
-	// Angular 2 Router
-	var router_deprecated_1 = __webpack_require__(214);
-	// application_directives: directives that are global through out the application
-	exports.APPLICATION_DIRECTIVES = router_deprecated_1.ROUTER_DIRECTIVES.slice();
-	exports.DIRECTIVES = [
-	    { provide: core_1.PLATFORM_DIRECTIVES, multi: true, useValue: exports.APPLICATION_DIRECTIVES }
-	];
-	
-
-/***/ },
-
-/***/ 340:
-/***/ function(module, exports, __webpack_require__) {
-
-	/*
-	 * These are globally available pipes in any template
-	 */
-	"use strict";
-	var core_1 = __webpack_require__(1);
-	// application_pipes: pipes that are global through out the application
-	exports.APPLICATION_PIPES = [];
-	exports.PIPES = [
-	    { provide: core_1.PLATFORM_PIPES, multi: true, useValue: exports.APPLICATION_PIPES }
-	];
-	
-
-/***/ },
-
-/***/ 341:
-/***/ function(module, exports, __webpack_require__) {
-
-	/*
-	 * These are globally available services in any component or any other service
-	 */
 	"use strict";
 	// Angular 2
-	var common_1 = __webpack_require__(31);
-	// Angular 2 Http
-	var http_1 = __webpack_require__(306);
-	// Angular 2 Router
-	var router_deprecated_1 = __webpack_require__(214);
-	/*
-	* Application Providers/Directives/Pipes
-	* providers/directives/pipes that only live in our browser environment
-	*/
-	exports.APPLICATION_PROVIDERS = common_1.FORM_PROVIDERS.concat(http_1.HTTP_PROVIDERS, router_deprecated_1.ROUTER_PROVIDERS, [
-	    { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy }
-	]);
-	exports.PROVIDERS = exports.APPLICATION_PROVIDERS.slice();
+	// rc2 workaround
+	var platform_browser_1 = __webpack_require__(44);
+	var core_1 = __webpack_require__(7);
+	// Environment Providers
+	var PROVIDERS = [];
+	// Angular debug tools in the dev console
+	// https://github.com/angular/angular/blob/86405345b781a9dc2438c0fbe3e9409245647019/TOOLS_JS.md
+	var _decorateModuleRef = function identity(value) { return value; };
+	if (false) {
+	    // Production
+	    platform_browser_1.disableDebugTools();
+	    core_1.enableProdMode();
+	    PROVIDERS = PROVIDERS.slice();
+	}
+	else {
+	    _decorateModuleRef = function (modRef) {
+	        var appRef = modRef.injector.get(core_1.ApplicationRef);
+	        var cmpRef = appRef.components[0];
+	        var _ng = window.ng;
+	        platform_browser_1.enableDebugTools(cmpRef);
+	        window.ng.probe = _ng.probe;
+	        window.ng.coreTokens = _ng.coreTokens;
+	        return modRef;
+	    };
+	    // Development
+	    PROVIDERS = PROVIDERS.slice();
+	}
+	exports.decorateModuleRef = _decorateModuleRef;
+	exports.ENV_PROVIDERS = PROVIDERS.slice();
 	
 
 /***/ },
 
-/***/ 346:
+/***/ 98:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var tree_options_model_1 = __webpack_require__(68);
+	exports.TREE_ACTIONS = tree_options_model_1.TREE_ACTIONS;
+	var keys_1 = __webpack_require__(100);
+	exports.KEYS = keys_1.KEYS;
+	var tree_model_1 = __webpack_require__(54);
+	exports.TreeModel = tree_model_1.TreeModel;
+	var tree_node_model_1 = __webpack_require__(47);
+	exports.TreeNode = tree_node_model_1.TreeNode;
+	var loading_component_1 = __webpack_require__(156);
+	var deprecated_loading_component_1 = __webpack_require__(154);
+	var tree_component_1 = __webpack_require__(159);
+	exports.TreeComponent = tree_component_1.TreeComponent;
+	var tree_node_component_1 = __webpack_require__(158);
+	var tree_node_content_component_1 = __webpack_require__(157);
+	var deprecated_tree_node_content_component_1 = __webpack_require__(155);
+	var adhoc_component_factory_service_1 = __webpack_require__(67);
+	__webpack_require__(160);
+	var deprecated_1 = __webpack_require__(53);
+	var core_1 = __webpack_require__(7);
+	var common_1 = __webpack_require__(52);
+	var DeprecatedTreeModule = (function () {
+	    function DeprecatedTreeModule() {
+	        deprecated_1.deprecated('DeprecatedTreeModule', 'TreeModule for AoT compilation');
+	    }
+	    DeprecatedTreeModule = __decorate([
+	        core_1.NgModule({
+	            declarations: [
+	                deprecated_loading_component_1.LoadingComponent,
+	                tree_component_1.TreeComponent,
+	                tree_node_component_1.TreeNodeComponent,
+	                deprecated_tree_node_content_component_1.TreeNodeContent,
+	            ],
+	            exports: [
+	                tree_component_1.TreeComponent,
+	            ],
+	            imports: [
+	                common_1.CommonModule,
+	            ],
+	            providers: [
+	                adhoc_component_factory_service_1.AdHocComponentFactoryCreator,
+	            ],
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], DeprecatedTreeModule);
+	    return DeprecatedTreeModule;
+	}());
+	exports.DeprecatedTreeModule = DeprecatedTreeModule;
+	var TreeModule = (function () {
+	    function TreeModule() {
+	    }
+	    TreeModule = __decorate([
+	        core_1.NgModule({
+	            declarations: [
+	                loading_component_1.LoadingComponent,
+	                tree_component_1.TreeComponent,
+	                tree_node_component_1.TreeNodeComponent,
+	                tree_node_content_component_1.TreeNodeContent,
+	            ],
+	            exports: [
+	                tree_component_1.TreeComponent,
+	            ],
+	            imports: [
+	                common_1.CommonModule,
+	            ],
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], TreeModule);
+	    return TreeModule;
+	}());
+	exports.TreeModule = TreeModule;
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = TreeModule;
+	
+
+/***/ },
+
+/***/ 99:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -16029,7 +16038,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 347:
+/***/ 100:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -16045,12 +16054,83 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 488:
+/***/ 132:
+/***/ function(module, exports) {
+
+	"use strict";
+	// Hot Module Replacement
+	function bootloader(main) {
+	    if (document.readyState === 'complete') {
+	        main();
+	    }
+	    else {
+	        document.addEventListener('DOMContentLoaded', main);
+	    }
+	}
+	exports.bootloader = bootloader;
+	// create new elements
+	function createNewHosts(cmps) {
+	    var components = cmps.map(function (componentNode) {
+	        var newNode = document.createElement(componentNode.tagName);
+	        // display none
+	        var currentDisplay = newNode.style.display;
+	        newNode.style.display = 'none';
+	        var parentNode = componentNode.parentNode;
+	        parentNode.insertBefore(newNode, componentNode);
+	        return { currentDisplay: currentDisplay, newNode: newNode };
+	    });
+	    return function () {
+	        components.forEach(function (cmp) {
+	            cmp.newNode.style.display = cmp.currentDisplay;
+	            cmp.newNode = null;
+	            cmp.currentDisplay = null;
+	        });
+	    };
+	}
+	exports.createNewHosts = createNewHosts;
+	// remove old styles
+	function removeNgStyles() {
+	    Array.prototype.slice.call(document.head.querySelectorAll('style'), 0)
+	        .filter(function (style) { return style.innerText.indexOf('_ng') !== -1; })
+	        .map(function (el) { return el.remove(); });
+	}
+	exports.removeNgStyles = removeNgStyles;
+	// get input values
+	function getInputValues() {
+	    var inputs = document.querySelectorAll('input');
+	    return Array.prototype.slice.call(inputs).map(function (input) { return input.value; });
+	}
+	exports.getInputValues = getInputValues;
+	// set input values
+	function setInputValues($inputs) {
+	    var inputs = document.querySelectorAll('input');
+	    if ($inputs && inputs.length === $inputs.length) {
+	        $inputs.forEach(function (value, i) {
+	            var el = inputs[i];
+	            el.value = value;
+	            el.dispatchEvent(new CustomEvent('input', { detail: el.value }));
+	        });
+	    }
+	}
+	exports.setInputValues = setInputValues;
+	// get/set input values
+	function createInputTransfer() {
+	    var $inputs = getInputValues();
+	    return function restoreInputValues() {
+	        setInputValues($inputs);
+	    };
+	}
+	exports.createInputTransfer = createInputTransfer;
+	//# sourceMappingURL=helpers.js.map
+
+/***/ },
+
+/***/ 133:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var core_1 = __webpack_require__(1);
-	var angular2_tree_component_1 = __webpack_require__(512);
+	var core_1 = __webpack_require__(7);
+	var angular2_tree_component_1 = __webpack_require__(98);
 	var actionMapping = {
 	    mouse: {
 	        contextMenu: function (tree, node, $event) {
@@ -16069,8 +16149,6 @@ webpackJsonp([2],{
 	        _a
 	    )
 	};
-	var CUSTOM_TEMPLATE_STRING = "\n  <span title=\"{{node.data.subTitle}}\">{{ node.data.name }}</span>\n<!--  <input type=\"text\"/> -->\n  <span class=\"pull-right\">{{ childrenCount() }}</span>";
-	var CUSTOM_TEMPLATE_STRING_WITH_CONTEXT = "{{ node.data.name }} {{ childrenCount() }}\n  <button (click)=\"context.go($event)\">Custom Action</button>";
 	var App = (function () {
 	    function App() {
 	        var _this = this;
@@ -16085,13 +16163,9 @@ webpackJsonp([2],{
 	            }
 	        ];
 	        this.customTemplateStringOptions = {
-	            // treeNodeTemplate: CUSTOM_TEMPLATE_STRING,
-	            treeNodeTemplate: MyTreeNodeTemplate,
 	            // displayField: 'subTitle',
 	            isExpandedField: 'expanded',
-	            loadingComponent: MyTreeLoadingTemplate,
 	            getChildren: this.getChildren.bind(this),
-	            context: this,
 	            actionMapping: actionMapping
 	        };
 	        this.onEvent = function ($event) { return console.log($event); };
@@ -16157,6 +16231,9 @@ webpackJsonp([2],{
 	        });
 	        tree.treeModel.update();
 	    };
+	    App.prototype.childrenCount = function (node) {
+	        return node && node.children ? "(" + node.children.length + ")" : '';
+	    };
 	    App.prototype.filterNodes = function (text, tree) {
 	        tree.treeModel.filterNodes(text);
 	    };
@@ -16167,328 +16244,165 @@ webpackJsonp([2],{
 	    App = __decorate([
 	        core_1.Component({
 	            selector: 'app',
-	            directives: [angular2_tree_component_1.TreeComponent],
 	            styles: [
 	                "button: {\n        line - height: 24px;\n        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);\n        border: none;\n        border-radius: 2px;\n        background: #A3D9F5;\n        cursor: pointer;\n        margin: 0 3px;\n      }"
 	            ],
-	            template: "\n  <form>\n    <input #filter (keyup)=\"filterNodes(filter.value, tree)\" placeholder=\"filter nodes\"/>\n  </form>\n  <Tree\n    #tree\n    [nodes]=\"nodes\"\n    [focused]=\"true\"\n    [options]=\"customTemplateStringOptions\"\n    (onEvent)=\"onEvent($event)\"\n  ></Tree>\n  <br>\n  <p>Keys:</p>\n  down | up | left | right | space | enter\n  <p>Mouse:</p>\n  click to select | shift+click to select multi\n  <p>API:</p>\n  <button (click)=\"tree.treeModel.focusNextNode()\">next node</button>\n  <button (click)=\"tree.treeModel.focusPreviousNode()\">previous node</button>\n  <button (click)=\"tree.treeModel.focusDrillDown()\">drill down</button>\n  <button (click)=\"tree.treeModel.focusDrillUp()\">drill up</button>\n  <p></p>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().toggleActivated()\">\n    {{ tree.treeModel.getFocusedNode()?.isActive ? 'deactivate' : 'activate' }}\n  </button>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().toggleExpanded()\">\n    {{ tree.treeModel.getFocusedNode()?.isExpanded ? 'collapse' : 'expand' }}\n  </button>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().blur()\">\n    blur\n  </button>\n  <button\n    (click)=\"addNode(tree)\">\n    Add Node\n  </button>"
+	            template: "\n  <form>\n    <input #filter (keyup)=\"filterNodes(filter.value, tree)\" placeholder=\"filter nodes\"/>\n  </form>\n  <Tree\n    #tree\n    [nodes]=\"nodes\"\n    [focused]=\"true\"\n    [options]=\"customTemplateStringOptions\"\n    (onEvent)=\"onEvent($event)\"\n  >\n  <template #treeNodeTemplate let-node>\n  <span title=\"{{node.data.subTitle}}\">{{ node.data.name }}</span>\n  <span class=\"pull-right\">{{ childrenCount(node) }}</span>\n  <button (click)=\"go($event)\">Custom Action</button>\n  </template>\n  <template #loadingTemplate>Loading, please hold....</template>\n  </Tree>\n  <br>\n  <p>Keys:</p>\n  down | up | left | right | space | enter\n  <p>Mouse:</p>\n  click to select | shift+click to select multi\n  <p>API:</p>\n  <button (click)=\"tree.treeModel.focusNextNode()\">next node</button>\n  <button (click)=\"tree.treeModel.focusPreviousNode()\">previous node</button>\n  <button (click)=\"tree.treeModel.focusDrillDown()\">drill down</button>\n  <button (click)=\"tree.treeModel.focusDrillUp()\">drill up</button>\n  <p></p>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().toggleActivated()\">\n    {{ tree.treeModel.getFocusedNode()?.isActive ? 'deactivate' : 'activate' }}\n  </button>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().toggleExpanded()\">\n    {{ tree.treeModel.getFocusedNode()?.isExpanded ? 'collapse' : 'expand' }}\n  </button>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().blur()\">\n    blur\n  </button>\n  <button\n    (click)=\"addNode(tree)\">\n    Add Node\n  </button>"
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], App);
 	    return App;
 	}());
 	exports.App = App;
-	var MyTreeNodeTemplate = (function () {
-	    function MyTreeNodeTemplate() {
-	    }
-	    MyTreeNodeTemplate.prototype.childrenCount = function () {
-	        return this.node.children ? "(" + this.node.children.length + ")" : '';
-	    };
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', (typeof (_a = typeof angular2_tree_component_1.TreeNode !== 'undefined' && angular2_tree_component_1.TreeNode) === 'function' && _a) || Object)
-	    ], MyTreeNodeTemplate.prototype, "node", void 0);
-	    MyTreeNodeTemplate = __decorate([
-	        core_1.Component({
-	            template: CUSTOM_TEMPLATE_STRING
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], MyTreeNodeTemplate);
-	    return MyTreeNodeTemplate;
-	    var _a;
-	}());
-	var MyTreeLoadingTemplate = (function () {
-	    function MyTreeLoadingTemplate() {
-	    }
-	    MyTreeLoadingTemplate = __decorate([
-	        core_1.Component({
-	            template: 'Loading, please hold....'
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], MyTreeLoadingTemplate);
-	    return MyTreeLoadingTemplate;
-	}());
-	var id = 0;
-	function uuid() {
-	    id = id + 1;
-	    return id;
-	}
 	var _a;
 
 
 /***/ },
 
-/***/ 489:
+/***/ 134:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	function __export(m) {
-	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-	}
-	// App
-	__export(__webpack_require__(488));
-	__export(__webpack_require__(338));
-	var app_service_2 = __webpack_require__(338);
+	var core_1 = __webpack_require__(7);
+	var platform_browser_1 = __webpack_require__(44);
+	var http_1 = __webpack_require__(90);
+	var angular2_tree_component_1 = __webpack_require__(98);
+	var hmr_1 = __webpack_require__(92);
+	/*
+	 * Platform and Environment providers/directives/pipes
+	 */
+	var environment_1 = __webpack_require__(93);
+	// App is our top level component
+	var app_component_1 = __webpack_require__(133);
+	var app_service_1 = __webpack_require__(135);
 	// Application wide providers
-	exports.APP_PROVIDERS = [
-	    app_service_2.AppState
+	var APP_PROVIDERS = [
+	    app_service_1.AppState
 	];
-	
-
-/***/ },
-
-/***/ 490:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	function __export(m) {
-	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-	}
-	__export(__webpack_require__(339));
-	__export(__webpack_require__(340));
-	__export(__webpack_require__(341));
-	var browser_directives_2 = __webpack_require__(339);
-	var browser_pipes_2 = __webpack_require__(340);
-	var browser_providers_2 = __webpack_require__(341);
-	exports.PLATFORM_PROVIDERS = browser_providers_2.PROVIDERS.concat(browser_directives_2.DIRECTIVES, browser_pipes_2.PIPES);
-	
-
-/***/ },
-
-/***/ 491:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	// Angular 2
-	var core_1 = __webpack_require__(1);
-	// Environment Providers
-	var PROVIDERS = [];
-	if (false) {
-	    // Production
-	    core_1.enableProdMode();
-	    PROVIDERS = PROVIDERS.slice();
-	}
-	else {
-	    // Development
-	    PROVIDERS = PROVIDERS.slice();
-	}
-	exports.ENV_PROVIDERS = PROVIDERS.slice();
-	
-
-/***/ },
-
-/***/ 509:
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {"use strict";
-	var hmr_store_1 = __webpack_require__(145);
-	// noop in parentNode
-	// TODO: find a better way to noop
-	var _env = typeof process !== 'undefined' &&
-	    process &&
-	    ({"ENV":"development","NODE_ENV":"development","HMR":false}) &&
-	    (("development") ||
-	        ("development"));
-	var _dev = ((_env &&
-	    typeof _env === 'string' &&
-	    (_env.indexOf('dev') > -1)) ||
-	    _env === undefined);
-	function setDev(newDev) {
-	    if (typeof newDev === 'string') {
-	        return _dev = (newDev.indexOf('dev') > -1);
+	/**
+	 * `AppModule` is the main entry point into Angular2's bootstraping process
+	 */
+	var AppModule = (function () {
+	    function AppModule(appRef, appState) {
+	        this.appRef = appRef;
+	        this.appState = appState;
 	    }
-	    else if (typeof newDev === 'boolean') {
-	        return _dev = newDev;
-	    }
-	    throw new Error('Please provide a string or boolean');
-	}
-	exports.setDev = setDev;
-	function HmrState(namespaceOrConfig, config) {
-	    function decoratorFactory(target, decoratedPropertyName, descriptor) {
-	        if (!_dev) {
-	            return descriptor;
+	    AppModule.prototype.hmrOnInit = function (store) {
+	        if (!store || !store.state)
+	            return;
+	        console.log('HMR store', JSON.stringify(store, null, 2));
+	        // set state
+	        this.appState._state = store.state;
+	        // set input values
+	        if ('restoreInputValues' in store) {
+	            var restoreInputValues = store.restoreInputValues;
+	            setTimeout(restoreInputValues);
 	        }
-	        var key = namespaceOrConfig || target.constructor.name + '#' + decoratedPropertyName;
-	        hmr_store_1.HmrStore.select(key, function () { return hmr_store_1.HmrStore.get(key); });
-	        Object.defineProperty(target, decoratedPropertyName, {
-	            get: function () { return hmr_store_1.HmrStore.get(key); },
-	            set: function (newValue) {
-	                var currentValue = hmr_store_1.HmrStore.get(key);
-	                if (!currentValue) {
-	                    hmr_store_1.HmrStore._initialValues[key] = newValue;
-	                }
-	                else {
-	                    newValue = Object.assign(newValue, currentValue);
-	                }
-	                return hmr_store_1.HmrStore.set(key, newValue);
-	            },
-	            enumerable: true,
-	            configurable: true
-	        });
-	        return descriptor;
-	    }
-	    return decoratorFactory;
-	}
-	exports.HmrState = HmrState;
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(378)))
-
-/***/ },
-
-/***/ 510:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	function __export(m) {
-	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-	}
-	var hmr_store_1 = __webpack_require__(145);
-	__export(__webpack_require__(511));
-	__export(__webpack_require__(509));
-	__export(__webpack_require__(145));
-	function provideHmrState(initialState) {
-	    if (initialState === void 0) { initialState = {}; }
-	    return [
-	        { provide: hmr_store_1.HMR_STATE, useValue: initialState },
-	        { provide: hmr_store_1.HmrStore, useValue: hmr_store_1.HmrStore }
-	    ];
-	}
-	exports.provideHmrState = provideHmrState;
-	
-
-/***/ },
-
-/***/ 511:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var hmr_store_1 = __webpack_require__(145);
-	function hotModuleReplacement(bootloader, module, options) {
-	    if (options === void 0) { options = {}; }
-	    if (!module.hot) {
-	        console.warn('Warning: please use webpack hot flag');
-	        return document.addEventListener('DOMContentLoaded', function () { return bootloader(); });
-	    }
-	    hmr_store_1.HmrStore.dev = true;
-	    var LOCALSTORAGE_KEY = options.LOCALSTORAGE_KEY || '@@WEBPACK_INITIAL_DATA';
-	    var LOCAL = options.localStorage || false;
-	    var TOKEN = options.storeToken || hmr_store_1.HmrStore;
-	    var DISPOSE = options.globalDispose || 'WEBPACK_HMR_beforeunload';
-	    var GET_STATE = options.getState || getState;
-	    var DATA = options.data || module.hot.data && module.hot.data.state;
-	    var COMPONENT_REF = null;
-	    var disposed = false;
-	    function getState(appState) {
-	        var json = appState.toJSON();
-	        if (LOCAL) {
-	            console.time('localStorage');
-	            localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(appState));
-	            console.timeEnd('localStorage');
-	        }
-	        return json;
-	    }
-	    console.log('DATA', DATA);
-	    if (!DATA && LOCAL) {
-	        try {
-	            console.time('start localStorage');
-	            DATA = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY)) || DATA;
-	            console.timeEnd('start localStorage');
-	        }
-	        catch (e) {
-	            console.log('JSON.parse Error', e);
-	        }
-	    }
-	    console.time('bootstrap');
-	    if (document.readyState === 'complete') {
-	        bootloader(DATA)
-	            .then(function (cmpRef) { return COMPONENT_REF = cmpRef; })
-	            .then((function (cmpRef) { return (console.timeEnd('bootstrap'), cmpRef); }));
-	    }
-	    else {
-	        document.addEventListener('DOMContentLoaded', function () {
-	            bootloader(DATA)
-	                .then(function (cmpRef) { return COMPONENT_REF = cmpRef; })
-	                .then((function (cmpRef) { return (console.timeEnd('bootstrap'), cmpRef); }));
-	        });
-	    }
-	    function beforeunload(event) {
-	        var injector = COMPONENT_REF.injector;
-	        var appState;
-	        if ('getOptional' in injector) {
-	            appState = COMPONENT_REF.injector.getOptional(TOKEN) || TOKEN;
-	        }
-	        else {
-	            appState = COMPONENT_REF.injector.get(TOKEN, TOKEN);
-	        }
-	        return GET_STATE(appState);
-	    }
-	    window[DISPOSE] = function () {
-	        disposed = true;
-	        window.removeEventListener('beforeunload', beforeunload);
-	        if (LOCAL) {
-	            localStorage.removeItem(LOCALSTORAGE_KEY);
-	        }
+	        this.appRef.tick();
+	        delete store.state;
+	        delete store.restoreInputValues;
 	    };
-	    module.hot.accept();
-	    window.addEventListener('beforeunload', beforeunload);
-	    module.hot.dispose(function (data) {
-	        console.time('dispose');
-	        var componentNode = COMPONENT_REF.location.nativeElement;
-	        var newNode = document.createElement(componentNode.tagName);
-	        // display none
-	        var currentDisplay = newNode.style.display;
-	        newNode.style.display = 'none';
-	        var parentNode = componentNode.parentNode;
-	        parentNode.insertBefore(newNode, componentNode);
-	        var injector = COMPONENT_REF.injector;
-	        var appState;
-	        if ('getOptional' in injector) {
-	            appState = COMPONENT_REF.injector.getOptional(TOKEN) || TOKEN;
-	        }
-	        else {
-	            appState = COMPONENT_REF.injector.get(TOKEN, TOKEN);
-	        }
-	        var json = GET_STATE(appState, COMPONENT_REF);
-	        data.state = json;
-	        if ('destroy' in COMPONENT_REF) {
-	            COMPONENT_REF.destroy();
-	        }
-	        else if ('dispose' in COMPONENT_REF) {
-	            COMPONENT_REF.dispose();
-	        }
-	        newNode.style.display = currentDisplay;
-	        if (!disposed) {
-	            window.removeEventListener('beforeunload', beforeunload);
-	        }
-	        disposed = true;
-	        console.timeEnd('dispose');
-	    });
-	}
-	exports.hotModuleReplacement = hotModuleReplacement;
+	    AppModule.prototype.hmrOnDestroy = function (store) {
+	        var cmpLocation = this.appRef.components.map(function (cmp) { return cmp.location.nativeElement; });
+	        // save state
+	        var state = this.appState._state;
+	        store.state = state;
+	        // recreate root elements
+	        store.disposeOldHosts = hmr_1.createNewHosts(cmpLocation);
+	        // save input values
+	        store.restoreInputValues = hmr_1.createInputTransfer();
+	        // remove styles
+	        hmr_1.removeNgStyles();
+	    };
+	    AppModule.prototype.hmrAfterDestroy = function (store) {
+	        // display new elements
+	        store.disposeOldHosts();
+	        delete store.disposeOldHosts;
+	    };
+	    AppModule = __decorate([
+	        core_1.NgModule({
+	            bootstrap: [app_component_1.App],
+	            declarations: [
+	                app_component_1.App,
+	            ],
+	            imports: [
+	                platform_browser_1.BrowserModule,
+	                http_1.HttpModule,
+	                angular2_tree_component_1.TreeModule,
+	            ],
+	            providers: [
+	                environment_1.ENV_PROVIDERS,
+	                APP_PROVIDERS
+	            ]
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof core_1.ApplicationRef !== 'undefined' && core_1.ApplicationRef) === 'function' && _a) || Object, (typeof (_b = typeof app_service_1.AppState !== 'undefined' && app_service_1.AppState) === 'function' && _b) || Object])
+	    ], AppModule);
+	    return AppModule;
+	    var _a, _b;
+	}());
+	exports.AppModule = AppModule;
 	
 
 /***/ },
 
-/***/ 512:
+/***/ 135:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var tree_options_model_1 = __webpack_require__(221);
-	exports.TREE_ACTIONS = tree_options_model_1.TREE_ACTIONS;
-	var keys_1 = __webpack_require__(347);
-	exports.KEYS = keys_1.KEYS;
-	var tree_model_1 = __webpack_require__(147);
-	exports.TreeModel = tree_model_1.TreeModel;
-	var tree_node_model_1 = __webpack_require__(146);
-	exports.TreeNode = tree_node_model_1.TreeNode;
-	var tree_component_1 = __webpack_require__(516);
-	exports.TreeComponent = tree_component_1.TreeComponent;
-	__webpack_require__(517);
-		
+	var core_1 = __webpack_require__(7);
+	var AppState = (function () {
+	    function AppState() {
+	        this._state = {};
+	    }
+	    Object.defineProperty(AppState.prototype, "state", {
+	        // already return a clone of the current state
+	        get: function () {
+	            return this._state = this._clone(this._state);
+	        },
+	        // never allow mutation
+	        set: function (value) {
+	            throw new Error('do not mutate the `.state` directly');
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    AppState.prototype.get = function (prop) {
+	        // use our state getter for the clone
+	        var state = this.state;
+	        return state.hasOwnProperty(prop) ? state[prop] : state;
+	    };
+	    AppState.prototype.set = function (prop, value) {
+	        // internally mutate our state
+	        return this._state[prop] = value;
+	    };
+	    AppState.prototype._clone = function (object) {
+	        // simple object clone
+	        return JSON.parse(JSON.stringify(object));
+	    };
+	    AppState = __decorate([
+	        core_1.Injectable(), 
+	        __metadata('design:paramtypes', [])
+	    ], AppState);
+	    return AppState;
+	}());
+	exports.AppState = AppState;
+	
 
 /***/ },
 
-/***/ 513:
+/***/ 136:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	function __export(m) {
+	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+	}
+	__export(__webpack_require__(134));
+	
+
+/***/ },
+
+/***/ 154:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16501,26 +16415,40 @@ webpackJsonp([2],{
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var core_1 = __webpack_require__(1);
-	var tree_model_1 = __webpack_require__(147);
+	var core_1 = __webpack_require__(7);
+	var tree_model_1 = __webpack_require__(54);
+	var adhoc_component_factory_service_1 = __webpack_require__(67);
 	var LoadingComponent = (function () {
-	    function LoadingComponent(treeModel, componentLoader, viewContainerRef) {
+	    function LoadingComponent(treeModel, componentFactoryResolver, viewContainerRef, adHocComponentFactoryCreator) {
 	        this.treeModel = treeModel;
-	        this.componentLoader = componentLoader;
+	        this.componentFactoryResolver = componentFactoryResolver;
 	        this.viewContainerRef = viewContainerRef;
+	        this.adHocComponentFactoryCreator = adHocComponentFactoryCreator;
 	    }
 	    LoadingComponent.prototype.ngAfterViewInit = function () {
 	        this._loadTreeNodeContent();
 	    };
 	    LoadingComponent.prototype._loadTreeNodeContent = function () {
-	        this.componentLoader.loadNextToLocation(this.treeModel.loadingComponent, this.viewContainerRef);
+	        var componentFactory;
+	        try {
+	            componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.treeModel.loadingComponent);
+	        }
+	        catch (error) {
+	            componentFactory = this.adHocComponentFactoryCreator.getFactory(this.treeModel.loadingComponent);
+	        }
+	        var componentRef = this.viewContainerRef.createComponent(componentFactory);
+	        componentRef.changeDetectorRef.detectChanges();
 	    };
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', core_1.TemplateRef)
+	    ], LoadingComponent.prototype, "loadingTemplate", void 0);
 	    LoadingComponent = __decorate([
 	        core_1.Component({
 	            selector: 'LoadingComponent',
 	            template: ''
 	        }), 
-	        __metadata('design:paramtypes', [tree_model_1.TreeModel, core_1.DynamicComponentLoader, core_1.ViewContainerRef])
+	        __metadata('design:paramtypes', [tree_model_1.TreeModel, core_1.ComponentFactoryResolver, core_1.ViewContainerRef, adhoc_component_factory_service_1.AdHocComponentFactoryCreator])
 	    ], LoadingComponent);
 	    return LoadingComponent;
 	}());
@@ -16529,7 +16457,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 514:
+/***/ 155:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16542,38 +16470,47 @@ webpackJsonp([2],{
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var core_1 = __webpack_require__(1);
-	var tree_node_model_1 = __webpack_require__(146);
-	var tree_model_1 = __webpack_require__(147);
+	var core_1 = __webpack_require__(7);
+	var tree_node_model_1 = __webpack_require__(47);
+	var tree_model_1 = __webpack_require__(54);
+	var adhoc_component_factory_service_1 = __webpack_require__(67);
 	var TreeNodeContent = (function () {
-	    function TreeNodeContent(treeModel, componentResolver, viewContainerRef) {
+	    function TreeNodeContent(treeModel, componentFactoryResolver, viewContainerRef, adHocComponentFactoryCreator) {
 	        this.treeModel = treeModel;
-	        this.componentResolver = componentResolver;
+	        this.componentFactoryResolver = componentFactoryResolver;
 	        this.viewContainerRef = viewContainerRef;
+	        this.adHocComponentFactoryCreator = adHocComponentFactoryCreator;
 	    }
 	    TreeNodeContent.prototype.ngAfterViewInit = function () {
 	        this._loadTreeNodeContent();
 	    };
 	    TreeNodeContent.prototype._loadTreeNodeContent = function () {
-	        var _this = this;
-	        this.componentResolver.resolveComponent(this.treeModel.treeNodeContentComponent)
-	            .then(function (componentFactory) {
-	            var componentRef = _this.viewContainerRef.createComponent(componentFactory, 0, _this.viewContainerRef.injector);
-	            componentRef.instance.node = _this.node;
-	            componentRef.instance.context = _this.node.context;
-	            componentRef.changeDetectorRef.detectChanges();
-	        });
+	        var componentFactory;
+	        try {
+	            componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.treeModel.treeNodeContentComponent);
+	        }
+	        catch (error) {
+	            componentFactory = this.adHocComponentFactoryCreator.getFactory(this.treeModel.treeNodeContentComponent);
+	        }
+	        var componentRef = this.viewContainerRef.createComponent(componentFactory, 0, this.viewContainerRef.injector);
+	        componentRef.instance.node = this.node;
+	        componentRef.instance.context = this.node.context;
+	        componentRef.changeDetectorRef.detectChanges();
 	    };
 	    __decorate([
 	        core_1.Input(), 
 	        __metadata('design:type', tree_node_model_1.TreeNode)
 	    ], TreeNodeContent.prototype, "node", void 0);
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', core_1.TemplateRef)
+	    ], TreeNodeContent.prototype, "treeNodeContentTemplate", void 0);
 	    TreeNodeContent = __decorate([
 	        core_1.Component({
 	            selector: 'TreeNodeContent',
 	            template: '',
 	        }), 
-	        __metadata('design:paramtypes', [tree_model_1.TreeModel, core_1.ComponentResolver, core_1.ViewContainerRef])
+	        __metadata('design:paramtypes', [tree_model_1.TreeModel, core_1.ComponentFactoryResolver, core_1.ViewContainerRef, adhoc_component_factory_service_1.AdHocComponentFactoryCreator])
 	    ], TreeNodeContent);
 	    return TreeNodeContent;
 	}());
@@ -16582,7 +16519,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 515:
+/***/ 156:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16595,13 +16532,85 @@ webpackJsonp([2],{
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var core_1 = __webpack_require__(1);
-	var tree_node_model_1 = __webpack_require__(146);
-	var loading_component_1 = __webpack_require__(513);
-	var tree_node_content_component_1 = __webpack_require__(514);
+	var core_1 = __webpack_require__(7);
+	var LoadingComponent = (function () {
+	    function LoadingComponent() {
+	    }
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', core_1.TemplateRef)
+	    ], LoadingComponent.prototype, "loadingTemplate", void 0);
+	    LoadingComponent = __decorate([
+	        core_1.Component({
+	            selector: 'LoadingComponent',
+	            template: "<span *ngIf=\"!loadingTemplate\">loading...</span>\n  <template [ngTemplateOutlet]=\"loadingTemplate\"></template>",
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], LoadingComponent);
+	    return LoadingComponent;
+	}());
+	exports.LoadingComponent = LoadingComponent;
+	
+
+/***/ },
+
+/***/ 157:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(7);
+	var tree_node_model_1 = __webpack_require__(47);
+	var TreeNodeContent = (function () {
+	    function TreeNodeContent() {
+	    }
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', tree_node_model_1.TreeNode)
+	    ], TreeNodeContent.prototype, "node", void 0);
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', core_1.TemplateRef)
+	    ], TreeNodeContent.prototype, "treeNodeContentTemplate", void 0);
+	    TreeNodeContent = __decorate([
+	        core_1.Component({
+	            selector: 'TreeNodeContent',
+	            template: "<span *ngIf=\"!treeNodeContentTemplate\">{{ node.displayField }}</span>\n  <template [ngTemplateOutlet]=\"treeNodeContentTemplate\" [ngOutletContext]=\"{ $implicit: node }\"></template>",
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], TreeNodeContent);
+	    return TreeNodeContent;
+	}());
+	exports.TreeNodeContent = TreeNodeContent;
+	
+
+/***/ },
+
+/***/ 158:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(7);
+	var tree_node_model_1 = __webpack_require__(47);
 	var TreeNodeComponent = (function () {
-	    function TreeNodeComponent(componentLoader, elementRef) {
-	        this.componentLoader = componentLoader;
+	    function TreeNodeComponent(elementRef) {
 	        this.elementRef = elementRef;
 	    }
 	    TreeNodeComponent.prototype.ngAfterViewInit = function () {
@@ -16611,10 +16620,17 @@ webpackJsonp([2],{
 	        core_1.Input(), 
 	        __metadata('design:type', tree_node_model_1.TreeNode)
 	    ], TreeNodeComponent.prototype, "node", void 0);
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', core_1.TemplateRef)
+	    ], TreeNodeComponent.prototype, "treeNodeContentTemplate", void 0);
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', core_1.TemplateRef)
+	    ], TreeNodeComponent.prototype, "loadingTemplate", void 0);
 	    TreeNodeComponent = __decorate([
 	        core_1.Component({
 	            selector: 'TreeNode',
-	            directives: [TreeNodeComponent, loading_component_1.LoadingComponent, tree_node_content_component_1.TreeNodeContent],
 	            encapsulation: core_1.ViewEncapsulation.None,
 	            styles: [
 	                '.tree-children { padding-left: 20px }',
@@ -16630,9 +16646,9 @@ webpackJsonp([2],{
 	                ".toggle-children {\n        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABAhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJ1dWlkOjY1RTYzOTA2ODZDRjExREJBNkUyRDg4N0NFQUNCNDA3IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkYzRkRFQjcxODUzNTExRTU4RTQwRkQwODFEOUZEMEE3IiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkYzRkRFQjcwODUzNTExRTU4RTQwRkQwODFEOUZEMEE3IiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE1IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MTk5NzA1OGEtZDI3OC00NDZkLWE4ODgtNGM4MGQ4YWI1NzNmIiBzdFJlZjpkb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6YzRkZmQxMGMtY2NlNS0xMTc4LWE5OGQtY2NkZmM5ODk5YWYwIi8+IDxkYzp0aXRsZT4gPHJkZjpBbHQ+IDxyZGY6bGkgeG1sOmxhbmc9IngtZGVmYXVsdCI+Z2x5cGhpY29uczwvcmRmOmxpPiA8L3JkZjpBbHQ+IDwvZGM6dGl0bGU+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+5iogFwAAAGhJREFUeNpiYGBgKABigf///zOQg0EARH4A4gZyDIIZ8B/JoAJKDIDhB0CcQIkBRBtEyABkgxwoMQCGD6AbRKoBGAYxQgXIBRuZGKgAKPIC3QLxArnRSHZCIjspk52ZKMrOFBUoAAEGAKnq593MQAZtAAAAAElFTkSuQmCC');\n        height: 8px;\n        width: 9px;\n        background-size: contain;\n        display: inline-block;\n        position: relative;\n        background-repeat: no-repeat;\n        background-position: center;\n    }",
 	                ".toggle-children-placeholder {\n        display: inline-block;\n        height: 10px;\n        width: 10px;\n        position: relative;\n        top: 1px;\n    }"
 	            ],
-	            template: "\n    <div\n      *ngIf=\"!node.isHidden\"\n      class=\"tree-node tree-node-level-{{ node.level }}\"\n      [class.tree-node-expanded]=\"node.isExpanded && node.hasChildren\"\n      [class.tree-node-collapsed]=\"node.isCollapsed && node.hasChildren\"\n      [class.tree-node-leaf]=\"node.isLeaf\"\n      [class.tree-node-active]=\"node.isActive\"\n      [class.tree-node-focused]=\"node.isFocused\">\n      <span\n        *ngIf=\"node.hasChildren\"\n        class=\"toggle-children-wrapper\"\n        (click)=\"node.mouseAction('expanderClick', $event)\">\n\n        <span class=\"toggle-children\"></span>\n      </span>\n      <span\n        *ngIf=\"!node.hasChildren\"\n        class=\"toggle-children-placeholder\">\n      </span>\n      <div class=\"node-content-wrapper\"\n        (click)=\"node.mouseAction('click', $event)\"\n        (dblclick)=\"node.mouseAction('dblClick', $event)\"\n        (contextmenu)=\"node.mouseAction('contextMenu', $event)\">\n\n        <TreeNodeContent [node]=\"node\"></TreeNodeContent>\n      </div>\n      <div class=\"tree-children\" *ngIf=\"node.isExpanded\">\n        <div *ngIf=\"node.children\">\n          <TreeNode\n            *ngFor=\"let node of node.children\"\n            [node]=\"node\">\n          </TreeNode>\n        </div>\n        <LoadingComponent\n          class=\"tree-node-loading\"\n          *ngIf=\"!node.children\"\n        ></LoadingComponent>\n      </div>\n    </div>\n  "
+	            template: "\n    <div\n      *ngIf=\"!node.isHidden\"\n      class=\"tree-node tree-node-level-{{ node.level }}\"\n      [class.tree-node-expanded]=\"node.isExpanded && node.hasChildren\"\n      [class.tree-node-collapsed]=\"node.isCollapsed && node.hasChildren\"\n      [class.tree-node-leaf]=\"node.isLeaf\"\n      [class.tree-node-active]=\"node.isActive\"\n      [class.tree-node-focused]=\"node.isFocused\">\n      <span\n        *ngIf=\"node.hasChildren\"\n        class=\"toggle-children-wrapper\"\n        (click)=\"node.mouseAction('expanderClick', $event)\">\n\n        <span class=\"toggle-children\"></span>\n      </span>\n      <span\n        *ngIf=\"!node.hasChildren\"\n        class=\"toggle-children-placeholder\">\n      </span>\n      <div class=\"node-content-wrapper\"\n        (click)=\"node.mouseAction('click', $event)\"\n        (dblclick)=\"node.mouseAction('dblClick', $event)\"\n        (contextmenu)=\"node.mouseAction('contextMenu', $event)\">\n\n        <TreeNodeContent [node]=\"node\" [treeNodeContentTemplate]=\"treeNodeContentTemplate\"></TreeNodeContent>\n      </div>\n      <div class=\"tree-children\" *ngIf=\"node.isExpanded\">\n        <div *ngIf=\"node.children\">\n          <TreeNode\n            *ngFor=\"let node of node.children\"\n            [node]=\"node\"\n            [treeNodeContentTemplate]=\"treeNodeContentTemplate\"\n            [loadingTemplate]=\"loadingTemplate\">\n          </TreeNode>\n        </div>\n        <LoadingComponent\n          class=\"tree-node-loading\"\n          *ngIf=\"!node.children\"\n          [loadingTemplate]=\"loadingTemplate\"\n        ></LoadingComponent>\n      </div>\n    </div>\n  "
 	        }), 
-	        __metadata('design:paramtypes', [core_1.DynamicComponentLoader, core_1.ElementRef])
+	        __metadata('design:paramtypes', [core_1.ElementRef])
 	    ], TreeNodeComponent);
 	    return TreeNodeComponent;
 	}());
@@ -16641,7 +16657,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 516:
+/***/ 159:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -16654,11 +16670,10 @@ webpackJsonp([2],{
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
-	var core_1 = __webpack_require__(1);
-	var tree_node_component_1 = __webpack_require__(515);
-	var tree_model_1 = __webpack_require__(147);
-	var tree_options_model_1 = __webpack_require__(221);
-	var _ = __webpack_require__(148);
+	var core_1 = __webpack_require__(7);
+	var tree_model_1 = __webpack_require__(54);
+	var tree_options_model_1 = __webpack_require__(68);
+	var _ = __webpack_require__(55);
 	var TreeComponent = (function () {
 	    function TreeComponent(treeModel) {
 	        var _this = this;
@@ -16706,6 +16721,14 @@ webpackJsonp([2],{
 	            events: _.pick(this, this.treeModel.eventNames)
 	        });
 	    };
+	    __decorate([
+	        core_1.ContentChild('loadingTemplate'), 
+	        __metadata('design:type', core_1.TemplateRef)
+	    ], TreeComponent.prototype, "loadingTemplate", void 0);
+	    __decorate([
+	        core_1.ContentChild('treeNodeTemplate'), 
+	        __metadata('design:type', core_1.TemplateRef)
+	    ], TreeComponent.prototype, "treeNodeTemplate", void 0);
 	    __decorate([
 	        core_1.Input(), 
 	        __metadata('design:type', Array), 
@@ -16768,7 +16791,6 @@ webpackJsonp([2],{
 	    TreeComponent = __decorate([
 	        core_1.Component({
 	            selector: 'Tree',
-	            directives: [tree_node_component_1.TreeNodeComponent],
 	            encapsulation: core_1.ViewEncapsulation.None,
 	            host: {
 	                '(body: keydown)': "onKeydown($event)",
@@ -16779,7 +16801,7 @@ webpackJsonp([2],{
 	                '.tree-children { padding-left: 20px }',
 	                ".tree {\n      display: inline-block;\n      cursor: pointer;\n      -webkit-touch-callout: none; /* iOS Safari */\n      -webkit-user-select: none;   /* Chrome/Safari/Opera */\n      -khtml-user-select: none;    /* Konqueror */\n      -moz-user-select: none;      /* Firefox */\n      -ms-user-select: none;       /* IE/Edge */\n      user-select: none;           /* non-prefixed version, currently not supported by any browser */\n    }"
 	            ],
-	            template: "\n    <div class=\"tree\">\n      <TreeNode\n        *ngFor=\"let node of treeModel.roots\"\n        [node]=\"node\">\n      </TreeNode>\n    </div>\n  "
+	            template: "\n    <div class=\"tree\">\n      <TreeNode\n        *ngFor=\"let node of treeModel.roots\"\n        [node]=\"node\"\n        [loadingTemplate]=\"loadingTemplate\"\n        [treeNodeContentTemplate]=\"treeNodeTemplate\">\n      </TreeNode>\n    </div>\n  "
 	        }), 
 	        __metadata('design:paramtypes', [tree_model_1.TreeModel])
 	    ], TreeComponent);
@@ -16790,16 +16812,16 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 517:
+/***/ 160:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	__webpack_require__(518);
+	__webpack_require__(161);
 	
 
 /***/ },
 
-/***/ 518:
+/***/ 161:
 /***/ function(module, exports) {
 
 	// element-closest | CC0-1.0 | github.com/jonathantneal/closest
@@ -16827,6 +16849,23 @@ webpackJsonp([2],{
 	    };
 	}
 	
+
+/***/ },
+
+/***/ 316:
+/***/ function(module, exports) {
+
+	module.exports = function(module) {
+		if(!module.webpackPolyfill) {
+			module.deprecate = function() {};
+			module.paths = [];
+			// module.parent = undefined by default
+			module.children = [];
+			module.webpackPolyfill = 1;
+		}
+		return module;
+	}
+
 
 /***/ }
 

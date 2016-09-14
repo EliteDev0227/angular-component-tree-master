@@ -1,3 +1,9 @@
+<a name="1.2.0"></a>
+# 1.2.0 (2016-09-14)
+* rc.7
+* support ngModule
+* Using ng2 templates instead of passing them in options
+
 <a name="1.1.18"></a>
 # 1.1.18 (2016-09-11)
 * Added isHidden field
