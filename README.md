@@ -1,5 +1,8 @@
 # angular2 tree component
 
+## Support
+angular2-tree-component supports angular rc.7
+
 ## Why use this library
 
 * Simple to use
