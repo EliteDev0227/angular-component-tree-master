@@ -1,6 +1,6 @@
 {
   "name": "angular2-tree-component",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A simple yet powerful tree component for Angular2",
   "author": "Adam Klein <adam@500tech.com>",
   "homepage": "https://github.com/500tech/angular2-tree-component",
@@ -32,12 +32,12 @@
     "Adam Klein <adam@500tech.com>"
   ],
   "peerDependencies": {
-    "@angular/common": "^2.0.0-rc.7",
-    "@angular/compiler": "^2.0.0-rc.7",
-    "@angular/core": "^2.0.0-rc.7",
-    "@angular/http": "^2.0.0-rc.7",
-    "@angular/platform-browser": "^2.0.0-rc.7",
-    "@angular/platform-browser-dynamic": "^2.0.0-rc.7",
+    "@angular/common": "2.0.0-rc.7",
+    "@angular/compiler": "2.0.0-rc.7",
+    "@angular/core": "2.0.0-rc.7",
+    "@angular/http": "2.0.0-rc.7",
+    "@angular/platform-browser": "2.0.0-rc.7",
+    "@angular/platform-browser-dynamic": "2.0.0-rc.7",
     "zone.js": "^0.6.21"    
   },
   "dependencies": {
@@ -52,13 +52,13 @@
   },
   "devDependencies": {
     "zone.js": "^0.6.21",
-    "@angular/common": "^2.0.0-rc.7",
-    "@angular/compiler": "^2.0.0-rc.7",
-    "@angular/core": "^2.0.0-rc.7",
-    "@angular/http": "^2.0.0-rc.7",
-    "@angular/platform-browser": "^2.0.0-rc.7",
-    "@angular/platform-browser-dynamic": "^2.0.0-rc.7",
-    "rimraf": "^2.5.1",
+    "@angular/common": "2.0.0-rc.7",
+    "@angular/compiler": "2.0.0-rc.7",
+    "@angular/core": "2.0.0-rc.7",
+    "@angular/http": "2.0.0-rc.7",
+    "@angular/platform-browser": "2.0.0-rc.7",
+    "@angular/platform-browser-dynamic": "2.0.0-rc.7",
+    "rimraf": "2.5.1",
     "typedoc": "^0.3.12",
     "typescript": "^1.8.0"
   },

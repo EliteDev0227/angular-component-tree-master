@@ -6845,147 +6845,172 @@
 /***/ },
 /* 316 */,
 /* 317 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	(function () {
-	    var NEWLINE = '\n';
-	    var SEP = '  -------------  ';
-	    var IGNORE_FRAMES = [];
-	    var creationTrace = '__creationTrace__';
-	    var LongStackTrace = (function () {
-	        function LongStackTrace() {
-	            this.error = getStacktrace();
-	            this.timestamp = new Date();
-	        }
-	        return LongStackTrace;
-	    }());
-	    function getStacktraceWithUncaughtError() {
-	        return new Error('STACKTRACE TRACKING');
+	/**
+	* @license
+	* Copyright Google Inc. All Rights Reserved.
+	*
+	* Use of this source code is governed by an MIT-style license that can be
+	* found in the LICENSE file at https://angular.io/license
+	*/
+	(function (global, factory) {
+	     true ? factory() :
+	    typeof define === 'function' && define.amd ? define(factory) :
+	    (factory());
+	}(this, (function () { 'use strict';
+
+	var NEWLINE = '\n';
+	var SEP = '  -------------  ';
+	var IGNORE_FRAMES = [];
+	var creationTrace = '__creationTrace__';
+	var LongStackTrace = (function () {
+	    function LongStackTrace() {
+	        this.error = getStacktrace();
+	        this.timestamp = new Date();
 	    }
-	    function getStacktraceWithCaughtError() {
-	        try {
-	            throw getStacktraceWithUncaughtError();
-	        }
-	        catch (e) {
-	            return e;
+	    return LongStackTrace;
+	}());
+	function getStacktraceWithUncaughtError() {
+	    return new Error('STACKTRACE TRACKING');
+	}
+	function getStacktraceWithCaughtError() {
+	    try {
+	        throw getStacktraceWithUncaughtError();
+	    }
+	    catch (e) {
+	        return e;
+	    }
+	}
+	// Some implementations of exception handling don't create a stack trace if the exception
+	// isn't thrown, however it's faster not to actually throw the exception.
+	var error = getStacktraceWithUncaughtError();
+	var coughtError = getStacktraceWithCaughtError();
+	var getStacktrace = error.stack
+	    ? getStacktraceWithUncaughtError
+	    : (coughtError.stack ? getStacktraceWithCaughtError : getStacktraceWithUncaughtError);
+	function getFrames(error) {
+	    return error.stack ? error.stack.split(NEWLINE) : [];
+	}
+	function addErrorStack(lines, error) {
+	    var trace = getFrames(error);
+	    for (var i = 0; i < trace.length; i++) {
+	        var frame = trace[i];
+	        // Filter out the Frames which are part of stack capturing.
+	        if (!(i < IGNORE_FRAMES.length && IGNORE_FRAMES[i] === frame)) {
+	            lines.push(trace[i]);
 	        }
 	    }
-	    // Some implementations of exception handling don't create a stack trace if the exception
-	    // isn't thrown, however it's faster not to actually throw the exception.
-	    var error = getStacktraceWithUncaughtError();
-	    var coughtError = getStacktraceWithCaughtError();
-	    var getStacktrace = error.stack
-	        ? getStacktraceWithUncaughtError
-	        : (coughtError.stack ? getStacktraceWithCaughtError : getStacktraceWithUncaughtError);
-	    function getFrames(error) {
-	        return error.stack ? error.stack.split(NEWLINE) : [];
+	}
+	function renderLongStackTrace(frames, stack) {
+	    var longTrace = [stack];
+	    if (frames) {
+	        var timestamp = new Date().getTime();
+	        for (var i = 0; i < frames.length; i++) {
+	            var traceFrames = frames[i];
+	            var lastTime = traceFrames.timestamp;
+	            longTrace.push(SEP + " Elapsed: " + (timestamp - lastTime.getTime()) + " ms; At: " + lastTime + " " + SEP);
+	            addErrorStack(longTrace, traceFrames.error);
+	            timestamp = lastTime.getTime();
+	        }
 	    }
-	    function addErrorStack(lines, error) {
-	        var trace = getFrames(error);
-	        for (var i = 0; i < trace.length; i++) {
-	            var frame = trace[i];
-	            // Filter out the Frames which are part of stack capturing.
-	            if (!(i < IGNORE_FRAMES.length && IGNORE_FRAMES[i] === frame)) {
-	                lines.push(trace[i]);
+	    return longTrace.join(NEWLINE);
+	}
+	Zone['longStackTraceZoneSpec'] = {
+	    name: 'long-stack-trace',
+	    longStackTraceLimit: 10,
+	    onScheduleTask: function (parentZoneDelegate, currentZone, targetZone, task) {
+	        var currentTask = Zone.currentTask;
+	        var trace = currentTask && currentTask.data && currentTask.data[creationTrace] || [];
+	        trace = [new LongStackTrace()].concat(trace);
+	        if (trace.length > this.longStackTraceLimit) {
+	            trace.length = this.longStackTraceLimit;
+	        }
+	        if (!task.data)
+	            task.data = {};
+	        task.data[creationTrace] = trace;
+	        return parentZoneDelegate.scheduleTask(targetZone, task);
+	    },
+	    onHandleError: function (parentZoneDelegate, currentZone, targetZone, error) {
+	        var parentTask = Zone.currentTask || error.task;
+	        if (error instanceof Error && parentTask) {
+	            var stackSetSucceded = null;
+	            try {
+	                var descriptor = Object.getOwnPropertyDescriptor(error, 'stack');
+	                if (descriptor && descriptor.configurable) {
+	                    var delegateGet_1 = descriptor.get;
+	                    var value_1 = descriptor.value;
+	                    descriptor = {
+	                        get: function () {
+	                            return renderLongStackTrace(parentTask.data && parentTask.data[creationTrace], delegateGet_1 ? delegateGet_1.apply(this) : value_1);
+	                        }
+	                    };
+	                    Object.defineProperty(error, 'stack', descriptor);
+	                    stackSetSucceded = true;
+	                }
 	            }
-	        }
-	    }
-	    function renderLongStackTrace(frames, stack) {
-	        var longTrace = [stack];
-	        if (frames) {
-	            var timestamp = new Date().getTime();
-	            for (var i = 0; i < frames.length; i++) {
-	                var traceFrames = frames[i];
-	                var lastTime = traceFrames.timestamp;
-	                longTrace.push(SEP + " Elapsed: " + (timestamp - lastTime.getTime()) + " ms; At: " + lastTime + " " + SEP);
-	                addErrorStack(longTrace, traceFrames.error);
-	                timestamp = lastTime.getTime();
-	            }
-	        }
-	        return longTrace.join(NEWLINE);
-	    }
-	    Zone['longStackTraceZoneSpec'] = {
-	        name: 'long-stack-trace',
-	        longStackTraceLimit: 10,
-	        onScheduleTask: function (parentZoneDelegate, currentZone, targetZone, task) {
-	            var currentTask = Zone.currentTask;
-	            var trace = currentTask && currentTask.data && currentTask.data[creationTrace] || [];
-	            trace = [new LongStackTrace()].concat(trace);
-	            if (trace.length > this.longStackTraceLimit) {
-	                trace.length = this.longStackTraceLimit;
-	            }
-	            if (!task.data)
-	                task.data = {};
-	            task.data[creationTrace] = trace;
-	            return parentZoneDelegate.scheduleTask(targetZone, task);
-	        },
-	        onHandleError: function (parentZoneDelegate, currentZone, targetZone, error) {
-	            var parentTask = Zone.currentTask || error.task;
-	            if (error instanceof Error && parentTask) {
-	                var stackSetSucceded = null;
+	            catch (e) { }
+	            var longStack = stackSetSucceded ? null : renderLongStackTrace(parentTask.data && parentTask.data[creationTrace], error.stack);
+	            if (!stackSetSucceded) {
 	                try {
-	                    var descriptor = Object.getOwnPropertyDescriptor(error, 'stack');
-	                    if (descriptor && descriptor.configurable) {
-	                        var delegateGet_1 = descriptor.get;
-	                        var value_1 = descriptor.value;
-	                        descriptor = {
-	                            get: function () {
-	                                return renderLongStackTrace(parentTask.data && parentTask.data[creationTrace], delegateGet_1 ? delegateGet_1.apply(this) : value_1);
-	                            }
-	                        };
-	                        Object.defineProperty(error, 'stack', descriptor);
-	                        stackSetSucceded = true;
-	                    }
+	                    stackSetSucceded = error.stack = longStack;
 	                }
 	                catch (e) { }
-	                var longStack = stackSetSucceded ? null : renderLongStackTrace(parentTask.data && parentTask.data[creationTrace], error.stack);
-	                if (!stackSetSucceded) {
-	                    try {
-	                        stackSetSucceded = error.stack = longStack;
-	                    }
-	                    catch (e) { }
-	                }
-	                if (!stackSetSucceded) {
-	                    try {
-	                        stackSetSucceded = error.longStack = longStack;
-	                    }
-	                    catch (e) { }
-	                }
 	            }
-	            return parentZoneDelegate.handleError(targetZone, error);
+	            if (!stackSetSucceded) {
+	                try {
+	                    stackSetSucceded = error.longStack = longStack;
+	                }
+	                catch (e) { }
+	            }
 	        }
-	    };
-	    function captureStackTraces(stackTraces, count) {
-	        if (count > 0) {
-	            stackTraces.push(getFrames((new LongStackTrace()).error));
-	            captureStackTraces(stackTraces, count - 1);
+	        return parentZoneDelegate.handleError(targetZone, error);
+	    }
+	};
+	function captureStackTraces(stackTraces, count) {
+	    if (count > 0) {
+	        stackTraces.push(getFrames((new LongStackTrace()).error));
+	        captureStackTraces(stackTraces, count - 1);
+	    }
+	}
+	function computeIgnoreFrames() {
+	    var frames = [];
+	    captureStackTraces(frames, 2);
+	    var frames1 = frames[0];
+	    var frames2 = frames[1];
+	    for (var i = 0; i < frames1.length; i++) {
+	        var frame1 = frames1[i];
+	        var frame2 = frames2[i];
+	        if (frame1 === frame2) {
+	            IGNORE_FRAMES.push(frame1);
+	        }
+	        else {
+	            break;
 	        }
 	    }
-	    function computeIgnoreFrames() {
-	        var frames = [];
-	        captureStackTraces(frames, 2);
-	        var frames1 = frames[0];
-	        var frames2 = frames[1];
-	        for (var i = 0; i < frames1.length; i++) {
-	            var frame1 = frames1[i];
-	            var frame2 = frames2[i];
-	            if (frame1 === frame2) {
-	                IGNORE_FRAMES.push(frame1);
-	            }
-	            else {
-	                break;
-	            }
-	        }
-	    }
-	    computeIgnoreFrames();
-	})();
+	}
+	computeIgnoreFrames();
+
+	})));
+
 
 /***/ },
 /* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(global, process) {;
-	;
+	/* WEBPACK VAR INJECTION */(function(global, process) {/**
+	* @license
+	* Copyright Google Inc. All Rights Reserved.
+	*
+	* Use of this source code is governed by an MIT-style license that can be
+	* found in the LICENSE file at https://angular.io/license
+	*/
+	(function (global, factory) {
+	     true ? factory() :
+	    typeof define === 'function' && define.amd ? define(factory) :
+	    (factory());
+	}(this, (function () { 'use strict';
+
 	var Zone$1 = (function (global) {
 	    if (global.Zone) {
 	        throw new Error('Zone already loaded.');
@@ -7012,25 +7037,25 @@
 	            enumerable: true,
 	            configurable: true
 	        });
-	        ;
+	        
 	        Object.defineProperty(Zone, "currentTask", {
 	            get: function () { return _currentTask; },
 	            enumerable: true,
 	            configurable: true
 	        });
-	        ;
+	        
 	        Object.defineProperty(Zone.prototype, "parent", {
 	            get: function () { return this._parent; },
 	            enumerable: true,
 	            configurable: true
 	        });
-	        ;
+	        
 	        Object.defineProperty(Zone.prototype, "name", {
 	            get: function () { return this._name; },
 	            enumerable: true,
 	            configurable: true
 	        });
-	        ;
+	        
 	        Zone.prototype.get = function (key) {
 	            var zone = this.getZoneWith(key);
 	            if (zone)
@@ -7139,7 +7164,7 @@
 	        Zone.__symbol__ = __symbol__;
 	        return Zone;
 	    }());
-	    ;
+	    
 	    var ZoneDelegate = (function () {
 	        function ZoneDelegate(zone, parentDelegate, zoneSpec) {
 	            this._taskCounts = { microTask: 0, macroTask: 0, eventTask: 0 };
@@ -7297,7 +7322,7 @@
 	        return ZoneTask;
 	    }());
 	    function __symbol__(name) { return '__zone_symbol__' + name; }
-	    ;
+	    
 	    var symbolSetTimeout = __symbol__('setTimeout');
 	    var symbolPromise = __symbol__('Promise');
 	    var symbolThen = __symbol__('then');
@@ -7404,12 +7429,12 @@
 	                        throw new Error("Uncaught (in promise): " + value);
 	                    }
 	                    catch (e) {
-	                        var error = e;
-	                        error.rejection = value;
-	                        error.promise = promise;
-	                        error.zone = Zone.current;
-	                        error.task = Zone.currentTask;
-	                        _uncaughtPromiseErrors.push(error);
+	                        var error_1 = e;
+	                        error_1.rejection = value;
+	                        error_1.promise = promise;
+	                        error_1.zone = Zone.current;
+	                        error_1.task = Zone.currentTask;
+	                        _uncaughtPromiseErrors.push(error_1);
 	                        scheduleQueueDrain();
 	                    }
 	                }
@@ -7539,7 +7564,15 @@
 	    if (NativePromise) {
 	        patchThen(NativePromise);
 	        if (typeof global['fetch'] !== 'undefined') {
-	            var fetchPromise = global['fetch']();
+	            var fetchPromise = void 0;
+	            try {
+	                // In MS Edge this throws
+	                fetchPromise = global['fetch']();
+	            }
+	            catch (e) {
+	                // In Chrome this throws instead.
+	                fetchPromise = global['fetch']('about:blank');
+	            }
 	            // ignore output to prevent error;
 	            fetchPromise.then(function () { return null; }, function () { return null; });
 	            if (fetchPromise.constructor != NativePromise) {
@@ -7567,7 +7600,7 @@
 	    }
 	    return args;
 	}
-	;
+
 	function patchPrototype(prototype, fnNames) {
 	    var source = prototype.constructor['name'];
 	    var _loop_1 = function(i) {
@@ -7585,7 +7618,7 @@
 	        _loop_1(i);
 	    }
 	}
-	;
+
 	var isWebWorker = (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope);
 	var isNode = (typeof process !== 'undefined' && {}.toString.call(process) === '[object process]');
 	var isBrowser = !isNode && !isWebWorker && !!(typeof window !== 'undefined' && window['HTMLElement']);
@@ -7628,7 +7661,7 @@
 	    };
 	    Object.defineProperty(obj, prop, desc);
 	}
-	;
+
 	function patchOnProperties(obj, properties) {
 	    var onProperties = [];
 	    for (var prop in obj) {
@@ -7645,12 +7678,11 @@
 	        }
 	    }
 	}
-	;
+
 	var EVENT_TASKS = zoneSymbol('eventTasks');
+	// For EventTarget
 	var ADD_EVENT_LISTENER = 'addEventListener';
 	var REMOVE_EVENT_LISTENER = 'removeEventListener';
-	var SYMBOL_ADD_EVENT_LISTENER = zoneSymbol(ADD_EVENT_LISTENER);
-	var SYMBOL_REMOVE_EVENT_LISTENER = zoneSymbol(REMOVE_EVENT_LISTENER);
 	function findExistingRegisteredTask(target, handler, name, capture, remove) {
 	    var eventTasks = target[EVENT_TASKS];
 	    if (eventTasks) {
@@ -7676,78 +7708,95 @@
 	    }
 	    eventTasks.push(eventTask);
 	}
-	function scheduleEventListener(eventTask) {
-	    var meta = eventTask.data;
-	    attachRegisteredEvent(meta.target, eventTask);
-	    return meta.target[SYMBOL_ADD_EVENT_LISTENER](meta.eventName, eventTask.invoke, meta.useCapturing);
-	}
-	function cancelEventListener(eventTask) {
-	    var meta = eventTask.data;
-	    findExistingRegisteredTask(meta.target, eventTask.invoke, meta.eventName, meta.useCapturing, true);
-	    meta.target[SYMBOL_REMOVE_EVENT_LISTENER](meta.eventName, eventTask.invoke, meta.useCapturing);
-	}
-	function zoneAwareAddEventListener(self, args) {
-	    var eventName = args[0];
-	    var handler = args[1];
-	    var useCapturing = args[2] || false;
-	    // - Inside a Web Worker, `this` is undefined, the context is `global`
-	    // - When `addEventListener` is called on the global context in strict mode, `this` is undefined
-	    // see https://github.com/angular/zone.js/issues/190
-	    var target = self || _global$1;
-	    var delegate = null;
-	    if (typeof handler == 'function') {
-	        delegate = handler;
+	function makeZoneAwareAddListener(addFnName, removeFnName, useCapturingParam, allowDuplicates) {
+	    if (useCapturingParam === void 0) { useCapturingParam = true; }
+	    if (allowDuplicates === void 0) { allowDuplicates = false; }
+	    var addFnSymbol = zoneSymbol(addFnName);
+	    var removeFnSymbol = zoneSymbol(removeFnName);
+	    var defaultUseCapturing = useCapturingParam ? false : undefined;
+	    function scheduleEventListener(eventTask) {
+	        var meta = eventTask.data;
+	        attachRegisteredEvent(meta.target, eventTask);
+	        return meta.target[addFnSymbol](meta.eventName, eventTask.invoke, meta.useCapturing);
 	    }
-	    else if (handler && handler.handleEvent) {
-	        delegate = function (event) { return handler.handleEvent(event); };
+	    function cancelEventListener(eventTask) {
+	        var meta = eventTask.data;
+	        findExistingRegisteredTask(meta.target, eventTask.invoke, meta.eventName, meta.useCapturing, true);
+	        meta.target[removeFnSymbol](meta.eventName, eventTask.invoke, meta.useCapturing);
 	    }
-	    var validZoneHandler = false;
-	    try {
-	        // In cross site contexts (such as WebDriver frameworks like Selenium),
-	        // accessing the handler object here will cause an exception to be thrown which
-	        // will fail tests prematurely.
-	        validZoneHandler = handler && handler.toString() === "[object FunctionWrapper]";
-	    }
-	    catch (e) {
-	        // Returning nothing here is fine, because objects in a cross-site context are unusable
-	        return;
-	    }
-	    // Ignore special listeners of IE11 & Edge dev tools, see https://github.com/angular/zone.js/issues/150
-	    if (!delegate || validZoneHandler) {
-	        return target[SYMBOL_ADD_EVENT_LISTENER](eventName, handler, useCapturing);
-	    }
-	    var eventTask = findExistingRegisteredTask(target, handler, eventName, useCapturing, false);
-	    if (eventTask) {
-	        // we already registered, so this will have noop.
-	        return target[SYMBOL_ADD_EVENT_LISTENER](eventName, eventTask.invoke, useCapturing);
-	    }
-	    var zone = Zone.current;
-	    var source = target.constructor['name'] + '.addEventListener:' + eventName;
-	    var data = {
-	        target: target,
-	        eventName: eventName,
-	        name: eventName,
-	        useCapturing: useCapturing,
-	        handler: handler
+	    return function zoneAwareAddListener(self, args) {
+	        var eventName = args[0];
+	        var handler = args[1];
+	        var useCapturing = args[2] || defaultUseCapturing;
+	        // - Inside a Web Worker, `this` is undefined, the context is `global`
+	        // - When `addEventListener` is called on the global context in strict mode, `this` is undefined
+	        // see https://github.com/angular/zone.js/issues/190
+	        var target = self || _global$1;
+	        var delegate = null;
+	        if (typeof handler == 'function') {
+	            delegate = handler;
+	        }
+	        else if (handler && handler.handleEvent) {
+	            delegate = function (event) { return handler.handleEvent(event); };
+	        }
+	        var validZoneHandler = false;
+	        try {
+	            // In cross site contexts (such as WebDriver frameworks like Selenium),
+	            // accessing the handler object here will cause an exception to be thrown which
+	            // will fail tests prematurely.
+	            validZoneHandler = handler && handler.toString() === "[object FunctionWrapper]";
+	        }
+	        catch (e) {
+	            // Returning nothing here is fine, because objects in a cross-site context are unusable
+	            return;
+	        }
+	        // Ignore special listeners of IE11 & Edge dev tools, see https://github.com/angular/zone.js/issues/150
+	        if (!delegate || validZoneHandler) {
+	            return target[addFnSymbol](eventName, handler, useCapturing);
+	        }
+	        if (!allowDuplicates) {
+	            var eventTask = findExistingRegisteredTask(target, handler, eventName, useCapturing, false);
+	            if (eventTask) {
+	                // we already registered, so this will have noop.
+	                return target[addFnSymbol](eventName, eventTask.invoke, useCapturing);
+	            }
+	        }
+	        var zone = Zone.current;
+	        var source = target.constructor['name'] + '.' + addFnName + ':' + eventName;
+	        var data = {
+	            target: target,
+	            eventName: eventName,
+	            name: eventName,
+	            useCapturing: useCapturing,
+	            handler: handler
+	        };
+	        zone.scheduleEventTask(source, delegate, data, scheduleEventListener, cancelEventListener);
 	    };
-	    zone.scheduleEventTask(source, delegate, data, scheduleEventListener, cancelEventListener);
 	}
-	function zoneAwareRemoveEventListener(self, args) {
-	    var eventName = args[0];
-	    var handler = args[1];
-	    var useCapturing = args[2] || false;
-	    // - Inside a Web Worker, `this` is undefined, the context is `global`
-	    // - When `addEventListener` is called on the global context in strict mode, `this` is undefined
-	    // see https://github.com/angular/zone.js/issues/190
-	    var target = self || _global$1;
-	    var eventTask = findExistingRegisteredTask(target, handler, eventName, useCapturing, true);
-	    if (eventTask) {
-	        eventTask.zone.cancelTask(eventTask);
-	    }
-	    else {
-	        target[SYMBOL_REMOVE_EVENT_LISTENER](eventName, handler, useCapturing);
-	    }
+	function makeZoneAwareRemoveListener(fnName, useCapturingParam) {
+	    if (useCapturingParam === void 0) { useCapturingParam = true; }
+	    var symbol = zoneSymbol(fnName);
+	    var defaultUseCapturing = useCapturingParam ? false : undefined;
+	    return function zoneAwareRemoveListener(self, args) {
+	        var eventName = args[0];
+	        var handler = args[1];
+	        var useCapturing = args[2] || defaultUseCapturing;
+	        // - Inside a Web Worker, `this` is undefined, the context is `global`
+	        // - When `addEventListener` is called on the global context in strict mode, `this` is undefined
+	        // see https://github.com/angular/zone.js/issues/190
+	        var target = self || _global$1;
+	        var eventTask = findExistingRegisteredTask(target, handler, eventName, useCapturing, true);
+	        if (eventTask) {
+	            eventTask.zone.cancelTask(eventTask);
+	        }
+	        else {
+	            target[symbol](eventName, handler, useCapturing);
+	        }
+	    };
 	}
+
+	var zoneAwareAddEventListener = makeZoneAwareAddListener(ADD_EVENT_LISTENER, REMOVE_EVENT_LISTENER);
+	var zoneAwareRemoveEventListener = makeZoneAwareRemoveListener(REMOVE_EVENT_LISTENER);
 	function patchEventTargetMethods(obj) {
 	    if (obj && obj.addEventListener) {
 	        patchMethod(obj, ADD_EVENT_LISTENER, function () { return zoneAwareAddEventListener; });
@@ -7758,7 +7807,6 @@
 	        return false;
 	    }
 	}
-	;
 	var originalInstanceKey = zoneSymbol('originalInstance');
 	// wrap some native API on `window`
 	function patchClass(className) {
@@ -7821,7 +7869,7 @@
 	        }
 	    }
 	}
-	;
+
 	function createNamedFn(name, delegate) {
 	    try {
 	        return (Function('f', "return function " + name + "(){return f(this, arguments)}"))(delegate);
@@ -7916,13 +7964,13 @@
 	        return desc;
 	    };
 	}
-	;
+
 	function _redefineProperty(obj, prop, desc) {
 	    var originalConfigurableFlag = desc.configurable;
 	    desc = rewriteDescriptor(obj, prop, desc);
 	    return _tryDefineProperty(obj, prop, desc, originalConfigurableFlag);
 	}
-	;
+
 	function isUnconfigurable(obj, prop) {
 	    return obj && obj[unconfigurablesKey] && obj[unconfigurablesKey][prop];
 	}
@@ -8088,7 +8136,7 @@
 	    Object.defineProperty(XMLHttpRequest.prototype, 'onreadystatechange', {});
 	    return result;
 	}
-	;
+
 	var unboundKey = zoneSymbol('unbound');
 	// Whenever any eventListener fires, we check the eventListener target and all parents
 	// for `onwhatever` properties and replace them with zone-bound functions
@@ -8118,9 +8166,8 @@
 	    for (var i = 0; i < eventNames.length; i++) {
 	        _loop_1(i);
 	    }
-	    ;
+	    
 	}
-	;
 
 	function patchTimer(window, setName, cancelName, nameSuffix) {
 	    var setNative = null;
@@ -8276,6 +8323,9 @@
 	        'watchPosition'
 	    ]);
 	}
+
+	})));
+
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(314)))
 
 /***/ }

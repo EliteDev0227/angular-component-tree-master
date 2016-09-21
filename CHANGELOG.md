@@ -1,3 +1,7 @@
+<a name="1.2.1"></a>
+# 1.2.1 (2016-09-21)
+* align leaves with siblings that have children
+
 <a name="1.2.0"></a>
 # 1.2.0 (2016-09-14)
 * rc.7
