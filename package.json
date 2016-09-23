@@ -21,7 +21,7 @@
     "build": "tsc",
     "example:webpack": "npm run build && cp -rf dist example/webpack/node_modules/angular2-tree-component/ && cd example/webpack && npm start",
     "example:systemjs": "npm run build && cp -rf dist example/systemjs/node_modules/angular2-tree-component/ && cd example/systemjs && npm start",
-    "example:webpack:build": "cd example/webpack && npm run build"
+    "example:webpack:build": "cd example/webpack && npm run build",
     "prebuild": "typings install"
   },
   "files": [
