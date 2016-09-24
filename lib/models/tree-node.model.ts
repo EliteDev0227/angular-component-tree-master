@@ -138,23 +138,38 @@ export class TreeNode implements ITreeNode {
     if (!this.isExpanded) {    
       this.toggleExpanded();
     }
+
+    return this;
   }
 
   collapse() {
     if (this.isExpanded) {    
       this.toggleExpanded();
     }
+
+    return this;
+  }
+
+  ensureVisible() {
+    if (this.realParent) {
+      this.realParent.expand();
+      this.realParent.ensureVisible();
+    }
+
+    return this;
   }
 
   toggle() {
     deprecated('toggle', 'toggleExpanded');
-    this.toggleExpanded();
+    return this.toggleExpanded();
   }
 
   toggleExpanded() {
     this.setIsExpanded(!this.isExpanded);
     this.fireEvent({ eventName: TREE_EVENTS.onToggle, warning: 'this event is deprecated, please use onToggleExpanded instead', node: this, isExpanded: this.isExpanded });
     this.fireEvent({ eventName: TREE_EVENTS.onToggleExpanded, node: this, isExpanded: this.isExpanded });
+
+    return this;
   }
 
   setIsExpanded(value) {
@@ -163,27 +178,41 @@ export class TreeNode implements ITreeNode {
     if (!this.children && this.hasChildren && value) {
       this.loadChildren();
     }
+
+    return this;
   };
 
   setIsActive(value, multi = false) {
     this.treeModel.setActiveNode(this, value, multi);
     if (value) {
-      this.fireEvent({ eventName: TREE_EVENTS.onActivate, node: this });
       this.focus();
     }
-    else {
-      this.fireEvent({ eventName: TREE_EVENTS.onDeactivate, node: this });    
-    }
+
+    return this;
   }
 
   toggleActivated(multi = false) {
     this.setIsActive(!this.isActive, multi);
-    this.fireEvent({ eventName: TREE_EVENTS.onActiveChanged, node: this, isActive: this.isActive });
+
+    return this;
+  }
+
+  setActiveAndVisible(multi = false) {
+    this.setIsActive(true, multi)
+      .ensureVisible();
+
+    setTimeout(this.scrollIntoView.bind(this));
+
+    return this;
   }
 
   scrollIntoView() {
-    const nativeElement = this.elementRef.nativeElement;
-    nativeElement.scrollIntoViewIfNeeded && nativeElement.scrollIntoViewIfNeeded();
+    if (this.elementRef) {    
+      const nativeElement = this.elementRef.nativeElement;
+      nativeElement.scrollIntoViewIfNeeded && nativeElement.scrollIntoViewIfNeeded();
+
+      return this;
+    }
   }
 
   focus() {
@@ -194,6 +223,8 @@ export class TreeNode implements ITreeNode {
       this.fireEvent({ eventName: TREE_EVENTS.onBlur, node: previousNode });
     }
     this.fireEvent({ eventName: TREE_EVENTS.onFocus, node: this });
+
+    return this;
   }
 
   blur() {
@@ -202,19 +233,29 @@ export class TreeNode implements ITreeNode {
     if (previousNode) {
       this.fireEvent({ eventName: TREE_EVENTS.onBlur, node: this });
     }
+
+    return this;
   }
 
-  filter(filterFn) {
+  filter(filterFn, autoShow = false) {
     let isVisible = filterFn(this);
 
     if (this.children) {
       this.children.forEach((child) => {
-        child.filter(filterFn);
+        child.filter(filterFn, autoShow);
         isVisible = isVisible || !child.isHidden;
       });
     }
 
     this.isHidden = !isVisible;
+    if (autoShow) {
+      this.ensureVisible();
+    }
+  }
+
+  clearFilter() {
+    this.isHidden = false;
+    ([] || this.children).forEach((child) => child.clearFilter());
   }
 
   mouseAction(actionName:string, $event) {

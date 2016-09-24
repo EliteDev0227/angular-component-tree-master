@@ -257,6 +257,13 @@ export class TreeModel implements ITreeModel {
   }
 
   setActiveNode(node, value, multi = false) {
+    if (value) {
+      node.focus();
+      this.fireEvent({ eventName: TREE_EVENTS.onActivate, node });
+    } else {
+      this.fireEvent({ eventName: TREE_EVENTS.onDeactivate, node });      
+    }
+
     if (multi) {
       this._setActiveNodeMulti(node, value);
     }
@@ -266,6 +273,13 @@ export class TreeModel implements ITreeModel {
   }
 
   _setActiveNodeSingle(node, value) {
+    // Deactivate all other nodes:
+    this.activeNodes
+      .filter((activeNode) => activeNode != node)
+      .forEach((activeNode) => {
+        this.fireEvent({ eventName: TREE_EVENTS.onDeactivate, node: activeNode });
+      });
+
     this.activeNodeIds = {};
     this.activeNodes = [];
     if (value) {
@@ -311,8 +325,12 @@ export class TreeModel implements ITreeModel {
     }
   }
 
-  filterNodes(filter) {
+  filterNodes(filter, autoShow = false) {
     let filterFn;
+
+    if (!filter) {
+      return this.clearFilter();
+    }
 
     if (_.isString(filter)) {
       filterFn = (node) => node.displayField.toLowerCase().indexOf(filter.toLowerCase()) != -1
@@ -324,6 +342,10 @@ export class TreeModel implements ITreeModel {
       console.error('Don\'t know what to do with filter', filter);
       console.error('Should be either a string or function', filter);
     }
-    this.roots.forEach((node) => node.filter(filterFn));
+    this.roots.forEach((node) => node.filter(filterFn, autoShow));
+  }
+
+  clearFilter() {
+    this.roots.forEach((node) => node.clearFilter());
   }
 }

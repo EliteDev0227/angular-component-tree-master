@@ -79,7 +79,12 @@ const actionMapping:IActionMapping = {
   <button
     (click)="addNode(tree)">
     Add Node
-  </button>`
+  </button>
+  <button
+    (click)="activateSubSub(tree)">
+    Activate inner node
+  </button>
+  `
 })
 export class App {
   nodes:any[] = null;
@@ -172,7 +177,12 @@ export class App {
   }
 
   filterNodes(text, tree) {
-    tree.treeModel.filterNodes(text);
+    tree.treeModel.filterNodes(text, true);
+  }
+
+  activateSubSub(tree) {
+    tree.treeModel.getNodeBy((node) => node.data.name === 'subsub')
+      .setActiveAndVisible();
   }
 
   customTemplateStringOptions = {
@@ -181,7 +191,7 @@ export class App {
     getChildren: this.getChildren.bind(this),
     actionMapping
   }
-  onEvent = ($event:any) => console.log($event);
+  onEvent = console.log;
 
   go($event) {
     $event.stopPropagation();
