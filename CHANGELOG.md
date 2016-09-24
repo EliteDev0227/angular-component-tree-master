@@ -1,3 +1,10 @@
+<a name="1.2.2"></a>
+# 1.2.2 (2016-09-24)
+* Returning this in all action methods on node to allow chaining
+* Fixed Activated / Deactivated events
+* Added autoShow to filter
+* Added setActiveAndVisible
+
 <a name="1.2.1"></a>
 # 1.2.1 (2016-09-21)
 * align leaves with siblings that have children
