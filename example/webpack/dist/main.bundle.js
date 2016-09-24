@@ -208,47 +208,65 @@ webpackJsonp([2],{
 	        if (!this.isExpanded) {
 	            this.toggleExpanded();
 	        }
+	        return this;
 	    };
 	    TreeNode.prototype.collapse = function () {
 	        if (this.isExpanded) {
 	            this.toggleExpanded();
 	        }
+	        return this;
+	    };
+	    TreeNode.prototype.ensureVisible = function () {
+	        if (this.realParent) {
+	            this.realParent.expand();
+	            this.realParent.ensureVisible();
+	        }
+	        return this;
 	    };
 	    TreeNode.prototype.toggle = function () {
 	        deprecated_1.deprecated('toggle', 'toggleExpanded');
-	        this.toggleExpanded();
+	        return this.toggleExpanded();
 	    };
 	    TreeNode.prototype.toggleExpanded = function () {
 	        this.setIsExpanded(!this.isExpanded);
 	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onToggle, warning: 'this event is deprecated, please use onToggleExpanded instead', node: this, isExpanded: this.isExpanded });
 	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onToggleExpanded, node: this, isExpanded: this.isExpanded });
+	        return this;
 	    };
 	    TreeNode.prototype.setIsExpanded = function (value) {
 	        this.treeModel.setExpandedNode(this, value);
 	        if (!this.children && this.hasChildren && value) {
 	            this.loadChildren();
 	        }
+	        return this;
 	    };
 	    ;
 	    TreeNode.prototype.setIsActive = function (value, multi) {
 	        if (multi === void 0) { multi = false; }
 	        this.treeModel.setActiveNode(this, value, multi);
 	        if (value) {
-	            this.fireEvent({ eventName: events_1.TREE_EVENTS.onActivate, node: this });
 	            this.focus();
 	        }
-	        else {
-	            this.fireEvent({ eventName: events_1.TREE_EVENTS.onDeactivate, node: this });
-	        }
+	        return this;
 	    };
 	    TreeNode.prototype.toggleActivated = function (multi) {
 	        if (multi === void 0) { multi = false; }
 	        this.setIsActive(!this.isActive, multi);
-	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onActiveChanged, node: this, isActive: this.isActive });
+	        return this;
+	    };
+	    TreeNode.prototype.setActiveAndVisible = function (multi) {
+	        if (multi === void 0) { multi = false; }
+	        this.setIsActive(true, multi)
+	            .ensureVisible();
+	        setTimeout(this.scrollIntoView.bind(this));
+	        return this;
 	    };
 	    TreeNode.prototype.scrollIntoView = function () {
-	        var nativeElement = this.elementRef.nativeElement;
-	        nativeElement.scrollIntoViewIfNeeded && nativeElement.scrollIntoViewIfNeeded();
+	        if (this.elementRef) {
+	            var nativeElement = this.elementRef.nativeElement;
+	            nativeElement.scrollIntoViewIfNeeded && nativeElement.scrollIntoViewIfNeeded();
+	            return this;
+	        }
 	    };
 	    TreeNode.prototype.focus = function () {
 	        var previousNode = this.treeModel.getFocusedNode();
@@ -258,6 +276,7 @@ webpackJsonp([2],{
 	            this.fireEvent({ eventName: events_1.TREE_EVENTS.onBlur, node: previousNode });
 	        }
 	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onFocus, node: this });
+	        return this;
 	    };
 	    TreeNode.prototype.blur = function () {
 	        var previousNode = this.treeModel.getFocusedNode();
@@ -265,16 +284,25 @@ webpackJsonp([2],{
 	        if (previousNode) {
 	            this.fireEvent({ eventName: events_1.TREE_EVENTS.onBlur, node: this });
 	        }
+	        return this;
 	    };
-	    TreeNode.prototype.filter = function (filterFn) {
+	    TreeNode.prototype.filter = function (filterFn, autoShow) {
+	        if (autoShow === void 0) { autoShow = false; }
 	        var isVisible = filterFn(this);
 	        if (this.children) {
 	            this.children.forEach(function (child) {
-	                child.filter(filterFn);
+	                child.filter(filterFn, autoShow);
 	                isVisible = isVisible || !child.isHidden;
 	            });
 	        }
 	        this.isHidden = !isVisible;
+	        if (autoShow) {
+	            this.ensureVisible();
+	        }
+	    };
+	    TreeNode.prototype.clearFilter = function () {
+	        this.isHidden = false;
+	        ([] || this.children).forEach(function (child) { return child.clearFilter(); });
 	    };
 	    TreeNode.prototype.mouseAction = function (actionName, $event) {
 	        var extra = null;
@@ -578,6 +606,13 @@ webpackJsonp([2],{
 	    };
 	    TreeModel.prototype.setActiveNode = function (node, value, multi) {
 	        if (multi === void 0) { multi = false; }
+	        if (value) {
+	            node.focus();
+	            this.fireEvent({ eventName: events_1.TREE_EVENTS.onActivate, node: node });
+	        }
+	        else {
+	            this.fireEvent({ eventName: events_1.TREE_EVENTS.onDeactivate, node: node });
+	        }
 	        if (multi) {
 	            this._setActiveNodeMulti(node, value);
 	        }
@@ -586,6 +621,13 @@ webpackJsonp([2],{
 	        }
 	    };
 	    TreeModel.prototype._setActiveNodeSingle = function (node, value) {
+	        var _this = this;
+	        // Deactivate all other nodes:
+	        this.activeNodes
+	            .filter(function (activeNode) { return activeNode != node; })
+	            .forEach(function (activeNode) {
+	            _this.fireEvent({ eventName: events_1.TREE_EVENTS.onDeactivate, node: activeNode });
+	        });
 	        this.activeNodeIds = {};
 	        this.activeNodes = [];
 	        if (value) {
@@ -628,8 +670,12 @@ webpackJsonp([2],{
 	            return false;
 	        }
 	    };
-	    TreeModel.prototype.filterNodes = function (filter) {
+	    TreeModel.prototype.filterNodes = function (filter, autoShow) {
+	        if (autoShow === void 0) { autoShow = false; }
 	        var filterFn;
+	        if (!filter) {
+	            return this.clearFilter();
+	        }
 	        if (_.isString(filter)) {
 	            filterFn = function (node) { return node.displayField.toLowerCase().indexOf(filter.toLowerCase()) != -1; };
 	        }
@@ -640,7 +686,10 @@ webpackJsonp([2],{
 	            console.error('Don\'t know what to do with filter', filter);
 	            console.error('Should be either a string or function', filter);
 	        }
-	        this.roots.forEach(function (node) { return node.filter(filterFn); });
+	        this.roots.forEach(function (node) { return node.filter(filterFn, autoShow); });
+	    };
+	    TreeModel.prototype.clearFilter = function () {
+	        this.roots.forEach(function (node) { return node.clearFilter(); });
 	    };
 	    TreeModel.focusedTree = null;
 	    TreeModel = __decorate([
@@ -16168,7 +16217,7 @@ webpackJsonp([2],{
 	            getChildren: this.getChildren.bind(this),
 	            actionMapping: actionMapping
 	        };
-	        this.onEvent = function ($event) { return console.log($event); };
+	        this.onEvent = console.log;
 	        setTimeout(function () {
 	            _this.nodes = [
 	                {
@@ -16235,7 +16284,11 @@ webpackJsonp([2],{
 	        return node && node.children ? "(" + node.children.length + ")" : '';
 	    };
 	    App.prototype.filterNodes = function (text, tree) {
-	        tree.treeModel.filterNodes(text);
+	        tree.treeModel.filterNodes(text, true);
+	    };
+	    App.prototype.activateSubSub = function (tree) {
+	        tree.treeModel.getNodeBy(function (node) { return node.data.name === 'subsub'; })
+	            .setActiveAndVisible();
 	    };
 	    App.prototype.go = function ($event) {
 	        $event.stopPropagation();
@@ -16247,7 +16300,7 @@ webpackJsonp([2],{
 	            styles: [
 	                "button: {\n        line - height: 24px;\n        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);\n        border: none;\n        border-radius: 2px;\n        background: #A3D9F5;\n        cursor: pointer;\n        margin: 0 3px;\n      }"
 	            ],
-	            template: "\n  <form>\n    <input #filter (keyup)=\"filterNodes(filter.value, tree)\" placeholder=\"filter nodes\"/>\n  </form>\n  <Tree\n    #tree\n    [nodes]=\"nodes\"\n    [focused]=\"true\"\n    [options]=\"customTemplateStringOptions\"\n    (onEvent)=\"onEvent($event)\"\n  >\n  <template #treeNodeTemplate let-node>\n  <span title=\"{{node.data.subTitle}}\">{{ node.data.name }}</span>\n  <span class=\"pull-right\">{{ childrenCount(node) }}</span>\n  <button (click)=\"go($event)\">Custom Action</button>\n  </template>\n  <template #loadingTemplate>Loading, please hold....</template>\n  </Tree>\n  <br>\n  <p>Keys:</p>\n  down | up | left | right | space | enter\n  <p>Mouse:</p>\n  click to select | shift+click to select multi\n  <p>API:</p>\n  <button (click)=\"tree.treeModel.focusNextNode()\">next node</button>\n  <button (click)=\"tree.treeModel.focusPreviousNode()\">previous node</button>\n  <button (click)=\"tree.treeModel.focusDrillDown()\">drill down</button>\n  <button (click)=\"tree.treeModel.focusDrillUp()\">drill up</button>\n  <p></p>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().toggleActivated()\">\n    {{ tree.treeModel.getFocusedNode()?.isActive ? 'deactivate' : 'activate' }}\n  </button>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().toggleExpanded()\">\n    {{ tree.treeModel.getFocusedNode()?.isExpanded ? 'collapse' : 'expand' }}\n  </button>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().blur()\">\n    blur\n  </button>\n  <button\n    (click)=\"addNode(tree)\">\n    Add Node\n  </button>"
+	            template: "\n  <form>\n    <input #filter (keyup)=\"filterNodes(filter.value, tree)\" placeholder=\"filter nodes\"/>\n  </form>\n  <Tree\n    #tree\n    [nodes]=\"nodes\"\n    [focused]=\"true\"\n    [options]=\"customTemplateStringOptions\"\n    (onEvent)=\"onEvent($event)\"\n  >\n  <template #treeNodeTemplate let-node>\n  <span title=\"{{node.data.subTitle}}\">{{ node.data.name }}</span>\n  <span class=\"pull-right\">{{ childrenCount(node) }}</span>\n  <button (click)=\"go($event)\">Custom Action</button>\n  </template>\n  <template #loadingTemplate>Loading, please hold....</template>\n  </Tree>\n  <br>\n  <p>Keys:</p>\n  down | up | left | right | space | enter\n  <p>Mouse:</p>\n  click to select | shift+click to select multi\n  <p>API:</p>\n  <button (click)=\"tree.treeModel.focusNextNode()\">next node</button>\n  <button (click)=\"tree.treeModel.focusPreviousNode()\">previous node</button>\n  <button (click)=\"tree.treeModel.focusDrillDown()\">drill down</button>\n  <button (click)=\"tree.treeModel.focusDrillUp()\">drill up</button>\n  <p></p>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().toggleActivated()\">\n    {{ tree.treeModel.getFocusedNode()?.isActive ? 'deactivate' : 'activate' }}\n  </button>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().toggleExpanded()\">\n    {{ tree.treeModel.getFocusedNode()?.isExpanded ? 'collapse' : 'expand' }}\n  </button>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().blur()\">\n    blur\n  </button>\n  <button\n    (click)=\"addNode(tree)\">\n    Add Node\n  </button>\n  <button\n    (click)=\"activateSubSub(tree)\">\n    Activate inner node\n  </button>\n  "
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], App);
