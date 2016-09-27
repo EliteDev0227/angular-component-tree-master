@@ -18,5 +18,8 @@
     "typings/main.d.ts"
   ],
   "compileOnSave": false,
-  "buildOnSave": false
+  "buildOnSave": false,
+  "angularCompilerOptions": {
+    "genDir": "compiled"
+  }
 }
