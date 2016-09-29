@@ -20,6 +20,8 @@ export class TreeModel implements ITreeModel {
   activeNodes: TreeNode[];
   _focusedNode: TreeNode = null;
   focusedNodeId: string = null;
+  _dragNode: { node: TreeNode, index: number } = null;
+  _dropLocation:{ component:any, node: TreeNode, index: number } = null;
   static focusedTree = null;
   private events: any;
   virtualRoot: TreeNode;
@@ -71,7 +73,7 @@ export class TreeModel implements ITreeModel {
 
   _calculateExpandedNodes(startNode = null) {
     startNode = startNode || this.virtualRoot;
-    
+
     if (startNode.data[this.options.isExpandedField]) {
       this.expandedNodeIds[startNode.id] = true;
     }
@@ -261,14 +263,14 @@ export class TreeModel implements ITreeModel {
       node.focus();
       this.fireEvent({ eventName: TREE_EVENTS.onActivate, node });
     } else {
-      this.fireEvent({ eventName: TREE_EVENTS.onDeactivate, node });      
+      this.fireEvent({ eventName: TREE_EVENTS.onDeactivate, node });
     }
 
     if (multi) {
       this._setActiveNodeMulti(node, value);
     }
     else {
-      this._setActiveNodeSingle(node, value); 
+      this._setActiveNodeSingle(node, value);
     }
   }
 
@@ -347,5 +349,55 @@ export class TreeModel implements ITreeModel {
 
   clearFilter() {
     this.roots.forEach((node) => node.clearFilter());
+  }
+
+  moveNode({ from, to }) {
+    const fromChildren = from.node.getField('children');
+
+    // If node doesn't have children - create children array
+    if (!to.node.getField('children')) {
+      to.node.setField('children', []);
+    }
+    const toChildren = to.node.getField('children');
+
+    const node = fromChildren.splice(from.index, 1)[0];
+
+    // Compensate for index if already removed from parent:
+    let toIndex = (from.node === to.node && to.index >= from.index) ? to.index - 1 : to.index;
+
+    toChildren.splice(toIndex, 0, node);
+
+    this.update();
+
+    this.fireEvent({ eventName: TREE_EVENTS.onMoveNode, from, to });
+  }
+
+  setDragNode(dragNode:{ node: TreeNode, index:number }) {
+    this._dragNode = dragNode;
+  }
+
+  getDragNode():{ node: TreeNode, index:number } {
+    return this._dragNode || { node:null, index: null };
+  }
+
+  isDragging() {
+    return this.getDragNode().node;
+  }
+
+  setDropLocation(dropLocation: { component: any, node: TreeNode, index: number }) {
+    this._dropLocation = dropLocation;
+  }
+
+  getDropLocation(): { component: any, node: TreeNode, index: number } {
+    return this._dropLocation || {component: null, node: null, index: null};
+  }
+
+  isDraggingOver(component) {
+    return this.getDropLocation().component === component;
+  }
+
+  cancelDrag() {
+    this.setDropLocation(null);
+    this.setDragNode(null);
   }
 }

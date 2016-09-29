@@ -1,3 +1,6 @@
+import { NgModule }      from '@angular/core';
+import { CommonModule } from '@angular/common';
+
 import { ITreeOptions, TREE_ACTIONS, IActionMapping, IActionHandler } from './models/tree-options.model';
 import { KEYS } from './constants/keys';
 import { TreeModel } from './models/tree.model';
@@ -8,17 +11,16 @@ import { TreeComponent } from './components/tree.component';
 import { TreeNodeComponent } from './components/tree-node.component';
 import { TreeNodeContent } from './components/tree-node-content.component';
 import { TreeNodeContent as DeprecatedTreeNodeContent } from './components/deprecated-tree-node-content.component';
+import { TreeNodeDropSlot } from './components/tree-node-drop-slot.component';
 import { AdHocComponentFactoryCreator } from './components/adhoc-component-factory.service';
+
 import './polyfills';
 import { deprecated } from './deprecated';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 export {
   TreeModel,
   TreeNode,
   ITreeOptions,
-  TreeComponent,
   TREE_ACTIONS,
   KEYS,
   IActionMapping,
@@ -31,6 +33,7 @@ export {
     TreeComponent,
     TreeNodeComponent,
     DeprecatedTreeNodeContent,
+    TreeNodeDropSlot
   ],
   exports: [
     TreeComponent,
@@ -53,6 +56,7 @@ export class DeprecatedTreeModule {
     TreeComponent,
     TreeNodeComponent,
     TreeNodeContent,
+    TreeNodeDropSlot
   ],
   exports: [
     TreeComponent,
