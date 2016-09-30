@@ -1,7 +1,12 @@
 # angular2 tree component
 
 ## Support
-angular2-tree-component supports angular rc.7
+angular2-tree-component supports angular 2.0.0 release
+
+
+## Demo & full documentation:
+Please refer to the full documentation:  
+[https://angular2-tree.readme.io/docs](https://angular2-tree.readme.io/docs)
 
 ## Why use this library
 
@@ -53,10 +58,6 @@ and add these lines to systemjs.config.js:
   };
 ```
 
-## Demo & full documentation:
-Please refer to the full documentation:  
-[https://angular2-tree.readme.io/docs](https://angular2-tree.readme.io/docs)
-
 ## What's next
 We would always love to hear suggestions for features & improvements - just open an issue.
 
@@ -69,4 +70,3 @@ Some things on our mind down the road:
 * save & restore tree state
 * support both children-padding & computed level-based padding
 * checkbox & master checkbox support
-* filter & search
