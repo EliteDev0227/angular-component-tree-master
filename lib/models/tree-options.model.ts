@@ -22,14 +22,18 @@ export const TREE_ACTIONS = {
   DRILL_UP: (tree:TreeModel, node:TreeNode, $event:any) => tree.focusDrillUp(),
   NEXT_NODE: (tree:TreeModel, node:TreeNode, $event:any) =>  tree.focusNextNode(),
   PREVIOUS_NODE: (tree:TreeModel, node:TreeNode, $event:any) =>  tree.focusPreviousNode(),
+  MOVE_NODE: (tree:TreeModel, node:TreeNode, $event:any, to:{ node:TreeNode, index: number }) => {
+    tree.moveNode({ from: tree.getDragNode(), to });
+  }
 }
 
 const defaultActionMapping:IActionMapping = {
-  mouse: {    
+  mouse: {
     click: TREE_ACTIONS.TOGGLE_SELECTED,
     dblClick: null,
     contextMenu: null,
-    expanderClick: TREE_ACTIONS.TOGGLE_EXPANDED
+    expanderClick: TREE_ACTIONS.TOGGLE_EXPANDED,
+    drop: TREE_ACTIONS.MOVE_NODE
   },
   keys: {
     [KEYS.RIGHT]: TREE_ACTIONS.DRILL_DOWN,
@@ -46,7 +50,12 @@ export interface IActionMapping {
     click?: IActionHandler,
     dblClick?: IActionHandler,
     contextMenu?: IActionHandler,
-    expanderClick?: IActionHandler
+    expanderClick?: IActionHandler,
+    dragStart?: IActionHandler,
+    drag?: IActionHandler,
+    dragEnd?: IActionHandler,
+    dragOver?: IActionHandler,
+    drop?: IActionHandler
   },
   keys?: {
     [key:number]: IActionHandler
@@ -65,6 +74,7 @@ export interface ITreeOptions {
   hasCustomContextMenu?: boolean;
   context?: any;
   actionMapping?: any;
+  allowDrag?: boolean;
 }
 
 export class TreeOptions {
@@ -79,6 +89,7 @@ export class TreeOptions {
   hasCustomContextMenu: boolean;
   context: any;
   actionMapping: any;
+  allowDrag: boolean;
 
   constructor(options:any = {}) {
     const optionsWithDefaults = _.defaultsDeep({}, options, {
@@ -90,7 +101,8 @@ export class TreeOptions {
       getChildren: null,
       hasCustomContextMenu: false,
       context: null,
-      actionMapping: defaultActionMapping
+      actionMapping: defaultActionMapping,
+      allowDrag: false
     });
 
     _.extend(this, optionsWithDefaults);

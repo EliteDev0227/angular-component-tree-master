@@ -18,7 +18,7 @@ import { ITreeNodeTemplate } from './tree-node-content.component';
     '.tree-node-focused > .node-content-wrapper { background: #e7f4f9 }',
     '.node-content-wrapper:hover { background: #f7fbff }',
     '.tree-node-active > .node-content-wrapper, .tree-node-focused > .node-content-wrapper, .node-content-wrapper:hover { box-shadow: inset 0 0 1px #999; }',
-
+    '.node-content-wrapper.is-dragging-over { background: #ddffee; box-shadow: inset 0 0 1px #999; }',
     '.tree-node-expanded > .toggle-children-wrapper > .toggle-children { transform: rotate(90deg) }',
     '.tree-node-collapsed > .toggle-children-wrapper > .toggle-children { transform: rotate(0); }',
     `.toggle-children-wrapper {
@@ -51,6 +51,13 @@ import { ITreeNodeTemplate } from './tree-node-content.component';
       [class.tree-node-leaf]="node.isLeaf"
       [class.tree-node-active]="node.isActive"
       [class.tree-node-focused]="node.isFocused">
+
+      <TreeNodeDropSlot
+        *ngIf="nodeIndex === 0"
+        [dropIndex]="nodeIndex"
+        [node]="node.parent"
+        ></TreeNodeDropSlot>
+
       <span
         *ngIf="node.hasChildren"
         class="toggle-children-wrapper"
@@ -63,17 +70,28 @@ import { ITreeNodeTemplate } from './tree-node-content.component';
         class="toggle-children-placeholder">
       </span>
       <div class="node-content-wrapper"
+        #nodeContentWrapper
+        [class.is-dragging-over]="node.treeModel.isDraggingOver(this)"
         (click)="node.mouseAction('click', $event)"
         (dblclick)="node.mouseAction('dblClick', $event)"
-        (contextmenu)="node.mouseAction('contextMenu', $event)">
+        (contextmenu)="node.mouseAction('contextMenu', $event)"
+        [draggable]="node.allowDrag()"
+        (dragstart)="onDragStart($event)"
+        (drop)="onDrop($event)"
+        (dragend)="onDragEnd()"
+        (dragover)="onDragOver($event)"
+        (dragleave)="onDragLeave(nodeContentWrapper, $event)"
+        >
 
         <TreeNodeContent [node]="node" [treeNodeContentTemplate]="treeNodeContentTemplate"></TreeNodeContent>
       </div>
+
       <div class="tree-children" *ngIf="node.isExpanded">
         <div *ngIf="node.children">
           <TreeNode
-            *ngFor="let node of node.children"
+            *ngFor="let node of node.children; let i = index"
             [node]="node"
+            [nodeIndex]="i"
             [treeNodeContentTemplate]="treeNodeContentTemplate"
             [loadingTemplate]="loadingTemplate">
           </TreeNode>
@@ -84,14 +102,50 @@ import { ITreeNodeTemplate } from './tree-node-content.component';
           [loadingTemplate]="loadingTemplate"
         ></LoadingComponent>
       </div>
+      <TreeNodeDropSlot
+        [dropIndex]="nodeIndex + 1"
+        [node]="node.parent"
+        ></TreeNodeDropSlot>
     </div>
   `
 })
 
 export class TreeNodeComponent implements AfterViewInit {
   @Input() node:TreeNode;
+  @Input() nodeIndex:number;
   @Input() treeNodeContentTemplate: TemplateRef<ITreeNodeTemplate>;
   @Input() loadingTemplate: TemplateRef<any>;
+
+  onDragStart() {
+    setTimeout(() => this.node.treeModel.setDragNode({ node: this.node.parent, index: this.nodeIndex }), 30);
+  }
+
+  onDragEnd() {
+    this.node.treeModel.setDragNode(null);
+  }
+
+  onDragOver($event) {
+    $event.preventDefault();
+    this.node.treeModel.setDropLocation({ component: this, node: this.node, index: 0 });
+  }
+
+  onDrop($event) {
+    $event.preventDefault();
+    this.node.mouseAction('drop', $event, { node: this.node, index: 0 });
+  }
+
+  onDragLeave(nodeContentWrapper, $event) {
+    if (!this.node.treeModel.isDraggingOver(this)) return;
+
+    const rect = nodeContentWrapper.getBoundingClientRect();
+
+    // If outside the element
+    if ($event.clientX < rect.left || $event.clientX > rect.right ||
+        $event.clientY < rect.top || $event.clientY > rect.bottom) {
+
+      this.node.treeModel.setDropLocation(null);
+    }
+  }
 
   constructor(private elementRef: ElementRef) {
   }

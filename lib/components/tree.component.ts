@@ -28,10 +28,11 @@ import * as _ from 'lodash'
     }`
   ],
   template: `
-    <div class="tree">
+    <div class="tree" [class.node-dragging]="treeModel.isDragging()">
       <TreeNode
-        *ngFor="let node of treeModel.roots"
+        *ngFor="let node of treeModel.roots; let i = index"
         [node]="node"
+        [nodeIndex]="i"
         [loadingTemplate]="loadingTemplate"
         [treeNodeContentTemplate]="treeNodeTemplate">
       </TreeNode>

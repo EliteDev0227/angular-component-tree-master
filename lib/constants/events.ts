@@ -10,5 +10,6 @@ export const TREE_EVENTS = {
   onContextMenu: 'onContextMenu',
   onInitialized: 'onInitialized',
   onUpdateData: 'onUpdateData',
+  onMoveNode: 'onMoveNode',
   onEvent: 'onEvent'
 }

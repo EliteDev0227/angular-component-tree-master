@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { TreeComponent, TreeNode, TREE_ACTIONS, KEYS, IActionMapping } from 'angular2-tree-component';
+import { TreeNode, TREE_ACTIONS, KEYS, IActionMapping } from 'angular2-tree-component';
 
 const actionMapping:IActionMapping = {
   mouse: {
@@ -92,18 +92,18 @@ export class App {
     setTimeout(() => {
       this.nodes = [
         {
-          
+
           expanded: true,
           name: 'root expanded',
           subTitle: 'the root',
           children: [
             {
-              
+
               name: 'child1',
               subTitle: 'a good child',
               hasChildren: false
             }, {
-              
+
               name: 'child2',
               subTitle: 'a bad child',
               hasChildren: false
@@ -111,22 +111,22 @@ export class App {
           ]
         },
         {
-          
+
           name: 'root2',
           subTitle: 'the second root',
           children: [
             {
-              
+
               name: 'child2.1',
               subTitle: 'new and improved',
               hasChildren: false
             }, {
-              
+
               name: 'child2.2',
               subTitle: 'new and improved2',
               children: [
                 {
-                  
+
                   name: 'subsub',
                   subTitle: 'subsub',
                   hasChildren: false
@@ -136,7 +136,7 @@ export class App {
           ]
         },
         {
-          
+
           name: 'asyncroot',
           hasChildren: true
         }
@@ -166,7 +166,7 @@ export class App {
 
   addNode(tree) {
     this.nodes[0].children.push({
-      
+
       name: 'a new child'
     });
     tree.treeModel.update();
@@ -189,7 +189,8 @@ export class App {
     // displayField: 'subTitle',
     isExpandedField: 'expanded',
     getChildren: this.getChildren.bind(this),
-    actionMapping
+    actionMapping,
+    allowDrag: true
   }
   onEvent = console.log;
 

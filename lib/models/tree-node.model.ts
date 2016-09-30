@@ -258,16 +258,18 @@ export class TreeNode implements ITreeNode {
     if (this.children) this.children.forEach((child) => child.clearFilter());
   }
 
-  mouseAction(actionName:string, $event) {
-    let extra = null;
+  allowDrag() {
+    return this.options.allowDrag;
+  }
+
+  mouseAction(actionName:string, $event, data:any = null) {
     this.treeModel.setFocus(true);
 
     const actionMapping = this.options.actionMapping.mouse;
-
     const action = actionMapping[actionName];
 
     if (action) {
-      action(this.treeModel, this, $event, extra);
+      action(this.treeModel, this, $event, data);
 
       // TODO: remove after deprecation of context menu and dbl click
       if (actionName === 'contextMenu') {
@@ -276,6 +278,10 @@ export class TreeNode implements ITreeNode {
       if (actionName === 'dblClick') {
         this.fireEvent({ eventName: TREE_EVENTS.onDoubleClick, warning: 'This event is deprecated, please use actionMapping to handle double clicks', node: this, rawEvent: $event });
       }
+    }
+
+    if (actionName === 'drop') {
+      this.treeModel.cancelDrag();
     }
   }
 
