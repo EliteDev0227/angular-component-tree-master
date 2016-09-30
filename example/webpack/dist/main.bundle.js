@@ -32,7 +32,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 47:
+/***/ 38:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -302,15 +302,19 @@ webpackJsonp([2],{
 	    };
 	    TreeNode.prototype.clearFilter = function () {
 	        this.isHidden = false;
-	        ([] || this.children).forEach(function (child) { return child.clearFilter(); });
+	        if (this.children)
+	            this.children.forEach(function (child) { return child.clearFilter(); });
 	    };
-	    TreeNode.prototype.mouseAction = function (actionName, $event) {
-	        var extra = null;
+	    TreeNode.prototype.allowDrag = function () {
+	        return this.options.allowDrag;
+	    };
+	    TreeNode.prototype.mouseAction = function (actionName, $event, data) {
+	        if (data === void 0) { data = null; }
 	        this.treeModel.setFocus(true);
 	        var actionMapping = this.options.actionMapping.mouse;
 	        var action = actionMapping[actionName];
 	        if (action) {
-	            action(this.treeModel, this, $event, extra);
+	            action(this.treeModel, this, $event, data);
 	            // TODO: remove after deprecation of context menu and dbl click
 	            if (actionName === 'contextMenu') {
 	                this.fireEvent({ eventName: events_1.TREE_EVENTS.onContextMenu, node: this, rawEvent: $event });
@@ -318,6 +322,9 @@ webpackJsonp([2],{
 	            if (actionName === 'dblClick') {
 	                this.fireEvent({ eventName: events_1.TREE_EVENTS.onDoubleClick, warning: 'This event is deprecated, please use actionMapping to handle double clicks', node: this, rawEvent: $event });
 	            }
+	        }
+	        if (actionName === 'drop') {
+	            this.treeModel.cancelDrag();
 	        }
 	    };
 	    TreeNode.prototype._initChildren = function () {
@@ -361,7 +368,7 @@ webpackJsonp([2],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(7);
-	var tree_node_model_1 = __webpack_require__(47);
+	var tree_node_model_1 = __webpack_require__(38);
 	var tree_options_model_1 = __webpack_require__(68);
 	var events_1 = __webpack_require__(99);
 	var deprecated_1 = __webpack_require__(53);
@@ -373,6 +380,8 @@ webpackJsonp([2],{
 	        this.activeNodeIds = {};
 	        this._focusedNode = null;
 	        this.focusedNodeId = null;
+	        this._dragNode = null;
+	        this._dropLocation = null;
 	        this.firstUpdate = true;
 	        this.eventNames = Object.keys(events_1.TREE_EVENTS);
 	    }
@@ -690,6 +699,43 @@ webpackJsonp([2],{
 	    };
 	    TreeModel.prototype.clearFilter = function () {
 	        this.roots.forEach(function (node) { return node.clearFilter(); });
+	    };
+	    TreeModel.prototype.moveNode = function (_a) {
+	        var from = _a.from, to = _a.to;
+	        var fromChildren = from.node.getField('children');
+	        // If node doesn't have children - create children array
+	        if (!to.node.getField('children')) {
+	            to.node.setField('children', []);
+	        }
+	        var toChildren = to.node.getField('children');
+	        var node = fromChildren.splice(from.index, 1)[0];
+	        // Compensate for index if already removed from parent:
+	        var toIndex = (from.node === to.node && to.index >= from.index) ? to.index - 1 : to.index;
+	        toChildren.splice(toIndex, 0, node);
+	        this.update();
+	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onMoveNode, from: from, to: to });
+	    };
+	    TreeModel.prototype.setDragNode = function (dragNode) {
+	        this._dragNode = dragNode;
+	    };
+	    TreeModel.prototype.getDragNode = function () {
+	        return this._dragNode || { node: null, index: null };
+	    };
+	    TreeModel.prototype.isDragging = function () {
+	        return this.getDragNode().node;
+	    };
+	    TreeModel.prototype.setDropLocation = function (dropLocation) {
+	        this._dropLocation = dropLocation;
+	    };
+	    TreeModel.prototype.getDropLocation = function () {
+	        return this._dropLocation || { component: null, node: null, index: null };
+	    };
+	    TreeModel.prototype.isDraggingOver = function (component) {
+	        return this.getDropLocation().component === component;
+	    };
+	    TreeModel.prototype.cancelDrag = function () {
+	        this.setDropLocation(null);
+	        this.setDragNode(null);
 	    };
 	    TreeModel.focusedTree = null;
 	    TreeModel = __decorate([
@@ -17314,7 +17360,7 @@ webpackJsonp([2],{
 	  }
 	}.call(this));
 
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(316)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(317)(module)))
 
 /***/ },
 
@@ -17395,13 +17441,17 @@ webpackJsonp([2],{
 	    DRILL_UP: function (tree, node, $event) { return tree.focusDrillUp(); },
 	    NEXT_NODE: function (tree, node, $event) { return tree.focusNextNode(); },
 	    PREVIOUS_NODE: function (tree, node, $event) { return tree.focusPreviousNode(); },
+	    MOVE_NODE: function (tree, node, $event, to) {
+	        tree.moveNode({ from: tree.getDragNode(), to: to });
+	    }
 	};
 	var defaultActionMapping = {
 	    mouse: {
 	        click: exports.TREE_ACTIONS.TOGGLE_SELECTED,
 	        dblClick: null,
 	        contextMenu: null,
-	        expanderClick: exports.TREE_ACTIONS.TOGGLE_EXPANDED
+	        expanderClick: exports.TREE_ACTIONS.TOGGLE_EXPANDED,
+	        drop: exports.TREE_ACTIONS.MOVE_NODE
 	    },
 	    keys: (_a = {},
 	        _a[keys_1.KEYS.RIGHT] = exports.TREE_ACTIONS.DRILL_DOWN,
@@ -17426,7 +17476,8 @@ webpackJsonp([2],{
 	            getChildren: null,
 	            hasCustomContextMenu: false,
 	            context: null,
-	            actionMapping: defaultActionMapping
+	            actionMapping: defaultActionMapping,
+	            allowDrag: false
 	        });
 	        _.extend(this, optionsWithDefaults);
 	        if (options.hasCustomContextMenu) {
@@ -17478,7 +17529,7 @@ webpackJsonp([2],{
 	"use strict";
 	// Angular 2
 	// rc2 workaround
-	var platform_browser_1 = __webpack_require__(44);
+	var platform_browser_1 = __webpack_require__(45);
 	var core_1 = __webpack_require__(7);
 	// Environment Providers
 	var PROVIDERS = [];
@@ -17523,26 +17574,26 @@ webpackJsonp([2],{
 	var __metadata = (this && this.__metadata) || function (k, v) {
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
+	var core_1 = __webpack_require__(7);
+	var common_1 = __webpack_require__(52);
 	var tree_options_model_1 = __webpack_require__(68);
 	exports.TREE_ACTIONS = tree_options_model_1.TREE_ACTIONS;
 	var keys_1 = __webpack_require__(100);
 	exports.KEYS = keys_1.KEYS;
 	var tree_model_1 = __webpack_require__(54);
 	exports.TreeModel = tree_model_1.TreeModel;
-	var tree_node_model_1 = __webpack_require__(47);
+	var tree_node_model_1 = __webpack_require__(38);
 	exports.TreeNode = tree_node_model_1.TreeNode;
 	var loading_component_1 = __webpack_require__(156);
 	var deprecated_loading_component_1 = __webpack_require__(154);
-	var tree_component_1 = __webpack_require__(159);
-	exports.TreeComponent = tree_component_1.TreeComponent;
-	var tree_node_component_1 = __webpack_require__(158);
+	var tree_component_1 = __webpack_require__(160);
+	var tree_node_component_1 = __webpack_require__(159);
 	var tree_node_content_component_1 = __webpack_require__(157);
 	var deprecated_tree_node_content_component_1 = __webpack_require__(155);
+	var tree_node_drop_slot_component_1 = __webpack_require__(158);
 	var adhoc_component_factory_service_1 = __webpack_require__(67);
-	__webpack_require__(160);
+	__webpack_require__(161);
 	var deprecated_1 = __webpack_require__(53);
-	var core_1 = __webpack_require__(7);
-	var common_1 = __webpack_require__(52);
 	var DeprecatedTreeModule = (function () {
 	    function DeprecatedTreeModule() {
 	        deprecated_1.deprecated('DeprecatedTreeModule', 'TreeModule for AoT compilation');
@@ -17554,6 +17605,7 @@ webpackJsonp([2],{
 	                tree_component_1.TreeComponent,
 	                tree_node_component_1.TreeNodeComponent,
 	                deprecated_tree_node_content_component_1.TreeNodeContent,
+	                tree_node_drop_slot_component_1.TreeNodeDropSlot
 	            ],
 	            exports: [
 	                tree_component_1.TreeComponent,
@@ -17580,6 +17632,7 @@ webpackJsonp([2],{
 	                tree_component_1.TreeComponent,
 	                tree_node_component_1.TreeNodeComponent,
 	                tree_node_content_component_1.TreeNodeContent,
+	                tree_node_drop_slot_component_1.TreeNodeDropSlot
 	            ],
 	            exports: [
 	                tree_component_1.TreeComponent,
@@ -17615,6 +17668,7 @@ webpackJsonp([2],{
 	    onContextMenu: 'onContextMenu',
 	    onInitialized: 'onInitialized',
 	    onUpdateData: 'onUpdateData',
+	    onMoveNode: 'onMoveNode',
 	    onEvent: 'onEvent'
 	};
 	
@@ -17749,7 +17803,8 @@ webpackJsonp([2],{
 	            // displayField: 'subTitle',
 	            isExpandedField: 'expanded',
 	            getChildren: this.getChildren.bind(this),
-	            actionMapping: actionMapping
+	            actionMapping: actionMapping,
+	            allowDrag: true
 	        };
 	        this.onEvent = console.log;
 	        setTimeout(function () {
@@ -17851,7 +17906,7 @@ webpackJsonp([2],{
 
 	"use strict";
 	var core_1 = __webpack_require__(7);
-	var platform_browser_1 = __webpack_require__(44);
+	var platform_browser_1 = __webpack_require__(45);
 	var http_1 = __webpack_require__(90);
 	var angular2_tree_component_1 = __webpack_require__(98);
 	var hmr_1 = __webpack_require__(92);
@@ -18058,7 +18113,7 @@ webpackJsonp([2],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(7);
-	var tree_node_model_1 = __webpack_require__(47);
+	var tree_node_model_1 = __webpack_require__(38);
 	var tree_model_1 = __webpack_require__(54);
 	var adhoc_component_factory_service_1 = __webpack_require__(67);
 	var TreeNodeContent = (function () {
@@ -18155,7 +18210,7 @@ webpackJsonp([2],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(7);
-	var tree_node_model_1 = __webpack_require__(47);
+	var tree_node_model_1 = __webpack_require__(38);
 	var TreeNodeContent = (function () {
 	    function TreeNodeContent() {
 	    }
@@ -18195,11 +18250,94 @@ webpackJsonp([2],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(7);
-	var tree_node_model_1 = __webpack_require__(47);
+	var tree_node_model_1 = __webpack_require__(38);
+	var TreeNodeDropSlot = (function () {
+	    function TreeNodeDropSlot() {
+	    }
+	    TreeNodeDropSlot.prototype.onDragOver = function ($event) {
+	        $event.preventDefault();
+	        this.node.treeModel.setDropLocation({ component: this, node: this.node, index: this.dropIndex });
+	    };
+	    TreeNodeDropSlot.prototype.onDragLeave = function () {
+	        if (this.node.treeModel.isDraggingOver(this)) {
+	            this.node.treeModel.setDropLocation(null);
+	        }
+	    };
+	    TreeNodeDropSlot.prototype.onDrop = function ($event) {
+	        $event.preventDefault();
+	        this.node.mouseAction('drop', $event, { node: this.node, index: this.dropIndex });
+	    };
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', tree_node_model_1.TreeNode)
+	    ], TreeNodeDropSlot.prototype, "node", void 0);
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Number)
+	    ], TreeNodeDropSlot.prototype, "dropIndex", void 0);
+	    TreeNodeDropSlot = __decorate([
+	        core_1.Component({
+	            selector: 'TreeNodeDropSlot',
+	            encapsulation: core_1.ViewEncapsulation.None,
+	            styles: [
+	                '.node-drop-slot { display: block; height: 2px; width: 100%}',
+	                '.node-drop-slot.is-dragging-over { background: #ddffee; height: 20px; border: 2px dotted #888; }'
+	            ],
+	            template: "\n    <div\n      class=\"node-drop-slot\"\n      [class.is-dragging-over]=\"node.treeModel.isDraggingOver(this)\"\n      (drop)=\"onDrop($event)\"\n      (dragover)=\"onDragOver($event)\"\n      (dragleave)=\"onDragLeave()\"\n      >\n    </div>\n  "
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], TreeNodeDropSlot);
+	    return TreeNodeDropSlot;
+	}());
+	exports.TreeNodeDropSlot = TreeNodeDropSlot;
+	
+
+/***/ },
+
+/***/ 159:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(7);
+	var tree_node_model_1 = __webpack_require__(38);
 	var TreeNodeComponent = (function () {
 	    function TreeNodeComponent(elementRef) {
 	        this.elementRef = elementRef;
 	    }
+	    TreeNodeComponent.prototype.onDragStart = function () {
+	        var _this = this;
+	        setTimeout(function () { return _this.node.treeModel.setDragNode({ node: _this.node.parent, index: _this.nodeIndex }); }, 30);
+	    };
+	    TreeNodeComponent.prototype.onDragEnd = function () {
+	        this.node.treeModel.setDragNode(null);
+	    };
+	    TreeNodeComponent.prototype.onDragOver = function ($event) {
+	        $event.preventDefault();
+	        this.node.treeModel.setDropLocation({ component: this, node: this.node, index: 0 });
+	    };
+	    TreeNodeComponent.prototype.onDrop = function ($event) {
+	        $event.preventDefault();
+	        this.node.mouseAction('drop', $event, { node: this.node, index: 0 });
+	    };
+	    TreeNodeComponent.prototype.onDragLeave = function (nodeContentWrapper, $event) {
+	        if (!this.node.treeModel.isDraggingOver(this))
+	            return;
+	        var rect = nodeContentWrapper.getBoundingClientRect();
+	        // If outside the element
+	        if ($event.clientX < rect.left || $event.clientX > rect.right ||
+	            $event.clientY < rect.top || $event.clientY > rect.bottom) {
+	            this.node.treeModel.setDropLocation(null);
+	        }
+	    };
 	    TreeNodeComponent.prototype.ngAfterViewInit = function () {
 	        this.node.elementRef = this.elementRef;
 	    };
@@ -18207,6 +18345,10 @@ webpackJsonp([2],{
 	        core_1.Input(), 
 	        __metadata('design:type', tree_node_model_1.TreeNode)
 	    ], TreeNodeComponent.prototype, "node", void 0);
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Number)
+	    ], TreeNodeComponent.prototype, "nodeIndex", void 0);
 	    __decorate([
 	        core_1.Input(), 
 	        __metadata('design:type', core_1.TemplateRef)
@@ -18227,13 +18369,14 @@ webpackJsonp([2],{
 	                '.tree-node-focused > .node-content-wrapper { background: #e7f4f9 }',
 	                '.node-content-wrapper:hover { background: #f7fbff }',
 	                '.tree-node-active > .node-content-wrapper, .tree-node-focused > .node-content-wrapper, .node-content-wrapper:hover { box-shadow: inset 0 0 1px #999; }',
+	                '.node-content-wrapper.is-dragging-over { background: #ddffee; box-shadow: inset 0 0 1px #999; }',
 	                '.tree-node-expanded > .toggle-children-wrapper > .toggle-children { transform: rotate(90deg) }',
 	                '.tree-node-collapsed > .toggle-children-wrapper > .toggle-children { transform: rotate(0); }',
 	                ".toggle-children-wrapper {\n      padding: 5px 0 5px 1px;\n    }",
 	                ".toggle-children {\n        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABAhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJ1dWlkOjY1RTYzOTA2ODZDRjExREJBNkUyRDg4N0NFQUNCNDA3IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkYzRkRFQjcxODUzNTExRTU4RTQwRkQwODFEOUZEMEE3IiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkYzRkRFQjcwODUzNTExRTU4RTQwRkQwODFEOUZEMEE3IiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE1IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MTk5NzA1OGEtZDI3OC00NDZkLWE4ODgtNGM4MGQ4YWI1NzNmIiBzdFJlZjpkb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6YzRkZmQxMGMtY2NlNS0xMTc4LWE5OGQtY2NkZmM5ODk5YWYwIi8+IDxkYzp0aXRsZT4gPHJkZjpBbHQ+IDxyZGY6bGkgeG1sOmxhbmc9IngtZGVmYXVsdCI+Z2x5cGhpY29uczwvcmRmOmxpPiA8L3JkZjpBbHQ+IDwvZGM6dGl0bGU+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+5iogFwAAAGhJREFUeNpiYGBgKABigf///zOQg0EARH4A4gZyDIIZ8B/JoAJKDIDhB0CcQIkBRBtEyABkgxwoMQCGD6AbRKoBGAYxQgXIBRuZGKgAKPIC3QLxArnRSHZCIjspk52ZKMrOFBUoAAEGAKnq593MQAZtAAAAAElFTkSuQmCC');\n        height: 8px;\n        width: 9px;\n        background-size: contain;\n        display: inline-block;\n        position: relative;\n        background-repeat: no-repeat;\n        background-position: center;\n    }",
 	                ".toggle-children-placeholder {\n        display: inline-block;\n        height: 10px;\n        width: 10px;\n        position: relative;\n        top: 1px;\n    }"
 	            ],
-	            template: "\n    <div\n      *ngIf=\"!node.isHidden\"\n      class=\"tree-node tree-node-level-{{ node.level }}\"\n      [class.tree-node-expanded]=\"node.isExpanded && node.hasChildren\"\n      [class.tree-node-collapsed]=\"node.isCollapsed && node.hasChildren\"\n      [class.tree-node-leaf]=\"node.isLeaf\"\n      [class.tree-node-active]=\"node.isActive\"\n      [class.tree-node-focused]=\"node.isFocused\">\n      <span\n        *ngIf=\"node.hasChildren\"\n        class=\"toggle-children-wrapper\"\n        (click)=\"node.mouseAction('expanderClick', $event)\">\n\n        <span class=\"toggle-children\"></span>\n      </span>\n      <span\n        *ngIf=\"!node.hasChildren\"\n        class=\"toggle-children-placeholder\">\n      </span>\n      <div class=\"node-content-wrapper\"\n        (click)=\"node.mouseAction('click', $event)\"\n        (dblclick)=\"node.mouseAction('dblClick', $event)\"\n        (contextmenu)=\"node.mouseAction('contextMenu', $event)\">\n\n        <TreeNodeContent [node]=\"node\" [treeNodeContentTemplate]=\"treeNodeContentTemplate\"></TreeNodeContent>\n      </div>\n      <div class=\"tree-children\" *ngIf=\"node.isExpanded\">\n        <div *ngIf=\"node.children\">\n          <TreeNode\n            *ngFor=\"let node of node.children\"\n            [node]=\"node\"\n            [treeNodeContentTemplate]=\"treeNodeContentTemplate\"\n            [loadingTemplate]=\"loadingTemplate\">\n          </TreeNode>\n        </div>\n        <LoadingComponent\n          class=\"tree-node-loading\"\n          *ngIf=\"!node.children\"\n          [loadingTemplate]=\"loadingTemplate\"\n        ></LoadingComponent>\n      </div>\n    </div>\n  "
+	            template: "\n    <div\n      *ngIf=\"!node.isHidden\"\n      class=\"tree-node tree-node-level-{{ node.level }}\"\n      [class.tree-node-expanded]=\"node.isExpanded && node.hasChildren\"\n      [class.tree-node-collapsed]=\"node.isCollapsed && node.hasChildren\"\n      [class.tree-node-leaf]=\"node.isLeaf\"\n      [class.tree-node-active]=\"node.isActive\"\n      [class.tree-node-focused]=\"node.isFocused\">\n\n      <TreeNodeDropSlot\n        *ngIf=\"nodeIndex === 0\"\n        [dropIndex]=\"nodeIndex\"\n        [node]=\"node.parent\"\n        ></TreeNodeDropSlot>\n\n      <span\n        *ngIf=\"node.hasChildren\"\n        class=\"toggle-children-wrapper\"\n        (click)=\"node.mouseAction('expanderClick', $event)\">\n\n        <span class=\"toggle-children\"></span>\n      </span>\n      <span\n        *ngIf=\"!node.hasChildren\"\n        class=\"toggle-children-placeholder\">\n      </span>\n      <div class=\"node-content-wrapper\"\n        #nodeContentWrapper\n        [class.is-dragging-over]=\"node.treeModel.isDraggingOver(this)\"\n        (click)=\"node.mouseAction('click', $event)\"\n        (dblclick)=\"node.mouseAction('dblClick', $event)\"\n        (contextmenu)=\"node.mouseAction('contextMenu', $event)\"\n        [draggable]=\"node.allowDrag()\"\n        (dragstart)=\"onDragStart($event)\"\n        (drop)=\"onDrop($event)\"\n        (dragend)=\"onDragEnd()\"\n        (dragover)=\"onDragOver($event)\"\n        (dragleave)=\"onDragLeave(nodeContentWrapper, $event)\"\n        >\n\n        <TreeNodeContent [node]=\"node\" [treeNodeContentTemplate]=\"treeNodeContentTemplate\"></TreeNodeContent>\n      </div>\n\n      <div class=\"tree-children\" *ngIf=\"node.isExpanded\">\n        <div *ngIf=\"node.children\">\n          <TreeNode\n            *ngFor=\"let node of node.children; let i = index\"\n            [node]=\"node\"\n            [nodeIndex]=\"i\"\n            [treeNodeContentTemplate]=\"treeNodeContentTemplate\"\n            [loadingTemplate]=\"loadingTemplate\">\n          </TreeNode>\n        </div>\n        <LoadingComponent\n          class=\"tree-node-loading\"\n          *ngIf=\"!node.children\"\n          [loadingTemplate]=\"loadingTemplate\"\n        ></LoadingComponent>\n      </div>\n      <TreeNodeDropSlot\n        [dropIndex]=\"nodeIndex + 1\"\n        [node]=\"node.parent\"\n        ></TreeNodeDropSlot>\n    </div>\n  "
 	        }), 
 	        __metadata('design:paramtypes', [core_1.ElementRef])
 	    ], TreeNodeComponent);
@@ -18244,7 +18387,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 159:
+/***/ 160:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -18388,7 +18531,7 @@ webpackJsonp([2],{
 	                '.tree-children { padding-left: 20px }',
 	                ".tree {\n      display: inline-block;\n      cursor: pointer;\n      -webkit-touch-callout: none; /* iOS Safari */\n      -webkit-user-select: none;   /* Chrome/Safari/Opera */\n      -khtml-user-select: none;    /* Konqueror */\n      -moz-user-select: none;      /* Firefox */\n      -ms-user-select: none;       /* IE/Edge */\n      user-select: none;           /* non-prefixed version, currently not supported by any browser */\n    }"
 	            ],
-	            template: "\n    <div class=\"tree\">\n      <TreeNode\n        *ngFor=\"let node of treeModel.roots\"\n        [node]=\"node\"\n        [loadingTemplate]=\"loadingTemplate\"\n        [treeNodeContentTemplate]=\"treeNodeTemplate\">\n      </TreeNode>\n    </div>\n  "
+	            template: "\n    <div class=\"tree\" [class.node-dragging]=\"treeModel.isDragging()\">\n      <TreeNode\n        *ngFor=\"let node of treeModel.roots; let i = index\"\n        [node]=\"node\"\n        [nodeIndex]=\"i\"\n        [loadingTemplate]=\"loadingTemplate\"\n        [treeNodeContentTemplate]=\"treeNodeTemplate\">\n      </TreeNode>\n    </div>\n  "
 	        }), 
 	        __metadata('design:paramtypes', [tree_model_1.TreeModel])
 	    ], TreeComponent);
@@ -18399,16 +18542,16 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 160:
+/***/ 161:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	__webpack_require__(161);
+	__webpack_require__(162);
 	
 
 /***/ },
 
-/***/ 161:
+/***/ 162:
 /***/ function(module, exports) {
 
 	// element-closest | CC0-1.0 | github.com/jonathantneal/closest
@@ -18439,7 +18582,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 316:
+/***/ 317:
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
