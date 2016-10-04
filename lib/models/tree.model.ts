@@ -369,7 +369,7 @@ export class TreeModel implements ITreeModel {
 
     this.update();
 
-    this.fireEvent({ eventName: TREE_EVENTS.onMoveNode, from, to });
+    this.fireEvent({ eventName: TREE_EVENTS.onMoveNode, node, to });
   }
 
   setDragNode(dragNode:{ node: TreeNode, index:number }) {
