@@ -1,3 +1,7 @@
+<a name="1.3.0"></a>
+# 1.3.0 (2016-10-04)
+* Added Drag & Drop functionality using allowDrag option
+
 <a name="1.2.2"></a>
 # 1.2.2 (2016-09-24)
 * Returning this in all action methods on node to allow chaining
