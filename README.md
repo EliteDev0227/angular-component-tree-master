@@ -17,6 +17,7 @@ Please refer to the full documentation:
 * API for accessing & altering the tree state
 * Keyboard navigation
 * Async data
+* Drag & Drop
 * Easily styled (comes with very minimal styling)
 
 
@@ -65,8 +66,6 @@ Also, if there's anyone who created an awesome theme for angular2-tree-component
 
 Some things on our mind down the road:
 * virtual scroll
-* drag & drop behaviour in the tree
 * context menu
 * save & restore tree state
-* support both children-padding & computed level-based padding
 * checkbox & master checkbox support
