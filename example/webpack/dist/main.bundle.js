@@ -710,10 +710,10 @@ webpackJsonp([2],{
 	        var toChildren = to.node.getField('children');
 	        var node = fromChildren.splice(from.index, 1)[0];
 	        // Compensate for index if already removed from parent:
-	        var toIndex = (from.node === to.node && to.index >= from.index) ? to.index - 1 : to.index;
+	        var toIndex = (from.node === to.node && to.index > from.index) ? to.index - 1 : to.index;
 	        toChildren.splice(toIndex, 0, node);
 	        this.update();
-	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onMoveNode, from: from, to: to });
+	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onMoveNode, node: node, to: to });
 	    };
 	    TreeModel.prototype.setDragNode = function (dragNode) {
 	        this._dragNode = dragNode;

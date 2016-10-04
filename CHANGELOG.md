@@ -1,3 +1,7 @@
+<a name="1.3.2"></a>
+# 1.3.2 (2016-10-04)
+* Fixed bug dragging node to itself
+
 <a name="1.3.0"></a>
 # 1.3.0 (2016-10-04)
 * Added Drag & Drop functionality using allowDrag option

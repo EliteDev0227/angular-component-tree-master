@@ -363,7 +363,7 @@ export class TreeModel implements ITreeModel {
     const node = fromChildren.splice(from.index, 1)[0];
 
     // Compensate for index if already removed from parent:
-    let toIndex = (from.node === to.node && to.index >= from.index) ? to.index - 1 : to.index;
+    let toIndex = (from.node === to.node && to.index > from.index) ? to.index - 1 : to.index;
 
     toChildren.splice(toIndex, 0, node);
 
