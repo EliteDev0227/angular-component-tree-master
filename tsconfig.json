@@ -13,6 +13,7 @@
   "exclude": [
     "example",
     "node_modules",
+    "compiled",
     "dist",
     "typings/main",
     "typings/main.d.ts"
