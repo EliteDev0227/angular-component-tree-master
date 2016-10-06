@@ -1,6 +1,6 @@
 # angular2 tree component
 
-## A full-featured tree component for Angular 2
+## A full featured tree component for Angular 2
 We've built so many projects that required a tree component, and could never find a library that supported all features.
 And building your own tree component is not an easy task.
 
