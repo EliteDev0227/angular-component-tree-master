@@ -4,7 +4,7 @@
 We've built so many projects that required a tree component, and could never find a library that supported all features.
 And building your own tree component is not an easy task.
 
-So we decided to build one for Angular 2, with all the features you can think of:
+So, we decided to build one for Angular 2, with all the features you can think of:
 * Simple to use
 * Well Documented
 * Keyboard navigation
