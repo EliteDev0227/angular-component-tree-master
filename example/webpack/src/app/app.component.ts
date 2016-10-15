@@ -8,10 +8,10 @@ const actionMapping:IActionMapping = {
       alert(`context menu for ${node.data.name}`);
     },
     dblClick: TREE_ACTIONS.TOGGLE_EXPANDED,
-    click: (node, tree, $event) => {
+    click: (tree, node, $event) => {
       $event.shiftKey
-        ? TREE_ACTIONS.TOGGLE_SELECTED_MULTI(node, tree, $event)
-        : TREE_ACTIONS.TOGGLE_SELECTED(node, tree, $event)
+        ? TREE_ACTIONS.TOGGLE_SELECTED_MULTI(tree, node, $event)
+        : TREE_ACTIONS.TOGGLE_SELECTED(tree, node, $event)
     }
   },
   keys: {
@@ -98,7 +98,6 @@ export class App {
           subTitle: 'the root',
           children: [
             {
-
               name: 'child1',
               subTitle: 'a good child',
               hasChildren: false
@@ -111,12 +110,10 @@ export class App {
           ]
         },
         {
-
           name: 'root2',
           subTitle: 'the second root',
           children: [
             {
-
               name: 'child2.1',
               subTitle: 'new and improved',
               hasChildren: false
@@ -126,7 +123,7 @@ export class App {
               subTitle: 'new and improved2',
               children: [
                 {
-
+                  uuid: 1001,
                   name: 'subsub',
                   subTitle: 'subsub',
                   hasChildren: false
@@ -181,13 +178,15 @@ export class App {
   }
 
   activateSubSub(tree) {
-    tree.treeModel.getNodeBy((node) => node.data.name === 'subsub')
+    // tree.treeModel.getNodeBy((node) => node.data.name === 'subsub')
+    tree.treeModel.getNodeById(1001)
       .setActiveAndVisible();
   }
 
   customTemplateStringOptions = {
     // displayField: 'subTitle',
     isExpandedField: 'expanded',
+    idField: 'uuid',
     getChildren: this.getChildren.bind(this),
     actionMapping,
     allowDrag: true

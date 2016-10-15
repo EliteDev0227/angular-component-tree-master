@@ -1,3 +1,9 @@
+<a name="1.3.3"></a>
+# 1.3.3 (2016-10-15)
+* Bug fix #73 - check nodes hierarchy before moving node
+* Bug fix #71 - added onMoveNode as @Output
+* Bug fix #67 - ignoring hidden nodes when navigating the tree using keyboard
+
 <a name="1.3.2"></a>
 # 1.3.2 (2016-10-04)
 * Fixed bug dragging node to itself

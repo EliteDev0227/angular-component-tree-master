@@ -29,7 +29,7 @@ export class TreeModel implements ITreeModel {
 
   eventNames = Object.keys(TREE_EVENTS);
 
-  setData({ nodes, options = null, events = null }) {
+  setData({ nodes, options = null, events = null }:{nodes:any,options:any,events:any}) {
     if (options) {
       this.options = new TreeOptions(options);
     }
@@ -111,12 +111,16 @@ export class TreeModel implements ITreeModel {
     return new TreeNode(node, parent, this);
   }
 
-  getFirstRoot() {
-    return _.first(this.roots);
+  getVisibleRoots() {
+    return this.virtualRoot.getVisibleChildren();
   }
 
-  getLastRoot() {
-    return _.last(this.roots);
+  getFirstRoot(skipHidden = false) {
+    return _.first(skipHidden ? this.getVisibleRoots() : this.roots);
+  }
+
+  getLastRoot(skipHidden = false) {
+    return _.last(skipHidden ? this.getVisibleRoots() : this.roots);
   }
 
   get isFocused() {
@@ -221,13 +225,13 @@ export class TreeModel implements ITreeModel {
 
   focusNextNode() {
     let previousNode = this.getFocusedNode();
-    let nextNode = previousNode ? previousNode.findNextNode() : this.getFirstRoot();
+    let nextNode = previousNode ? previousNode.findNextNode(true, true) : this.getFirstRoot(true);
     nextNode && nextNode.focus();
   }
 
   focusPreviousNode() {
     let previousNode = this.getFocusedNode();
-    let nextNode = previousNode ? previousNode.findPreviousNode() : this.getLastRoot();
+    let nextNode = previousNode ? previousNode.findPreviousNode(true) : this.getLastRoot(true);
     nextNode && nextNode.focus();
   }
 
@@ -237,7 +241,7 @@ export class TreeModel implements ITreeModel {
       previousNode.toggleExpanded();
     }
     else {
-      let nextNode = previousNode ? previousNode.getFirstChild() : this.getFirstRoot();
+      let nextNode = previousNode ? previousNode.getFirstChild(true) : this.getFirstRoot(true);
       nextNode && nextNode.focus();
     }
   }
@@ -351,7 +355,21 @@ export class TreeModel implements ITreeModel {
     this.roots.forEach((node) => node.clearFilter());
   }
 
+  canMoveNode({ from, to }) {
+    // same node:
+    if (from.node === to.node && from.index === to.index) {
+      return false;
+    }
+
+    const fromChildren = from.node.children;
+    const fromNode = fromChildren[from.index];
+
+    return !to.node.isDescendantOf(fromNode);
+  }
+
   moveNode({ from, to }) {
+    if (!this.canMoveNode({ from , to })) return;
+
     const fromChildren = from.node.getField('children');
 
     // If node doesn't have children - create children array

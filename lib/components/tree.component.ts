@@ -68,6 +68,7 @@ export class TreeComponent implements OnChanges {
   @Output() onContextMenu;
   @Output() onUpdateData;
   @Output() onInitialized;
+  @Output() onMoveNode;
   @Output() onEvent;
 
   onKeydown($event) {

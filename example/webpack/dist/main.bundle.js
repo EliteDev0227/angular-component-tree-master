@@ -148,47 +148,69 @@ webpackJsonp([2],{
 	        this.data[this.options[(key + "Field")]] = value;
 	    };
 	    // traversing:
-	    TreeNode.prototype._findAdjacentSibling = function (steps) {
-	        var index = this._getIndexInParent();
-	        return this._getParentsChildren()[index + steps];
+	    TreeNode.prototype._findAdjacentSibling = function (steps, skipHidden) {
+	        if (skipHidden === void 0) { skipHidden = false; }
+	        var index = this._getIndexInParent(skipHidden);
+	        return this._getParentsChildren(skipHidden)[index + steps];
 	    };
-	    TreeNode.prototype.findNextSibling = function () {
-	        return this._findAdjacentSibling(+1);
+	    TreeNode.prototype.findNextSibling = function (skipHidden) {
+	        if (skipHidden === void 0) { skipHidden = false; }
+	        return this._findAdjacentSibling(+1, skipHidden);
 	    };
-	    TreeNode.prototype.findPreviousSibling = function () {
-	        return this._findAdjacentSibling(-1);
+	    TreeNode.prototype.findPreviousSibling = function (skipHidden) {
+	        if (skipHidden === void 0) { skipHidden = false; }
+	        return this._findAdjacentSibling(-1, skipHidden);
 	    };
-	    TreeNode.prototype.getFirstChild = function () {
-	        return _.first(this.children || []);
+	    TreeNode.prototype.getVisibleChildren = function () {
+	        return (this.children || []).filter(function (node) { return !node.isHidden; });
 	    };
-	    TreeNode.prototype.getLastChild = function () {
-	        return _.last(this.children || []);
+	    TreeNode.prototype.getFirstChild = function (skipHidden) {
+	        if (skipHidden === void 0) { skipHidden = false; }
+	        var children = skipHidden ? this.getVisibleChildren() : this.children;
+	        return _.first(children || []);
 	    };
-	    TreeNode.prototype.findNextNode = function (goInside) {
+	    TreeNode.prototype.getLastChild = function (skipHidden) {
+	        if (skipHidden === void 0) { skipHidden = false; }
+	        var children = skipHidden ? this.getVisibleChildren() : this.children;
+	        return _.last(children || []);
+	    };
+	    TreeNode.prototype.findNextNode = function (goInside, skipHidden) {
 	        if (goInside === void 0) { goInside = true; }
-	        return goInside && this.isExpanded && this.getFirstChild() ||
-	            this.findNextSibling() ||
-	            this.parent && this.parent.findNextNode(false);
+	        if (skipHidden === void 0) { skipHidden = false; }
+	        return goInside && this.isExpanded && this.getFirstChild(skipHidden) ||
+	            this.findNextSibling(skipHidden) ||
+	            this.parent && this.parent.findNextNode(false, skipHidden);
 	    };
-	    TreeNode.prototype.findPreviousNode = function () {
-	        var previousSibling = this.findPreviousSibling();
+	    TreeNode.prototype.findPreviousNode = function (skipHidden) {
+	        if (skipHidden === void 0) { skipHidden = false; }
+	        var previousSibling = this.findPreviousSibling(skipHidden);
 	        if (!previousSibling) {
 	            return this.realParent;
 	        }
-	        return previousSibling._getLastOpenDescendant();
+	        return previousSibling._getLastOpenDescendant(skipHidden);
 	    };
-	    TreeNode.prototype._getLastOpenDescendant = function () {
-	        var lastChild = this.getLastChild();
+	    TreeNode.prototype._getLastOpenDescendant = function (skipHidden) {
+	        if (skipHidden === void 0) { skipHidden = false; }
+	        var lastChild = this.getLastChild(skipHidden);
 	        return (this.isCollapsed || !lastChild)
 	            ? this
-	            : lastChild._getLastOpenDescendant();
+	            : lastChild._getLastOpenDescendant(skipHidden);
 	    };
-	    TreeNode.prototype._getParentsChildren = function () {
-	        var children = _.get(this, 'parent.children');
+	    TreeNode.prototype._getParentsChildren = function (skipHidden) {
+	        if (skipHidden === void 0) { skipHidden = false; }
+	        var children = this.parent &&
+	            (skipHidden ? this.parent.getVisibleChildren() : this.parent.children);
 	        return children || [];
 	    };
-	    TreeNode.prototype._getIndexInParent = function () {
-	        return this._getParentsChildren().indexOf(this);
+	    TreeNode.prototype._getIndexInParent = function (skipHidden) {
+	        if (skipHidden === void 0) { skipHidden = false; }
+	        return this._getParentsChildren(skipHidden).indexOf(this);
+	    };
+	    TreeNode.prototype.isDescendantOf = function (node) {
+	        if (this === node)
+	            return true;
+	        else
+	            return this.parent && this.parent.isDescendantOf(node);
 	    };
 	    // helper methods:
 	    TreeNode.prototype.loadChildren = function () {
@@ -323,6 +345,7 @@ webpackJsonp([2],{
 	                this.fireEvent({ eventName: events_1.TREE_EVENTS.onDoubleClick, warning: 'This event is deprecated, please use actionMapping to handle double clicks', node: this, rawEvent: $event });
 	            }
 	        }
+	        // TODO: move to the action itself:
 	        if (actionName === 'drop') {
 	            this.treeModel.cancelDrag();
 	        }
@@ -462,11 +485,16 @@ webpackJsonp([2],{
 	    TreeModel.prototype.getTreeNode = function (node, parent) {
 	        return new tree_node_model_1.TreeNode(node, parent, this);
 	    };
-	    TreeModel.prototype.getFirstRoot = function () {
-	        return _.first(this.roots);
+	    TreeModel.prototype.getVisibleRoots = function () {
+	        return this.virtualRoot.getVisibleChildren();
 	    };
-	    TreeModel.prototype.getLastRoot = function () {
-	        return _.last(this.roots);
+	    TreeModel.prototype.getFirstRoot = function (skipHidden) {
+	        if (skipHidden === void 0) { skipHidden = false; }
+	        return _.first(skipHidden ? this.getVisibleRoots() : this.roots);
+	    };
+	    TreeModel.prototype.getLastRoot = function (skipHidden) {
+	        if (skipHidden === void 0) { skipHidden = false; }
+	        return _.last(skipHidden ? this.getVisibleRoots() : this.roots);
 	    };
 	    Object.defineProperty(TreeModel.prototype, "isFocused", {
 	        get: function () {
@@ -580,12 +608,12 @@ webpackJsonp([2],{
 	    };
 	    TreeModel.prototype.focusNextNode = function () {
 	        var previousNode = this.getFocusedNode();
-	        var nextNode = previousNode ? previousNode.findNextNode() : this.getFirstRoot();
+	        var nextNode = previousNode ? previousNode.findNextNode(true, true) : this.getFirstRoot(true);
 	        nextNode && nextNode.focus();
 	    };
 	    TreeModel.prototype.focusPreviousNode = function () {
 	        var previousNode = this.getFocusedNode();
-	        var nextNode = previousNode ? previousNode.findPreviousNode() : this.getLastRoot();
+	        var nextNode = previousNode ? previousNode.findPreviousNode(true) : this.getLastRoot(true);
 	        nextNode && nextNode.focus();
 	    };
 	    TreeModel.prototype.focusDrillDown = function () {
@@ -594,7 +622,7 @@ webpackJsonp([2],{
 	            previousNode.toggleExpanded();
 	        }
 	        else {
-	            var nextNode = previousNode ? previousNode.getFirstChild() : this.getFirstRoot();
+	            var nextNode = previousNode ? previousNode.getFirstChild(true) : this.getFirstRoot(true);
 	            nextNode && nextNode.focus();
 	        }
 	    };
@@ -700,8 +728,20 @@ webpackJsonp([2],{
 	    TreeModel.prototype.clearFilter = function () {
 	        this.roots.forEach(function (node) { return node.clearFilter(); });
 	    };
+	    TreeModel.prototype.canMoveNode = function (_a) {
+	        var from = _a.from, to = _a.to;
+	        // same node:
+	        if (from.node === to.node && from.index === to.index) {
+	            return false;
+	        }
+	        var fromChildren = from.node.children;
+	        var fromNode = fromChildren[from.index];
+	        return !to.node.isDescendantOf(fromNode);
+	    };
 	    TreeModel.prototype.moveNode = function (_a) {
 	        var from = _a.from, to = _a.to;
+	        if (!this.canMoveNode({ from: from, to: to }))
+	            return;
 	        var fromChildren = from.node.getField('children');
 	        // If node doesn't have children - create children array
 	        if (!to.node.getField('children')) {
@@ -715,6 +755,7 @@ webpackJsonp([2],{
 	        this.update();
 	        this.fireEvent({ eventName: events_1.TREE_EVENTS.onMoveNode, node: node, to: to });
 	    };
+	    // TODO: move to a different service:
 	    TreeModel.prototype.setDragNode = function (dragNode) {
 	        this._dragNode = dragNode;
 	    };
@@ -17775,10 +17816,10 @@ webpackJsonp([2],{
 	            alert("context menu for " + node.data.name);
 	        },
 	        dblClick: angular2_tree_component_1.TREE_ACTIONS.TOGGLE_EXPANDED,
-	        click: function (node, tree, $event) {
+	        click: function (tree, node, $event) {
 	            $event.shiftKey
-	                ? angular2_tree_component_1.TREE_ACTIONS.TOGGLE_SELECTED_MULTI(node, tree, $event)
-	                : angular2_tree_component_1.TREE_ACTIONS.TOGGLE_SELECTED(node, tree, $event);
+	                ? angular2_tree_component_1.TREE_ACTIONS.TOGGLE_SELECTED_MULTI(tree, node, $event)
+	                : angular2_tree_component_1.TREE_ACTIONS.TOGGLE_SELECTED(tree, node, $event);
 	        }
 	    },
 	    keys: (_a = {},
@@ -17802,6 +17843,7 @@ webpackJsonp([2],{
 	        this.customTemplateStringOptions = {
 	            // displayField: 'subTitle',
 	            isExpandedField: 'expanded',
+	            idField: 'uuid',
 	            getChildren: this.getChildren.bind(this),
 	            actionMapping: actionMapping,
 	            allowDrag: true
@@ -17838,6 +17880,7 @@ webpackJsonp([2],{
 	                            subTitle: 'new and improved2',
 	                            children: [
 	                                {
+	                                    uuid: 1001,
 	                                    name: 'subsub',
 	                                    subTitle: 'subsub',
 	                                    hasChildren: false
@@ -17876,7 +17919,8 @@ webpackJsonp([2],{
 	        tree.treeModel.filterNodes(text, true);
 	    };
 	    App.prototype.activateSubSub = function (tree) {
-	        tree.treeModel.getNodeBy(function (node) { return node.data.name === 'subsub'; })
+	        // tree.treeModel.getNodeBy((node) => node.data.name === 'subsub')
+	        tree.treeModel.getNodeById(1001)
 	            .setActiveAndVisible();
 	    };
 	    App.prototype.go = function ($event) {
@@ -18313,6 +18357,7 @@ webpackJsonp([2],{
 	    function TreeNodeComponent(elementRef) {
 	        this.elementRef = elementRef;
 	    }
+	    // TODO: move to draggable directive
 	    TreeNodeComponent.prototype.onDragStart = function () {
 	        var _this = this;
 	        setTimeout(function () { return _this.node.treeModel.setDragNode({ node: _this.node.parent, index: _this.nodeIndex }); }, 30);
@@ -18514,6 +18559,10 @@ webpackJsonp([2],{
 	        core_1.Output(), 
 	        __metadata('design:type', Object)
 	    ], TreeComponent.prototype, "onInitialized", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], TreeComponent.prototype, "onMoveNode", void 0);
 	    __decorate([
 	        core_1.Output(), 
 	        __metadata('design:type', Object)

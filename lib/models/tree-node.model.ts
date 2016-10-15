@@ -68,56 +68,70 @@ export class TreeNode implements ITreeNode {
   }
 
   // traversing:
-  _findAdjacentSibling(steps) {
-    let index = this._getIndexInParent();
-    return this._getParentsChildren()[index + steps];
+  _findAdjacentSibling(steps, skipHidden = false) {
+    const index = this._getIndexInParent(skipHidden);
+    return this._getParentsChildren(skipHidden)[index + steps];
   }
 
-  findNextSibling() {
-    return this._findAdjacentSibling(+1);
+  findNextSibling(skipHidden = false) {
+    return this._findAdjacentSibling(+1, skipHidden);
   }
 
-  findPreviousSibling() {
-    return this._findAdjacentSibling(-1);
+  findPreviousSibling(skipHidden = false) {
+    return this._findAdjacentSibling(-1, skipHidden);
   }
 
-  getFirstChild() {
-    return _.first(this.children || []);
+  getVisibleChildren() {
+    return (this.children || []).filter((node) => !node.isHidden);
   }
 
-  getLastChild() {
-    return _.last(this.children || []);
+  getFirstChild(skipHidden = false) {
+    let children = skipHidden ? this.getVisibleChildren() : this.children;
+
+    return _.first(children || []);
   }
 
-  findNextNode(goInside = true) {
-    return goInside && this.isExpanded && this.getFirstChild() ||
-           this.findNextSibling() ||
-           this.parent && this.parent.findNextNode(false);
+  getLastChild(skipHidden = false) {
+    let children = skipHidden ? this.getVisibleChildren() : this.children;
+
+    return _.last(children || []);
   }
 
-  findPreviousNode() {
-    let previousSibling = this.findPreviousSibling();
+  findNextNode(goInside = true, skipHidden = false) {
+    return goInside && this.isExpanded && this.getFirstChild(skipHidden) ||
+           this.findNextSibling(skipHidden) ||
+           this.parent && this.parent.findNextNode(false, skipHidden);
+  }
+
+  findPreviousNode(skipHidden = false) {
+    let previousSibling = this.findPreviousSibling(skipHidden);
     if (!previousSibling) {
       return this.realParent
     }
-    return previousSibling._getLastOpenDescendant()
+    return previousSibling._getLastOpenDescendant(skipHidden);
   }
 
-  _getLastOpenDescendant() {
-    const lastChild = this.getLastChild();
+  _getLastOpenDescendant(skipHidden = false) {
+    const lastChild = this.getLastChild(skipHidden);
     return (this.isCollapsed || !lastChild)
       ? this
-      : lastChild._getLastOpenDescendant();
+      : lastChild._getLastOpenDescendant(skipHidden);
   }
 
-  private _getParentsChildren():any[] {
-    const children = _.get(this, 'parent.children');
+  private _getParentsChildren(skipHidden = false):any[] {
+    const children = this.parent &&
+      (skipHidden ? this.parent.getVisibleChildren() : this.parent.children);
 
-    return <any[]>children || [];
+    return children || [];
   }
 
-  private _getIndexInParent() {
-    return this._getParentsChildren().indexOf(this);
+  private _getIndexInParent(skipHidden = false) {
+    return this._getParentsChildren(skipHidden).indexOf(this);
+  }
+
+  isDescendantOf(node:TreeNode) {
+    if (this === node) return true;
+    else return this.parent && this.parent.isDescendantOf(node);
   }
 
   // helper methods:
