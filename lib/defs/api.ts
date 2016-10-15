@@ -103,6 +103,10 @@ export interface ITreeNode {
    */
   collapse();
   /**
+   * Expands all ancestors of the node
+   */
+  ensureVisible();
+  /**
    * Activates / Deactivates the node (selects / deselects)
    */
   toggleActivated();
@@ -183,4 +187,23 @@ export interface ITreeModel {
    * Focuses on the parent of the current focused node (same as left arrow on a collapsed node)
    */
   focusDrillUp();
+  /**
+   * Marks isHidden field in all nodes recursively according to the filter param.
+   * If a node is marked visible, all of its ancestors will be marked visible as well.
+   * @param filter  either a string or a function.
+   *   In case it's a string, it will be searched case insensitively in the node's display attribute
+   *   In case it's a function, it will be passed the node, and should return true if the node should be visible, false otherwise
+   * @param autoShow  if true, make sure all nodes that passed the filter are visible
+   */
+  filterNodes(filter, autoShow?:boolean);
+  /**
+   * Marks all nodes isHidden = false
+   */
+  clearFilter();
+  /**
+   * moves a node from one location in the tree to another
+   * @param location  has a from and a to attributes, each has a node and index attributes.
+     The combination of node + index tells which node needs to be moved, and to where
+   */
+  moveNode(location:{ from:{node:ITreeNode, index:number}, to:{node:ITreeNode, index:number} });
 }

@@ -280,6 +280,7 @@ export class TreeNode implements ITreeNode {
       }
     }
 
+    // TODO: move to the action itself:
     if (actionName === 'drop') {
       this.treeModel.cancelDrag();
     }

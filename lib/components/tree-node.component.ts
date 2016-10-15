@@ -116,6 +116,7 @@ export class TreeNodeComponent implements AfterViewInit {
   @Input() treeNodeContentTemplate: TemplateRef<ITreeNodeTemplate>;
   @Input() loadingTemplate: TemplateRef<any>;
 
+  // TODO: move to draggable directive
   onDragStart() {
     setTimeout(() => this.node.treeModel.setDragNode({ node: this.node.parent, index: this.nodeIndex }), 30);
   }

@@ -372,6 +372,7 @@ export class TreeModel implements ITreeModel {
     this.fireEvent({ eventName: TREE_EVENTS.onMoveNode, node, to });
   }
 
+  // TODO: move to a different service:
   setDragNode(dragNode:{ node: TreeNode, index:number }) {
     this._dragNode = dragNode;
   }
