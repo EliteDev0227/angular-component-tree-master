@@ -1,3 +1,7 @@
+<a name="1.3.4"></a>
+# 1.3.4 (2016-10-18)
+* Exporting Tree Component
+
 <a name="1.3.3"></a>
 # 1.3.3 (2016-10-15)
 * Bug fix #73 - check nodes hierarchy before moving node

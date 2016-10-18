@@ -24,7 +24,12 @@ export {
   TREE_ACTIONS,
   KEYS,
   IActionMapping,
-  IActionHandler
+  IActionHandler,
+  LoadingComponent,
+  TreeComponent,
+  TreeNodeComponent,
+  TreeNodeContent,
+  TreeNodeDropSlot
 };
 
 @NgModule({
