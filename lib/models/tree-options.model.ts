@@ -62,21 +62,6 @@ export interface IActionMapping {
   }
 }
 
-export interface ITreeOptions {
-  childrenField?: string;
-  displayField?: string;
-  idField?: string;
-  isExpandedField?:string;
-  isHiddenField?:string;
-  treeNodeTemplate?: any;
-  loadingComponent?: any;
-  getChildren?: (node:TreeNode) => any;
-  hasCustomContextMenu?: boolean;
-  context?: any;
-  actionMapping?: any;
-  allowDrag?: boolean;
-}
-
 export class TreeOptions {
   childrenField: string;
   displayField: string;

@@ -2,8 +2,45 @@
  * Welcome to ng2tree
  */
 
-import { EventEmitter, ElementRef } from '@angular/core';
-import { TreeOptions } from '../models/tree-options.model';
+/**
+* This is the interface of the options input of the tree.
+* See docs for more detailed explanations
+*/
+export interface ITreeOptions {
+   /**
+    * Override children field. Default: 'children'
+    */
+   childrenField?: string;
+   /**
+    * Override display field. Default: 'name'
+    */
+   displayField?: string;
+   /**
+    * Override id field. Default: 'id'
+    */
+   idField?: string;
+   /**
+    * Override isExpanded field. Default: 'isExpanded'
+    */
+   isExpandedField?:string;
+   /**
+    * Override isHidden field. Default: 'isHidden'
+    */
+   isHiddenField?:string;
+   /**
+    * Supply function for getting fields asynchronously. Should return a Promise
+    */
+   getChildren?: (node:ITreeNode) => any;
+   /**
+    * Change the default mouse and key actions on the tree
+    */
+   actionMapping?: any;
+   /**
+    * Allow drag and drop on the tree. Default: false
+    */
+   allowDrag?: boolean;
+ }
+
 /**
  * This is the interface of a single Tree Node
  */
@@ -30,7 +67,7 @@ export interface ITreeNode {
   /**
    * Pointer to the ElementRef of the TreeNodeComponent that's displaying this node
    */
-  elementRef: ElementRef;
+  elementRef: any;
   /**
    * Level in the tree (starts from 1).
    */
@@ -148,7 +185,7 @@ export interface ITreeModel {
   /**
    * Options that were passed to the tree component
    */
-  options: TreeOptions;
+  options: ITreeOptions;
 
   /**
    * Is the tree currently focused

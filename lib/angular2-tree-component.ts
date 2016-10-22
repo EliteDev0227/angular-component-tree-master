@@ -1,7 +1,8 @@
 import { NgModule }      from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ITreeOptions, TREE_ACTIONS, IActionMapping, IActionHandler } from './models/tree-options.model';
+import { TREE_ACTIONS, IActionMapping, IActionHandler } from './models/tree-options.model';
+import { ITreeOptions } from './defs/api';
 import { KEYS } from './constants/keys';
 import { TreeModel } from './models/tree.model';
 import { TreeNode } from './models/tree-node.model';

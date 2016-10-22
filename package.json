@@ -15,6 +15,7 @@
     "ng2-tree"
   ],
   "scripts": {
+    "doc": "typedoc --module commonjs --out doc lib/defs/api.ts",
     "test": "karma start",
     "clean": "rimraf node_modules && npm run clean:typescript && npm cache clean",
     "clean:typescript": "rimraf dist",
