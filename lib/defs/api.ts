@@ -243,4 +243,11 @@ export interface ITreeModel {
      The combination of node + index tells which node needs to be moved, and to where
    */
   moveNode(location:{ from:{node:ITreeNode, index:number}, to:{node:ITreeNode, index:number} });
+
+  /**
+   * Gets the current dragged node. Useful for overriding the drop action.
+   * @param node  The parent node of the current dragged node
+   * @param index  The index inside parent's children, of the current dragged node
+   */
+  getDragNode():{ node: ITreeNode, index:number };
 }

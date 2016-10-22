@@ -108,6 +108,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_api_.itreemodel.html#focusnextnode" class="tsd-kind-icon">focus<wbr>Next<wbr>Node</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_api_.itreemodel.html#focuspreviousnode" class="tsd-kind-icon">focus<wbr>Previous<wbr>Node</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_api_.itreemodel.html#getactivenode" class="tsd-kind-icon">get<wbr>Active<wbr>Node</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_api_.itreemodel.html#getdragnode" class="tsd-kind-icon">get<wbr>Drag<wbr>Node</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_api_.itreemodel.html#getfirstroot" class="tsd-kind-icon">get<wbr>First<wbr>Root</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_api_.itreemodel.html#getlastroot" class="tsd-kind-icon">get<wbr>Last<wbr>Root</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_api_.itreemodel.html#movenode" class="tsd-kind-icon">move<wbr>Node</a></li>
@@ -355,6 +356,42 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="getdragnode" class="tsd-anchor"></a>
+					<h3>get<wbr>Drag<wbr>Node</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Drag<wbr>Node<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L252">api.ts:252</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets the current dragged node. Useful for overriding the drop action.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span></h4>
+							<ul class="tsd-parameters">
+								<li class="tsd-parameter">
+									<h5>index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The index inside parent&#39;s children, of the current dragged node</p>
+									</div>
+								</li>
+								<li class="tsd-parameter">
+									<h5>node<span class="tsd-signature-symbol">: </span><a href="_api_.itreenode.html" class="tsd-signature-type">ITreeNode</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The parent node of the current dragged node</p>
+									</div>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 					<a name="getfirstroot" class="tsd-anchor"></a>
 					<h3>get<wbr>First<wbr>Root</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
@@ -533,6 +570,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="_api_.itreemodel.html#getactivenode" class="tsd-kind-icon">get<wbr>Active<wbr>Node</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="_api_.itreemodel.html#getdragnode" class="tsd-kind-icon">get<wbr>Drag<wbr>Node</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="_api_.itreemodel.html#getfirstroot" class="tsd-kind-icon">get<wbr>First<wbr>Root</a>
