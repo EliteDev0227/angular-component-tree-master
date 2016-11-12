@@ -1,3 +1,4 @@
+[![npm version](https://badge.fury.io/js/angular2-tree-component.svg)](https://badge.fury.io/js/angular2-tree-component)
 # angular2 tree component
 
 ## A full featured tree component for Angular 2
