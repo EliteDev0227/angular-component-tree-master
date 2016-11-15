@@ -17626,12 +17626,17 @@ webpackJsonp([2],{
 	var tree_node_model_1 = __webpack_require__(38);
 	exports.TreeNode = tree_node_model_1.TreeNode;
 	var loading_component_1 = __webpack_require__(156);
+	exports.LoadingComponent = loading_component_1.LoadingComponent;
 	var deprecated_loading_component_1 = __webpack_require__(154);
 	var tree_component_1 = __webpack_require__(160);
+	exports.TreeComponent = tree_component_1.TreeComponent;
 	var tree_node_component_1 = __webpack_require__(159);
+	exports.TreeNodeComponent = tree_node_component_1.TreeNodeComponent;
 	var tree_node_content_component_1 = __webpack_require__(157);
+	exports.TreeNodeContent = tree_node_content_component_1.TreeNodeContent;
 	var deprecated_tree_node_content_component_1 = __webpack_require__(155);
 	var tree_node_drop_slot_component_1 = __webpack_require__(158);
+	exports.TreeNodeDropSlot = tree_node_drop_slot_component_1.TreeNodeDropSlot;
 	var adhoc_component_factory_service_1 = __webpack_require__(67);
 	__webpack_require__(161);
 	var deprecated_1 = __webpack_require__(53);
@@ -17846,9 +17851,9 @@ webpackJsonp([2],{
 	            idField: 'uuid',
 	            getChildren: this.getChildren.bind(this),
 	            actionMapping: actionMapping,
-	            allowDrag: true
+	            allowDrag: false
 	        };
-	        this.onEvent = console.log;
+	        this.onEvent = console.log.bind(console);
 	        setTimeout(function () {
 	            _this.nodes = [
 	                {
@@ -17933,7 +17938,7 @@ webpackJsonp([2],{
 	            styles: [
 	                "button: {\n        line - height: 24px;\n        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);\n        border: none;\n        border-radius: 2px;\n        background: #A3D9F5;\n        cursor: pointer;\n        margin: 0 3px;\n      }"
 	            ],
-	            template: "\n  <form>\n    <input #filter (keyup)=\"filterNodes(filter.value, tree)\" placeholder=\"filter nodes\"/>\n  </form>\n  <Tree\n    #tree\n    [nodes]=\"nodes\"\n    [focused]=\"true\"\n    [options]=\"customTemplateStringOptions\"\n    (onEvent)=\"onEvent($event)\"\n  >\n  <template #treeNodeTemplate let-node>\n  <span title=\"{{node.data.subTitle}}\">{{ node.data.name }}</span>\n  <span class=\"pull-right\">{{ childrenCount(node) }}</span>\n  <button (click)=\"go($event)\">Custom Action</button>\n  </template>\n  <template #loadingTemplate>Loading, please hold....</template>\n  </Tree>\n  <br>\n  <p>Keys:</p>\n  down | up | left | right | space | enter\n  <p>Mouse:</p>\n  click to select | shift+click to select multi\n  <p>API:</p>\n  <button (click)=\"tree.treeModel.focusNextNode()\">next node</button>\n  <button (click)=\"tree.treeModel.focusPreviousNode()\">previous node</button>\n  <button (click)=\"tree.treeModel.focusDrillDown()\">drill down</button>\n  <button (click)=\"tree.treeModel.focusDrillUp()\">drill up</button>\n  <p></p>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().toggleActivated()\">\n    {{ tree.treeModel.getFocusedNode()?.isActive ? 'deactivate' : 'activate' }}\n  </button>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().toggleExpanded()\">\n    {{ tree.treeModel.getFocusedNode()?.isExpanded ? 'collapse' : 'expand' }}\n  </button>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().blur()\">\n    blur\n  </button>\n  <button\n    (click)=\"addNode(tree)\">\n    Add Node\n  </button>\n  <button\n    (click)=\"activateSubSub(tree)\">\n    Activate inner node\n  </button>\n  "
+	            template: "\n  <form>\n    <input #filter (keyup)=\"filterNodes(filter.value, tree)\" placeholder=\"filter nodes\"/>\n  </form>\n  <Tree\n    #tree\n    [nodes]=\"nodes\"\n    [focused]=\"true\"\n    [options]=\"customTemplateStringOptions\"\n    (onEvent)=\"onEvent($event)\"\n  >\n  <template #treeNodeTemplate let-node>\n  <span title=\"{{node.data.subTitle}}\">{{ node.data.name }}</span>\n  <span class=\"pull-right\">{{ childrenCount(node) }}</span>\n  <button (click)=\"go($event)\">Custom Action</button>\n  </template>\n  <template #loadingTemplate>Loading, please hold....</template>\n  </Tree>\n  <br>\n  <p>Keys:</p>\n  down | up | left | right | space | enter\n  <p>Mouse:</p>\n  click to select | shift+click to select multi\n  <p>API:</p>\n  <button (click)=\"tree.treeModel.focusNextNode()\">next node</button>\n  <button (click)=\"tree.treeModel.focusPreviousNode()\">previous node</button>\n  <button (click)=\"tree.treeModel.focusDrillDown()\">drill down</button>\n  <button (click)=\"tree.treeModel.focusDrillUp()\">drill up</button>\n  <button (click)=\"customTemplateStringOptions.allowDrag = true\">allowDrag</button>\n  <p></p>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().toggleActivated()\">\n    {{ tree.treeModel.getFocusedNode()?.isActive ? 'deactivate' : 'activate' }}\n  </button>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().toggleExpanded()\">\n    {{ tree.treeModel.getFocusedNode()?.isExpanded ? 'collapse' : 'expand' }}\n  </button>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().blur()\">\n    blur\n  </button>\n  <button\n    (click)=\"addNode(tree)\">\n    Add Node\n  </button>\n  <button\n    (click)=\"activateSubSub(tree)\">\n    Activate inner node\n  </button>\n  "
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], App);
@@ -18523,6 +18528,10 @@ webpackJsonp([2],{
 	        core_1.Output(), 
 	        __metadata('design:type', Object)
 	    ], TreeComponent.prototype, "onToggle", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], TreeComponent.prototype, "onToggleExpanded", void 0);
 	    __decorate([
 	        core_1.Output(), 
 	        __metadata('design:type', Object)

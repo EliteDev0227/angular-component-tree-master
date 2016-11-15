@@ -1,3 +1,8 @@
+<a name="1.3.6"></a>
+# 1.3.6 (2016-11-15)
+* Added onToggleExpanded Output
+* Fixed example in Firefox and IE (console.log)
+
 <a name="1.3.5"></a>
 # 1.3.5 (2016-10-19)
 * Exporting Tree Component

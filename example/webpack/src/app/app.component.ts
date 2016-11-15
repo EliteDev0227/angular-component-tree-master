@@ -60,6 +60,7 @@ const actionMapping:IActionMapping = {
   <button (click)="tree.treeModel.focusPreviousNode()">previous node</button>
   <button (click)="tree.treeModel.focusDrillDown()">drill down</button>
   <button (click)="tree.treeModel.focusDrillUp()">drill up</button>
+  <button (click)="customTemplateStringOptions.allowDrag = true">allowDrag</button>
   <p></p>
   <button
     [disabled]="!tree.treeModel.getFocusedNode()"
@@ -189,9 +190,9 @@ export class App {
     idField: 'uuid',
     getChildren: this.getChildren.bind(this),
     actionMapping,
-    allowDrag: true
+    allowDrag: false
   }
-  onEvent = console.log;
+  onEvent = console.log.bind(console);
 
   go($event) {
     $event.stopPropagation();
