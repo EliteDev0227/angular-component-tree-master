@@ -161,7 +161,7 @@ export class TreeNode implements ITreeNode {
     if (!this.options.getChildren) {
       throw new Error('Node doesn\'t have children, or a getChildren method');
     }
-    Promise.resolve(this.options.getChildren(this))
+    return Promise.resolve(this.options.getChildren(this))
       .then((children) => {
         if (children) {
           this.setField('children', children);
@@ -178,10 +178,10 @@ export class TreeNode implements ITreeNode {
 
   expand() {
     if (!this.isExpanded) {
-      this.toggleExpanded();
+      return this.toggleExpanded();
     }
 
-    return this;
+    return Promise.resolve();
   }
 
   collapse() {
@@ -207,21 +207,22 @@ export class TreeNode implements ITreeNode {
   }
 
   toggleExpanded() {
-    this.setIsExpanded(!this.isExpanded);
-    this.fireEvent({ eventName: TREE_EVENTS.onToggle, warning: 'this event is deprecated, please use onToggleExpanded instead', node: this, isExpanded: this.isExpanded });
-    this.fireEvent({ eventName: TREE_EVENTS.onToggleExpanded, node: this, isExpanded: this.isExpanded });
-
-    return this;
+    return this.setIsExpanded(!this.isExpanded)
+      .then(() => {
+        this.fireEvent({ eventName: TREE_EVENTS.onToggle, warning: 'this event is deprecated, please use onToggleExpanded instead', node: this, isExpanded: this.isExpanded });
+        this.fireEvent({ eventName: TREE_EVENTS.onToggleExpanded, node: this, isExpanded: this.isExpanded });
+      });
   }
 
   setIsExpanded(value) {
     this.treeModel.setExpandedNode(this, value);
 
+    let promise = null;
     if (!this.children && this.hasChildren && value) {
-      this.loadChildren();
+      promise = this.loadChildren();
     }
 
-    return this;
+    return promise ? promise : Promise.resolve();
   };
 
   setIsActive(value, multi = false) {
