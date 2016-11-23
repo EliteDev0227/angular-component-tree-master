@@ -7,7 +7,9 @@ const actionMapping:IActionMapping = {
       $event.preventDefault();
       alert(`context menu for ${node.data.name}`);
     },
-    dblClick: TREE_ACTIONS.TOGGLE_EXPANDED,
+    dblClick: (tree, node, $event) => {
+      if (node.hasChildren) TREE_ACTIONS.TOGGLE_EXPANDED(tree, node, $event);
+    },
     click: (tree, node, $event) => {
       $event.shiftKey
         ? TREE_ACTIONS.TOGGLE_SELECTED_MULTI(tree, node, $event)

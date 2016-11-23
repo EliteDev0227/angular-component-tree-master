@@ -1,3 +1,8 @@
+<a name="2.0.0"></a>
+# 2.0.0 (2016-11-23)
+* Allow to change options object and immediately affect tree.
+* Breaking CSS change: added node-wrapper to HTML. Should only have an affect if you added custom CSS.
+
 <a name="1.3.6"></a>
 # 1.3.6 (2016-11-15)
 * Added onToggleExpanded Output

@@ -2,8 +2,9 @@ import { TreeNode } from './tree-node.model';
 import { TreeModel } from './tree.model';
 import { KEYS } from '../constants/keys';
 import { deprecated } from '../deprecated';
+import { ITreeOptions } from '../defs/api';
 
-import * as _ from 'lodash';
+import { defaultsDeep, get } from 'lodash';
 
 export interface IActionHandler {
   (tree:TreeModel, node:TreeNode, $event:any, ...rest);
@@ -63,34 +64,21 @@ export interface IActionMapping {
 }
 
 export class TreeOptions {
-  childrenField: string;
-  displayField: string;
-  idField: string;
-  isExpandedField:string;
-  isHiddenField:string;
-  treeNodeTemplate: any;
-  loadingComponent: any;
-  getChildren: any = null;
-  hasCustomContextMenu: boolean;
-  context: any;
-  actionMapping: any;
-  allowDrag: boolean;
+  get childrenField(): string { return this.options.childrenField || 'children'}
+  get displayField(): string { return this.options.displayField || 'name'}
+  get idField(): string { return this.options.idField || 'id'}
+  get isExpandedField(): string { return this.options.isExpandedField || 'isExpanded'}
+  get isHiddenField(): string { return this.options.isHiddenField || 'isHidden'}
+  get treeNodeTemplate(): any { return this.options.treeNodeTemplate }
+  get loadingComponent(): any { return this.options.loadingComponent }
+  get getChildren(): any { return this.options.getChildren }
+  get hasCustomContextMenu(): boolean { return this.options.hasCustomContextMenu }
+  get context(): any { return this.options.context }
+  get allowDrag(): boolean { return this.options.allowDrag }
+  actionMapping: IActionMapping;
 
-  constructor(options:any = {}) {
-    const optionsWithDefaults = _.defaultsDeep({}, options, {
-      childrenField: 'children',
-      displayField: 'name',
-      idField: 'id',
-      isExpandedField: 'isExpanded',
-      isHiddenField: 'isHidden',
-      getChildren: null,
-      hasCustomContextMenu: false,
-      context: null,
-      actionMapping: defaultActionMapping,
-      allowDrag: false
-    });
-
-    _.extend(this, optionsWithDefaults);
+  constructor(private options:ITreeOptions = {}) {
+    this.actionMapping = defaultsDeep(this.options.actionMapping, defaultActionMapping);
 
     if (options.hasCustomContextMenu) {
       deprecated('hasCustomContextMenu', 'actionMapping: mouse: contextMenu');
@@ -108,15 +96,15 @@ export class TreeOptions {
       deprecated('loadingComponent', 'a template in the content of the <Tree> component like this: <Tree><template #loadingTemplate>...</template></Tree>.  If you don\'t have time to update your code and don\'t need AoT compilation, use DeprecatedTreeModule');
     }
 
-    if (_.get(options, 'mouse.shift')) {
+    if (get(options, 'mouse.shift')) {
       deprecated('mouse.shift', '$event.shiftKey in click action instead');
     }
 
-    if (_.get(options, 'mouse.ctrl')) {
+    if (get(options, 'mouse.ctrl')) {
       deprecated('mouse.ctrl', '$event.ctrlKey in click action instead');
     }
 
-    if (_.get(options, 'mouse.alt')) {
+    if (get(options, 'mouse.alt')) {
       deprecated('mouse.alt', '$event.altKey in click action instead');
     }
   }

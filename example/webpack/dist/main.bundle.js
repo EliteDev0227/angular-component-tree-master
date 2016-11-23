@@ -17468,7 +17468,7 @@ webpackJsonp([2],{
 	"use strict";
 	var keys_1 = __webpack_require__(100);
 	var deprecated_1 = __webpack_require__(53);
-	var _ = __webpack_require__(64);
+	var lodash_1 = __webpack_require__(64);
 	exports.TREE_ACTIONS = {
 	    TOGGLE_SELECTED: function (tree, node, $event) { return node.toggleActivated(); },
 	    TOGGLE_SELECTED_MULTI: function (tree, node, $event) { return node.toggleActivated(true); },
@@ -17507,20 +17507,8 @@ webpackJsonp([2],{
 	var TreeOptions = (function () {
 	    function TreeOptions(options) {
 	        if (options === void 0) { options = {}; }
-	        this.getChildren = null;
-	        var optionsWithDefaults = _.defaultsDeep({}, options, {
-	            childrenField: 'children',
-	            displayField: 'name',
-	            idField: 'id',
-	            isExpandedField: 'isExpanded',
-	            isHiddenField: 'isHidden',
-	            getChildren: null,
-	            hasCustomContextMenu: false,
-	            context: null,
-	            actionMapping: defaultActionMapping,
-	            allowDrag: false
-	        });
-	        _.extend(this, optionsWithDefaults);
+	        this.options = options;
+	        this.actionMapping = lodash_1.defaultsDeep(this.options.actionMapping, defaultActionMapping);
 	        if (options.hasCustomContextMenu) {
 	            deprecated_1.deprecated('hasCustomContextMenu', 'actionMapping: mouse: contextMenu');
 	        }
@@ -17533,16 +17521,71 @@ webpackJsonp([2],{
 	        if (options.loadingComponent) {
 	            deprecated_1.deprecated('loadingComponent', 'a template in the content of the <Tree> component like this: <Tree><template #loadingTemplate>...</template></Tree>.  If you don\'t have time to update your code and don\'t need AoT compilation, use DeprecatedTreeModule');
 	        }
-	        if (_.get(options, 'mouse.shift')) {
+	        if (lodash_1.get(options, 'mouse.shift')) {
 	            deprecated_1.deprecated('mouse.shift', '$event.shiftKey in click action instead');
 	        }
-	        if (_.get(options, 'mouse.ctrl')) {
+	        if (lodash_1.get(options, 'mouse.ctrl')) {
 	            deprecated_1.deprecated('mouse.ctrl', '$event.ctrlKey in click action instead');
 	        }
-	        if (_.get(options, 'mouse.alt')) {
+	        if (lodash_1.get(options, 'mouse.alt')) {
 	            deprecated_1.deprecated('mouse.alt', '$event.altKey in click action instead');
 	        }
 	    }
+	    Object.defineProperty(TreeOptions.prototype, "childrenField", {
+	        get: function () { return this.options.childrenField || 'children'; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(TreeOptions.prototype, "displayField", {
+	        get: function () { return this.options.displayField || 'name'; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(TreeOptions.prototype, "idField", {
+	        get: function () { return this.options.idField || 'id'; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(TreeOptions.prototype, "isExpandedField", {
+	        get: function () { return this.options.isExpandedField || 'isExpanded'; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(TreeOptions.prototype, "isHiddenField", {
+	        get: function () { return this.options.isHiddenField || 'isHidden'; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(TreeOptions.prototype, "treeNodeTemplate", {
+	        get: function () { return this.options.treeNodeTemplate; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(TreeOptions.prototype, "loadingComponent", {
+	        get: function () { return this.options.loadingComponent; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(TreeOptions.prototype, "getChildren", {
+	        get: function () { return this.options.getChildren; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(TreeOptions.prototype, "hasCustomContextMenu", {
+	        get: function () { return this.options.hasCustomContextMenu; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(TreeOptions.prototype, "context", {
+	        get: function () { return this.options.context; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(TreeOptions.prototype, "allowDrag", {
+	        get: function () { return this.options.allowDrag; },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    return TreeOptions;
 	}());
 	exports.TreeOptions = TreeOptions;
@@ -17820,7 +17863,10 @@ webpackJsonp([2],{
 	            $event.preventDefault();
 	            alert("context menu for " + node.data.name);
 	        },
-	        dblClick: angular2_tree_component_1.TREE_ACTIONS.TOGGLE_EXPANDED,
+	        dblClick: function (tree, node, $event) {
+	            if (node.hasChildren)
+	                angular2_tree_component_1.TREE_ACTIONS.TOGGLE_EXPANDED(tree, node, $event);
+	        },
 	        click: function (tree, node, $event) {
 	            $event.shiftKey
 	                ? angular2_tree_component_1.TREE_ACTIONS.TOGGLE_SELECTED_MULTI(tree, node, $event)
@@ -18414,19 +18460,20 @@ webpackJsonp([2],{
 	            styles: [
 	                '.tree-children { padding-left: 20px }',
 	                ".node-content-wrapper {\n      display: inline-block;\n      padding: 2px 5px;\n      border-radius: 2px;\n      transition: background-color .15s,box-shadow .15s;\n    }",
-	                '.tree-node-active > .node-content-wrapper { background: #beebff }',
-	                '.tree-node-active.tree-node-focused > .node-content-wrapper { background: #beebff }',
-	                '.tree-node-focused > .node-content-wrapper { background: #e7f4f9 }',
+	                '.node-wrapper {display: flex; align-items: flex-start;}',
+	                '.tree-node-active > .node-wrapper > .node-content-wrapper { background: #beebff }',
+	                '.tree-node-active.tree-node-focused > .node-wrapper > .node-content-wrapper { background: #beebff }',
+	                '.tree-node-focused > .node-wrapper > .node-content-wrapper { background: #e7f4f9 }',
 	                '.node-content-wrapper:hover { background: #f7fbff }',
-	                '.tree-node-active > .node-content-wrapper, .tree-node-focused > .node-content-wrapper, .node-content-wrapper:hover { box-shadow: inset 0 0 1px #999; }',
+	                '.tree-node-active > .node-wrapper > .node-content-wrapper, .tree-node-focused > .node-content-wrapper, .node-content-wrapper:hover { box-shadow: inset 0 0 1px #999; }',
 	                '.node-content-wrapper.is-dragging-over { background: #ddffee; box-shadow: inset 0 0 1px #999; }',
-	                '.tree-node-expanded > .toggle-children-wrapper > .toggle-children { transform: rotate(90deg) }',
-	                '.tree-node-collapsed > .toggle-children-wrapper > .toggle-children { transform: rotate(0); }',
-	                ".toggle-children-wrapper {\n      padding: 5px 0 5px 1px;\n    }",
+	                '.tree-node-expanded > .node-wrapper > .toggle-children-wrapper > .toggle-children { transform: rotate(90deg) }',
+	                '.tree-node-collapsed > .node-wrapper > .toggle-children-wrapper > .toggle-children { transform: rotate(0); }',
+	                ".toggle-children-wrapper {\n      padding: 2px 3px 5px 1px;\n    }",
 	                ".toggle-children {\n        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABAhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJ1dWlkOjY1RTYzOTA2ODZDRjExREJBNkUyRDg4N0NFQUNCNDA3IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkYzRkRFQjcxODUzNTExRTU4RTQwRkQwODFEOUZEMEE3IiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkYzRkRFQjcwODUzNTExRTU4RTQwRkQwODFEOUZEMEE3IiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE1IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MTk5NzA1OGEtZDI3OC00NDZkLWE4ODgtNGM4MGQ4YWI1NzNmIiBzdFJlZjpkb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6YzRkZmQxMGMtY2NlNS0xMTc4LWE5OGQtY2NkZmM5ODk5YWYwIi8+IDxkYzp0aXRsZT4gPHJkZjpBbHQ+IDxyZGY6bGkgeG1sOmxhbmc9IngtZGVmYXVsdCI+Z2x5cGhpY29uczwvcmRmOmxpPiA8L3JkZjpBbHQ+IDwvZGM6dGl0bGU+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+5iogFwAAAGhJREFUeNpiYGBgKABigf///zOQg0EARH4A4gZyDIIZ8B/JoAJKDIDhB0CcQIkBRBtEyABkgxwoMQCGD6AbRKoBGAYxQgXIBRuZGKgAKPIC3QLxArnRSHZCIjspk52ZKMrOFBUoAAEGAKnq593MQAZtAAAAAElFTkSuQmCC');\n        height: 8px;\n        width: 9px;\n        background-size: contain;\n        display: inline-block;\n        position: relative;\n        background-repeat: no-repeat;\n        background-position: center;\n    }",
 	                ".toggle-children-placeholder {\n        display: inline-block;\n        height: 10px;\n        width: 10px;\n        position: relative;\n        top: 1px;\n    }"
 	            ],
-	            template: "\n    <div\n      *ngIf=\"!node.isHidden\"\n      class=\"tree-node tree-node-level-{{ node.level }}\"\n      [class.tree-node-expanded]=\"node.isExpanded && node.hasChildren\"\n      [class.tree-node-collapsed]=\"node.isCollapsed && node.hasChildren\"\n      [class.tree-node-leaf]=\"node.isLeaf\"\n      [class.tree-node-active]=\"node.isActive\"\n      [class.tree-node-focused]=\"node.isFocused\">\n\n      <TreeNodeDropSlot\n        *ngIf=\"nodeIndex === 0\"\n        [dropIndex]=\"nodeIndex\"\n        [node]=\"node.parent\"\n        ></TreeNodeDropSlot>\n\n      <span\n        *ngIf=\"node.hasChildren\"\n        class=\"toggle-children-wrapper\"\n        (click)=\"node.mouseAction('expanderClick', $event)\">\n\n        <span class=\"toggle-children\"></span>\n      </span>\n      <span\n        *ngIf=\"!node.hasChildren\"\n        class=\"toggle-children-placeholder\">\n      </span>\n      <div class=\"node-content-wrapper\"\n        #nodeContentWrapper\n        [class.is-dragging-over]=\"node.treeModel.isDraggingOver(this)\"\n        (click)=\"node.mouseAction('click', $event)\"\n        (dblclick)=\"node.mouseAction('dblClick', $event)\"\n        (contextmenu)=\"node.mouseAction('contextMenu', $event)\"\n        [draggable]=\"node.allowDrag()\"\n        (dragstart)=\"onDragStart($event)\"\n        (drop)=\"onDrop($event)\"\n        (dragend)=\"onDragEnd()\"\n        (dragover)=\"onDragOver($event)\"\n        (dragleave)=\"onDragLeave(nodeContentWrapper, $event)\"\n        >\n\n        <TreeNodeContent [node]=\"node\" [treeNodeContentTemplate]=\"treeNodeContentTemplate\"></TreeNodeContent>\n      </div>\n\n      <div class=\"tree-children\" *ngIf=\"node.isExpanded\">\n        <div *ngIf=\"node.children\">\n          <TreeNode\n            *ngFor=\"let node of node.children; let i = index\"\n            [node]=\"node\"\n            [nodeIndex]=\"i\"\n            [treeNodeContentTemplate]=\"treeNodeContentTemplate\"\n            [loadingTemplate]=\"loadingTemplate\">\n          </TreeNode>\n        </div>\n        <LoadingComponent\n          class=\"tree-node-loading\"\n          *ngIf=\"!node.children\"\n          [loadingTemplate]=\"loadingTemplate\"\n        ></LoadingComponent>\n      </div>\n      <TreeNodeDropSlot\n        [dropIndex]=\"nodeIndex + 1\"\n        [node]=\"node.parent\"\n        ></TreeNodeDropSlot>\n    </div>\n  "
+	            template: "\n    <div\n      *ngIf=\"!node.isHidden\"\n      class=\"tree-node tree-node-level-{{ node.level }}\"\n      [class.tree-node-expanded]=\"node.isExpanded && node.hasChildren\"\n      [class.tree-node-collapsed]=\"node.isCollapsed && node.hasChildren\"\n      [class.tree-node-leaf]=\"node.isLeaf\"\n      [class.tree-node-active]=\"node.isActive\"\n      [class.tree-node-focused]=\"node.isFocused\">\n\n      <TreeNodeDropSlot\n        *ngIf=\"nodeIndex === 0\"\n        [dropIndex]=\"nodeIndex\"\n        [node]=\"node.parent\"\n        ></TreeNodeDropSlot>\n\n        <div class=\"node-wrapper\">\n          <span\n            *ngIf=\"node.hasChildren\"\n            class=\"toggle-children-wrapper\"\n            (click)=\"node.mouseAction('expanderClick', $event)\">\n\n            <span class=\"toggle-children\"></span>\n          </span>\n          <span\n            *ngIf=\"!node.hasChildren\"\n            class=\"toggle-children-placeholder\">\n          </span>\n          <div class=\"node-content-wrapper\"\n            #nodeContentWrapper\n            [class.is-dragging-over]=\"node.treeModel.isDraggingOver(this)\"\n            (click)=\"node.mouseAction('click', $event)\"\n            (dblclick)=\"node.mouseAction('dblClick', $event)\"\n            (contextmenu)=\"node.mouseAction('contextMenu', $event)\"\n            [draggable]=\"node.allowDrag()\"\n            (dragstart)=\"onDragStart($event)\"\n            (drop)=\"onDrop($event)\"\n            (dragend)=\"onDragEnd()\"\n            (dragover)=\"onDragOver($event)\"\n            (dragleave)=\"onDragLeave(nodeContentWrapper, $event)\"\n            >\n\n            <TreeNodeContent [node]=\"node\" [treeNodeContentTemplate]=\"treeNodeContentTemplate\"></TreeNodeContent>\n          </div>\n        </div>\n\n      <div class=\"tree-children\" *ngIf=\"node.isExpanded\">\n        <div *ngIf=\"node.children\">\n          <TreeNode\n            *ngFor=\"let node of node.children; let i = index\"\n            [node]=\"node\"\n            [nodeIndex]=\"i\"\n            [treeNodeContentTemplate]=\"treeNodeContentTemplate\"\n            [loadingTemplate]=\"loadingTemplate\">\n          </TreeNode>\n        </div>\n        <LoadingComponent\n          class=\"tree-node-loading\"\n          *ngIf=\"!node.children\"\n          [loadingTemplate]=\"loadingTemplate\"\n        ></LoadingComponent>\n      </div>\n      <TreeNodeDropSlot\n        [dropIndex]=\"nodeIndex + 1\"\n        [node]=\"node.parent\"\n        ></TreeNodeDropSlot>\n    </div>\n  "
 	        }), 
 	        __metadata('design:paramtypes', [core_1.ElementRef])
 	    ], TreeNodeComponent);

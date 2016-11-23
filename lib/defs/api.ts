@@ -39,6 +39,22 @@ export interface ITreeOptions {
     * Allow drag and drop on the tree. Default: false
     */
    allowDrag?: boolean;
+   /**
+    * deprecated
+    */
+   treeNodeTemplate?: any;
+   /**
+    * deprecated
+    */
+   loadingComponent?: any;
+   /**
+    * deprecated
+    */
+   hasCustomContextMenu?: any;
+   /**
+    * deprecated
+    */
+   context?: any;
  }
 
 /**
