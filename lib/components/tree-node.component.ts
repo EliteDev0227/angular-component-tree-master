@@ -14,14 +14,14 @@ import { ITreeNodeTemplate } from './tree-node-content.component';
       transition: background-color .15s,box-shadow .15s;
     }`,
     '.node-wrapper {display: flex; align-items: flex-start;}',
-    '.tree-node-active > .node-content-wrapper { background: #beebff }',
-    '.tree-node-active.tree-node-focused > .node-content-wrapper { background: #beebff }',
-    '.tree-node-focused > .node-content-wrapper { background: #e7f4f9 }',
+    '.tree-node-active > .node-wrapper > .node-content-wrapper { background: #beebff }',
+    '.tree-node-active.tree-node-focused > .node-wrapper > .node-content-wrapper { background: #beebff }',
+    '.tree-node-focused > .node-wrapper > .node-content-wrapper { background: #e7f4f9 }',
     '.node-content-wrapper:hover { background: #f7fbff }',
-    '.tree-node-active > .node-content-wrapper, .tree-node-focused > .node-content-wrapper, .node-content-wrapper:hover { box-shadow: inset 0 0 1px #999; }',
+    '.tree-node-active > .node-wrapper > .node-content-wrapper, .tree-node-focused > .node-content-wrapper, .node-content-wrapper:hover { box-shadow: inset 0 0 1px #999; }',
     '.node-content-wrapper.is-dragging-over { background: #ddffee; box-shadow: inset 0 0 1px #999; }',
-    '.tree-node-expanded > .toggle-children-wrapper > .toggle-children { transform: rotate(90deg) }',
-    '.tree-node-collapsed > .toggle-children-wrapper > .toggle-children { transform: rotate(0); }',
+    '.tree-node-expanded > .node-wrapper > .toggle-children-wrapper > .toggle-children { transform: rotate(90deg) }',
+    '.tree-node-collapsed > .node-wrapper > .toggle-children-wrapper > .toggle-children { transform: rotate(0); }',
     `.toggle-children-wrapper {
       padding: 2px 0px 5px 1px;
     }`,
@@ -64,7 +64,7 @@ import { ITreeNodeTemplate } from './tree-node-content.component';
             *ngIf="node.hasChildren"
             class="toggle-children-wrapper"
             (click)="node.mouseAction('expanderClick', $event)">
-    
+
             <span class="toggle-children"></span>
           </span>
           <span
