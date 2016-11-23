@@ -22,8 +22,7 @@
     "build": "ngc",
     "example:webpack": "npm run build && cp -rf dist example/webpack/node_modules/angular2-tree-component/ && cd example/webpack && npm start",
     "example:systemjs": "npm run build && cp -rf dist example/systemjs/node_modules/angular2-tree-component/ && cd example/systemjs && npm start",
-    "example:webpack:build": "cd example/webpack && npm run build",
-    "prebuild": "typings install"
+    "example:webpack:build": "cd example/webpack && npm run build"
   },
   "files": [
     "dist/"
@@ -53,12 +52,19 @@
   "devDependencies": {
     "@angular/common": "^2.0.0",
     "@angular/compiler": "^2.0.0",
-    "@angular/compiler-cli": "^0.6.3",
+    "@angular/compiler-cli": "^2.0.0",
     "@angular/core": "^2.0.0",
     "@angular/http": "^2.0.0",
     "@angular/platform-browser": "^2.0.0",
     "@angular/platform-browser-dynamic": "^2.0.0",
     "@angular/platform-server": "^2.0.1",
+    "@types/angular2": "0.0.2",
+    "@types/core-js": "0.9.34",
+    "@types/jasmine": "2.5.38",
+    "@types/lodash": "4.14.40",
+    "@types/node": "^6.0.38",
+    "@types/rx": "2.5.34",
+    "@types/webpack": "^1.12.29",
     "rimraf": "^2.5.1",
     "typedoc": "^0.3.12",
     "typescript": "^2.0.3",
