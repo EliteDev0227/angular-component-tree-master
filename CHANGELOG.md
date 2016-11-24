@@ -1,3 +1,9 @@
+<a name="2.1.0"></a>
+# 2.1.0 (2016-11-24)
+* Added AoT metadata
+* Added CLI example
+* Fixed alignment of childless nodes. Again.
+
 <a name="2.0.1"></a>
 # 2.0.1 (2016-11-24)
 * Fixed alignment of childless nodes
