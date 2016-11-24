@@ -41,6 +41,7 @@ import { ITreeNodeTemplate } from './tree-node-content.component';
         width: 10px;
         position: relative;
         top: 1px;
+        padding-right: 5px;
     }`
   ],
   template: `
