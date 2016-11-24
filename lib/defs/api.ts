@@ -115,32 +115,37 @@ export interface ITreeNode {
 
   // traversing
   /**
+   * @param skipHidden whether to skip hidden nodes
    * @returns next sibling (or null)
    */
-  findNextSibling(): ITreeNode;
+  findNextSibling(skipHidden): ITreeNode;
   /**
+   * @param skipHidden whether to skip hidden nodes
    * @returns previous sibling (or null)
    */
-  findPreviousSibling(): ITreeNode;
+  findPreviousSibling(skipHidden): ITreeNode;
   /**
+   * @param skipHidden whether to skip hidden nodes
    * @returns first child (or null)
    */
-  getFirstChild(): ITreeNode;
+  getFirstChild(skipHidden): ITreeNode;
   /**
+   * @param skipHidden whether to skip hidden nodes
    * @returns last child (or null)
    */
-  getLastChild(): ITreeNode;
+  getLastChild(skipHidden): ITreeNode;
   /**
    * Finds the visually next node in the tree.
-   * @returns next node.
    * @param goInside whether to look for children or just siblings
+   * @returns next node.
    */
   findNextNode(goInside: boolean): ITreeNode;
   /**
    * Finds the visually previous node in the tree.
+   * @param skipHidden whether to skip hidden nodes
    * @returns previous node.
    */
-  findPreviousNode(): ITreeNode;
+  findPreviousNode(skipHidden): ITreeNode;
 
   // actions
   /**
@@ -162,7 +167,7 @@ export interface ITreeNode {
   /**
    * Activates / Deactivates the node (selects / deselects)
    */
-  toggleActivated();
+  toggleActivated(multi);
   /**
    * Focus on the node
    */
