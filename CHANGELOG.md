@@ -1,3 +1,7 @@
+<a name="2.0.1"></a>
+# 2.0.1 (2016-11-24)
+* Fixed alignment of childless nodes
+
 <a name="2.0.0"></a>
 # 2.0.0 (2016-11-23)
 * Allow to change options object and immediately affect tree.
