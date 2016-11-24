@@ -56,3 +56,4 @@ npm-debug.log
 *.swp
 
 /dist
+/compiled

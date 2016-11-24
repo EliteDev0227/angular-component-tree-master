@@ -13,10 +13,12 @@
   "exclude": [
     "example",
     "node_modules",
-    "dist",
-    "typings/main",
-    "typings/main.d.ts"
+    "compiled",
+    "dist"
   ],
   "compileOnSave": false,
-  "buildOnSave": false
+  "buildOnSave": false,
+  "angularCompilerOptions": {
+    "genDir": "compiled"
+  }
 }
