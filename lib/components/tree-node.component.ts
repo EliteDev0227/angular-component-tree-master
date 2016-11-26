@@ -1,5 +1,6 @@
 import { Component, Input, ElementRef, AfterViewInit, ViewEncapsulation, TemplateRef } from '@angular/core';
 import { TreeNode } from '../models/tree-node.model';
+import { TreeNodeDrag } from '../models/tree-node-drag.model';
 import { ITreeNodeTemplate } from './tree-node-content.component';
 
 @Component({
@@ -74,7 +75,7 @@ import { ITreeNodeTemplate } from './tree-node-content.component';
           </span>
           <div class="node-content-wrapper"
             #nodeContentWrapper
-            [class.is-dragging-over]="node.treeModel.isDraggingOver(this)"
+            [class.is-dragging-over]="treeNodeDrag.isDraggingOver(this)"
             (click)="node.mouseAction('click', $event)"
             (dblclick)="node.mouseAction('dblClick', $event)"
             (contextmenu)="node.mouseAction('contextMenu', $event)"
@@ -120,27 +121,36 @@ export class TreeNodeComponent implements AfterViewInit {
   @Input() treeNodeContentTemplate: TemplateRef<ITreeNodeTemplate>;
   @Input() loadingTemplate: TemplateRef<any>;
 
+  constructor(private elementRef: ElementRef, private treeNodeDrag: TreeNodeDrag) {
+  }
+
   // TODO: move to draggable directive
   onDragStart() {
-    setTimeout(() => this.node.treeModel.setDragNode({ node: this.node.parent, index: this.nodeIndex }), 30);
+    setTimeout(() => this.treeNodeDrag.setDragNode({ node: this.node.parent, index: this.nodeIndex }), 30);
   }
 
   onDragEnd() {
-    this.node.treeModel.setDragNode(null);
+    this.treeNodeDrag.setDragNode(null);
   }
 
   onDragOver($event) {
     $event.preventDefault();
-    this.node.treeModel.setDropLocation({ component: this, node: this.node, index: 0 });
+    this.treeNodeDrag.setDropLocation({ component: this, node: this.node, index: 0 });
   }
 
   onDrop($event) {
     $event.preventDefault();
-    this.node.mouseAction('drop', $event, { node: this.node, index: 0 });
+    this.node.mouseAction('drop', $event, {
+      from: this.treeNodeDrag.getDragNode(),
+      to: { node: this.node, index: 0 }
+    });
+
+    // this.treeNodeDrag.setDragNode(null);
+    this.treeNodeDrag.setDropLocation(null);
   }
 
   onDragLeave(nodeContentWrapper, $event) {
-    if (!this.node.treeModel.isDraggingOver(this)) return;
+    if (!this.treeNodeDrag.isDraggingOver(this)) return;
 
     const rect = nodeContentWrapper.getBoundingClientRect();
 
@@ -148,11 +158,8 @@ export class TreeNodeComponent implements AfterViewInit {
     if ($event.clientX < rect.left || $event.clientX > rect.right ||
         $event.clientY < rect.top || $event.clientY > rect.bottom) {
 
-      this.node.treeModel.setDropLocation(null);
+      this.treeNodeDrag.setDropLocation(null);
     }
-  }
-
-  constructor(private elementRef: ElementRef) {
   }
 
   ngAfterViewInit() {

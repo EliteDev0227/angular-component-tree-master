@@ -147,6 +147,11 @@ export interface ITreeNode {
    */
   findPreviousNode(skipHidden): ITreeNode;
 
+  /**
+   * @returns      true if this node is a descendant of the parameter node
+   */
+  isDescendantOf(node:ITreeNode):boolean;
+
   // actions
   /**
    * Expands / Collapses the node
@@ -265,10 +270,30 @@ export interface ITreeModel {
    */
   moveNode(location:{ from:{node:ITreeNode, index:number}, to:{node:ITreeNode, index:number} });
 
+}
+
+/**
+ * This is the interface of the TreeNodeDrag service
+ */
+export interface ITreeNodeDrag {
   /**
    * Gets the current dragged node. Useful for overriding the drop action.
    * @param node  The parent node of the current dragged node
    * @param index  The index inside parent's children, of the current dragged node
    */
   getDragNode():{ node: ITreeNode, index:number };
+}
+/**
+* Interface for describing a node's location inside its parent.
+* Used in moveNode and drag and drop.
+*/
+export interface ITreeNodeLocation {
+  /**
+   * Parent node
+   */
+  node: ITreeNode;
+  /**
+   * Index inside parent
+   */
+  index: number;
 }

@@ -2,12 +2,12 @@ import { Injectable, Component, Input, EventEmitter, TemplateRef } from '@angula
 import { ITreeNodeTemplate } from '../components/tree-node-content.component';
 import { TreeNode } from './tree-node.model';
 import { TreeOptions } from './tree-options.model';
-import { ITreeModel } from '../defs/api';
+import { ITreeModel, ITreeNodeLocation } from '../defs/api';
 import { TREE_EVENTS } from '../constants/events';
 
 import { deprecated } from '../deprecated';
 
-import * as _ from 'lodash';
+import { first, last, compact, find, includes, remove, indexOf, pullAt, isString, isFunction } from 'lodash';
 
 @Injectable()
 export class TreeModel implements ITreeModel {
@@ -20,8 +20,6 @@ export class TreeModel implements ITreeModel {
   activeNodes: TreeNode[];
   _focusedNode: TreeNode = null;
   focusedNodeId: string = null;
-  _dragNode: { node: TreeNode, index: number } = null;
-  _dropLocation:{ component:any, node: TreeNode, index: number } = null;
   static focusedTree = null;
   private events: any;
   virtualRoot: TreeNode;
@@ -116,11 +114,11 @@ export class TreeModel implements ITreeModel {
   }
 
   getFirstRoot(skipHidden = false) {
-    return _.first(skipHidden ? this.getVisibleRoots() : this.roots);
+    return first(skipHidden ? this.getVisibleRoots() : this.roots);
   }
 
   getLastRoot(skipHidden = false) {
-    return _.last(skipHidden ? this.getVisibleRoots() : this.roots);
+    return last(skipHidden ? this.getVisibleRoots() : this.roots);
   }
 
   get isFocused() {
@@ -167,12 +165,12 @@ export class TreeModel implements ITreeModel {
     this.expandedNodes = Object.keys(this.expandedNodeIds)
       .filter((id) => this.expandedNodeIds[id])
       .map((id) => this.getNodeById(id))
-    this.expandedNodes = _.compact(this.expandedNodes);
+    this.expandedNodes = compact(this.expandedNodes);
 
     this.activeNodes = Object.keys(this.activeNodeIds)
       .filter((id) => this.expandedNodeIds[id])
       .map((id) => this.getNodeById(id))
-    this.activeNodes = _.compact(this.activeNodes);
+    this.activeNodes = compact(this.activeNodes);
   }
 
   getNodeByPath(path, startNode=null):TreeNode {
@@ -184,7 +182,7 @@ export class TreeModel implements ITreeModel {
     if (!startNode.children) return null;
 
     const childId = path.shift();
-    const childNode = _.find(startNode.children, { [this.options.idField]: childId });
+    const childNode = find(startNode.children, { [this.options.idField]: childId });
 
     if (!childNode) return null;
 
@@ -200,7 +198,7 @@ export class TreeModel implements ITreeModel {
 
     if (!startNode.children) return null;
 
-    const found = _.find(startNode.children, predicate);
+    const found = find(startNode.children, predicate);
 
     if (found) { // found in children
       return found;
@@ -297,12 +295,12 @@ export class TreeModel implements ITreeModel {
   _setActiveNodeMulti(node, value) {
     this.activeNodeIds[node.id] = value;
     if (value) {
-      if (!_.includes(this.activeNodes, node)) {
+      if (!includes(this.activeNodes, node)) {
         this.activeNodes.push(node);
       }
     } else {
-      if (_.includes(this.activeNodes, node)) {
-        _.remove(this.activeNodes, node);
+      if (includes(this.activeNodes, node)) {
+        remove(this.activeNodes, node);
       }
     }
   }
@@ -312,10 +310,10 @@ export class TreeModel implements ITreeModel {
   }
 
   setExpandedNode(node, value) {
-    const index = _.indexOf(this.expandedNodes, node);
+    const index = indexOf(this.expandedNodes, node);
 
     if (value && !index) this.expandedNodes.push(node);
-    else if (index) _.pullAt(this.expandedNodes, index);
+    else if (index) pullAt(this.expandedNodes, index);
 
     this.expandedNodeIds[node.id] = value;
   }
@@ -338,10 +336,10 @@ export class TreeModel implements ITreeModel {
       return this.clearFilter();
     }
 
-    if (_.isString(filter)) {
+    if (isString(filter)) {
       filterFn = (node) => node.displayField.toLowerCase().indexOf(filter.toLowerCase()) != -1
     }
-    else if (_.isFunction(filter)) {
+    else if (isFunction(filter)) {
        filterFn = filter;
     }
     else {
@@ -355,7 +353,7 @@ export class TreeModel implements ITreeModel {
     this.roots.forEach((node) => node.clearFilter());
   }
 
-  canMoveNode({ from, to }) {
+  canMoveNode({ from, to }:{from:ITreeNodeLocation, to:ITreeNodeLocation}) {
     // same node:
     if (from.node === to.node && from.index === to.index) {
       return false;
@@ -388,35 +386,5 @@ export class TreeModel implements ITreeModel {
     this.update();
 
     this.fireEvent({ eventName: TREE_EVENTS.onMoveNode, node, to });
-  }
-
-  // TODO: move to a different service:
-  setDragNode(dragNode:{ node: TreeNode, index:number }) {
-    this._dragNode = dragNode;
-  }
-
-  getDragNode():{ node: TreeNode, index:number } {
-    return this._dragNode || { node:null, index: null };
-  }
-
-  isDragging() {
-    return this.getDragNode().node;
-  }
-
-  setDropLocation(dropLocation: { component: any, node: TreeNode, index: number }) {
-    this._dropLocation = dropLocation;
-  }
-
-  getDropLocation(): { component: any, node: TreeNode, index: number } {
-    return this._dropLocation || {component: null, node: null, index: null};
-  }
-
-  isDraggingOver(component) {
-    return this.getDropLocation().component === component;
-  }
-
-  cancelDrag() {
-    this.setDropLocation(null);
-    this.setDragNode(null);
   }
 }

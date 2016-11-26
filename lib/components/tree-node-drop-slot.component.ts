@@ -1,5 +1,6 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { TreeNode } from '../models/tree-node.model';
+import { TreeNodeDrag } from '../models/tree-node-drag.model';
 
 @Component({
   selector: 'TreeNodeDropSlot',
@@ -11,7 +12,7 @@ import { TreeNode } from '../models/tree-node.model';
   template: `
     <div
       class="node-drop-slot"
-      [class.is-dragging-over]="node.treeModel.isDraggingOver(this)"
+      [class.is-dragging-over]="treeNodeDrag.isDraggingOver(this)"
       (drop)="onDrop($event)"
       (dragover)="onDragOver($event)"
       (dragleave)="onDragLeave()"
@@ -23,19 +24,26 @@ export class TreeNodeDropSlot {
   @Input() node: TreeNode;
   @Input() dropIndex: number;
 
+  constructor(private treeNodeDrag: TreeNodeDrag) {
+  }
+
   onDragOver($event) {
     $event.preventDefault();
-    this.node.treeModel.setDropLocation({ component: this, node: this.node, index: this.dropIndex });
+    this.treeNodeDrag.setDropLocation({ component: this, node: this.node, index: this.dropIndex });
   }
 
   onDragLeave() {
-    if (this.node.treeModel.isDraggingOver(this)) {
-      this.node.treeModel.setDropLocation(null);
+    if (this.treeNodeDrag.isDraggingOver(this)) {
+      this.treeNodeDrag.setDropLocation(null);
     }
   }
 
   onDrop($event) {
     $event.preventDefault();
-    this.node.mouseAction('drop', $event, { node: this.node, index: this.dropIndex });
+    this.node.mouseAction('drop', $event, {
+      from: this.treeNodeDrag.getDragNode(),
+      to: { node: this.node, index: this.dropIndex }
+    });
+    this.treeNodeDrag.setDropLocation(null);
   }
 }

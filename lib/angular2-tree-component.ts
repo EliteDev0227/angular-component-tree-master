@@ -6,6 +6,7 @@ import { ITreeOptions } from './defs/api';
 import { KEYS } from './constants/keys';
 import { TreeModel } from './models/tree.model';
 import { TreeNode } from './models/tree-node.model';
+import { TreeNodeDrag } from './models/tree-node-drag.model';
 import { LoadingComponent } from './components/loading.component';
 import { LoadingComponent as DeprecatedLoadingComponent } from './components/deprecated-loading.component';
 import { TreeComponent } from './components/tree.component';
@@ -21,6 +22,7 @@ import { deprecated } from './deprecated';
 export {
   TreeModel,
   TreeNode,
+  TreeNodeDrag,
   ITreeOptions,
   TREE_ACTIONS,
   KEYS,
@@ -47,6 +49,9 @@ export {
   imports: [
     CommonModule,
   ],
+  providers: [
+    TreeNodeDrag
+  ]
 })
 export class TreeModule {}
 @NgModule({
@@ -63,6 +68,7 @@ export class TreeModule {}
   ],
   providers: [
     AdHocComponentFactoryCreator,
+    TreeNodeDrag
   ],
 })
 export class DeprecatedTreeModule {

@@ -293,11 +293,6 @@ export class TreeNode implements ITreeNode {
         this.fireEvent({ eventName: TREE_EVENTS.onDoubleClick, warning: 'This event is deprecated, please use actionMapping to handle double clicks', node: this, rawEvent: $event });
       }
     }
-
-    // TODO: move to the action itself:
-    if (actionName === 'drop') {
-      this.treeModel.cancelDrag();
-    }
   }
 
   _initChildren() {

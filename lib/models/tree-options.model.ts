@@ -2,7 +2,7 @@ import { TreeNode } from './tree-node.model';
 import { TreeModel } from './tree.model';
 import { KEYS } from '../constants/keys';
 import { deprecated } from '../deprecated';
-import { ITreeOptions } from '../defs/api';
+import { ITreeOptions, ITreeNodeLocation } from '../defs/api';
 
 import { defaultsDeep, get } from 'lodash';
 
@@ -23,8 +23,8 @@ export const TREE_ACTIONS = {
   DRILL_UP: (tree:TreeModel, node:TreeNode, $event:any) => tree.focusDrillUp(),
   NEXT_NODE: (tree:TreeModel, node:TreeNode, $event:any) =>  tree.focusNextNode(),
   PREVIOUS_NODE: (tree:TreeModel, node:TreeNode, $event:any) =>  tree.focusPreviousNode(),
-  MOVE_NODE: (tree:TreeModel, node:TreeNode, $event:any, to:{ node:TreeNode, index: number }) => {
-    tree.moveNode({ from: tree.getDragNode(), to });
+  MOVE_NODE: (tree:TreeModel, node:TreeNode, $event:any, {from , to}:{from:ITreeNodeLocation, to:ITreeNodeLocation}) => {
+    tree.moveNode({ from, to });
   }
 }
 
