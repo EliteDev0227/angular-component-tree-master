@@ -1,7 +1,7 @@
 import { Component, Input, Output, OnChanges, SimpleChange, EventEmitter, ViewEncapsulation, ContentChild, TemplateRef } from '@angular/core';
 import { ITreeNodeTemplate } from './tree-node-content.component';
 import { TreeModel } from '../models/tree.model';
-import { TreeNodeDrag } from '../models/tree-node-drag.model';
+import { TreeDraggedElement } from '../models/tree-dragged-element.model';
 import { TreeOptions } from '../models/tree-options.model';
 import { KEYS } from '../constants/keys';
 
@@ -29,7 +29,7 @@ import * as _ from 'lodash'
     }`
   ],
   template: `
-    <div class="tree" [class.node-dragging]="treeNodeDrag.isDragging()">
+    <div class="tree" [class.node-dragging]="treeDraggedElement.isDragging()">
       <TreeNode
         *ngFor="let node of treeModel.roots; let i = index"
         [node]="node"
@@ -41,7 +41,7 @@ import * as _ from 'lodash'
   `
 })
 export class TreeComponent implements OnChanges {
-  constructor(public treeModel:TreeModel, public treeNodeDrag:TreeNodeDrag) {
+  constructor(public treeModel:TreeModel, public treeDraggedElement:TreeDraggedElement) {
     treeModel.eventNames.forEach((name) => this[name] = new EventEmitter());
   }
 

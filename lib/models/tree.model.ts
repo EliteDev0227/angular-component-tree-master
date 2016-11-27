@@ -383,7 +383,10 @@ export class TreeModel implements ITreeModel {
 
     toChildren.splice(toIndex, 0, node);
 
-    this.update();
+    from.node.treeModel.update();
+    if (to.node.treeModel !== from.node.treeModel) {
+      to.node.treeModel.update();
+    }
 
     this.fireEvent({ eventName: TREE_EVENTS.onMoveNode, node, to });
   }
