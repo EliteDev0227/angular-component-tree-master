@@ -1,3 +1,9 @@
+<a name="2.2.0"></a>
+# 2.2.0 (2016-11-27)
+* Allow drag between trees
+* Made treeDrop directive for dragging outside tree
+* Made treeDrag directive for dragging external elements into the tree
+
 <a name="2.1.0"></a>
 # 2.1.0 (2016-11-24)
 * Added AoT metadata
