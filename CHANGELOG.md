@@ -1,3 +1,8 @@
+<a name="2.4.0"></a>
+# 2.4.0 (2016-11-28)
+* Added levelPadding option
+* Fix bug - async children isExpanded field is taken into account
+
 <a name="2.3.0"></a>
 # 2.3.0 (2016-11-28)
 * Breaking change - changed drop action from parameter, to be just the node, without parent & index
