@@ -40,6 +40,10 @@ export interface ITreeOptions {
     */
    allowDrag?: boolean;
    /**
+   * Specify padding per node instead of children padding (to allow full row select for example)
+   */
+   levelPadding?: number;
+   /**
     * deprecated
     */
    treeNodeTemplate?: any;

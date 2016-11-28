@@ -76,6 +76,7 @@ export class TreeOptions {
   get hasCustomContextMenu(): boolean { return this.options.hasCustomContextMenu }
   get context(): any { return this.options.context }
   get allowDrag(): boolean { return this.options.allowDrag }
+  get levelPadding(): number { return this.options.levelPadding || 0 }
   actionMapping: IActionMapping;
 
   constructor(private options:ITreeOptions = {}) {

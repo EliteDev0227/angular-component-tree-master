@@ -6,6 +6,7 @@ import { ITreeNodeTemplate } from './tree-node-content.component';
   selector: 'TreeNode',
   encapsulation: ViewEncapsulation.None,
   styles: [
+    '.tree-children.tree-children-no-padding { padding-left: 0 }',
     '.tree-children { padding-left: 20px }',
     `.node-content-wrapper {
       display: inline-block;
@@ -60,7 +61,7 @@ import { ITreeNodeTemplate } from './tree-node-content.component';
         [node]="node.parent"
         ></TreeNodeDropSlot>
 
-        <div class="node-wrapper">
+        <div class="node-wrapper" [style.padding-left]="getNodePadding()">
           <span
             *ngIf="node.hasChildren"
             class="toggle-children-wrapper"
@@ -85,7 +86,9 @@ import { ITreeNodeTemplate } from './tree-node-content.component';
           </div>
         </div>
 
-      <div class="tree-children" *ngIf="node.isExpanded">
+      <div [class.tree-children]="true"
+           [class.tree-children-no-padding]="node.options.levelPadding"
+           *ngIf="node.isExpanded">
         <div *ngIf="node.children">
           <TreeNode
             *ngFor="let node of node.children; let i = index"
@@ -96,6 +99,7 @@ import { ITreeNodeTemplate } from './tree-node-content.component';
           </TreeNode>
         </div>
         <LoadingComponent
+          [style.padding-left]="getNodePadding()"
           class="tree-node-loading"
           *ngIf="!node.children"
           [loadingTemplate]="loadingTemplate"
@@ -123,6 +127,10 @@ export class TreeNodeComponent implements AfterViewInit {
       from: $event.element,
       to: { parent: this.node, index: 0 }
     });
+  }
+
+  getNodePadding() {
+    return this.node.options.levelPadding * (this.node.level - 1) + 'px';
   }
 
   ngAfterViewInit() {
