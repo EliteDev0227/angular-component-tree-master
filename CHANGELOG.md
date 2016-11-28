@@ -1,3 +1,9 @@
+<a name="2.3.0"></a>
+# 2.3.0 (2016-11-28)
+* Breaking change - changed drop action from parameter, to be just the node, without parent & index
+* Breaking change - changed moveNode API to accept just the node, without parent & index
+* Breaking change - changed onMoveNode event to include the original nodes instead of TreeNode
+
 <a name="2.2.0"></a>
 # 2.2.0 (2016-11-27)
 * Allow drag between trees
