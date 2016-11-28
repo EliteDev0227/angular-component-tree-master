@@ -144,6 +144,12 @@ export class TreeNode implements ITreeNode {
         if (children) {
           this.setField('children', children);
           this._initChildren();
+          this.children.forEach((child) => {
+            if (child.getField('isExpanded') && child.hasChildren) {
+              child.expand();
+            }
+          });
+
         }
       });
   }
