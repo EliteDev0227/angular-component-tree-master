@@ -2,7 +2,7 @@ import { TreeNode } from './tree-node.model';
 import { TreeModel } from './tree.model';
 import { KEYS } from '../constants/keys';
 import { deprecated } from '../deprecated';
-import { ITreeOptions, ITreeNodeLocation } from '../defs/api';
+import { ITreeOptions } from '../defs/api';
 
 import { defaultsDeep, get } from 'lodash';
 
@@ -16,15 +16,16 @@ export const TREE_ACTIONS = {
   SELECT: (tree:TreeModel, node:TreeNode, $event:any) => node.setIsActive(true),
   DESELECT: (tree:TreeModel, node:TreeNode, $event:any) => node.setIsActive(false),
   FOCUS: (tree:TreeModel, node:TreeNode, $event:any) => node.focus(),
-  TOGGLE_EXPANDED: (tree:TreeModel, node:TreeNode, $event:any) => node.toggleExpanded(),
+  TOGGLE_EXPANDED: (tree:TreeModel, node:TreeNode, $event:any) => node.hasChildren && node.toggleExpanded(),
   EXPAND: (tree:TreeModel, node:TreeNode, $event:any) => node.expand(),
   COLLAPSE: (tree:TreeModel, node:TreeNode, $event:any) => node.collapse(),
   DRILL_DOWN: (tree:TreeModel, node:TreeNode, $event:any) => tree.focusDrillDown(),
   DRILL_UP: (tree:TreeModel, node:TreeNode, $event:any) => tree.focusDrillUp(),
   NEXT_NODE: (tree:TreeModel, node:TreeNode, $event:any) =>  tree.focusNextNode(),
   PREVIOUS_NODE: (tree:TreeModel, node:TreeNode, $event:any) =>  tree.focusPreviousNode(),
-  MOVE_NODE: (tree:TreeModel, node:TreeNode, $event:any, {from , to}:{from:ITreeNodeLocation, to:ITreeNodeLocation}) => {
-    tree.moveNode({ from, to });
+  MOVE_NODE: (tree:TreeModel, node:TreeNode, $event:any, {from , to}:{from:any, to:any}) => {
+    // default action assumes from = node, to = {parent, index}
+    tree.moveNode(from, to);
   }
 }
 

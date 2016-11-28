@@ -32,16 +32,17 @@ Please refer to the full documentation:
 git clone https://github.com/500tech/angular2-tree-component
 ```
 
+### Using the CLI:
+```
+cd angular2-tree-component/example/cli
+npm install
+npm install -g angular-cli
+ng serve
+```
+
 ### Using webpack:
 ```
 cd angular2-tree-component/example/webpack
-npm install
-npm start
-```
-
-### Using systemjs:
-```
-cd angular2-tree-component/example/systemjs
 npm install
 npm start
 ```
@@ -79,6 +80,6 @@ Some things on our mind down the road:
 ## Contributing
 There are currently no unit tests (yet).
 
-However, if you wish to contribute code, you can run `npm run example:webpack` and open localhost:3000 to test your code manually before submitting a pull request.
+However, if you wish to contribute code, you can run `npm run example:cli` and open [localhost:4200](http://localhost:4200) to test your code manually before submitting a pull request.
 
 Please email me at adam@500tech.com before starting to work on a feature / bug to make sure it's something that I'm not working on already.

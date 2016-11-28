@@ -2,7 +2,7 @@ import { Injectable, Component, Input, EventEmitter, TemplateRef } from '@angula
 import { ITreeNodeTemplate } from '../components/tree-node-content.component';
 import { TreeNode } from './tree-node.model';
 import { TreeOptions } from './tree-options.model';
-import { ITreeModel, ITreeNodeLocation } from '../defs/api';
+import { ITreeModel } from '../defs/api';
 import { TREE_EVENTS } from '../constants/events';
 
 import { deprecated } from '../deprecated';
@@ -353,41 +353,41 @@ export class TreeModel implements ITreeModel {
     this.roots.forEach((node) => node.clearFilter());
   }
 
-  canMoveNode({ from, to }:{from:ITreeNodeLocation, to:ITreeNodeLocation}) {
+  private _canMoveNode(node, fromIndex, to) {
     // same node:
-    if (from.node === to.node && from.index === to.index) {
+    if (node.parent === to.parent && fromIndex === to.index) {
       return false;
     }
 
-    const fromChildren = from.node.children;
-    const fromNode = fromChildren[from.index];
-
-    return !to.node.isDescendantOf(fromNode);
+    return !to.parent.isDescendantOf(node);
   }
 
-  moveNode({ from, to }) {
-    if (!this.canMoveNode({ from , to })) return;
+  moveNode(node, to) {
+    const fromIndex = node.getIndexInParent();
+    const fromParent = node.parent;
 
-    const fromChildren = from.node.getField('children');
+    if (!this._canMoveNode(node, fromIndex , to)) return;
+
+    const fromChildren = fromParent.getField('children');
 
     // If node doesn't have children - create children array
-    if (!to.node.getField('children')) {
-      to.node.setField('children', []);
+    if (!to.parent.getField('children')) {
+      to.parent.setField('children', []);
     }
-    const toChildren = to.node.getField('children');
+    const toChildren = to.parent.getField('children');
 
-    const node = fromChildren.splice(from.index, 1)[0];
+    const originalNode = fromChildren.splice(fromIndex, 1)[0];
 
     // Compensate for index if already removed from parent:
-    let toIndex = (from.node === to.node && to.index > from.index) ? to.index - 1 : to.index;
+    let toIndex = (fromParent === to.parent && to.index > fromIndex) ? to.index - 1 : to.index;
 
-    toChildren.splice(toIndex, 0, node);
+    toChildren.splice(toIndex, 0, originalNode);
 
-    from.node.treeModel.update();
-    if (to.node.treeModel !== from.node.treeModel) {
-      to.node.treeModel.update();
+    fromParent.treeModel.update();
+    if (to.parent.treeModel !== fromParent.treeModel) {
+      to.parent.treeModel.update();
     }
 
-    this.fireEvent({ eventName: TREE_EVENTS.onMoveNode, node, to });
+    this.fireEvent({ eventName: TREE_EVENTS.onMoveNode, node: originalNode, to: { parent: to.parent.data, index: toIndex } });
   }
 }

@@ -8,12 +8,13 @@ const DRAG_OVER_CLASS = 'is-dragging-over';
 })
 export class TreeDragDirective implements DoCheck {
   @Input('treeDrag') draggedElement;
+  @Input() treeDragEnabled;
 
   constructor(private el: ElementRef, private renderer: Renderer, private treeDraggedElement:TreeDraggedElement) {
   }
 
   ngDoCheck() {
-    this.renderer.setElementAttribute(this.el.nativeElement, 'draggable', this.draggedElement ? "true" : "false");
+    this.renderer.setElementAttribute(this.el.nativeElement, 'draggable', this.treeDragEnabled ? "true" : "false");
   }
 
   @HostListener('dragstart') onDragStart() {

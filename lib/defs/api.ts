@@ -268,7 +268,7 @@ export interface ITreeModel {
    * @param location  has a from and a to attributes, each has a node and index attributes.
      The combination of node + index tells which node needs to be moved, and to where
    */
-  moveNode(location:{ from:{node:ITreeNode, index:number}, to:{node:ITreeNode, index:number} });
+  moveNode(node:ITreeNode, to:{node:ITreeNode, index:number});
 
 }
 
@@ -282,18 +282,4 @@ export interface ITreeNodeDrag {
    * @param index  The index inside parent's children, of the current dragged node
    */
   getDragNode():{ node: ITreeNode, index:number };
-}
-/**
-* Interface for describing a node's location inside its parent.
-* Used in moveNode and drag and drop.
-*/
-export interface ITreeNodeLocation {
-  /**
-   * Parent node
-   */
-  node: ITreeNode;
-  /**
-   * Index inside parent
-   */
-  index: number;
 }

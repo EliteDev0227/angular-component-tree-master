@@ -78,8 +78,8 @@ import { ITreeNodeTemplate } from './tree-node-content.component';
             (dblclick)="node.mouseAction('dblClick', $event)"
             (contextmenu)="node.mouseAction('contextMenu', $event)"
             (treeDrop)="onDrop($event)"
-            [treeDrag]="node.allowDrag() && {node: node, parent: node.parent, index: nodeIndex}"
-            >
+            [treeDrag]="node"
+            [treeDragEnabled]="node.allowDrag()">
 
             <TreeNodeContent [node]="node" [treeNodeContentTemplate]="treeNodeContentTemplate"></TreeNodeContent>
           </div>
@@ -120,8 +120,8 @@ export class TreeNodeComponent implements AfterViewInit {
 
   onDrop($event) {
     this.node.mouseAction('drop', $event.event, {
-      from: { node: $event.element.parent, index: $event.element.index },
-      to: { node: this.node, index: 0 }
+      from: $event.element,
+      to: { parent: this.node, index: 0 }
     });
   }
 

@@ -69,7 +69,7 @@ export class TreeNode implements ITreeNode {
 
   // traversing:
   _findAdjacentSibling(steps, skipHidden = false) {
-    const index = this._getIndexInParent(skipHidden);
+    const index = this.getIndexInParent(skipHidden);
     return this._getParentsChildren(skipHidden)[index + steps];
   }
 
@@ -125,7 +125,7 @@ export class TreeNode implements ITreeNode {
     return children || [];
   }
 
-  private _getIndexInParent(skipHidden = false) {
+  private getIndexInParent(skipHidden = false) {
     return this._getParentsChildren(skipHidden).indexOf(this);
   }
 

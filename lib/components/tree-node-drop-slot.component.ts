@@ -25,8 +25,8 @@ export class TreeNodeDropSlot {
 
   onDrop($event) {
     this.node.mouseAction('drop', $event.event, {
-      from: { node: $event.element.parent, index: $event.element.index },
-      to: { node: this.node, index: this.dropIndex }
+      from: $event.element,
+      to: { parent: this.node, index: this.dropIndex }
     });
   }
 }
