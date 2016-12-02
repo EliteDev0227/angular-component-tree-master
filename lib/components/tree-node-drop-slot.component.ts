@@ -12,7 +12,8 @@ import { TreeDraggedElement } from '../models/tree-dragged-element.model';
   template: `
     <div
       class="node-drop-slot"
-      (treeDrop)="onDrop($event)">
+      (treeDrop)="onDrop($event)"
+      [treeAllowDrop]="allowDrop.bind(this)">
     </div>
   `
 })
@@ -28,5 +29,9 @@ export class TreeNodeDropSlot {
       from: $event.element,
       to: { parent: this.node, index: this.dropIndex }
     });
+  }
+
+  allowDrop(element) {
+    return this.node.options.allowDrop(element, { parent: this.node, index: this.dropIndex });
   }
 }

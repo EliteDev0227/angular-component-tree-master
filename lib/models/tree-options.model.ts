@@ -110,4 +110,12 @@ export class TreeOptions {
       deprecated('mouse.alt', '$event.altKey in click action instead');
     }
   }
+  allowDrop(element, to):boolean {
+    if (this.options.allowDrop instanceof Function) {
+      return this.options.allowDrop(element, to);
+    }
+    else {
+      return this.options.allowDrop === undefined ? true : this.options.allowDrop;
+    }
+  }
 }

@@ -1,3 +1,8 @@
+<a name="2.5.0"></a>
+# 2.5.0 (2016-12-01)
+* Added treeAllowDrop to treeDrop directive
+* Added option allowDrop
+
 <a name="2.4.0"></a>
 # 2.4.0 (2016-11-28)
 * Added levelPadding option

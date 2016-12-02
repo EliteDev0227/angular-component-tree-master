@@ -21,6 +21,7 @@ import { ITreeNodeTemplate } from './tree-node-content.component';
     '.node-content-wrapper:hover { background: #f7fbff }',
     '.tree-node-active > .node-wrapper > .node-content-wrapper, .tree-node-focused > .node-content-wrapper, .node-content-wrapper:hover { box-shadow: inset 0 0 1px #999; }',
     '.node-content-wrapper.is-dragging-over { background: #ddffee; box-shadow: inset 0 0 1px #999; }',
+    '.node-content-wrapper.is-dragging-over-disabled { opacity: 0.5 }',
     '.tree-node-expanded > .node-wrapper > .toggle-children-wrapper > .toggle-children { transform: rotate(90deg) }',
     '.tree-node-collapsed > .node-wrapper > .toggle-children-wrapper > .toggle-children { transform: rotate(0); }',
     `.toggle-children-wrapper {
@@ -79,6 +80,7 @@ import { ITreeNodeTemplate } from './tree-node-content.component';
             (dblclick)="node.mouseAction('dblClick', $event)"
             (contextmenu)="node.mouseAction('contextMenu', $event)"
             (treeDrop)="onDrop($event)"
+            [treeAllowDrop]="allowDrop.bind(this)"
             [treeDrag]="node"
             [treeDragEnabled]="node.allowDrag()">
 
@@ -127,6 +129,10 @@ export class TreeNodeComponent implements AfterViewInit {
       from: $event.element,
       to: { parent: this.node, index: 0 }
     });
+  }
+
+  allowDrop(element) {
+    return this.node.options.allowDrop(element, { parent: this.node, index: 0 });
   }
 
   getNodePadding() {
