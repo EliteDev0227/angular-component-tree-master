@@ -1,3 +1,7 @@
+<a name="2.5.1"></a>
+# 2.5.1 (2016-12-21)
+* Updated PeerDeps to allow for Angular 2.3
+
 <a name="2.5.0"></a>
 # 2.5.0 (2016-12-01)
 * Added treeAllowDrop to treeDrop directive

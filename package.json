@@ -1,6 +1,6 @@
 {
   "name": "angular2-tree-component",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "description": "A simple yet powerful tree component for Angular2",
   "author": "Adam Klein <adam@500tech.com>",
   "homepage": "https://github.com/500tech/angular2-tree-component",
@@ -33,7 +33,7 @@
   ],
   "peerDependencies": {
     "@angular/core": "^2.0.0",
-    "@angular/common": "^2.0.0",
+    "@angular/common": "^2.0.0"
   },
   "dependencies": {
     "lodash": "^4.6.1"
