@@ -1,6 +1,14 @@
 [![npm version](https://badge.fury.io/js/angular2-tree-component.svg)](https://badge.fury.io/js/angular2-tree-component)
 # angular2 tree component
 
+## Call for styles!!
+Hi amazing community!
+
+We're looking for nice example themes for the tree.
+If you've made one, and are willing to share, please send your CSS file to adam@500tech.com, and we will display it on the readme page of the tree.
+
+Thanks!
+
 ## A full featured tree component for Angular 2
 We've built so many projects that required a tree component, and could never find a library that supported all features.
 And building your own tree component is not an easy task.
