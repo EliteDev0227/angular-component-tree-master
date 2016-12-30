@@ -30,6 +30,8 @@ export class TreeNode implements ITreeNode {
     if (this.getField('children')) {
       this._initChildren();
     }
+
+    this.allowDrop = this.allowDrop.bind(this);
   }
 
   // helper get functions:
@@ -133,6 +135,26 @@ export class TreeNode implements ITreeNode {
     if (this === node) return true;
     else return this.parent && this.parent.isDescendantOf(node);
   }
+
+  getNodePadding():string {
+    return this.options.levelPadding * (this.level - 1) + 'px';
+  }
+
+  getClass():string {
+    return this.options.nodeClass(this);
+  }
+
+  onDrop($event) {
+    this.mouseAction('drop', $event.event, {
+      from: $event.element,
+      to: { parent: this, index: 0 }
+    });
+  }
+
+  allowDrop(element) {
+    return this.options.allowDrop(element, { parent: this, index: 0 });
+  }
+
 
   // helper methods:
   loadChildren() {

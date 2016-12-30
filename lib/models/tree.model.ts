@@ -1,5 +1,4 @@
 import { Injectable, Component, Input, EventEmitter, TemplateRef } from '@angular/core';
-import { ITreeNodeTemplate } from '../components/tree-node-content.component';
 import { TreeNode } from './tree-node.model';
 import { TreeOptions } from './tree-options.model';
 import { ITreeModel } from '../defs/api';

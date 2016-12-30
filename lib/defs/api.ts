@@ -70,6 +70,10 @@ export interface ITreeOptions {
     * deprecated
     */
    context?: any;
+   /**
+    * Supply function for getting a custom class for the node component
+    */
+   nodeClass?: (node:ITreeNode) => string;
  }
 
 /**
@@ -166,6 +170,16 @@ export interface ITreeNode {
    * @returns      true if this node is a descendant of the parameter node
    */
   isDescendantOf(node:ITreeNode):boolean;
+
+  /**
+   * @returns      in case levelPadding option is supplied, returns the current node's padding
+   */
+  getNodePadding():string;
+
+  /**
+   * @returns      in case nodeClass option is supplied, returns the current node's class
+   */
+  getClass():string;
 
   // actions
   /**

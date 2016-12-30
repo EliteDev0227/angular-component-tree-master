@@ -14,12 +14,25 @@ import { TreeNodeComponent } from './components/tree-node.component';
 import { TreeNodeContent } from './components/tree-node-content.component';
 import { TreeNodeContent as DeprecatedTreeNodeContent } from './components/deprecated-tree-node-content.component';
 import { TreeNodeDropSlot } from './components/tree-node-drop-slot.component';
+import { TreeNodeExpanderComponent } from './components/tree-node-expander.component';
+import { TreeNodeChildrenComponent } from './components/tree-node-children.component';
 import { TreeDropDirective } from './directives/tree-drop.directive';
 import { TreeDragDirective } from './directives/tree-drag.directive';
 import { AdHocComponentFactoryCreator } from './components/adhoc-component-factory.service';
 
 import './polyfills';
 import { deprecated } from './deprecated';
+
+const exportedDirectives = [
+  TreeComponent,
+  TreeNodeComponent,
+  TreeNodeContent,
+  TreeDropDirective,
+  TreeDragDirective,
+  TreeNodeExpanderComponent,
+  TreeNodeChildrenComponent,
+  TreeNodeDropSlot
+];
 
 export {
   TreeModel,
@@ -36,23 +49,18 @@ export {
   TreeNodeContent,
   TreeDropDirective,
   TreeDragDirective,
+  TreeNodeExpanderComponent,
+  TreeNodeChildrenComponent,
   TreeNodeDropSlot
 };
 
 @NgModule({
   declarations: [
     LoadingComponent,
-    TreeComponent,
-    TreeNodeComponent,
-    TreeNodeDropSlot,
-    TreeNodeContent,
-    TreeDropDirective,
-    TreeDragDirective
+    ...exportedDirectives
   ],
   exports: [
-    TreeComponent,
-    TreeDropDirective,
-    TreeDragDirective
+    ...exportedDirectives
   ],
   imports: [
     CommonModule,

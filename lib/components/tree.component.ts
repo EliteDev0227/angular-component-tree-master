@@ -1,5 +1,4 @@
 import { Component, Input, Output, OnChanges, SimpleChange, EventEmitter, ViewEncapsulation, ContentChild, TemplateRef } from '@angular/core';
-import { ITreeNodeTemplate } from './tree-node-content.component';
 import { TreeModel } from '../models/tree.model';
 import { TreeDraggedElement } from '../models/tree-dragged-element.model';
 import { TreeOptions } from '../models/tree-options.model';
@@ -33,9 +32,12 @@ import * as _ from 'lodash'
       <TreeNode
         *ngFor="let node of treeModel.roots; let i = index"
         [node]="node"
-        [nodeIndex]="i"
-        [loadingTemplate]="loadingTemplate"
-        [treeNodeContentTemplate]="treeNodeTemplate">
+        [index]="i"
+        [templates]="{
+          loadingTemplate: loadingTemplate,
+          treeNodeTemplate: treeNodeTemplate,
+          treeNodeFullTemplate: treeNodeFullTemplate
+        }">
       </TreeNode>
     </div>
   `
@@ -49,7 +51,8 @@ export class TreeComponent implements OnChanges {
   _options:TreeOptions;
 
   @ContentChild('loadingTemplate') loadingTemplate: TemplateRef<any>;
-  @ContentChild('treeNodeTemplate') treeNodeTemplate: TemplateRef<ITreeNodeTemplate>;
+  @ContentChild('treeNodeTemplate') treeNodeTemplate: TemplateRef<any>;
+  @ContentChild('treeNodeFullTemplate') treeNodeFullTemplate: TemplateRef<any>;
 
   // Will be handled in ngOnChanges
   @Input() set nodes(nodes:any[]) { };

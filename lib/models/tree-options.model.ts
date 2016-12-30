@@ -118,4 +118,7 @@ export class TreeOptions {
       return this.options.allowDrop === undefined ? true : this.options.allowDrop;
     }
   }
+  nodeClass(node: TreeNode):string {
+    return this.options.nodeClass ? this.options.nodeClass(node) : '';
+  }
 }

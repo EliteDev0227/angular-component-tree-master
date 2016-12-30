@@ -1,3 +1,8 @@
+<a name="2.6.0"></a>
+# 2.6.0 (2016-01-01)
+* Added index to node content template
+* Added nodeClass option
+
 <a name="2.5.1"></a>
 # 2.5.1 (2016-12-21)
 * Updated PeerDeps to allow for Angular 2.3

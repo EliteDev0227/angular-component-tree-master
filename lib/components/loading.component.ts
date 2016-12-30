@@ -3,9 +3,9 @@ import { TreeModel } from '../models/tree.model';
 
 @Component({
   selector: 'LoadingComponent',
-  template: `<span *ngIf="!loadingTemplate">loading...</span>
-  <template [ngTemplateOutlet]="loadingTemplate"></template>`,
+  template: `<span *ngIf="!template">loading...</span>
+  <template [ngTemplateOutlet]="template"></template>`,
 })
 export class LoadingComponent {
-  @Input() loadingTemplate: TemplateRef<any>;
+  @Input() template: TemplateRef<any>;
 }
