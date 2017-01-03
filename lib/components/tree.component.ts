@@ -16,6 +16,7 @@ import * as _ from 'lodash'
   providers: [TreeModel],
   styles: [
     '.tree-children { padding-left: 20px }',
+    '.empty-tree-drop-slot .node-drop-slot { height: 20px; min-width: 100px }',
     `.tree {
       display: inline-block;
       cursor: pointer;
@@ -39,6 +40,12 @@ import * as _ from 'lodash'
           treeNodeFullTemplate: treeNodeFullTemplate
         }">
       </TreeNode>
+      <TreeNodeDropSlot
+        class="empty-tree-drop-slot"
+        *ngIf="treeModel.isEmptyTree()"
+        [dropIndex]="0"
+        [node]="treeModel.virtualRoot">
+      </TreeNodeDropSlot>
     </div>
   `
 })

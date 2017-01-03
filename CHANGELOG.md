@@ -1,3 +1,7 @@
+<a name="2.6.1"></a>
+# 2.6.1 (2016-01-03)
+* Added drop slot for empty tree
+
 <a name="2.6.0"></a>
 # 2.6.0 (2016-01-01)
 * Added index to node content template

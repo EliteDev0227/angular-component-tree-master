@@ -132,6 +132,9 @@ export class TreeModel implements ITreeModel {
     TreeModel.focusedTree = value ? this : null;
   }
 
+  isEmptyTree():boolean {
+    return this.roots && this.roots.length === 0;
+  }
 
   private _treeNodeContentComponent:any;
   get treeNodeContentComponent() { return this._treeNodeContentComponent };
