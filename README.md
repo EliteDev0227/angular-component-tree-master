@@ -1,14 +1,6 @@
 [![npm version](https://badge.fury.io/js/angular2-tree-component.svg)](https://badge.fury.io/js/angular2-tree-component)
 # angular2 tree component
 
-## Call for styles
-Hello users & contributors of the tree.
-
-We're looking for nice example themes for the tree.
-If you've made one, and are willing to share, please send your CSS file to adam@500tech.com, and we will display it on the readme page of the tree.
-
-Thanks
-
 ## A full featured tree component for Angular 2
 We've built so many projects that required a tree component, and could never find a library that supported all features.
 And building your own tree component is not an easy task.
@@ -31,30 +23,30 @@ If you like this, support the project by starring it!
 ## Angular 2 supported version
 angular2-tree-component supports angular 2.0.0 release
 
-## Demo & full documentation:
+## Getting started, demo & full documentation
 Please refer to the full documentation:  
 [https://angular2-tree.readme.io/docs](https://angular2-tree.readme.io/docs)
 
-## Examples
+## Call for styles
+Hello users & contributors of the tree.
+
+We're looking for nice example themes for the tree.
+If you've made one, and are willing to share, please open an issue and attach your CSS and image of how it should look.
+
+Thanks
+
+## Example
+To run the example:
 ```
 git clone https://github.com/500tech/angular2-tree-component
-```
 
-### Using the CLI:
-```
 cd angular2-tree-component/example/cli
 npm install
 npm install -g angular-cli
 ng serve
 ```
 
-### Using webpack:
-```
-cd angular2-tree-component/example/webpack
-npm install
-npm start
-```
-
+## SystemJS
 **There's currently an issue with systemJS and lodash.**  
 Until we solve it, please install lodash into the project:  
 ```
