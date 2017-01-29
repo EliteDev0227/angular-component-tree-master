@@ -21,7 +21,7 @@ So, we decided to build one for Angular 2, with all the features you can think o
 If you like this, support the project by starring it!
 
 ## Angular 2 supported version
-angular2-tree-component supports angular 2.0.0 release
+angular2-tree-component supports angular 2.X.X releases, and AoT compilation.
 
 ## Getting started, demo & full documentation
 Please refer to the full documentation:  
