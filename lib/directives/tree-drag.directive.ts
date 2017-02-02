@@ -17,7 +17,10 @@ export class TreeDragDirective implements DoCheck {
     this.renderer.setElementAttribute(this.el.nativeElement, 'draggable', this.treeDragEnabled ? "true" : "false");
   }
 
-  @HostListener('dragstart') onDragStart() {
+  @HostListener('dragstart', ['$event']) onDragStart(ev) {
+    // setting the data is required by firefox
+    ev.dataTransfer.setData("text/plain", ev.target.id);
+    
     setTimeout(() => this.treeDraggedElement.set(this.draggedElement), 30);
   }
 
