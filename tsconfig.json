@@ -22,7 +22,7 @@
   "compileOnSave": false,
   "buildOnSave": false,
   "angularCompilerOptions": {
-    "genDir": "compiled",
-    "skipMetadataEmit": true
+    "skipTemplateCodegen": true,
+    "skipMetadataEmit": false
   }
 }
