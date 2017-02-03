@@ -10,16 +10,16 @@ export class TreeDragDirective implements DoCheck {
   @Input('treeDrag') draggedElement;
   @Input() treeDragEnabled;
 
-  constructor(private el: ElementRef, private renderer: Renderer, private treeDraggedElement:TreeDraggedElement) {
+  constructor(private el: ElementRef, private renderer: Renderer, private treeDraggedElement: TreeDraggedElement) {
   }
 
   ngDoCheck() {
-    this.renderer.setElementAttribute(this.el.nativeElement, 'draggable', this.treeDragEnabled ? "true" : "false");
+    this.renderer.setElementAttribute(this.el.nativeElement, 'draggable', this.treeDragEnabled ? 'true' : 'false');
   }
 
   @HostListener('dragstart', ['$event']) onDragStart(ev) {
     // setting the data is required by firefox
-    ev.dataTransfer.setData("text/plain", ev.target.id);
+    ev.dataTransfer.setData('text/plain', ev.target.id);
     setTimeout(() => this.treeDraggedElement.set(this.draggedElement), 30);
   }
 

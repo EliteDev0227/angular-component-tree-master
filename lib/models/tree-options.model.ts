@@ -7,29 +7,29 @@ import { ITreeOptions } from '../defs/api';
 import { defaultsDeep, get } from 'lodash';
 
 export interface IActionHandler {
-  (tree:TreeModel, node:TreeNode, $event:any, ...rest);
+  (tree: TreeModel, node: TreeNode, $event: any, ...rest);
 }
 
 export const TREE_ACTIONS = {
-  TOGGLE_SELECTED: (tree:TreeModel, node:TreeNode, $event:any) => node.toggleActivated(),
-  TOGGLE_SELECTED_MULTI: (tree:TreeModel, node:TreeNode, $event:any) => node.toggleActivated(true),
-  SELECT: (tree:TreeModel, node:TreeNode, $event:any) => node.setIsActive(true),
-  DESELECT: (tree:TreeModel, node:TreeNode, $event:any) => node.setIsActive(false),
-  FOCUS: (tree:TreeModel, node:TreeNode, $event:any) => node.focus(),
-  TOGGLE_EXPANDED: (tree:TreeModel, node:TreeNode, $event:any) => node.hasChildren && node.toggleExpanded(),
-  EXPAND: (tree:TreeModel, node:TreeNode, $event:any) => node.expand(),
-  COLLAPSE: (tree:TreeModel, node:TreeNode, $event:any) => node.collapse(),
-  DRILL_DOWN: (tree:TreeModel, node:TreeNode, $event:any) => tree.focusDrillDown(),
-  DRILL_UP: (tree:TreeModel, node:TreeNode, $event:any) => tree.focusDrillUp(),
-  NEXT_NODE: (tree:TreeModel, node:TreeNode, $event:any) =>  tree.focusNextNode(),
-  PREVIOUS_NODE: (tree:TreeModel, node:TreeNode, $event:any) =>  tree.focusPreviousNode(),
-  MOVE_NODE: (tree:TreeModel, node:TreeNode, $event:any, {from , to}:{from:any, to:any}) => {
+  TOGGLE_SELECTED: (tree: TreeModel, node: TreeNode, $event: any) => node.toggleActivated(),
+  TOGGLE_SELECTED_MULTI: (tree: TreeModel, node: TreeNode, $event: any) => node.toggleActivated(true),
+  SELECT: (tree: TreeModel, node: TreeNode, $event: any) => node.setIsActive(true),
+  DESELECT: (tree: TreeModel, node: TreeNode, $event: any) => node.setIsActive(false),
+  FOCUS: (tree: TreeModel, node: TreeNode, $event: any) => node.focus(),
+  TOGGLE_EXPANDED: (tree: TreeModel, node: TreeNode, $event: any) => node.hasChildren && node.toggleExpanded(),
+  EXPAND: (tree: TreeModel, node: TreeNode, $event: any) => node.expand(),
+  COLLAPSE: (tree: TreeModel, node: TreeNode, $event: any) => node.collapse(),
+  DRILL_DOWN: (tree: TreeModel, node: TreeNode, $event: any) => tree.focusDrillDown(),
+  DRILL_UP: (tree: TreeModel, node: TreeNode, $event: any) => tree.focusDrillUp(),
+  NEXT_NODE: (tree: TreeModel, node: TreeNode, $event: any) =>  tree.focusNextNode(),
+  PREVIOUS_NODE: (tree: TreeModel, node: TreeNode, $event: any) =>  tree.focusPreviousNode(),
+  MOVE_NODE: (tree: TreeModel, node: TreeNode, $event: any, {from , to}: {from: any, to: any}) => {
     // default action assumes from = node, to = {parent, index}
     tree.moveNode(from, to);
   }
-}
+};
 
-const defaultActionMapping:IActionMapping = {
+const defaultActionMapping: IActionMapping = {
   mouse: {
     click: TREE_ACTIONS.TOGGLE_SELECTED,
     dblClick: null,
@@ -58,28 +58,28 @@ export interface IActionMapping {
     dragEnd?: IActionHandler,
     dragOver?: IActionHandler,
     drop?: IActionHandler
-  },
+  };
   keys?: {
-    [key:number]: IActionHandler
-  }
+    [key: number]: IActionHandler
+  };
 }
 
 export class TreeOptions {
-  get childrenField(): string { return this.options.childrenField || 'children'}
-  get displayField(): string { return this.options.displayField || 'name'}
-  get idField(): string { return this.options.idField || 'id'}
-  get isExpandedField(): string { return this.options.isExpandedField || 'isExpanded'}
-  get isHiddenField(): string { return this.options.isHiddenField || 'isHidden'}
-  get treeNodeTemplate(): any { return this.options.treeNodeTemplate }
-  get loadingComponent(): any { return this.options.loadingComponent }
-  get getChildren(): any { return this.options.getChildren }
-  get hasCustomContextMenu(): boolean { return this.options.hasCustomContextMenu }
-  get context(): any { return this.options.context }
-  get allowDrag(): boolean { return this.options.allowDrag }
-  get levelPadding(): number { return this.options.levelPadding || 0 }
+  get childrenField(): string { return this.options.childrenField || 'children'; }
+  get displayField(): string { return this.options.displayField || 'name'; }
+  get idField(): string { return this.options.idField || 'id'; }
+  get isExpandedField(): string { return this.options.isExpandedField || 'isExpanded'; }
+  get isHiddenField(): string { return this.options.isHiddenField || 'isHidden'; }
+  get treeNodeTemplate(): any { return this.options.treeNodeTemplate; }
+  get loadingComponent(): any { return this.options.loadingComponent; }
+  get getChildren(): any { return this.options.getChildren; }
+  get hasCustomContextMenu(): boolean { return this.options.hasCustomContextMenu; }
+  get context(): any { return this.options.context; }
+  get allowDrag(): boolean { return this.options.allowDrag; }
+  get levelPadding(): number { return this.options.levelPadding || 0; }
   actionMapping: IActionMapping;
 
-  constructor(private options:ITreeOptions = {}) {
+  constructor(private options: ITreeOptions = {}) {
     this.actionMapping = defaultsDeep(this.options.actionMapping, defaultActionMapping);
 
     if (options.hasCustomContextMenu) {
@@ -87,15 +87,26 @@ export class TreeOptions {
     }
 
     if (options.context) {
-      deprecated('context', 'values directly in a template in the content of the <Tree> component like this: <Tree><template #treeNodeTemplate let-node>{{ outsideValue }}</template></Tree>.  If you don\'t have time to update your code and don\'t need AoT compilation, use DeprecatedTreeModule');
+      deprecated('context', `
+        values directly in a template in the content of the <Tree> component like this:
+        <Tree><template #treeNodeTemplate let-node>{{ outsideValue }}</template></Tree>.
+        If you don\'t have time to update your code and don\'t need AoT compilation, use DeprecatedTreeModule
+      `);
     }
 
     if (options.treeNodeTemplate) {
-      deprecated('treeNodeTemplate', 'a template in the content of the <Tree> component like this: <Tree><template #treeNodeTemplate let-node>...</template></Tree>.  If you don\'t have time to update your code and don\'t need AoT compilation, use DeprecatedTreeModule');
+      deprecated('treeNodeTemplate', `
+        a template in the content of the <Tree> component like this:
+        <Tree><template #treeNodeTemplate let-node>...</template></Tree>.
+        If you don\'t have time to update your code and don\'t need AoT compilation, use DeprecatedTreeModule`
+      );
     }
 
     if (options.loadingComponent) {
-      deprecated('loadingComponent', 'a template in the content of the <Tree> component like this: <Tree><template #loadingTemplate>...</template></Tree>.  If you don\'t have time to update your code and don\'t need AoT compilation, use DeprecatedTreeModule');
+      deprecated('loadingComponent', `a template in the content of the <Tree> component like this:
+        <Tree><template #loadingTemplate>...</template></Tree>.
+        If you don\'t have time to update your code and don\'t need AoT compilation, use DeprecatedTreeModule`
+      );
     }
 
     if (get(options, 'mouse.shift')) {
@@ -110,7 +121,7 @@ export class TreeOptions {
       deprecated('mouse.alt', '$event.altKey in click action instead');
     }
   }
-  allowDrop(element, to):boolean {
+  allowDrop(element, to): boolean {
     if (this.options.allowDrop instanceof Function) {
       return this.options.allowDrop(element, to);
     }
@@ -118,7 +129,7 @@ export class TreeOptions {
       return this.options.allowDrop === undefined ? true : this.options.allowDrop;
     }
   }
-  nodeClass(node: TreeNode):string {
+  nodeClass(node: TreeNode): string {
     return this.options.nodeClass ? this.options.nodeClass(node) : '';
   }
 }

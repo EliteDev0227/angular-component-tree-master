@@ -16,7 +16,9 @@ import { TreeNode } from '../models/tree-node.model';
     '.tree-node-active.tree-node-focused > .node-wrapper > .node-content-wrapper { background: #beebff }',
     '.tree-node-focused > .node-wrapper > .node-content-wrapper { background: #e7f4f9 }',
     '.node-content-wrapper:hover { background: #f7fbff }',
-    '.tree-node-active > .node-wrapper > .node-content-wrapper, .tree-node-focused > .node-content-wrapper, .node-content-wrapper:hover { box-shadow: inset 0 0 1px #999; }',
+    `.tree-node-active > .node-wrapper > .node-content-wrapper, .tree-node-focused > .node-content-wrapper, .node-content-wrapper:hover {
+      box-shadow: inset 0 0 1px #999;
+    }`,
     '.node-content-wrapper.is-dragging-over { background: #ddffee; box-shadow: inset 0 0 1px #999; }',
     '.node-content-wrapper.is-dragging-over-disabled { opacity: 0.5 }'
   ],
@@ -59,8 +61,8 @@ import { TreeNode } from '../models/tree-node.model';
 })
 
 export class TreeNodeComponent implements AfterViewInit {
-  @Input() node:TreeNode;
-  @Input() index:number;
+  @Input() node: TreeNode;
+  @Input() index: number;
   @Input() templates: any;
 
   constructor(private elementRef: ElementRef) {

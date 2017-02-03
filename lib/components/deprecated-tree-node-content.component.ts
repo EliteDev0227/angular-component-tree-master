@@ -1,4 +1,7 @@
-import { Component, Input, ComponentFactoryResolver, ComponentFactory, ComponentRef, AfterViewInit, ViewContainerRef, TemplateRef } from '@angular/core';
+import {
+  Component, Input, ComponentFactoryResolver, ComponentFactory, ComponentRef, AfterViewInit,
+  ViewContainerRef, TemplateRef
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TreeNode } from '../models/tree-node.model';
 import { TreeModel } from '../models/tree.model';
@@ -33,7 +36,7 @@ export class TreeNodeContent implements AfterViewInit {
     let componentFactory;
     try {
       componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.treeModel.treeNodeContentComponent);
-    } catch(error) {
+    } catch (error) {
       componentFactory = this.adHocComponentFactoryCreator.getFactory(this.treeModel.treeNodeContentComponent);
     }
     let componentRef: ComponentRef<ITreeNodeTemplate>

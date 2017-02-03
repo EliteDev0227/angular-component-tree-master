@@ -1,18 +1,17 @@
-import { Component, Input, Output, OnChanges, SimpleChange, EventEmitter, ViewEncapsulation, ContentChild, TemplateRef } from '@angular/core';
+import {
+  Component, Input, Output, OnChanges, SimpleChange, EventEmitter,
+  ViewEncapsulation, ContentChild, TemplateRef, HostListener
+} from '@angular/core';
 import { TreeModel } from '../models/tree.model';
 import { TreeDraggedElement } from '../models/tree-dragged-element.model';
 import { TreeOptions } from '../models/tree-options.model';
 import { KEYS } from '../constants/keys';
 
-import * as _ from 'lodash'
+import * as _ from 'lodash';
 
 @Component({
   selector: 'Tree',
   encapsulation: ViewEncapsulation.None,
-  host: {
-    '(body: keydown)': "onKeydown($event)",
-    '(body: mousedown)': "onMousedown($event)"
-  },
   providers: [TreeModel],
   styles: [
     '.tree-children { padding-left: 20px }',
@@ -50,22 +49,18 @@ import * as _ from 'lodash'
   `
 })
 export class TreeComponent implements OnChanges {
-  constructor(public treeModel:TreeModel, public treeDraggedElement:TreeDraggedElement) {
-    treeModel.eventNames.forEach((name) => this[name] = new EventEmitter());
-  }
-
-  _nodes:any[];
-  _options:TreeOptions;
+  _nodes: any[];
+  _options: TreeOptions;
 
   @ContentChild('loadingTemplate') loadingTemplate: TemplateRef<any>;
   @ContentChild('treeNodeTemplate') treeNodeTemplate: TemplateRef<any>;
   @ContentChild('treeNodeFullTemplate') treeNodeFullTemplate: TemplateRef<any>;
 
   // Will be handled in ngOnChanges
-  @Input() set nodes(nodes:any[]) { };
-  @Input() set options(options:TreeOptions) { };
+  @Input() set nodes(nodes: any[]) { };
+  @Input() set options(options: TreeOptions) { };
 
-  @Input() set focused(value:boolean) {
+  @Input() set focused(value: boolean) {
     this.treeModel.setFocus(value);
   }
 
@@ -83,6 +78,11 @@ export class TreeComponent implements OnChanges {
   @Output() onMoveNode;
   @Output() onEvent;
 
+  constructor(public treeModel: TreeModel, public treeDraggedElement: TreeDraggedElement) {
+    treeModel.eventNames.forEach((name) => this[name] = new EventEmitter());
+  }
+
+  @HostListener('body: keydown', ['$event'])
   onKeydown($event) {
     if (!this.treeModel.isFocused) return;
     if (_.includes(['input', 'textarea'],
@@ -93,6 +93,7 @@ export class TreeComponent implements OnChanges {
     this.treeModel.performKeyAction(focusedNode, $event);
   }
 
+  @HostListener('body: mousedown', ['$event'])
   onMousedown($event) {
     let insideClick = $event.target.closest('Tree');
     if (!insideClick) {

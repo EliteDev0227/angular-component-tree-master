@@ -21,7 +21,7 @@ export class TreeDropDirective {
     return this._allowDrop(this.treeDraggedElement.get());
   }
 
-  constructor(private el: ElementRef, private renderer: Renderer, private treeDraggedElement:TreeDraggedElement) {
+  constructor(private el: ElementRef, private renderer: Renderer, private treeDraggedElement: TreeDraggedElement) {
   }
 
   @HostListener('dragover', ['$event']) onDragOver($event) {
@@ -41,7 +41,7 @@ export class TreeDropDirective {
     if (!this.allowDrop()) return;
 
     $event.preventDefault();
-    this.onDropCallback.emit({event:$event, element:this.treeDraggedElement.get()});
+    this.onDropCallback.emit({event: $event, element: this.treeDraggedElement.get()});
     this.removeClass();
   }
 

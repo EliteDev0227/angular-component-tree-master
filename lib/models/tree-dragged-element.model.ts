@@ -4,11 +4,11 @@ import { Injectable } from '@angular/core';
 export class TreeDraggedElement {
   _draggedElement: any = null;
 
-  set(draggedElement:any) {
+  set(draggedElement: any) {
     this._draggedElement = draggedElement;
   }
 
-  get():any {
+  get(): any {
     return this._draggedElement;
   }
 

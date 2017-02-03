@@ -1,4 +1,4 @@
-import { Component, ViewContainerRef, ComponentFactoryResolver, Input, ComponentFactory, TemplateRef, AfterViewInit } from '@angular/core'
+import { Component, ViewContainerRef, ComponentFactoryResolver, Input, ComponentFactory, TemplateRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TreeModel } from '../models/tree.model';
 import { AdHocComponentFactoryCreator } from './adhoc-component-factory.service';
@@ -24,7 +24,7 @@ export class LoadingComponent implements AfterViewInit {
     let componentFactory;
     try {
       componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.treeModel.loadingComponent);
-    } catch(error) {
+    } catch (error) {
       componentFactory = this.adHocComponentFactoryCreator.getFactory(this.treeModel.loadingComponent);
     }
     let componentRef = this.viewContainerRef.createComponent(componentFactory);

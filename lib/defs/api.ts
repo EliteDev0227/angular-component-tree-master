@@ -3,7 +3,7 @@
  */
 
 export interface IAllowDropFn {
-  (element:any, to:{parent:ITreeNode, index:number}):boolean;
+  (element: any, to: {parent: ITreeNode, index: number}): boolean;
 }
 /**
 * This is the interface of the options input of the tree.
@@ -25,15 +25,15 @@ export interface ITreeOptions {
    /**
     * Override isExpanded field. Default: 'isExpanded'
     */
-   isExpandedField?:string;
+   isExpandedField?: string;
    /**
     * Override isHidden field. Default: 'isHidden'
     */
-   isHiddenField?:string;
+   isHiddenField?: string;
    /**
     * Supply function for getting fields asynchronously. Should return a Promise
     */
-   getChildren?: (node:ITreeNode) => any;
+   getChildren?: (node: ITreeNode) => any;
    /**
     * Change the default mouse and key actions on the tree
     */
@@ -73,7 +73,7 @@ export interface ITreeOptions {
    /**
     * Supply function for getting a custom class for the node component
     */
-   nodeClass?: (node:ITreeNode) => string;
+   nodeClass?: (node: ITreeNode) => string;
  }
 
 /**
@@ -121,16 +121,16 @@ export interface ITreeNode {
   /**
    * The context that was given in the options object.
    */
-  context:any;
+  context: any;
 
   // helpers
   isExpanded: boolean;
   isActive: boolean;
-  isFocused:boolean;
-  isCollapsed:boolean;
-  isLeaf:boolean;
-  hasChildren:boolean;
-  isRoot:boolean;
+  isFocused: boolean;
+  isCollapsed: boolean;
+  isLeaf: boolean;
+  hasChildren: boolean;
+  isRoot: boolean;
 
   // traversing
   /**
@@ -169,17 +169,17 @@ export interface ITreeNode {
   /**
    * @returns      true if this node is a descendant of the parameter node
    */
-  isDescendantOf(node:ITreeNode):boolean;
+  isDescendantOf(node: ITreeNode): boolean;
 
   /**
    * @returns      in case levelPadding option is supplied, returns the current node's padding
    */
-  getNodePadding():string;
+  getNodePadding(): string;
 
   /**
    * @returns      in case nodeClass option is supplied, returns the current node's class
    */
-  getClass():string;
+  getClass(): string;
 
   // actions
   /**
@@ -230,10 +230,6 @@ export interface ITreeModel {
    */
   roots: ITreeNode[];
   /**
-   * Current active (selected) node
-   */
-  getActiveNode(): ITreeNode;
-  /**
    * Current focused node
    */
   focusedNode: ITreeNode;
@@ -248,6 +244,10 @@ export interface ITreeModel {
   isFocused: boolean;
 
   // helpers
+  /**
+   * Current active (selected) node
+   */
+  getActiveNode(): ITreeNode;
   /**
    * @returns      first root of the tree
    */
@@ -287,7 +287,7 @@ export interface ITreeModel {
    *   In case it's a function, it will be passed the node, and should return true if the node should be visible, false otherwise
    * @param autoShow  if true, make sure all nodes that passed the filter are visible
    */
-  filterNodes(filter, autoShow?:boolean);
+  filterNodes(filter, autoShow?: boolean);
   /**
    * Marks all nodes isHidden = false
    */
@@ -297,7 +297,7 @@ export interface ITreeModel {
    * @param location  has a from and a to attributes, each has a node and index attributes.
      The combination of node + index tells which node needs to be moved, and to where
    */
-  moveNode(node:ITreeNode, to:{node:ITreeNode, index:number});
+  moveNode(node: ITreeNode, to: {node: ITreeNode, index: number});
 
 }
 
@@ -310,5 +310,5 @@ export interface ITreeNodeDrag {
    * @param node  The parent node of the current dragged node
    * @param index  The index inside parent's children, of the current dragged node
    */
-  getDragNode():{ node: ITreeNode, index:number };
+  getDragNode(): { node: ITreeNode, index: number };
 }

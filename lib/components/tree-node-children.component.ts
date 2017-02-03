@@ -30,6 +30,6 @@ import { TreeNode } from '../models/tree-node.model';
   `
 })
 export class TreeNodeChildrenComponent {
-  @Input() node:TreeNode;
+  @Input() node: TreeNode;
   @Input() templates: any;
 }

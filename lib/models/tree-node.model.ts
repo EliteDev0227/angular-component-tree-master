@@ -8,22 +8,22 @@ import { deprecated } from '../deprecated';
 import * as _ from 'lodash';
 
 export class TreeNode implements ITreeNode {
-  get isHidden() { return this.getField('isHidden') };
-  set isHidden(value) { this.setField('isHidden', value) };
-  get isExpanded() { return this.treeModel.isExpanded(this) };
-  get isActive() { return this.treeModel.isActive(this) };
-  get isFocused() { return this.treeModel.isNodeFocused(this) };
+  get isHidden() { return this.getField('isHidden'); };
+  set isHidden(value) { this.setField('isHidden', value); };
+  get isExpanded() { return this.treeModel.isExpanded(this); };
+  get isActive() { return this.treeModel.isActive(this); };
+  get isFocused() { return this.treeModel.isNodeFocused(this); };
 
   level: number;
   path: string[];
-  elementRef:ElementRef;
+  elementRef: ElementRef;
   children: TreeNode[];
-  allowDrop: (any) => boolean;
+  allowDrop: (draggedElement: any) => boolean;
 
   private _originalNode: any;
-  get originalNode() { return this._originalNode };
+  get originalNode() { return this._originalNode; };
 
-  constructor(public data:any, public parent:TreeNode, public treeModel:TreeModel) {
+  constructor(public data: any, public parent: TreeNode, public treeModel: TreeModel) {
     this.id = this.id || uuid(); // Make sure there's a unique ID
     this.level = this.parent ? this.parent.level + 1 : 0;
     this.path = this.parent ? [...this.parent.path, this.id] : [];
@@ -36,18 +36,18 @@ export class TreeNode implements ITreeNode {
   }
 
   // helper get functions:
-  get hasChildren():boolean {
+  get hasChildren(): boolean {
     return !!(this.data.hasChildren || (this.children && this.children.length > 0));
   }
-  get isCollapsed():boolean { return !this.isExpanded }
-  get isLeaf():boolean { return !this.hasChildren }
-  get isRoot():boolean { return this.parent.data.virtual }
-  get realParent():TreeNode { return this.isRoot ? null : this.parent }
+  get isCollapsed(): boolean { return !this.isExpanded; }
+  get isLeaf(): boolean { return !this.hasChildren; }
+  get isRoot(): boolean { return this.parent.data.virtual; }
+  get realParent(): TreeNode { return this.isRoot ? null : this.parent; }
 
   // proxy functions:
-  get options(): TreeOptions { return this.treeModel.options }
-  fireEvent(event) { this.treeModel.fireEvent(event) }
-  get context():any { return this.options.context }
+  get options(): TreeOptions { return this.treeModel.options; }
+  fireEvent(event) { this.treeModel.fireEvent(event); }
+  get context(): any { return this.options.context; }
 
   // field accessors:
   get displayField() {
@@ -109,7 +109,7 @@ export class TreeNode implements ITreeNode {
   findPreviousNode(skipHidden = false) {
     let previousSibling = this.findPreviousSibling(skipHidden);
     if (!previousSibling) {
-      return this.realParent
+      return this.realParent;
     }
     return previousSibling._getLastOpenDescendant(skipHidden);
   }
@@ -121,7 +121,7 @@ export class TreeNode implements ITreeNode {
       : lastChild._getLastOpenDescendant(skipHidden);
   }
 
-  private _getParentsChildren(skipHidden = false):any[] {
+  private _getParentsChildren(skipHidden = false): any[] {
     const children = this.parent &&
       (skipHidden ? this.parent.getVisibleChildren() : this.parent.children);
 
@@ -132,16 +132,16 @@ export class TreeNode implements ITreeNode {
     return this._getParentsChildren(skipHidden).indexOf(this);
   }
 
-  isDescendantOf(node:TreeNode) {
+  isDescendantOf(node: TreeNode) {
     if (this === node) return true;
     else return this.parent && this.parent.isDescendantOf(node);
   }
 
-  getNodePadding():string {
+  getNodePadding(): string {
     return this.options.levelPadding * (this.level - 1) + 'px';
   }
 
-  getClass():string {
+  getClass(): string {
     return this.options.nodeClass(this);
   }
 
@@ -210,7 +210,12 @@ export class TreeNode implements ITreeNode {
   toggleExpanded() {
     return this.setIsExpanded(!this.isExpanded)
       .then(() => {
-        this.fireEvent({ eventName: TREE_EVENTS.onToggle, warning: 'this event is deprecated, please use onToggleExpanded instead', node: this, isExpanded: this.isExpanded });
+        this.fireEvent({
+          eventName: TREE_EVENTS.onToggle,
+          warning: 'this event is deprecated, please use onToggleExpanded instead',
+          node: this,
+          isExpanded: this.isExpanded
+        });
         this.fireEvent({ eventName: TREE_EVENTS.onToggleExpanded, node: this, isExpanded: this.isExpanded });
       });
   }
@@ -256,8 +261,7 @@ export class TreeNode implements ITreeNode {
       if (!force) {
         try {
           this.treeModel.renderer.invokeElementMethod(this.elementRef.nativeElement, 'scrollIntoViewIfNeeded', []);
-        }
-        catch(e) {
+        } catch (e) {
           this.treeModel.renderer.invokeElementMethod(this.elementRef.nativeElement, 'scrollIntoView', []);
         }
       }
@@ -316,7 +320,7 @@ export class TreeNode implements ITreeNode {
     return this.options.allowDrag;
   }
 
-  mouseAction(actionName:string, $event, data:any = null) {
+  mouseAction(actionName: string, $event, data: any = null) {
     this.treeModel.setFocus(true);
 
     const actionMapping = this.options.actionMapping.mouse;
@@ -330,7 +334,12 @@ export class TreeNode implements ITreeNode {
         this.fireEvent({ eventName: TREE_EVENTS.onContextMenu, node: this, rawEvent: $event });
       }
       if (actionName === 'dblClick') {
-        this.fireEvent({ eventName: TREE_EVENTS.onDoubleClick, warning: 'This event is deprecated, please use actionMapping to handle double clicks', node: this, rawEvent: $event });
+        this.fireEvent({
+          eventName: TREE_EVENTS.onDoubleClick,
+          warning: 'This event is deprecated, please use actionMapping to handle double clicks',
+          node: this,
+          rawEvent: $event
+        });
       }
     }
   }

@@ -9,7 +9,7 @@ export class AdHocComponentFactoryCreator {
   }
 
   getFactory(component: any): ComponentFactory<any> {
-    let factory = this.factories.find(factory => factory.componentType === component);
+    let factory = this.factories.find(f => f.componentType === component);
     if (!factory) {
       factory = this._createAdHocComponentFactory(component);
     }
@@ -24,7 +24,7 @@ export class AdHocComponentFactoryCreator {
     })
     class AdHocModule {}
     let factory = this.compiler.compileModuleAndAllComponentsSync(AdHocModule).componentFactories
-      .find(factory => factory.componentType === component);
+      .find(f => f.componentType === component);
     this.factories.push(factory);
     return factory;
   }

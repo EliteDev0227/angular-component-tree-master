@@ -12,4 +12,4 @@ export const TREE_EVENTS = {
   onUpdateData: 'onUpdateData',
   onMoveNode: 'onMoveNode',
   onEvent: 'onEvent'
-}
+};
