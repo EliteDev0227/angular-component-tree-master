@@ -18,6 +18,7 @@ export class TreeNode implements ITreeNode {
   path: string[];
   elementRef:ElementRef;
   children: TreeNode[];
+  allowDrop: (any) => boolean;
 
   private _originalNode: any;
   get originalNode() { return this._originalNode };
@@ -31,7 +32,7 @@ export class TreeNode implements ITreeNode {
       this._initChildren();
     }
 
-    this.allowDrop = this.allowDrop.bind(this);
+    this.allowDrop = this.allowDropUnbound.bind(this);
   }
 
   // helper get functions:
@@ -151,7 +152,7 @@ export class TreeNode implements ITreeNode {
     });
   }
 
-  allowDrop(element) {
+  allowDropUnbound(element) {
     return this.options.allowDrop(element, { parent: this, index: 0 });
   }
 
@@ -217,12 +218,11 @@ export class TreeNode implements ITreeNode {
   setIsExpanded(value) {
     this.treeModel.setExpandedNode(this, value);
 
-    let promise = null;
     if (!this.children && this.hasChildren && value) {
-      promise = this.loadChildren();
+      return this.loadChildren();
     }
 
-    return promise ? promise : Promise.resolve();
+    return Promise.resolve();
   };
 
   setIsActive(value, multi = false) {
@@ -249,10 +249,21 @@ export class TreeNode implements ITreeNode {
     return this;
   }
 
-  scrollIntoView() {
+  scrollIntoView(force = false) {
     if (this.elementRef) {
       const nativeElement = this.elementRef.nativeElement;
-      nativeElement.scrollIntoViewIfNeeded && nativeElement.scrollIntoViewIfNeeded();
+
+      if (!force) {
+        try {
+          this.treeModel.renderer.invokeElementMethod(this.elementRef.nativeElement, 'scrollIntoViewIfNeeded', []);
+        }
+        catch(e) {
+          this.treeModel.renderer.invokeElementMethod(this.elementRef.nativeElement, 'scrollIntoView', []);
+        }
+      }
+      else {
+        this.treeModel.renderer.invokeElementMethod(this.elementRef.nativeElement, 'scrollIntoView', []);
+      }
 
       return this;
     }

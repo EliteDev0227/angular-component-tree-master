@@ -4,11 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { TreeModule } from 'angular2-tree-component';
 
-import { App } from './app.component';
+import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    App
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -17,6 +17,6 @@ import { App } from './app.component';
     TreeModule
   ],
   providers: [],
-  bootstrap: [App]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

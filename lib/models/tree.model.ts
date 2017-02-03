@@ -1,4 +1,4 @@
-import { Injectable, Component, Input, EventEmitter, TemplateRef } from '@angular/core';
+import { Injectable, Component, Input, EventEmitter, TemplateRef, Renderer } from '@angular/core';
 import { TreeNode } from './tree-node.model';
 import { TreeOptions } from './tree-options.model';
 import { ITreeModel } from '../defs/api';
@@ -25,6 +25,8 @@ export class TreeModel implements ITreeModel {
   firstUpdate = true;
 
   eventNames = Object.keys(TREE_EVENTS);
+
+  constructor(public renderer:Renderer) {}
 
   setData({ nodes, options = null, events = null }:{nodes:any,options:any,events:any}) {
     if (options) {
@@ -184,7 +186,7 @@ export class TreeModel implements ITreeModel {
     if (!startNode.children) return null;
 
     const childId = path.shift();
-    const childNode = find(startNode.children, { [this.options.idField]: childId });
+    const childNode = find(startNode.children, { id: childId });
 
     if (!childNode) return null;
 
@@ -263,18 +265,18 @@ export class TreeModel implements ITreeModel {
   }
 
   setActiveNode(node, value, multi = false) {
-    if (value) {
-      node.focus();
-      this.fireEvent({ eventName: TREE_EVENTS.onActivate, node });
-    } else {
-      this.fireEvent({ eventName: TREE_EVENTS.onDeactivate, node });
-    }
-
     if (multi) {
       this._setActiveNodeMulti(node, value);
     }
     else {
       this._setActiveNodeSingle(node, value);
+    }
+
+    if (value) {
+      node.focus();
+      this.fireEvent({ eventName: TREE_EVENTS.onActivate, node });
+    } else {
+      this.fireEvent({ eventName: TREE_EVENTS.onDeactivate, node });
     }
   }
 

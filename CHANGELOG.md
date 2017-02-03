@@ -1,3 +1,12 @@
+<a name="2.8.0"></a>
+# 2.8.0 (2017-01-03)
+* Fixing AOT
+* Fixing Core-JS
+* Fixing drag on firefox
+* Fixing getNodeByPath with custom idField
+* Fixing Universal by calling invokeMethod
+* Fixing TS errors by not setting an existing method
+
 <a name="2.7.0"></a>
 # 2.7.0 (2017-01-05)
 * Promise based expand

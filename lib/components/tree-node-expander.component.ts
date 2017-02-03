@@ -17,6 +17,7 @@ import { TreeNode } from '../models/tree-node.model';
         background-size: contain;
         display: inline-block;
         position: relative;
+        top: 1px;
         background-repeat: no-repeat;
         background-position: center;
     }`,

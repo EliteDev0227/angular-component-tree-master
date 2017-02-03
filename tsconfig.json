@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "es2015",
     "moduleResolution": "node",
     "target": "es5",
     "outDir": "dist/",
@@ -8,18 +8,15 @@
     "experimentalDecorators": true,
     "inlineSourceMap": true,
     "inlineSources": true,
-    "declaration": true
+    "declaration": true,
+    "lib": ["es2015", "dom"]
   },
-  "exclude": [
-    "example",
-    "node_modules",
-    "compiled",
-    "dist"
+  "files": [
+    "lib/angular2-tree-component"
   ],
   "compileOnSave": false,
   "buildOnSave": false,
   "angularCompilerOptions": {
-    "genDir": "compiled",
-    "skipMetadataEmit": true
+    "skipTemplateCodegen": true
   }
 }

@@ -22,7 +22,7 @@ const actionMapping:IActionMapping = {
 };
 
 @Component({
-  selector: 'app',
+  selector: 'app-root',
   styles: [
     `button: {
         line - height: 24px;
@@ -89,7 +89,7 @@ const actionMapping:IActionMapping = {
   </button>
   `
 })
-export class App {
+export class AppComponent {
   nodes:any[] = null;
   constructor() {
     setTimeout(() => {
