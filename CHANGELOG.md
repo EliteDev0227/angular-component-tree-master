@@ -1,5 +1,9 @@
+<a name="2.8.1"></a>
+# 2.8.1 (2017-02-09)
+* Added UMD bundle
+
 <a name="2.8.0"></a>
-# 2.8.0 (2017-01-03)
+# 2.8.0 (2017-02-03)
 * Fixing AOT
 * Fixing Core-JS
 * Fixing drag on firefox

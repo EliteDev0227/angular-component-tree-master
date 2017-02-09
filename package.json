@@ -1,11 +1,13 @@
 {
   "name": "angular2-tree-component",
-  "version": "2.8.0",
+  "version": "2.8.1",
   "description": "A simple yet powerful tree component for Angular2",
   "author": "Adam Klein <adam@500tech.com>",
   "homepage": "https://github.com/500tech/angular2-tree-component",
   "license": "MIT",
-  "main": "dist/angular2-tree-component.js",
+  "main": "dist/angular2-tree-component.umd.js",
+  "jsnext:main": "dist/angular2-tree-component.js",
+  "module": "dist/angular2-tree-component.js",
   "types": "dist/angular2-tree-component.d.ts",
   "keywords": [
     "angular2",
@@ -20,7 +22,8 @@
     "clean": "rimraf node_modules && npm run clean:typescript && npm cache clean",
     "clean:typescript": "rimraf dist",
     "lint": "tslint lib/**/*.ts",
-    "build": "npm run lint && npm run clean:typescript && ngc",
+    "rollup": "rollup -c rollup.config.js dist/angular2-tree-component.js > dist/angular2-tree-component.umd.js",
+    "build": "npm run lint && npm run clean:typescript && ngc && npm run rollup",
     "example:cli": "npm run build && cp -rf dist example/cli/node_modules/angular2-tree-component/ && cd example/cli && ng serve",
     "example:cli:build": "cd example/cli && ng build --aot"
   },
@@ -36,7 +39,9 @@
     "@angular/common": "^2.0.0"
   },
   "dependencies": {
-    "lodash": "^4.6.1"
+    "lodash": "^4.6.1",
+    "mobx": "3.1.0",
+    "ng2-mobx": "1.2.2"
   },
   "devDependencies": {
     "@angular/common": "^2.3.0",
@@ -56,6 +61,7 @@
     "core-js": "^2.4.0",
     "lodash": "^4.6.1",
     "rimraf": "^2.5.1",
+    "rollup": "0.41.4",
     "rxjs": "^5.0.0",
     "tslint": "4.4.2",
     "typedoc": "^0.3.12",
