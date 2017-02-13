@@ -70,7 +70,6 @@ export class TreeOptions {
   get isExpandedField(): string { return this.options.isExpandedField || 'isExpanded'; }
   get isHiddenField(): string { return this.options.isHiddenField || 'isHidden'; }
   get getChildren(): any { return this.options.getChildren; }
-  get allowDrag(): boolean { return this.options.allowDrag; }
   get levelPadding(): number { return this.options.levelPadding || 0; }
   get useVirtualScroll(): boolean { return this.options.useVirtualScroll; }
   actionMapping: IActionMapping;
@@ -78,6 +77,7 @@ export class TreeOptions {
   constructor(private options: ITreeOptions = {}) {
     this.actionMapping = defaultsDeep({}, this.options.actionMapping, defaultActionMapping);
   }
+
   allowDrop(element, to): boolean {
     if (this.options.allowDrop instanceof Function) {
       return this.options.allowDrop(element, to);
@@ -86,6 +86,15 @@ export class TreeOptions {
       return this.options.allowDrop === undefined ? true : this.options.allowDrop;
     }
   }
+
+  allowDrag(node:TreeNode): boolean{
+    if (this.options.allowDrag instanceof Function) {
+      return this.options.allowDrag(node);
+    } else {
+      return this.options.allowDrag === undefined ? true : this.options.allowDrag;
+    }
+  }
+
   nodeClass(node: TreeNode): string {
     return this.options.nodeClass ? this.options.nodeClass(node) : '';
   }
