@@ -10,7 +10,7 @@ import { KEYS } from '../constants/keys';
 import * as _ from 'lodash';
 
 @Component({
-  selector: 'Tree',
+  selector: 'Tree, tree',
   encapsulation: ViewEncapsulation.None,
   providers: [TreeModel],
   styles: [
