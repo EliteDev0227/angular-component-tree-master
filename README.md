@@ -69,10 +69,8 @@ and add these lines to systemjs.config.js:
 ## What's next
 We would always love to hear suggestions for features & improvements - just open an issue.
 
-Also, if there's anyone who created an awesome theme for angular2-tree-component - please send to adam@500tech.com.
-
 Some things on our mind down the road:
-* virtual scroll
+* virtual scroll (WIP)
 * context menu
 * save & restore tree state
 * checkbox & master checkbox support
