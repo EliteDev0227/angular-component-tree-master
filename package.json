@@ -1,6 +1,6 @@
 {
   "name": "angular2-tree-component",
-  "version": "2.8.1",
+  "version": "2.8.2",
   "description": "A simple yet powerful tree component for Angular2",
   "author": "Adam Klein <adam@500tech.com>",
   "homepage": "https://github.com/500tech/angular2-tree-component",
@@ -24,7 +24,7 @@
     "lint": "tslint lib/**/*.ts",
     "rollup": "rollup -c rollup.config.js dist/angular2-tree-component.js > dist/angular2-tree-component.umd.js",
     "build": "npm run lint && npm run clean:typescript && ngc && npm run rollup",
-    "example:cli": "npm run build && cp -rf dist example/cli/node_modules/angular2-tree-component/ && cd example/cli && ng serve",
+    "example:cli": "ngc && cp -rf dist example/cli/node_modules/angular2-tree-component/ && cd example/cli && ng serve",
     "example:cli:build": "cd example/cli && ng build --aot"
   },
   "files": [
@@ -35,8 +35,8 @@
     "Adam Klein <adam@500tech.com>"
   ],
   "peerDependencies": {
-    "@angular/core": "^2.0.0",
-    "@angular/common": "^2.0.0"
+    "@angular/common": "^2.0.0",
+    "@angular/core": "^2.0.0"
   },
   "dependencies": {
     "lodash": "^4.6.1",
@@ -53,7 +53,7 @@
     "@angular/platform-browser-dynamic": "^2.3.0",
     "@angular/platform-server": "^2.3.0",
     "@types/jasmine": "2.5.38",
-    "@types/lodash": "4.14.40",
+    "@types/lodash": "^4.14.52",
     "@types/node": "^6.0.38",
     "@types/rx": "2.5.34",
     "@types/webpack": "^1.12.29",
@@ -61,17 +61,14 @@
     "core-js": "^2.4.0",
     "lodash": "^4.6.1",
     "rimraf": "^2.5.1",
-    "rollup": "0.41.4",
+    "rollup": "^0.41.4",
     "rxjs": "^5.0.0",
     "tslint": "4.4.2",
     "typedoc": "^0.3.12",
     "typescript": "^2.1.4",
     "zone.js": "^0.7.2"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/500tech/angular2-tree-component.git"
-  },
+  "repository": "https://github.com/500tech/angular2-tree-component.git",
   "bugs": {
     "url": "https://github.com/500tech/angular2-tree-component/issues"
   },

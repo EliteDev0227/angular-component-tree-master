@@ -160,7 +160,7 @@ export class TreeNode implements ITreeNode {
   // helper methods:
   loadChildren() {
     if (!this.options.getChildren) {
-      throw new Error('Node doesn\'t have children, or a getChildren method');
+      return Promise.resolve(); // Not getChildren method - for using redux
     }
     return Promise.resolve(this.options.getChildren(this))
       .then((children) => {

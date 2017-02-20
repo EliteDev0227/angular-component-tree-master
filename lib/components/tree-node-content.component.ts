@@ -1,8 +1,9 @@
-import { Component, Input, TemplateRef } from '@angular/core';
+import { Component, Input, ViewEncapsulation, TemplateRef } from '@angular/core';
 import { TreeNode } from '../models/tree-node.model';
 
 @Component({
   selector: 'TreeNodeContent',
+  encapsulation: ViewEncapsulation.None,
   template: `<span *ngIf="!template">{{ node.displayField }}</span>
   <template
     [ngTemplateOutlet]="template"

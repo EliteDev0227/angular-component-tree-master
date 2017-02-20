@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, OnChanges, SimpleChange, EventEmitter,
-  ViewEncapsulation, ContentChild, TemplateRef, HostListener
+  ViewEncapsulation, ContentChild, TemplateRef, HostListener, Renderer
 } from '@angular/core';
 import { TreeModel } from '../models/tree.model';
 import { TreeDraggedElement } from '../models/tree-dragged-element.model';
@@ -66,7 +66,6 @@ export class TreeComponent implements OnChanges {
 
   @Output() onToggle;
   @Output() onToggleExpanded;
-  @Output() onActiveChanged;
   @Output() onActivate;
   @Output() onDeactivate;
   @Output() onFocus;
@@ -78,7 +77,11 @@ export class TreeComponent implements OnChanges {
   @Output() onMoveNode;
   @Output() onEvent;
 
-  constructor(public treeModel: TreeModel, public treeDraggedElement: TreeDraggedElement) {
+  constructor(
+    public treeModel: TreeModel,
+    public treeDraggedElement: TreeDraggedElement,
+    private renderer: Renderer) {
+
     treeModel.eventNames.forEach((name) => this[name] = new EventEmitter());
   }
 
@@ -95,7 +98,8 @@ export class TreeComponent implements OnChanges {
 
   @HostListener('body: mousedown', ['$event'])
   onMousedown($event) {
-    let insideClick = $event.target.closest('Tree');
+    const insideClick = this.renderer.invokeElementMethod($event.target, 'closest', ['Tree']);
+
     if (!insideClick) {
       this.treeModel.setFocus(false);
     }

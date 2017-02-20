@@ -1,3 +1,12 @@
+<a name="2.8.2"></a>
+# 2.8.2 (2017-02-21)
+* Added yarn file
+* Fixed lint errors
+* Not mandatory to supply getChildren method
+* Calling 'closest' using invokeElementMethod
+* Removed onActiveChanged method
+* Added 3rd party licenses
+
 <a name="2.8.1"></a>
 # 2.8.1 (2017-02-09)
 * Added UMD bundle
