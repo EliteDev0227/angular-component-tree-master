@@ -1,11 +1,11 @@
 import {
-  Component, Input, ComponentFactoryResolver, ComponentFactory, ComponentRef, AfterViewInit,
+  Component, Input, ComponentFactoryResolver, ComponentRef, AfterViewInit,
   ViewContainerRef, TemplateRef
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { TreeNode } from '../models/tree-node.model';
 import { TreeModel } from '../models/tree.model';
 import { AdHocComponentFactoryCreator } from './adhoc-component-factory.service';
+import { deprecatedSelector } from '../deprecated-selector';
 
 export interface ITreeNodeTemplate {
   node: TreeNode;
@@ -13,7 +13,7 @@ export interface ITreeNodeTemplate {
 }
 
 @Component({
-  selector: 'TreeNodeContent',
+  selector: 'TreeNodeContent, tree-node-content',
   template: '',
 })
 export class TreeNodeContent implements AfterViewInit {
@@ -26,6 +26,7 @@ export class TreeNodeContent implements AfterViewInit {
     private viewContainerRef: ViewContainerRef,
     private adHocComponentFactoryCreator: AdHocComponentFactoryCreator
     ) {
+    deprecatedSelector('TreeNodeContent', 'tree-node-content');
   }
 
   ngAfterViewInit() {

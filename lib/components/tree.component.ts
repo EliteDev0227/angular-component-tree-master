@@ -1,13 +1,14 @@
 import {
-  Component, Input, Output, OnChanges, SimpleChange, EventEmitter,
-  ViewEncapsulation, ContentChild, TemplateRef, HostListener, Renderer
+  Component, Input, Output, OnChanges, EventEmitter,
+  ViewEncapsulation, ContentChild, TemplateRef, HostListener,
+  Renderer
 } from '@angular/core';
 import { TreeModel } from '../models/tree.model';
 import { TreeDraggedElement } from '../models/tree-dragged-element.model';
 import { TreeOptions } from '../models/tree-options.model';
-import { KEYS } from '../constants/keys';
 
 import * as _ from 'lodash';
+import { deprecatedSelector } from '../deprecated-selector';
 
 @Component({
   selector: 'Tree, tree',
@@ -29,7 +30,7 @@ import * as _ from 'lodash';
   ],
   template: `
     <div class="tree" [class.node-dragging]="treeDraggedElement.isDragging()">
-      <TreeNode
+      <tree-node
         *ngFor="let node of treeModel.roots; let i = index"
         [node]="node"
         [index]="i"
@@ -38,13 +39,13 @@ import * as _ from 'lodash';
           treeNodeTemplate: treeNodeTemplate,
           treeNodeFullTemplate: treeNodeFullTemplate
         }">
-      </TreeNode>
-      <TreeNodeDropSlot
+      </tree-node>
+      <tree-node-drop-slot
         class="empty-tree-drop-slot"
         *ngIf="treeModel.isEmptyTree()"
         [dropIndex]="0"
         [node]="treeModel.virtualRoot">
-      </TreeNodeDropSlot>
+      </tree-node-drop-slot>
     </div>
   `
 })
@@ -81,7 +82,7 @@ export class TreeComponent implements OnChanges {
     public treeModel: TreeModel,
     public treeDraggedElement: TreeDraggedElement,
     private renderer: Renderer) {
-
+    deprecatedSelector('Tree', 'tree');
     treeModel.eventNames.forEach((name) => this[name] = new EventEmitter());
   }
 

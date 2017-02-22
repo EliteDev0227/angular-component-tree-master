@@ -1,9 +1,9 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { TreeNode } from '../models/tree-node.model';
-import { TreeDraggedElement } from '../models/tree-dragged-element.model';
+import { deprecatedSelector } from '../deprecated-selector';
 
 @Component({
-  selector: 'TreeNodeDropSlot',
+  selector: 'TreeNodeDropSlot, tree-node-drop-slot',
   encapsulation: ViewEncapsulation.None,
   styles: [
     '.node-drop-slot { display: block; height: 2px; width: 100%}',
@@ -22,6 +22,7 @@ export class TreeNodeDropSlot {
   @Input() dropIndex: number;
 
   constructor() {
+    deprecatedSelector('TreeNodeDropSlot', 'tree-node-drop-slot');
   }
 
   onDrop($event) {

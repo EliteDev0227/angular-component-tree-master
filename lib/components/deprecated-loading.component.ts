@@ -1,10 +1,10 @@
 import { Component, ViewContainerRef, ComponentFactoryResolver, Input, ComponentFactory, TemplateRef, AfterViewInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { TreeModel } from '../models/tree.model';
 import { AdHocComponentFactoryCreator } from './adhoc-component-factory.service';
+import { deprecatedSelector } from '../deprecated-selector';
 
 @Component({
-  selector: 'LoadingComponent',
+  selector: 'LoadingComponent, loading-component',
   template: ''
 })
 export class LoadingComponent implements AfterViewInit {
@@ -14,6 +14,7 @@ export class LoadingComponent implements AfterViewInit {
               private componentFactoryResolver: ComponentFactoryResolver,
               private viewContainerRef: ViewContainerRef,
               private adHocComponentFactoryCreator: AdHocComponentFactoryCreator) {
+    deprecatedSelector('LoadingComponent', 'loading-component');
   }
 
   ngAfterViewInit() {
