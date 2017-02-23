@@ -13,12 +13,10 @@ import { TreeNode } from '../models/tree-node.model';
          [class.tree-children-no-padding]="node.options.levelPadding"
          *ngIf="node.isExpanded">
       <div *ngIf="node.children">
-        <TreeNode
-          *ngFor="let node of node.children; let i = index"
-          [node]="node"
-          [index]="i"
+        <TreeNodeCollection
+          [nodes]="node.children"
           [templates]="templates">
-        </TreeNode>
+        </TreeNodeCollection>
       </div>
       <LoadingComponent
         [style.padding-left]="node.getNodePadding()"

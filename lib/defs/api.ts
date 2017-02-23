@@ -5,6 +5,10 @@
 export interface IAllowDropFn {
   (element: any, to: {parent: ITreeNode, index: number}): boolean;
 }
+
+export interface INodeHeightFn {
+  (node: ITreeNode): number;
+}
 /**
 * This is the interface of the options input of the tree.
 * See docs for more detailed explanations
@@ -55,25 +59,22 @@ export interface ITreeOptions {
    */
    levelPadding?: number;
    /**
-    * deprecated
-    */
-   treeNodeTemplate?: any;
-   /**
-    * deprecated
-    */
-   loadingComponent?: any;
-   /**
-    * deprecated
-    */
-   hasCustomContextMenu?: any;
-   /**
-    * deprecated
-    */
-   context?: any;
-   /**
     * Supply function for getting a custom class for the node component
     */
    nodeClass?: (node: ITreeNode) => string;
+   /**
+    * Supply a function for getting each node's height - for virtual scrolling
+    * The tree model will account for the extra pixels for the drop slots
+    * Default is 22
+    */
+   nodeHeight?: number | INodeHeightFn;
+   /**
+    * Supply a function for getting the height of the dropslow that's located
+    * between nodes. This is used for height calculations for virtual scrolling
+    * Default is 2
+    */
+   dropSlotHeight?: number;
+
  }
 
 /**
@@ -117,11 +118,6 @@ export interface ITreeNode {
    * By default it's the 'id' of the original node, unless stated otherwise in options.idField
    */
   id: any;
-
-  /**
-   * The context that was given in the options object.
-   */
-  context: any;
 
   // helpers
   isExpanded: boolean;

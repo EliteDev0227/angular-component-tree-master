@@ -33,19 +33,21 @@ import { TreeNode } from '../models/tree-node.model';
     }`
   ],
   template: `
-    <span
-      *ngIf="node.hasChildren"
-      [class.toggle-children-wrapper-expanded]="node.isExpanded"
-      [class.toggle-children-wrapper-collapsed]="node.isCollapsed"
-      class="toggle-children-wrapper"
-      (click)="node.mouseAction('expanderClick', $event)">
+    <div *mobxAutorun>
+      <span
+        *ngIf="node.hasChildren"
+        [class.toggle-children-wrapper-expanded]="node.isExpanded"
+        [class.toggle-children-wrapper-collapsed]="node.isCollapsed"
+        class="toggle-children-wrapper"
+        (click)="node.mouseAction('expanderClick', $event)">
 
-      <span class="toggle-children"></span>
-    </span>
-    <span
-      *ngIf="!node.hasChildren"
-      class="toggle-children-placeholder">
-    </span>
+        <span class="toggle-children"></span>
+      </span>
+      <span
+        *ngIf="!node.hasChildren"
+        class="toggle-children-placeholder">
+      </span>
+    </div>
   `
 })
 export class TreeNodeExpanderComponent {

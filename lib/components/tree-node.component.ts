@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, AfterViewInit, ViewEncapsulation, TemplateRef } from '@angular/core';
+import { Component, Input, ViewEncapsulation, TemplateRef } from '@angular/core';
 import { TreeNode } from '../models/tree-node.model';
 
 @Component({
@@ -23,52 +23,51 @@ import { TreeNode } from '../models/tree-node.model';
     '.node-content-wrapper.is-dragging-over-disabled { opacity: 0.5 }'
   ],
   template: `
-    <div
-      *ngIf="!node.isHidden && !templates.treeNodeFullTemplate"
-      class="tree-node tree-node-level-{{ node.level }}"
-      [class]="node.getClass()"
-      [class.tree-node-expanded]="node.isExpanded && node.hasChildren"
-      [class.tree-node-collapsed]="node.isCollapsed && node.hasChildren"
-      [class.tree-node-leaf]="node.isLeaf"
-      [class.tree-node-active]="node.isActive"
-      [class.tree-node-focused]="node.isFocused">
+    <div *mobxAutorun>
+      <div
+        *ngIf="!node.isHidden && !templates.treeNodeFullTemplate"
+        class="tree-node tree-node-level-{{ node.level }}"
+        [class]="node.getClass()"
+        [class.tree-node-expanded]="node.isExpanded && node.hasChildren"
+        [class.tree-node-collapsed]="node.isCollapsed && node.hasChildren"
+        [class.tree-node-leaf]="node.isLeaf"
+        [class.tree-node-active]="node.isActive"
+        [class.tree-node-focused]="node.isFocused">
 
-      <TreeNodeDropSlot *ngIf="index === 0" [dropIndex]="index" [node]="node.parent"></TreeNodeDropSlot>
+        <TreeNodeDropSlot *ngIf="index === 0" [dropIndex]="index" [node]="node.parent"></TreeNodeDropSlot>
 
-        <div class="node-wrapper" [style.padding-left]="node.getNodePadding()">
-          <TreeNodeExpander [node]="node"></TreeNodeExpander>
-          <div class="node-content-wrapper"
-            (click)="node.mouseAction('click', $event)"
-            (dblclick)="node.mouseAction('dblClick', $event)"
-            (contextmenu)="node.mouseAction('contextMenu', $event)"
-            (treeDrop)="node.onDrop($event)"
-            [treeAllowDrop]="node.allowDrop"
-            [treeDrag]="node"
-            [treeDragEnabled]="node.allowDrag()">
+          <div class="node-wrapper" [style.padding-left]="node.getNodePadding()">
+            <TreeNodeExpander [node]="node"></TreeNodeExpander>
+            <div class="node-content-wrapper"
+              (click)="node.mouseAction('click', $event)"
+              (dblclick)="node.mouseAction('dblClick', $event)"
+              (contextmenu)="node.mouseAction('contextMenu', $event)"
+              (treeDrop)="node.onDrop($event)"
+              [treeAllowDrop]="node.allowDrop"
+              [treeDrag]="node"
+              [treeDragEnabled]="node.allowDrag()">
 
-            <TreeNodeContent [node]="node" [index]="index" [template]="templates.treeNodeTemplate">
-            </TreeNodeContent>
+              <TreeNodeContent [node]="node" [index]="index" [template]="templates.treeNodeTemplate">
+              </TreeNodeContent>
+            </div>
           </div>
-        </div>
 
-      <TreeNodeChildren [node]="node" [templates]="templates"></TreeNodeChildren>
-      <TreeNodeDropSlot [dropIndex]="index + 1" [node]="node.parent"></TreeNodeDropSlot>
-    </div>
-    <template
-      [ngTemplateOutlet]="templates.treeNodeFullTemplate"
-      [ngOutletContext]="{ $implicit: node, node: node, index: index, templates: templates }">
-    </template>`
+        <TreeNodeChildren [node]="node" [templates]="templates"></TreeNodeChildren>
+        <TreeNodeDropSlot [dropIndex]="index + 1" [node]="node.parent"></TreeNodeDropSlot>
+      </div>
+      <template
+        [ngTemplateOutlet]="templates.treeNodeFullTemplate"
+        [ngOutletContext]="{ $implicit: node, node: node, index: index, templates: templates }">
+      </template>
+    </div>`
 })
 
-export class TreeNodeComponent implements AfterViewInit {
+export class TreeNodeComponent {
   @Input() node: TreeNode;
   @Input() index: number;
   @Input() templates: any;
 
-  constructor(private elementRef: ElementRef) {
+  constructor() {
   }
 
-  ngAfterViewInit() {
-    this.node.elementRef = this.elementRef;
-  }
 }

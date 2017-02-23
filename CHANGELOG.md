@@ -1,3 +1,21 @@
+<a name="3.0.0"></a>
+# 3.0.0 (2017-02-23)
+* Virtual Scroll
+* Added onChangeHidden event
+* Added onLoadChildren event
+* Breaking change - onToggleExpanded is called immediately after expanding node. If there are async children - onLoadChildren will be called after they are loaded.
+* Breaking change - Removed deprecations:
+    * options.hasCustomContextMenu
+    * options.context
+    * options.loadingComponent
+    * options.treeNodeTemplate
+    * options.actionMapping.mouse.shift
+    * options.actionMapping.mouse.ctrl
+    * options.actionMapping.mouse.alt
+    * TREE_EVENTS.onToggle
+    * TREE_EVENTS.onDoubleClick
+    * TREE_EVENTS.onContextMenu
+
 <a name="2.8.2"></a>
 # 2.8.2 (2017-02-21)
 * Added yarn file

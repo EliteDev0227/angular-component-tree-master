@@ -38,20 +38,22 @@ const actionMapping:IActionMapping = {
   <form>
     <input #filter (keyup)="filterNodes(filter.value, tree)" placeholder="filter nodes"/>
   </form>
-  <Tree
-    #tree
-    [nodes]="nodes"
-    [focused]="true"
-    [options]="customTemplateStringOptions"
-    (onEvent)="onEvent($event)"
-  >
-  <template #treeNodeTemplate let-node>
-  <span title="{{node.data.subTitle}}">{{ node.data.name }}</span>
-  <span class="pull-right">{{ childrenCount(node) }}</span>
-  <button (click)="go($event)">Custom Action</button>
-  </template>
-  <template #loadingTemplate>Loading, please hold....</template>
-  </Tree>
+  <div style="height: 400px; width: 300px">
+<!--  <div>-->
+    <Tree
+      #tree
+      [nodes]="nodes"
+      [focused]="true"
+      [options]="customTemplateStringOptions"
+    >
+      <template #treeNodeTemplate let-node>
+        <span title="{{node.data.subTitle}}">{{ node.data.name }}</span>
+        <span class="pull-right">{{ childrenCount(node) }}</span>
+        <button (click)="go($event)">Custom Action</button>
+      </template>
+      <template #loadingTemplate>Loading, please hold....</template>
+    </Tree>
+  </div>
   <br>
   <p>Keys:</p>
   down | up | left | right | space | enter
@@ -92,56 +94,63 @@ const actionMapping:IActionMapping = {
 export class AppComponent {
   nodes:any[] = null;
   constructor() {
-    setTimeout(() => {
-      this.nodes = [
-        {
+    // setTimeout(() => {
+    this.nodes = [
+      {
+        expanded: false,
+        name: 'root expanded',
+        subTitle: 'the root',
+        children: [
+          {
+            name: 'child1',
+            subTitle: 'a good child',
+            hasChildren: false
+          }, {
+            name: 'child2',
+            subTitle: 'a bad child',
+            hasChildren: false
+          }
+        ]
+      },
+      {
+        name: 'root2',
+        subTitle: 'the second root',
+        children: [
+          {
+            name: 'child2.1',
+            subTitle: 'new and improved',
+            hasChildren: false
+          }, {
+            name: 'child2.2',
+            subTitle: 'new and improved2',
+            children: [
+              {
+                uuid: 1001,
+                name: 'subsub',
+                subTitle: 'subsub',
+                hasChildren: false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        name: 'asyncroot',
+        hasChildren: true
+      }
+    ];
 
-          expanded: true,
-          name: 'root expanded',
-          subTitle: 'the root',
-          children: [
-            {
-              name: 'child1',
-              subTitle: 'a good child',
-              hasChildren: false
-            }, {
-
-              name: 'child2',
-              subTitle: 'a bad child',
-              hasChildren: false
-            }
-          ]
-        },
-        {
-          name: 'root2',
-          subTitle: 'the second root',
-          children: [
-            {
-              name: 'child2.1',
-              subTitle: 'new and improved',
-              hasChildren: false
-            }, {
-
-              name: 'child2.2',
-              subTitle: 'new and improved2',
-              children: [
-                {
-                  uuid: 1001,
-                  name: 'subsub',
-                  subTitle: 'subsub',
-                  hasChildren: false
-                }
-              ]
-            }
-          ]
-        },
-        {
-
-          name: 'asyncroot',
-          hasChildren: true
-        }
-      ];
-    }, 1);
+    for(let i = 0; i < 1000; i++) {
+      this.nodes.push({
+        name: `rootDynamic${i}`,
+        subTitle: `root created dynamically ${i}`,
+        children: new Array(4).fill(null).map((item, n) => ({
+          name: `childDynamic${i}.${n}`,
+          subTitle: `child created dynamically ${i}`,
+          hasChildren: false
+        }))
+      });
+    }
   }
 
   asyncChildren = [
@@ -192,7 +201,8 @@ export class AppComponent {
     idField: 'uuid',
     getChildren: this.getChildren.bind(this),
     actionMapping,
-    allowDrag: false
+    nodeHeight: 23,
+    allowDrag: true
   }
   onEvent = console.log.bind(console);
 

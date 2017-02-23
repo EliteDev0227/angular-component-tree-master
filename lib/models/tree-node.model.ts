@@ -1,37 +1,45 @@
-import { ElementRef } from '@angular/core';
+import { observable, computed, autorun } from 'mobx';
 import { TreeModel } from './tree.model';
 import { TreeOptions } from './tree-options.model';
 import { ITreeNode } from '../defs/api';
 import { TREE_EVENTS } from '../constants/events';
-import { deprecated } from '../deprecated';
 
 import * as _ from 'lodash';
 
 export class TreeNode implements ITreeNode {
-  get isHidden() { return this.getField('isHidden'); };
-  set isHidden(value) { this.setField('isHidden', value); };
-  get isExpanded() { return this.treeModel.isExpanded(this); };
-  get isActive() { return this.treeModel.isActive(this); };
-  get isFocused() { return this.treeModel.isNodeFocused(this); };
+  @computed get isHidden() { return this.treeModel.isHidden(this); };
+  @computed get isExpanded() { return this.treeModel.isExpanded(this); };
+  @computed get isActive() { return this.treeModel.isActive(this); };
+  @computed get isFocused() { return this.treeModel.isNodeFocused(this); };
 
-  level: number;
-  path: string[];
-  elementRef: ElementRef;
-  children: TreeNode[];
   allowDrop: (draggedElement: any) => boolean;
+  @observable children: TreeNode[];
+  @observable index: number;
+  @observable position: number = 0;
+  @observable height: number;
+  @computed get level(): number {
+    return this.parent ? this.parent.level + 1 : 0;
+  }
+  @computed get path(): string[] {
+    return this.parent ? [...this.parent.path, this.id] : [];
+  }
+  
+  get elementRef(): any {
+    throw `Element Ref is no longer supported since introducing virtual scroll\n
+      You may use a template to obtain a reference to the element`;
+  }
 
   private _originalNode: any;
   get originalNode() { return this._originalNode; };
 
-  constructor(public data: any, public parent: TreeNode, public treeModel: TreeModel) {
+  constructor(public data: any, public parent: TreeNode, public treeModel: TreeModel, index: number) {
     this.id = this.id || uuid(); // Make sure there's a unique ID
-    this.level = this.parent ? this.parent.level + 1 : 0;
-    this.path = this.parent ? [...this.parent.path, this.id] : [];
+    this.index = index;
 
     if (this.getField('children')) {
       this._initChildren();
     }
-
+    
     this.allowDrop = this.allowDropUnbound.bind(this);
   }
 
@@ -47,7 +55,6 @@ export class TreeNode implements ITreeNode {
   // proxy functions:
   get options(): TreeOptions { return this.treeModel.options; }
   fireEvent(event) { this.treeModel.fireEvent(event); }
-  get context(): any { return this.options.context; }
 
   // field accessors:
   get displayField() {
@@ -72,8 +79,7 @@ export class TreeNode implements ITreeNode {
 
   // traversing:
   _findAdjacentSibling(steps, skipHidden = false) {
-    const index = this.getIndexInParent(skipHidden);
-    return this._getParentsChildren(skipHidden)[index + steps];
+    return this._getParentsChildren(skipHidden)[this.index + steps];
   }
 
   findNextSibling(skipHidden = false) {
@@ -85,17 +91,21 @@ export class TreeNode implements ITreeNode {
   }
 
   getVisibleChildren() {
+    return this.visibleChildren;
+  }
+
+  @computed get visibleChildren() {
     return (this.children || []).filter((node) => !node.isHidden);
   }
 
   getFirstChild(skipHidden = false) {
-    let children = skipHidden ? this.getVisibleChildren() : this.children;
+    let children = skipHidden ? this.visibleChildren : this.children;
 
     return _.first(children || []);
   }
 
   getLastChild(skipHidden = false) {
-    let children = skipHidden ? this.getVisibleChildren() : this.children;
+    let children = skipHidden ? this.visibleChildren : this.children;
 
     return _.last(children || []);
   }
@@ -172,8 +182,11 @@ export class TreeNode implements ITreeNode {
               child.expand();
             }
           });
-
-        }
+      }}).then(() => {
+        this.fireEvent({
+          eventName: TREE_EVENTS.onLoadChildren,
+          node: this
+        });
       });
   }
 
@@ -202,22 +215,8 @@ export class TreeNode implements ITreeNode {
     return this;
   }
 
-  toggle() {
-    deprecated('toggle', 'toggleExpanded');
-    return this.toggleExpanded();
-  }
-
   toggleExpanded() {
-    return this.setIsExpanded(!this.isExpanded)
-      .then(() => {
-        this.fireEvent({
-          eventName: TREE_EVENTS.onToggle,
-          warning: 'this event is deprecated, please use onToggleExpanded instead',
-          node: this,
-          isExpanded: this.isExpanded
-        });
-        this.fireEvent({ eventName: TREE_EVENTS.onToggleExpanded, node: this, isExpanded: this.isExpanded });
-      });
+    return this.setIsExpanded(!this.isExpanded);
   }
 
   setIsExpanded(value) {
@@ -255,22 +254,7 @@ export class TreeNode implements ITreeNode {
   }
 
   scrollIntoView(force = false) {
-    if (this.elementRef) {
-      const nativeElement = this.elementRef.nativeElement;
-
-      if (!force) {
-        try {
-          this.treeModel.renderer.invokeElementMethod(this.elementRef.nativeElement, 'scrollIntoViewIfNeeded', []);
-        } catch (e) {
-          this.treeModel.renderer.invokeElementMethod(this.elementRef.nativeElement, 'scrollIntoView', []);
-        }
-      }
-      else {
-        this.treeModel.renderer.invokeElementMethod(this.elementRef.nativeElement, 'scrollIntoView', []);
-      }
-
-      return this;
-    }
+    this.treeModel.virtualScroll.scrollIntoView(this, force);
   }
 
   focus() {
@@ -305,14 +289,26 @@ export class TreeNode implements ITreeNode {
       });
     }
 
-    this.isHidden = !isVisible;
+    this.setIsHidden(!isVisible);
     if (autoShow) {
       this.ensureVisible();
     }
   }
 
+  setIsHidden(value) {
+    this.treeModel.setIsHidden(this, value);
+  }
+
+  hide() {
+    this.setIsHidden(true);
+  }
+
+  show() {
+    this.setIsHidden(false);
+  }
+
   clearFilter() {
-    this.isHidden = false;
+    this.show();
     if (this.children) this.children.forEach((child) => child.clearFilter());
   }
 
@@ -328,25 +324,16 @@ export class TreeNode implements ITreeNode {
 
     if (action) {
       action(this.treeModel, this, $event, data);
-
-      // TODO: remove after deprecation of context menu and dbl click
-      if (actionName === 'contextMenu') {
-        this.fireEvent({ eventName: TREE_EVENTS.onContextMenu, node: this, rawEvent: $event });
-      }
-      if (actionName === 'dblClick') {
-        this.fireEvent({
-          eventName: TREE_EVENTS.onDoubleClick,
-          warning: 'This event is deprecated, please use actionMapping to handle double clicks',
-          node: this,
-          rawEvent: $event
-        });
-      }
     }
+  }
+
+  getSelfHeight() {
+    return this.options.nodeHeight(this);
   }
 
   _initChildren() {
     this.children = this.getField('children')
-      .map(c => new TreeNode(c, this, this.treeModel));
+      .map((c, index) => new TreeNode(c, this, this.treeModel, index));
   }
 }
 
