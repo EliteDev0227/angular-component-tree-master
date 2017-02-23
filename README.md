@@ -47,23 +47,16 @@ ng serve
 ```
 
 ## SystemJS
-**There's currently an issue with systemJS and lodash.**  
-Until we solve it, please install lodash into the project:  
+You'll need to load the UMD bundle to work with SystemJS.  
+Add these lines to systemjs.config.js:  
 ```
-npm install --save lodash
-```
-
-and add these lines to systemjs.config.js:  
-```
-  var map = {
-    'angular2-tree-component':    'node_modules/angular2-tree-component',
-    'lodash':                     'node_modules/lodash',
-  };
-
-  var packages = {
-    'angular2-tree-component'   : { main: 'dist/angular2-tree-component.js', defaultExtension: 'js' },
-    'lodash'                    : { main: 'lodash.js', defaultExtension: 'js' },
-  };
+  map: {
+    // angular bundles
+    '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
+    …
+    'angular2-tree-component': 'node_modules/angular2-tree-component/dist/angular2-tree-component.umd.js',
+    …
+  }
 ```
 
 ## What's next
@@ -74,6 +67,8 @@ Some things on our mind down the road:
 * context menu
 * save & restore tree state
 * checkbox & master checkbox support
+* integration tests
+* unit tests
 
 ## Contributing
 There are currently no unit tests (yet).
