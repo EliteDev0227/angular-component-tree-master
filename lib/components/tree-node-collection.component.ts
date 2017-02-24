@@ -15,9 +15,9 @@ import * as _ from 'lodash';
       <div
         [style.margin-top]="marginTop">
         <TreeNode
-          *ngFor="let node of viewportNodes; trackBy: index"
+          *ngFor="let node of viewportNodes; let i = index; trackBy: index"
           [node]="node"
-          [index]="node.index"
+          [index]="i"
           [templates]="templates">
         </TreeNode>
       </div>

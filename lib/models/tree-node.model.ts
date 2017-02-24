@@ -206,6 +206,21 @@ export class TreeNode implements ITreeNode {
     return this;
   }
 
+  doForAll(fn) {
+    fn(this);
+    if (this.children) {
+      this.children.forEach((child) => fn(child));
+    }
+  }
+
+  expandAll() {
+    this.doForAll((node) => node.expand());
+  }
+
+  collapseAll() {
+    this.doForAll((node) => node.collapse());
+  }
+
   ensureVisible() {
     if (this.realParent) {
       this.realParent.expand();
@@ -220,10 +235,12 @@ export class TreeNode implements ITreeNode {
   }
 
   setIsExpanded(value) {
-    this.treeModel.setExpandedNode(this, value);
+    if (this.hasChildren) {
+      this.treeModel.setExpandedNode(this, value);
 
-    if (!this.children && this.hasChildren && value) {
-      return this.loadChildren();
+      if (!this.children && this.hasChildren && value) {
+        return this.loadChildren();
+      }
     }
 
     return Promise.resolve();
@@ -279,22 +296,6 @@ export class TreeNode implements ITreeNode {
     return this;
   }
 
-  filter(filterFn, autoShow = false) {
-    let isVisible = filterFn(this);
-
-    if (this.children) {
-      this.children.forEach((child) => {
-        child.filter(filterFn, autoShow);
-        isVisible = isVisible || !child.isHidden;
-      });
-    }
-
-    this.setIsHidden(!isVisible);
-    if (autoShow) {
-      this.ensureVisible();
-    }
-  }
-
   setIsHidden(value) {
     this.treeModel.setIsHidden(this, value);
   }
@@ -305,11 +306,6 @@ export class TreeNode implements ITreeNode {
 
   show() {
     this.setIsHidden(false);
-  }
-
-  clearFilter() {
-    this.show();
-    if (this.children) this.children.forEach((child) => child.clearFilter());
   }
 
   allowDrag() {

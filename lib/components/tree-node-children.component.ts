@@ -9,21 +9,23 @@ import { TreeNode } from '../models/tree-node.model';
     '.tree-children { padding-left: 20px }'
   ],
   template: `
-    <div [class.tree-children]="true"
-         [class.tree-children-no-padding]="node.options.levelPadding"
-         *ngIf="node.isExpanded">
-      <div *ngIf="node.children">
-        <TreeNodeCollection
-          [nodes]="node.children"
-          [templates]="templates">
-        </TreeNodeCollection>
+    <div *mobxAutorun>
+      <div [class.tree-children]="true"
+          [class.tree-children-no-padding]="node.options.levelPadding"
+          *ngIf="node.isExpanded">
+        <div *ngIf="node.children">
+          <TreeNodeCollection
+            [nodes]="node.children"
+            [templates]="templates">
+          </TreeNodeCollection>
+        </div>
+        <LoadingComponent
+          [style.padding-left]="node.getNodePadding()"
+          class="tree-node-loading"
+          *ngIf="!node.children"
+          [template]="templates.loadingTemplate"
+        ></LoadingComponent>
       </div>
-      <LoadingComponent
-        [style.padding-left]="node.getNodePadding()"
-        class="tree-node-loading"
-        *ngIf="!node.children"
-        [template]="templates.loadingTemplate"
-      ></LoadingComponent>
     </div>
   `
 })

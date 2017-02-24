@@ -106,7 +106,7 @@ export class TreeModel implements ITreeModel {
   }
 
   getVisibleRoots() {
-    return this.virtualRoot.getVisibleChildren();
+    return this.virtualRoot.visibleChildren;
   }
 
   getFirstRoot(skipHidden = false) {
@@ -194,15 +194,8 @@ export class TreeModel implements ITreeModel {
     }
   }
 
-  _createAdHocComponent(templateStr): any {
-    @Component({
-      selector: 'tree-node-template',
-      template: templateStr
-    })
-    class AdHocTreeNodeTemplateComponent {
-        @Input() node: TreeNode;
-    }
-    return AdHocTreeNodeTemplateComponent;
+  @action doForAll(fn) {
+    this.roots.forEach((root) => root.doForAll(fn));
   }
 
   @action focusNextNode() {
@@ -289,13 +282,20 @@ export class TreeModel implements ITreeModel {
     this.fireEvent({ eventName: TREE_EVENTS.onToggleExpanded, node, isExpanded: value });
   }
 
+  @action expandAll() {
+    this.roots.forEach((root) => root.expandAll());
+  }
+
+  @action collapseAll() {
+    this.roots.forEach((root) => root.collapseAll());
+  }
+  
   isHidden(node) {
     return this.hiddenNodeIds[node.id];
   }
 
   @action setIsHidden(node, value) {
     this.hiddenNodeIds = Object.assign({}, this.hiddenNodeIds, {[node.id]: value});
-    this.fireEvent({ eventName: TREE_EVENTS.onChangeHidden, node, isHidden: value });
   }
 
   performKeyAction(node, $event) {
@@ -309,13 +309,14 @@ export class TreeModel implements ITreeModel {
     }
   }
 
-  @action filterNodes(filter, autoShow = false) {
+  @action filterNodes(filter, autoShow = true) {
     let filterFn;
 
     if (!filter) {
       return this.clearFilter();
     }
 
+    // support function and string filter
     if (isString(filter)) {
       filterFn = (node) => node.displayField.toLowerCase().indexOf(filter.toLowerCase()) !== -1;
     }
@@ -324,14 +325,42 @@ export class TreeModel implements ITreeModel {
     }
     else {
       console.error('Don\'t know what to do with filter', filter);
-      console.error('Should be either a string or function', filter);
+      console.error('Should be either a string or function');
+      return;
     }
-    this.roots.forEach((node) => node.filter(filterFn, autoShow));
+
+    const ids = {};
+    this.roots.forEach((node) => this._filterNode(ids, node, filterFn, autoShow));
+    this.hiddenNodeIds = ids;
     this.fireEvent({ eventName: TREE_EVENTS.onChangeFilter });
   }
 
+  private _filterNode(ids, node, filterFn, autoShow) {
+    // if node passes function then it's visible
+    let isVisible = filterFn(node);
+
+    if (node.children) {
+      // if one of node's children passes filter then this node is also visible
+      node.children.forEach((child) => {
+        if (this._filterNode(ids, child, filterFn, autoShow)) {
+          isVisible = true;
+        }
+      });
+    }
+
+    // mark node as hidden
+    if (!isVisible) {
+      ids[node.id] = true;
+    }
+    // auto expand parents to make sure the filtered nodes are visible
+    if (autoShow && isVisible) {
+      node.ensureVisible();
+    }
+    return isVisible;
+  }
+
   @action clearFilter() {
-    this.roots.forEach((node) => node.clearFilter());
+    this.hiddenNodeIds = {};
     this.fireEvent({ eventName: TREE_EVENTS.onChangeFilter });
   }
 

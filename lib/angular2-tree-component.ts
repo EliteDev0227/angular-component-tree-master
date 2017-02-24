@@ -20,7 +20,6 @@ import { TreeNodeCollectionComponent } from './components/tree-node-collection.c
 import { TreeViewportComponent } from './components/tree-viewport.component';
 import { TreeDropDirective } from './directives/tree-drop.directive';
 import { TreeDragDirective } from './directives/tree-drag.directive';
-import { AdHocComponentFactoryCreator } from './components/adhoc-component-factory.service';
 
 import './polyfills';
 

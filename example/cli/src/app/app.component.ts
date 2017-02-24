@@ -39,7 +39,6 @@ const actionMapping:IActionMapping = {
     <input #filter (keyup)="filterNodes(filter.value, tree)" placeholder="filter nodes"/>
   </form>
   <div style="height: 400px; width: 300px">
-<!--  <div>-->
     <Tree
       #tree
       [nodes]="nodes"
@@ -88,6 +87,14 @@ const actionMapping:IActionMapping = {
   <button
     (click)="activateSubSub(tree)">
     Activate inner node
+  </button>
+  <button
+    (click)="tree.treeModel.expandAll()">
+    Expand All
+  </button>
+  <button
+    (click)="tree.treeModel.collapseAll()">
+    Collapse All
   </button>
   `
 })
@@ -186,7 +193,7 @@ export class AppComponent {
   }
 
   filterNodes(text, tree) {
-    tree.treeModel.filterNodes(text, true);
+    tree.treeModel.filterNodes(text);
   }
 
   activateSubSub(tree) {

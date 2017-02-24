@@ -25,7 +25,7 @@ import { TreeNode } from '../models/tree-node.model';
   template: `
     <div *mobxAutorun>
       <div
-        *ngIf="!node.isHidden && !templates.treeNodeFullTemplate"
+        *ngIf="!templates.treeNodeFullTemplate"
         class="tree-node tree-node-level-{{ node.level }}"
         [class]="node.getClass()"
         [class.tree-node-expanded]="node.isExpanded && node.hasChildren"
@@ -34,7 +34,7 @@ import { TreeNode } from '../models/tree-node.model';
         [class.tree-node-active]="node.isActive"
         [class.tree-node-focused]="node.isFocused">
 
-        <TreeNodeDropSlot *ngIf="index === 0" [dropIndex]="index" [node]="node.parent"></TreeNodeDropSlot>
+        <TreeNodeDropSlot *ngIf="index === 0" [dropIndex]="node.index" [node]="node.parent"></TreeNodeDropSlot>
 
           <div class="node-wrapper" [style.padding-left]="node.getNodePadding()">
             <TreeNodeExpander [node]="node"></TreeNodeExpander>
@@ -53,7 +53,7 @@ import { TreeNode } from '../models/tree-node.model';
           </div>
 
         <TreeNodeChildren [node]="node" [templates]="templates"></TreeNodeChildren>
-        <TreeNodeDropSlot [dropIndex]="index + 1" [node]="node.parent"></TreeNodeDropSlot>
+        <TreeNodeDropSlot [dropIndex]="node.index + 1" [node]="node.parent"></TreeNodeDropSlot>
       </div>
       <template
         [ngTemplateOutlet]="templates.treeNodeFullTemplate"

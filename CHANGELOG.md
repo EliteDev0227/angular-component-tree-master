@@ -1,9 +1,14 @@
 <a name="3.0.0"></a>
 # 3.0.0 (2017-02-23)
 * Virtual Scroll
-* Added onChangeHidden event
+* Added onChangeFilter event
 * Added onLoadChildren event
+* Added doForAll method on TreeModel and TreeNode
+* Added expandAll method on TreeModel and TreeNode
+* Added collapseAll method on TreeModel and TreeNode
 * Breaking change - onToggleExpanded is called immediately after expanding node. If there are async children - onLoadChildren will be called after they are loaded.
+* Breaking change - TreeModel filter function autoShow param now defaults to true
+* Breaking change - Removed filter function on TreeNode
 * Breaking change - Removed deprecations:
     * options.hasCustomContextMenu
     * options.context
