@@ -1,5 +1,5 @@
 <a name="3.0.0"></a>
-# 3.0.0 (2017-02-23)
+# 3.0.0 (2017-02-25)
 * Virtual Scroll
 * Added onChangeFilter event
 * Added onLoadChildren event
