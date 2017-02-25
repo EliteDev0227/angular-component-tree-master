@@ -1,3 +1,7 @@
+<a name="3.0.2"></a>
+# 3.0.2 (2017-02-25)
+* Using ng2-mobx's wrappers for observable and computed for AoT
+
 <a name="3.0.1"></a>
 # 3.0.1 (2017-02-25)
 * Fix lint errors

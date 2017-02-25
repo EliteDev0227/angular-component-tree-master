@@ -484,9 +484,9 @@ mobx@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/mobx/-/mobx-3.1.0.tgz#e5f15b475efdd1eea1f5c43a0afccde6e6f322ee"
 
-ng2-mobx@^1.2.8:
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/ng2-mobx/-/ng2-mobx-1.2.8.tgz#4d98bb515b3adebefec6afc532c2831c9706beae"
+ng2-mobx@^1.2.9:
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/ng2-mobx/-/ng2-mobx-1.2.9.tgz#1efe0154c3acd9ea07eb29b332fbc5f412db0835"
 
 node-status-codes@^1.0.0:
   version "1.0.0"
