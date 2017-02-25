@@ -1,3 +1,8 @@
+<a name="3.0.1"></a>
+# 3.0.1 (2017-02-25)
+* Fix lint errors
+* Fix ng2-mobx version
+
 <a name="3.0.0"></a>
 # 3.0.0 (2017-02-25)
 * Virtual Scroll

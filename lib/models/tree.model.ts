@@ -289,7 +289,7 @@ export class TreeModel implements ITreeModel {
   @action collapseAll() {
     this.roots.forEach((root) => root.collapseAll());
   }
-  
+
   isHidden(node) {
     return this.hiddenNodeIds[node.id];
   }

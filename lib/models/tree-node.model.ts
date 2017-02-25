@@ -15,7 +15,7 @@ export class TreeNode implements ITreeNode {
   allowDrop: (draggedElement: any) => boolean;
   @observable children: TreeNode[];
   @observable index: number;
-  @observable position: number = 0;
+  @observable position = 0;
   @observable height: number;
   @computed get level(): number {
     return this.parent ? this.parent.level + 1 : 0;
@@ -23,7 +23,7 @@ export class TreeNode implements ITreeNode {
   @computed get path(): string[] {
     return this.parent ? [...this.parent.path, this.id] : [];
   }
-  
+
   get elementRef(): any {
     throw `Element Ref is no longer supported since introducing virtual scroll\n
       You may use a template to obtain a reference to the element`;
@@ -39,7 +39,7 @@ export class TreeNode implements ITreeNode {
     if (this.getField('children')) {
       this._initChildren();
     }
-    
+
     this.allowDrop = this.allowDropUnbound.bind(this);
   }
 

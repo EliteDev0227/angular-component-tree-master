@@ -69,7 +69,7 @@ export class TreeVirtualScroll {
     node.height = position - startPos;
     return position;
   }
-  
+
 
   clear() {
     this._dispose();

@@ -32,7 +32,7 @@ export class TreeViewportComponent implements AfterViewInit, OnInit, OnDestroy {
 
   constructor(
     private elementRef: ElementRef,
-    private virtualScroll: TreeVirtualScroll) {
+    public virtualScroll: TreeVirtualScroll) {
     this._debounceOnVirtualScroll = throttle(this._onVirtualScroll.bind(this), SCROLL_REFRESH_INTERVAL);
   }
 
