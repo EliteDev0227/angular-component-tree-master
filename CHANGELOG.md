@@ -1,3 +1,7 @@
+<a name="3.1.0"></a>
+# 3.1.0 (2017-02-27)
+* Changed component selectors to kebab-case
+
 <a name="3.0.2"></a>
 # 3.0.2 (2017-02-25)
 * Using ng2-mobx's wrappers for observable and computed for AoT
