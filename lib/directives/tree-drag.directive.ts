@@ -12,7 +12,7 @@ export class TreeDragDirective implements DoCheck {
   @Input() treeDragEnabled;
 
   constructor(private el: ElementRef, private renderer: Renderer, private treeDraggedElement: TreeDraggedElement) {
-    deprecatedSelector('[treeDrag]', '[tree-drag]');
+    deprecatedSelector('[treeDrag]', '[tree-drag]', el);
   }
 
   ngDoCheck() {

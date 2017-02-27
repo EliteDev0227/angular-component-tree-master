@@ -1,7 +1,6 @@
 import { TreeNode } from './tree-node.model';
 import { TreeModel } from './tree.model';
 import { KEYS } from '../constants/keys';
-import { deprecated } from '../deprecated';
 import { ITreeOptions } from '../defs/api';
 
 import { defaultsDeep, get } from 'lodash';
@@ -70,56 +69,13 @@ export class TreeOptions {
   get idField(): string { return this.options.idField || 'id'; }
   get isExpandedField(): string { return this.options.isExpandedField || 'isExpanded'; }
   get isHiddenField(): string { return this.options.isHiddenField || 'isHidden'; }
-  get treeNodeTemplate(): any { return this.options.treeNodeTemplate; }
-  get loadingComponent(): any { return this.options.loadingComponent; }
   get getChildren(): any { return this.options.getChildren; }
-  get hasCustomContextMenu(): boolean { return this.options.hasCustomContextMenu; }
-  get context(): any { return this.options.context; }
   get allowDrag(): boolean { return this.options.allowDrag; }
   get levelPadding(): number { return this.options.levelPadding || 0; }
   actionMapping: IActionMapping;
 
   constructor(private options: ITreeOptions = {}) {
     this.actionMapping = defaultsDeep(this.options.actionMapping, defaultActionMapping);
-
-    if (options.hasCustomContextMenu) {
-      deprecated('hasCustomContextMenu', 'actionMapping: mouse: contextMenu');
-    }
-
-    if (options.context) {
-      deprecated('context', `
-        values directly in a template in the content of the <Tree> component like this:
-        <Tree><template #treeNodeTemplate let-node>{{ outsideValue }}</template></Tree>.
-        If you don\'t have time to update your code and don\'t need AoT compilation, use DeprecatedTreeModule
-      `);
-    }
-
-    if (options.treeNodeTemplate) {
-      deprecated('treeNodeTemplate', `
-        a template in the content of the <Tree> component like this:
-        <Tree><template #treeNodeTemplate let-node>...</template></Tree>.
-        If you don\'t have time to update your code and don\'t need AoT compilation, use DeprecatedTreeModule`
-      );
-    }
-
-    if (options.loadingComponent) {
-      deprecated('loadingComponent', `a template in the content of the <Tree> component like this:
-        <Tree><template #loadingTemplate>...</template></Tree>.
-        If you don\'t have time to update your code and don\'t need AoT compilation, use DeprecatedTreeModule`
-      );
-    }
-
-    if (get(options, 'mouse.shift')) {
-      deprecated('mouse.shift', '$event.shiftKey in click action instead');
-    }
-
-    if (get(options, 'mouse.ctrl')) {
-      deprecated('mouse.ctrl', '$event.ctrlKey in click action instead');
-    }
-
-    if (get(options, 'mouse.alt')) {
-      deprecated('mouse.alt', '$event.altKey in click action instead');
-    }
   }
   allowDrop(element, to): boolean {
     if (this.options.allowDrop instanceof Function) {
@@ -131,5 +87,24 @@ export class TreeOptions {
   }
   nodeClass(node: TreeNode): string {
     return this.options.nodeClass ? this.options.nodeClass(node) : '';
+  }
+
+  nodeHeight(node: TreeNode): number {
+    if (node.data.virtual) {
+      return 0;
+    }
+
+    let nodeHeight = this.options.nodeHeight || 22;
+
+    if (typeof nodeHeight === 'function') {
+      nodeHeight = nodeHeight(node);
+    }
+
+    // account for drop slots:
+    return nodeHeight + (node.index === 0 ?  2 : 1) * this.dropSlotHeight;
+  }
+
+  get dropSlotHeight(): number {
+    return this.options.dropSlotHeight || 2;
   }
 }

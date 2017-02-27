@@ -23,7 +23,7 @@ export class TreeDropDirective {
   }
 
   constructor(private el: ElementRef, private renderer: Renderer, private treeDraggedElement: TreeDraggedElement) {
-    deprecatedSelector('[treeDrop]', '[tree-drop]');
+    deprecatedSelector('[treeDrop]', '[tree-drop]', el);
   }
 
   @HostListener('dragover', ['$event']) onDragOver($event) {

@@ -1,9 +1,9 @@
 import {
-  Component, Input, Output, OnChanges, EventEmitter,
-  ViewEncapsulation, ContentChild, TemplateRef, HostListener,
-  Renderer
+  Component, Input, Output, OnChanges, EventEmitter, Renderer, ElementRef,
+  ViewEncapsulation, ContentChild, TemplateRef, HostListener
 } from '@angular/core';
 import { TreeModel } from '../models/tree.model';
+import { TreeNode } from '../models/tree-node.model';
 import { TreeDraggedElement } from '../models/tree-dragged-element.model';
 import { TreeOptions } from '../models/tree-options.model';
 
@@ -11,13 +11,15 @@ import * as _ from 'lodash';
 import { deprecatedSelector } from '../deprecated-selector';
 
 @Component({
-  selector: 'Tree, tree',
+  selector: 'Tree, tree-root',
   encapsulation: ViewEncapsulation.None,
   providers: [TreeModel],
   styles: [
     '.tree-children { padding-left: 20px }',
     '.empty-tree-drop-slot .node-drop-slot { height: 20px; min-width: 100px }',
     `.tree {
+      width: 100%;
+      position:relative;
       display: inline-block;
       cursor: pointer;
       -webkit-touch-callout: none; /* iOS Safari */
@@ -29,24 +31,27 @@ import { deprecatedSelector } from '../deprecated-selector';
     }`
   ],
   template: `
-    <div class="tree" [class.node-dragging]="treeDraggedElement.isDragging()">
-      <tree-node
-        *ngFor="let node of treeModel.roots; let i = index"
-        [node]="node"
-        [index]="i"
-        [templates]="{
-          loadingTemplate: loadingTemplate,
-          treeNodeTemplate: treeNodeTemplate,
-          treeNodeFullTemplate: treeNodeFullTemplate
-        }">
-      </tree-node>
-      <tree-node-drop-slot
-        class="empty-tree-drop-slot"
-        *ngIf="treeModel.isEmptyTree()"
-        [dropIndex]="0"
-        [node]="treeModel.virtualRoot">
-      </tree-node-drop-slot>
-    </div>
+    <tree-viewport>
+      <div
+        class="tree"
+        [class.node-dragging]="treeDraggedElement.isDragging()">
+        <tree-node-collection
+          *ngIf="treeModel.roots"
+          [nodes]="treeModel.roots"
+          [templates]="{
+            loadingTemplate: loadingTemplate,
+            treeNodeTemplate: treeNodeTemplate,
+            treeNodeFullTemplate: treeNodeFullTemplate
+          }">
+        </tree-node-collection>
+        <tree-node-drop-slot
+          class="empty-tree-drop-slot"
+          *ngIf="treeModel.isEmptyTree()"
+          [dropIndex]="0"
+          [node]="treeModel.virtualRoot">
+        </tree-node-drop-slot>
+      </div>
+    </tree-viewport>
   `
 })
 export class TreeComponent implements OnChanges {
@@ -65,25 +70,26 @@ export class TreeComponent implements OnChanges {
     this.treeModel.setFocus(value);
   }
 
-  @Output() onToggle;
   @Output() onToggleExpanded;
   @Output() onActivate;
   @Output() onDeactivate;
   @Output() onFocus;
   @Output() onBlur;
-  @Output() onDoubleClick;
-  @Output() onContextMenu;
   @Output() onUpdateData;
   @Output() onInitialized;
   @Output() onMoveNode;
+  @Output() onLoadChildren;
+  @Output() onChangeFilter;
   @Output() onEvent;
 
   constructor(
     public treeModel: TreeModel,
     public treeDraggedElement: TreeDraggedElement,
-    private renderer: Renderer) {
-    deprecatedSelector('Tree', 'tree');
-    treeModel.eventNames.forEach((name) => this[name] = new EventEmitter());
+    private renderer: Renderer,
+    private elementRef: ElementRef) {
+
+      deprecatedSelector('Tree', 'tree-root', elementRef);
+      treeModel.eventNames.forEach((name) => this[name] = new EventEmitter());
   }
 
   @HostListener('body: keydown', ['$event'])

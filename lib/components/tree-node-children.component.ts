@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation, ElementRef } from '@angular/core';
 import { TreeNode } from '../models/tree-node.model';
 import { deprecatedSelector } from '../deprecated-selector';
 
@@ -10,23 +10,23 @@ import { deprecatedSelector } from '../deprecated-selector';
     '.tree-children { padding-left: 20px }'
   ],
   template: `
-    <div [class.tree-children]="true"
-         [class.tree-children-no-padding]="node.options.levelPadding"
-         *ngIf="node.isExpanded">
-      <div *ngIf="node.children">
-        <tree-node
-          *ngFor="let node of node.children; let i = index"
-          [node]="node"
-          [index]="i"
-          [templates]="templates">
-        </tree-node>
+    <div *mobxAutorun>
+      <div [class.tree-children]="true"
+          [class.tree-children-no-padding]="node.options.levelPadding"
+          *ngIf="node.isExpanded">
+        <div *ngIf="node.children">
+          <tree-node-collection
+            [nodes]="node.children"
+            [templates]="templates">
+          </tree-node-collection>
+        </div>
+        <tree-loading-component
+          [style.padding-left]="node.getNodePadding()"
+          class="tree-node-loading"
+          *ngIf="!node.children"
+          [template]="templates.loadingTemplate"
+        ></tree-loading-component>
       </div>
-      <loading-component
-        [style.padding-left]="node.getNodePadding()"
-        class="tree-node-loading"
-        *ngIf="!node.children"
-        [template]="templates.loadingTemplate"
-      ></loading-component>
     </div>
   `
 })
@@ -34,7 +34,7 @@ export class TreeNodeChildrenComponent {
   @Input() node: TreeNode;
   @Input() templates: any;
 
-  constructor() {
-    deprecatedSelector('TreeNodeChildren', 'tree-node-children');
+  constructor(private elementRef: ElementRef) {
+    deprecatedSelector('TreeNodeChildren', 'tree-node-children', elementRef);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation, ElementRef } from '@angular/core';
 import { TreeNode } from '../models/tree-node.model';
 import { deprecatedSelector } from '../deprecated-selector';
 
@@ -34,25 +34,27 @@ import { deprecatedSelector } from '../deprecated-selector';
     }`
   ],
   template: `
-    <span
-      *ngIf="node.hasChildren"
-      [class.toggle-children-wrapper-expanded]="node.isExpanded"
-      [class.toggle-children-wrapper-collapsed]="node.isCollapsed"
-      class="toggle-children-wrapper"
-      (click)="node.mouseAction('expanderClick', $event)">
+    <div *mobxAutorun>
+      <span
+        *ngIf="node.hasChildren"
+        [class.toggle-children-wrapper-expanded]="node.isExpanded"
+        [class.toggle-children-wrapper-collapsed]="node.isCollapsed"
+        class="toggle-children-wrapper"
+        (click)="node.mouseAction('expanderClick', $event)">
 
-      <span class="toggle-children"></span>
-    </span>
-    <span
-      *ngIf="!node.hasChildren"
-      class="toggle-children-placeholder">
-    </span>
+        <span class="toggle-children"></span>
+      </span>
+      <span
+        *ngIf="!node.hasChildren"
+        class="toggle-children-placeholder">
+      </span>
+    </div>
   `
 })
 export class TreeNodeExpanderComponent {
   @Input() node: TreeNode;
 
-  constructor() {
-    deprecatedSelector('TreeNodeExpander', 'tree-node-expander');
+  constructor(private elementRef: ElementRef) {
+    deprecatedSelector('TreeNodeExpander', 'tree-node-expander', elementRef);
   }
 }

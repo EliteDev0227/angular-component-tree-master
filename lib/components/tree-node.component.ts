@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, AfterViewInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation, TemplateRef, ElementRef } from '@angular/core';
 import { TreeNode } from '../models/tree-node.model';
 import { deprecatedSelector } from '../deprecated-selector';
 
@@ -24,53 +24,52 @@ import { deprecatedSelector } from '../deprecated-selector';
     '.node-content-wrapper.is-dragging-over-disabled { opacity: 0.5 }'
   ],
   template: `
-    <div
-      *ngIf="!node.isHidden && !templates.treeNodeFullTemplate"
-      class="tree-node tree-node-level-{{ node.level }}"
-      [class]="node.getClass()"
-      [class.tree-node-expanded]="node.isExpanded && node.hasChildren"
-      [class.tree-node-collapsed]="node.isCollapsed && node.hasChildren"
-      [class.tree-node-leaf]="node.isLeaf"
-      [class.tree-node-active]="node.isActive"
-      [class.tree-node-focused]="node.isFocused">
+    <div *mobxAutorun>
+      <div
+        *ngIf="!templates.treeNodeFullTemplate"
+        class="tree-node tree-node-level-{{ node.level }}"
+        [class]="node.getClass()"
+        [class.tree-node-expanded]="node.isExpanded && node.hasChildren"
+        [class.tree-node-collapsed]="node.isCollapsed && node.hasChildren"
+        [class.tree-node-leaf]="node.isLeaf"
+        [class.tree-node-active]="node.isActive"
+        [class.tree-node-focused]="node.isFocused">
 
-      <tree-node-drop-slot *ngIf="index === 0" [dropIndex]="index" [node]="node.parent"></tree-node-drop-slot>
+        <tree-node-drop-slot *ngIf="index === 0" [dropIndex]="node.index" [node]="node.parent"></tree-node-drop-slot>
 
-        <div class="node-wrapper" [style.padding-left]="node.getNodePadding()">
-          <tree-node-expander [node]="node"></tree-node-expander>
-          <div class="node-content-wrapper"
-            (click)="node.mouseAction('click', $event)"
-            (dblclick)="node.mouseAction('dblClick', $event)"
-            (contextmenu)="node.mouseAction('contextMenu', $event)"
-            (treeDrop)="node.onDrop($event)"
-            [treeAllowDrop]="node.allowDrop"
-            [treeDrag]="node"
-            [treeDragEnabled]="node.allowDrag()">
+          <div class="node-wrapper" [style.padding-left]="node.getNodePadding()">
+            <tree-node-expander [node]="node"></tree-node-expander>
+            <div class="node-content-wrapper"
+              (click)="node.mouseAction('click', $event)"
+              (dblclick)="node.mouseAction('dblClick', $event)"
+              (contextmenu)="node.mouseAction('contextMenu', $event)"
+              (treeDrop)="node.onDrop($event)"
+              [treeAllowDrop]="node.allowDrop"
+              [treeDrag]="node"
+              [treeDragEnabled]="node.allowDrag()">
 
-            <tree-node-content [node]="node" [index]="index" [template]="templates.treeNodeTemplate">
-            </tree-node-content>
+              <tree-node-content [node]="node" [index]="index" [template]="templates.treeNodeTemplate">
+              </tree-node-content>
+            </div>
           </div>
-        </div>
 
-      <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
-      <tree-node-drop-slot [dropIndex]="index + 1" [node]="node.parent"></tree-node-drop-slot>
-    </div>
-    <template
-      [ngTemplateOutlet]="templates.treeNodeFullTemplate"
-      [ngOutletContext]="{ $implicit: node, node: node, index: index, templates: templates }">
-    </template>`
+        <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
+        <tree-node-drop-slot [dropIndex]="node.index + 1" [node]="node.parent"></tree-node-drop-slot>
+      </div>
+      <template
+        [ngTemplateOutlet]="templates.treeNodeFullTemplate"
+        [ngOutletContext]="{ $implicit: node, node: node, index: index, templates: templates }">
+      </template>
+    </div>`
 })
 
-export class TreeNodeComponent implements AfterViewInit {
+export class TreeNodeComponent {
   @Input() node: TreeNode;
   @Input() index: number;
   @Input() templates: any;
 
   constructor(private elementRef: ElementRef) {
-    deprecatedSelector('TreeNode', 'tree-node');
+    deprecatedSelector('TreeNode', 'tree-node', elementRef);
   }
 
-  ngAfterViewInit() {
-    this.node.elementRef = this.elementRef;
-  }
 }

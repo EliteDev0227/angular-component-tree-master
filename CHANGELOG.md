@@ -1,3 +1,35 @@
+<a name="3.0.2"></a>
+# 3.0.2 (2017-02-25)
+* Using ng2-mobx's wrappers for observable and computed for AoT
+
+<a name="3.0.1"></a>
+# 3.0.1 (2017-02-25)
+* Fix lint errors
+* Fix ng2-mobx version
+
+<a name="3.0.0"></a>
+# 3.0.0 (2017-02-25)
+* Virtual Scroll
+* Added onChangeFilter event
+* Added onLoadChildren event
+* Added doForAll method on TreeModel and TreeNode
+* Added expandAll method on TreeModel and TreeNode
+* Added collapseAll method on TreeModel and TreeNode
+* Breaking change - onToggleExpanded is called immediately after expanding node. If there are async children - onLoadChildren will be called after they are loaded.
+* Breaking change - TreeModel filter function autoShow param now defaults to true
+* Breaking change - Removed filter function on TreeNode
+* Breaking change - Removed deprecations:
+    * options.hasCustomContextMenu
+    * options.context
+    * options.loadingComponent
+    * options.treeNodeTemplate
+    * options.actionMapping.mouse.shift
+    * options.actionMapping.mouse.ctrl
+    * options.actionMapping.mouse.alt
+    * TREE_EVENTS.onToggle
+    * TREE_EVENTS.onDoubleClick
+    * TREE_EVENTS.onContextMenu
+
 <a name="2.8.2"></a>
 # 2.8.2 (2017-02-21)
 * Added yarn file
