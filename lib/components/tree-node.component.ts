@@ -1,8 +1,9 @@
-import { Component, Input, ViewEncapsulation, TemplateRef } from '@angular/core';
+import { Component, Input, ViewEncapsulation, TemplateRef, ElementRef } from '@angular/core';
 import { TreeNode } from '../models/tree-node.model';
+import { deprecatedSelector } from '../deprecated-selector';
 
 @Component({
-  selector: 'TreeNode',
+  selector: 'TreeNode, tree-node',
   encapsulation: ViewEncapsulation.None,
   styles: [
     `.node-content-wrapper {
@@ -34,10 +35,10 @@ import { TreeNode } from '../models/tree-node.model';
         [class.tree-node-active]="node.isActive"
         [class.tree-node-focused]="node.isFocused">
 
-        <TreeNodeDropSlot *ngIf="index === 0" [dropIndex]="node.index" [node]="node.parent"></TreeNodeDropSlot>
+        <tree-node-drop-slot *ngIf="index === 0" [dropIndex]="node.index" [node]="node.parent"></tree-node-drop-slot>
 
           <div class="node-wrapper" [style.padding-left]="node.getNodePadding()">
-            <TreeNodeExpander [node]="node"></TreeNodeExpander>
+            <tree-node-expander [node]="node"></tree-node-expander>
             <div class="node-content-wrapper"
               (click)="node.mouseAction('click', $event)"
               (dblclick)="node.mouseAction('dblClick', $event)"
@@ -47,13 +48,13 @@ import { TreeNode } from '../models/tree-node.model';
               [treeDrag]="node"
               [treeDragEnabled]="node.allowDrag()">
 
-              <TreeNodeContent [node]="node" [index]="index" [template]="templates.treeNodeTemplate">
-              </TreeNodeContent>
+              <tree-node-content [node]="node" [index]="index" [template]="templates.treeNodeTemplate">
+              </tree-node-content>
             </div>
           </div>
 
-        <TreeNodeChildren [node]="node" [templates]="templates"></TreeNodeChildren>
-        <TreeNodeDropSlot [dropIndex]="node.index + 1" [node]="node.parent"></TreeNodeDropSlot>
+        <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
+        <tree-node-drop-slot [dropIndex]="node.index + 1" [node]="node.parent"></tree-node-drop-slot>
       </div>
       <template
         [ngTemplateOutlet]="templates.treeNodeFullTemplate"
@@ -67,7 +68,8 @@ export class TreeNodeComponent {
   @Input() index: number;
   @Input() templates: any;
 
-  constructor() {
+  constructor(private elementRef: ElementRef) {
+    deprecatedSelector('TreeNode', 'tree-node', elementRef);
   }
 
 }

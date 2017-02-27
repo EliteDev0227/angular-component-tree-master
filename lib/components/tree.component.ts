@@ -1,17 +1,17 @@
 import {
-  Component, Input, Output, OnChanges, SimpleChange, EventEmitter, Renderer,
-  ViewEncapsulation, ContentChild, TemplateRef, HostListener, ChangeDetectionStrategy
+  Component, Input, Output, OnChanges, EventEmitter, Renderer, ElementRef,
+  ViewEncapsulation, ContentChild, TemplateRef, HostListener
 } from '@angular/core';
 import { TreeModel } from '../models/tree.model';
 import { TreeNode } from '../models/tree-node.model';
 import { TreeDraggedElement } from '../models/tree-dragged-element.model';
 import { TreeOptions } from '../models/tree-options.model';
-import { KEYS } from '../constants/keys';
 
 import * as _ from 'lodash';
+import { deprecatedSelector } from '../deprecated-selector';
 
 @Component({
-  selector: 'Tree',
+  selector: 'Tree, tree-root',
   encapsulation: ViewEncapsulation.None,
   providers: [TreeModel],
   styles: [
@@ -31,11 +31,11 @@ import * as _ from 'lodash';
     }`
   ],
   template: `
-    <TreeViewport>
+    <tree-viewport>
       <div
         class="tree"
         [class.node-dragging]="treeDraggedElement.isDragging()">
-        <TreeNodeCollection
+        <tree-node-collection
           *ngIf="treeModel.roots"
           [nodes]="treeModel.roots"
           [templates]="{
@@ -43,15 +43,15 @@ import * as _ from 'lodash';
             treeNodeTemplate: treeNodeTemplate,
             treeNodeFullTemplate: treeNodeFullTemplate
           }">
-        </TreeNodeCollection>
-        <TreeNodeDropSlot
+        </tree-node-collection>
+        <tree-node-drop-slot
           class="empty-tree-drop-slot"
           *ngIf="treeModel.isEmptyTree()"
           [dropIndex]="0"
           [node]="treeModel.virtualRoot">
-        </TreeNodeDropSlot>
+        </tree-node-drop-slot>
       </div>
-    </TreeViewport>
+    </tree-viewport>
   `
 })
 export class TreeComponent implements OnChanges {
@@ -85,8 +85,11 @@ export class TreeComponent implements OnChanges {
   constructor(
     public treeModel: TreeModel,
     public treeDraggedElement: TreeDraggedElement,
-    private renderer: Renderer) {
-    treeModel.eventNames.forEach((name) => this[name] = new EventEmitter());
+    private renderer: Renderer,
+    private elementRef: ElementRef) {
+
+      deprecatedSelector('Tree', 'tree-root', elementRef);
+      treeModel.eventNames.forEach((name) => this[name] = new EventEmitter());
   }
 
   @HostListener('body: keydown', ['$event'])

@@ -39,7 +39,7 @@ const actionMapping:IActionMapping = {
     <input #filter (keyup)="filterNodes(filter.value, tree)" placeholder="filter nodes"/>
   </form>
   <div style="height: 400px; width: 300px">
-    <Tree
+    <tree-root
       #tree
       [nodes]="nodes"
       [focused]="true"
@@ -51,7 +51,7 @@ const actionMapping:IActionMapping = {
         <button (click)="go($event)">Custom Action</button>
       </template>
       <template #loadingTemplate>Loading, please hold....</template>
-    </Tree>
+    </tree-root>
   </div>
   <br>
   <p>Keys:</p>

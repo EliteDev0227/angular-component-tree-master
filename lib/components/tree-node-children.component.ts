@@ -1,8 +1,9 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation, ElementRef } from '@angular/core';
 import { TreeNode } from '../models/tree-node.model';
+import { deprecatedSelector } from '../deprecated-selector';
 
 @Component({
-  selector: 'TreeNodeChildren',
+  selector: 'TreeNodeChildren, tree-node-children',
   encapsulation: ViewEncapsulation.None,
   styles: [
     '.tree-children.tree-children-no-padding { padding-left: 0 }',
@@ -14,17 +15,17 @@ import { TreeNode } from '../models/tree-node.model';
           [class.tree-children-no-padding]="node.options.levelPadding"
           *ngIf="node.isExpanded">
         <div *ngIf="node.children">
-          <TreeNodeCollection
+          <tree-node-collection
             [nodes]="node.children"
             [templates]="templates">
-          </TreeNodeCollection>
+          </tree-node-collection>
         </div>
-        <LoadingComponent
+        <tree-loading-component
           [style.padding-left]="node.getNodePadding()"
           class="tree-node-loading"
           *ngIf="!node.children"
           [template]="templates.loadingTemplate"
-        ></LoadingComponent>
+        ></tree-loading-component>
       </div>
     </div>
   `
@@ -32,4 +33,8 @@ import { TreeNode } from '../models/tree-node.model';
 export class TreeNodeChildrenComponent {
   @Input() node: TreeNode;
   @Input() templates: any;
+
+  constructor(private elementRef: ElementRef) {
+    deprecatedSelector('TreeNodeChildren', 'tree-node-children', elementRef);
+  }
 }

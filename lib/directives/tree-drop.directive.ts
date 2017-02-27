@@ -1,11 +1,12 @@
 import { Directive, Output, Input, EventEmitter, HostListener, Renderer, ElementRef } from '@angular/core';
 import { TreeDraggedElement } from '../models/tree-dragged-element.model';
+import { deprecatedSelector } from '../deprecated-selector';
 
 const DRAG_OVER_CLASS = 'is-dragging-over';
 const DRAG_DISABLED_CLASS = 'is-dragging-over-disabled';
 
 @Directive({
-  selector: '[treeDrop]'
+  selector: '[treeDrop], [tree-drop]'
 })
 export class TreeDropDirective {
   @Output('treeDrop') onDropCallback = new EventEmitter();
@@ -22,6 +23,7 @@ export class TreeDropDirective {
   }
 
   constructor(private el: ElementRef, private renderer: Renderer, private treeDraggedElement: TreeDraggedElement) {
+    deprecatedSelector('[treeDrop]', '[tree-drop]', el);
   }
 
   @HostListener('dragover', ['$event']) onDragOver($event) {

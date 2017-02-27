@@ -1,26 +1,27 @@
 import {
-  Component, Input, ViewEncapsulation, OnInit, OnDestroy
+  Component, Input, ViewEncapsulation, OnInit, OnDestroy, ElementRef
 } from '@angular/core';
 import { reaction, autorun } from 'mobx';
 import { observable, computed } from 'ng2-mobx';
 import { TreeVirtualScroll } from '../models/tree-virtual-scroll.model';
 import { TreeNode } from '../models/tree-node.model';
+import { deprecatedSelector } from '../deprecated-selector';
 
 import * as _ from 'lodash';
 
 @Component({
-  selector: 'TreeNodeCollection',
+  selector: 'tree-node-collection, TreeNodeCollection',
   encapsulation: ViewEncapsulation.None,
   template: `
     <div *mobxAutorun>
       <div
         [style.margin-top]="marginTop">
-        <TreeNode
+        <tree-node
           *ngFor="let node of viewportNodes; let i = index; trackBy: index"
           [node]="node"
           [index]="i"
           [templates]="templates">
-        </TreeNode>
+        </tree-node>
       </div>
     </div>
   `
@@ -44,7 +45,8 @@ export class TreeNodeCollectionComponent implements OnInit, OnDestroy {
 
   _dispose = [];
 
-  constructor(private virtualScroll: TreeVirtualScroll) {
+  constructor(private virtualScroll: TreeVirtualScroll, private elementRef: ElementRef) {
+    deprecatedSelector('TreeNodeCollection', 'tree-node-collection', elementRef);
   }
 
   ngOnInit() {

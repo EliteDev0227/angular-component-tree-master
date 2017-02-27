@@ -1,8 +1,9 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation, ElementRef } from '@angular/core';
 import { TreeNode } from '../models/tree-node.model';
+import { deprecatedSelector } from '../deprecated-selector';
 
 @Component({
-  selector: 'TreeNodeExpander',
+  selector: 'TreeNodeExpander, tree-node-expander',
   encapsulation: ViewEncapsulation.None,
   styles: [
     '.toggle-children-wrapper-expanded .toggle-children { transform: rotate(90deg) }',
@@ -53,6 +54,7 @@ import { TreeNode } from '../models/tree-node.model';
 export class TreeNodeExpanderComponent {
   @Input() node: TreeNode;
 
-  constructor() {
+  constructor(private elementRef: ElementRef) {
+    deprecatedSelector('TreeNodeExpander', 'tree-node-expander', elementRef);
   }
 }
