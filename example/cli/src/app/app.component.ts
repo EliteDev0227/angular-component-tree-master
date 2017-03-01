@@ -104,7 +104,7 @@ export class AppComponent {
     // setTimeout(() => {
     this.nodes = [
       {
-        expanded: false,
+        expanded: true,
         name: 'root expanded',
         subTitle: 'the root',
         children: [
