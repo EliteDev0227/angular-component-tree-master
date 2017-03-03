@@ -75,7 +75,7 @@ export class TreeOptions {
   actionMapping: IActionMapping;
 
   constructor(private options: ITreeOptions = {}) {
-    this.actionMapping = defaultsDeep(this.options.actionMapping, defaultActionMapping);
+    this.actionMapping = defaultsDeep({}, this.options.actionMapping, defaultActionMapping);
   }
   allowDrop(element, to): boolean {
     if (this.options.allowDrop instanceof Function) {
