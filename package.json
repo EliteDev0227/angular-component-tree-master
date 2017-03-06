@@ -3,7 +3,7 @@
   "version": "3.2.0",
   "description": "A simple yet powerful tree component for Angular2",
   "author": "Adam Klein <adam@500tech.com>",
-  "homepage": "https://github.com/500tech/angular2-tree-component",
+  "homepage": "https://github.com/500tech/angular-tree-component",
   "license": "MIT",
   "main": "dist/angular-tree-component.umd.js",
   "jsnext:main": "dist/angular-tree-component.js",
@@ -48,7 +48,7 @@
   "files": [
     "dist/"
   ],
-  "readme": "https://github.com/500tech/angular2-tree-component/blob/master/README.md",
+  "readme": "https://github.com/500tech/angular-tree-component/blob/master/README.md",
   "contributors": [
     "Adam Klein <adam@500tech.com>"
   ],
@@ -86,9 +86,9 @@
     "typescript": "^2.1.4",
     "zone.js": "^0.7.2"
   },
-  "repository": "https://github.com/500tech/angular2-tree-component.git",
+  "repository": "https://github.com/500tech/angular-tree-component.git",
   "bugs": {
-    "url": "https://github.com/500tech/angular2-tree-component/issues"
+    "url": "https://github.com/500tech/angular-tree-component/issues"
   },
   "engines": {
     "node": ">= 4.2.1",
