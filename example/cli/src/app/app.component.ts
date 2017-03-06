@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { TreeNode, TREE_ACTIONS, KEYS, IActionMapping } from 'angular2-tree-component';
+import { TreeNode, TREE_ACTIONS, KEYS, IActionMapping } from 'angular-tree-component';
 
 const actionMapping:IActionMapping = {
   mouse: {
@@ -42,8 +42,9 @@ const actionMapping:IActionMapping = {
     <tree-root
       #tree
       [nodes]="nodes"
-      [focused]="true"
       [options]="customTemplateStringOptions"
+      [focused]="true"
+      
     >
       <template #treeNodeTemplate let-node>
         <span title="{{node.data.subTitle}}">{{ node.data.name }}</span>
@@ -95,6 +96,10 @@ const actionMapping:IActionMapping = {
   <button
     (click)="tree.treeModel.collapseAll()">
     Collapse All
+  </button>
+  <button
+    (click)="activeNodes(tree.treeModel)">
+    getActiveNodes()
   </button>
   `
 })
@@ -215,6 +220,10 @@ export class AppComponent {
 
   go($event) {
     $event.stopPropagation();
-    alert('this method is on the app component')
+    alert('this method is on the app component');
+  }
+
+  activeNodes(treeModel) {
+    console.log(treeModel.activeNodes);
   }
 }

@@ -1,3 +1,7 @@
+<a name="3.2.0"></a>
+# 3.2.0 (2017-03-06)
+* Renamed library to angular-tree-component
+
 <a name="3.1.0"></a>
 # 3.1.0 (2017-02-27)
 * Changed component selectors to kebab-case
