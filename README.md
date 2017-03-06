@@ -1,11 +1,11 @@
-[![npm version](https://badge.fury.io/js/angular2-tree-component.svg)](https://badge.fury.io/js/angular2-tree-component)
-# angular2 tree component
+[![npm version](https://badge.fury.io/js/angular-tree-component.svg)](https://badge.fury.io/js/angular-tree-component)
+# angular tree component
 
-## A full featured tree component for Angular 2
+## A full featured tree component for Angular 2 and above
 We've built so many projects that required a tree component, and could never find a library that supported all features.
 And building your own tree component is not an easy task.
 
-So, we decided to build one for Angular 2, with all the features you can think of:
+So, we decided to build one for Angular, with all the features you can think of:
 * Simple to use
 * Well Documented
 * Keyboard navigation
@@ -13,6 +13,7 @@ So, we decided to build one for Angular 2, with all the features you can think o
 * Drag & Drop
 * Select & Multiselect
 * Filtering
+* Virtual Scrolling
 * Customizable (override field names, custom templates, etc...)
 * Event callbacks
 * API for accessing & altering the tree state
@@ -20,8 +21,8 @@ So, we decided to build one for Angular 2, with all the features you can think o
 
 If you like this, support the project by starring it!
 
-## Angular 2 supported version
-angular2-tree-component supports angular 2.X.X releases, and AoT compilation.
+## Angular supported version
+angular-tree-component supports angular 2.X.X releases, and AoT compilation. (And soon Angular 4). 
 
 ## Getting started, demo & full documentation
 Please refer to the full documentation:  
@@ -38,9 +39,9 @@ Thanks
 ## Example
 To run the example:
 ```
-git clone https://github.com/500tech/angular2-tree-component
+git clone https://github.com/500tech/angular-tree-component
 
-cd angular2-tree-component/example/cli
+cd angular-tree-component/example/cli
 npm install
 npm install -g angular-cli
 ng serve
@@ -54,7 +55,7 @@ Add these lines to systemjs.config.js:
     // angular bundles
     '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
     …
-    'angular2-tree-component': 'node_modules/angular2-tree-component/dist/angular2-tree-component.umd.js',
+    'angular-tree-component': 'node_modules/angular2-tree-component/dist/angular-tree-component.umd.js',
     …
   }
 ```
@@ -75,4 +76,4 @@ There are currently no unit tests (yet).
 
 However, if you wish to contribute code, you can run `npm run example:cli` and open [localhost:4200](http://localhost:4200) to test your code manually before submitting a pull request.
 
-Please email me at adam@500tech.com before starting to work on a feature / bug to make sure it's something that I'm not working on already.
+Please check the issues / project before starting to work on a feature / bug to make sure it's not already in progress.
