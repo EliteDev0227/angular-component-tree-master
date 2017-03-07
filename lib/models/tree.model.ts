@@ -69,7 +69,7 @@ export class TreeModel implements ITreeModel {
     }
   }
 
-  _calculateExpandedNodes(startNode = null) {
+  private _calculateExpandedNodes(startNode = null) {
     startNode = startNode || this.virtualRoot;
 
     if (startNode.data[this.options.isExpandedField]) {
@@ -81,6 +81,7 @@ export class TreeModel implements ITreeModel {
   }
 
   fireEvent(event) {
+    event.treeModel = this;
     this.events[event.eventName].emit(event);
     this.events.onEvent.emit(event);
   }
@@ -133,10 +134,6 @@ export class TreeModel implements ITreeModel {
     return this.roots && this.roots.length === 0;
   }
 
-  get treeNodeContentComponent() { return this._treeNodeContentComponent; };
-
-  get loadingComponent() { return this._loadingComponent; };
-
   @computed get focusedNode() {
     return this.focusedNodeId ? this.getNodeById(this.focusedNodeId) : null;
   }
@@ -151,13 +148,13 @@ export class TreeModel implements ITreeModel {
 
   @computed get activeNodes() {
     const nodes = Object.keys(this.activeNodeIds)
-      .filter((id) => this.expandedNodeIds[id])
+      .filter((id) => this.activeNodeIds[id])
       .map((id) => this.getNodeById(id));
 
     return compact(nodes);
   }
 
-  getNodeByPath(path, startNode= null): TreeNode {
+  getNodeByPath(path: any[], startNode= null): TreeNode {
     if (!path) return null;
 
     startNode = startNode || this.virtualRoot;
@@ -174,7 +171,9 @@ export class TreeModel implements ITreeModel {
   }
 
   getNodeById(id) {
-    return this.getNodeBy({ id });
+    const idStr = id.toString();
+
+    return this.getNodeBy((node) => node.id.toString() === idStr);
   }
 
   getNodeBy(predicate, startNode = null) {

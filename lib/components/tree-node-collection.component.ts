@@ -17,7 +17,7 @@ import * as _ from 'lodash';
       <div
         [style.margin-top]="marginTop">
         <tree-node
-          *ngFor="let node of viewportNodes; let i = index; trackBy: index"
+          *ngFor="let node of viewportNodes; let i = index; trackBy: trackNode"
           [node]="node"
           [index]="i"
           [templates]="templates">
@@ -67,4 +67,9 @@ export class TreeNodeCollectionComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this._dispose.forEach(d => d());
   }
+
+  trackNode(index, node) {
+    return node.id;
+  }
+
 }

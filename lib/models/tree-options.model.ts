@@ -72,6 +72,7 @@ export class TreeOptions {
   get getChildren(): any { return this.options.getChildren; }
   get allowDrag(): boolean { return this.options.allowDrag; }
   get levelPadding(): number { return this.options.levelPadding || 0; }
+  get useVirtualScroll(): boolean { return this.options.useVirtualScroll; }
   actionMapping: IActionMapping;
 
   constructor(private options: ITreeOptions = {}) {

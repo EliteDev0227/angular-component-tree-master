@@ -206,7 +206,7 @@ export class TreeNode implements ITreeNode {
     return this;
   }
 
-  doForAll(fn) {
+  doForAll(fn: (node: ITreeNode) => any) {
     fn(this);
     if (this.children) {
       this.children.forEach((child) => fn(child));

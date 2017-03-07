@@ -19,6 +19,10 @@ export class TreeVirtualScroll {
     return this.yBlocks * Y_EPSILON;
   }
 
+  isEnabled() {
+    return this.treeModel.options.useVirtualScroll;
+  }
+
   @computed get totalHeight() {
     return this.treeModel.virtualRoot ? this.treeModel.virtualRoot.height : 0;
   }
@@ -97,6 +101,9 @@ export class TreeVirtualScroll {
   }
 
   getViewportNodes(nodes) {
+    if (!this.isEnabled()) {
+      return nodes;
+    }
     if (!this.viewportHeight || !nodes || !nodes.length) return [];
 
     const visibleNodes = nodes.filter((node) => !node.isHidden);

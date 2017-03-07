@@ -22,7 +22,7 @@ const isFirefox = navigator && navigator.userAgent && navigator.userAgent.indexO
   providers: [TreeVirtualScroll],
   template: `
     <div *mobxAutorun>
-      <div [style.height]="virtualScroll.totalHeight + 'px'">
+      <div [style.height]="getTotalHeight()">
         <ng-content></ng-content>
       </div>
     </div>
@@ -54,6 +54,10 @@ export class TreeViewportComponent implements AfterViewInit, OnInit, OnDestroy {
   @HostListener('scroll', ['$event'])
   onScroll(e) {
     this._onWheel(e);
+  }
+
+  getTotalHeight() {
+    return this.virtualScroll.isEnabled() && this.virtualScroll.totalHeight + 'px' || 'auto';
   }
 
   _onWheel(e) {

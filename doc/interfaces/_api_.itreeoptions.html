@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ITreeOptions | angular2-tree-component</title>
+	<title>ITreeOptions | angular-tree-component</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">angular2-tree-component</a>
+					<a href="../index.html" class="title">angular-tree-component</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -95,16 +95,18 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_.itreeoptions.html#actionmapping" class="tsd-kind-icon">action<wbr>Mapping</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_.itreeoptions.html#allowdrag" class="tsd-kind-icon">allow<wbr>Drag</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_.itreeoptions.html#allowdrop" class="tsd-kind-icon">allow<wbr>Drop</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_.itreeoptions.html#childrenfield" class="tsd-kind-icon">children<wbr>Field</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_.itreeoptions.html#context" class="tsd-kind-icon">context</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_.itreeoptions.html#displayfield" class="tsd-kind-icon">display<wbr>Field</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_.itreeoptions.html#dropslotheight" class="tsd-kind-icon">drop<wbr>Slot<wbr>Height</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_.itreeoptions.html#getchildren" class="tsd-kind-icon">get<wbr>Children</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_.itreeoptions.html#hascustomcontextmenu" class="tsd-kind-icon">has<wbr>Custom<wbr>Context<wbr>Menu</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_.itreeoptions.html#idfield" class="tsd-kind-icon">id<wbr>Field</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_.itreeoptions.html#isexpandedfield" class="tsd-kind-icon">is<wbr>Expanded<wbr>Field</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_.itreeoptions.html#ishiddenfield" class="tsd-kind-icon">is<wbr>Hidden<wbr>Field</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_.itreeoptions.html#loadingcomponent" class="tsd-kind-icon">loading<wbr>Component</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_.itreeoptions.html#treenodetemplate" class="tsd-kind-icon">tree<wbr>Node<wbr>Template</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_.itreeoptions.html#levelpadding" class="tsd-kind-icon">level<wbr>Padding</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_.itreeoptions.html#nodeclass" class="tsd-kind-icon">node<wbr>Class</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_.itreeoptions.html#nodeheight" class="tsd-kind-icon">node<wbr>Height</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_.itreeoptions.html#usevirtualscroll" class="tsd-kind-icon">use<wbr>Virtual<wbr>Scroll</a></li>
 							</ul>
 						</section>
 					</div>
@@ -118,7 +120,7 @@
 					<div class="tsd-signature tsd-kind-icon">action<wbr>Mapping<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L37">api.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L44">api.ts:44</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -133,12 +135,31 @@
 					<div class="tsd-signature tsd-kind-icon">allow<wbr>Drag<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L41">api.ts:41</a></li>
+							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L48">api.ts:48</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Allow drag and drop on the tree. Default: false</p>
+							<p>Allow dragging tree nodes. Default: false</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="allowdrop" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> allow<wbr>Drop</h3>
+					<div class="tsd-signature tsd-kind-icon">allow<wbr>Drop<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><a href="_api_.iallowdropfn.html" class="tsd-signature-type">IAllowDropFn</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L56">api.ts:56</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Allow drop on the tree.
+								Either boolean value, or a function that takes the dragged element and drop location (parent, index)
+								and returns a boolean value.
+								Will be called when dragging over the nodes or between nodes, and allow to prevent the drop style
+							Default: true</p>
 						</div>
 					</div>
 				</section>
@@ -148,7 +169,7 @@
 					<div class="tsd-signature tsd-kind-icon">children<wbr>Field<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L13">api.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L20">api.ts:20</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -158,27 +179,12 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="context" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> context</h3>
-					<div class="tsd-signature tsd-kind-icon">context<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L57">api.ts:57</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>deprecated</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="displayfield" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> display<wbr>Field</h3>
 					<div class="tsd-signature tsd-kind-icon">display<wbr>Field<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L17">api.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L24">api.ts:24</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -188,12 +194,29 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="dropslotheight" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> drop<wbr>Slot<wbr>Height</h3>
+					<div class="tsd-signature tsd-kind-icon">drop<wbr>Slot<wbr>Height<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L82">api.ts:82</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Supply a function for getting the height of the dropslow that&#39;s located
+								between nodes. This is used for height calculations for virtual scrolling
+							Default is 2</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="getchildren" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> get<wbr>Children</h3>
 					<div class="tsd-signature tsd-kind-icon">get<wbr>Children<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L33">api.ts:33</a></li>
+							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L40">api.ts:40</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -224,27 +247,12 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="hascustomcontextmenu" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> has<wbr>Custom<wbr>Context<wbr>Menu</h3>
-					<div class="tsd-signature tsd-kind-icon">has<wbr>Custom<wbr>Context<wbr>Menu<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L53">api.ts:53</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>deprecated</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="idfield" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> id<wbr>Field</h3>
 					<div class="tsd-signature tsd-kind-icon">id<wbr>Field<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L21">api.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L28">api.ts:28</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -259,7 +267,7 @@
 					<div class="tsd-signature tsd-kind-icon">is<wbr>Expanded<wbr>Field<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L25">api.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L32">api.ts:32</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -274,7 +282,7 @@
 					<div class="tsd-signature tsd-kind-icon">is<wbr>Hidden<wbr>Field<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L29">api.ts:29</a></li>
+							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L36">api.ts:36</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -284,32 +292,87 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="loadingcomponent" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> loading<wbr>Component</h3>
-					<div class="tsd-signature tsd-kind-icon">loading<wbr>Component<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<a name="levelpadding" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> level<wbr>Padding</h3>
+					<div class="tsd-signature tsd-kind-icon">level<wbr>Padding<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L49">api.ts:49</a></li>
+							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L60">api.ts:60</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>deprecated</p>
+							<p>Specify padding per node instead of children padding (to allow full row select for example)</p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="treenodetemplate" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> tree<wbr>Node<wbr>Template</h3>
-					<div class="tsd-signature tsd-kind-icon">tree<wbr>Node<wbr>Template<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<a name="nodeclass" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> node<wbr>Class</h3>
+					<div class="tsd-signature tsd-kind-icon">node<wbr>Class<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L45">api.ts:45</a></li>
+							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L64">api.ts:64</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>deprecated</p>
+							<p>Supply function for getting a custom class for the node component</p>
+						</div>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-siganture">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>node<span class="tsd-signature-symbol">: </span><a href="_api_.itreenode.html" class="tsd-signature-type">ITreeNode</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>node: <a href="_api_.itreenode.html" class="tsd-signature-type">ITreeNode</a></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="nodeheight" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> node<wbr>Height</h3>
+					<div class="tsd-signature tsd-kind-icon">node<wbr>Height<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="_api_.inodeheightfn.html" class="tsd-signature-type">INodeHeightFn</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L76">api.ts:76</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Supply a function for getting each node&#39;s height - for virtual scrolling
+								The tree model will account for the extra pixels for the drop slots
+							Default is 22</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="usevirtualscroll" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> use<wbr>Virtual<wbr>Scroll</h3>
+					<div class="tsd-signature tsd-kind-icon">use<wbr>Virtual<wbr>Scroll<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/500tech/angular2-tree-component/blob/master/lib/defs/api.ts#L70">api.ts:70</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Boolean whether virtual scroll should be used.
+								Increases performance for large trees
+							Default is false</p>
 						</div>
 					</div>
 				</section>
@@ -329,10 +392,19 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_api_.iallowdropfn.html" class="tsd-kind-icon">IAllow<wbr>Drop<wbr>Fn</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_api_.inodeheightfn.html" class="tsd-kind-icon">INode<wbr>Height<wbr>Fn</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="_api_.itreemodel.html" class="tsd-kind-icon">ITree<wbr>Model</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="_api_.itreenode.html" class="tsd-kind-icon">ITree<wbr>Node</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_api_.itreenodedrag.html" class="tsd-kind-icon">ITree<wbr>Node<wbr>Drag</a>
 					</li>
 				</ul>
 				<ul class="current">
@@ -346,19 +418,19 @@
 								<a href="_api_.itreeoptions.html#allowdrag" class="tsd-kind-icon">allow<wbr>Drag</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_api_.itreeoptions.html#childrenfield" class="tsd-kind-icon">children<wbr>Field</a>
+								<a href="_api_.itreeoptions.html#allowdrop" class="tsd-kind-icon">allow<wbr>Drop</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_api_.itreeoptions.html#context" class="tsd-kind-icon">context</a>
+								<a href="_api_.itreeoptions.html#childrenfield" class="tsd-kind-icon">children<wbr>Field</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_api_.itreeoptions.html#displayfield" class="tsd-kind-icon">display<wbr>Field</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_api_.itreeoptions.html#getchildren" class="tsd-kind-icon">get<wbr>Children</a>
+								<a href="_api_.itreeoptions.html#dropslotheight" class="tsd-kind-icon">drop<wbr>Slot<wbr>Height</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_api_.itreeoptions.html#hascustomcontextmenu" class="tsd-kind-icon">has<wbr>Custom<wbr>Context<wbr>Menu</a>
+								<a href="_api_.itreeoptions.html#getchildren" class="tsd-kind-icon">get<wbr>Children</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_api_.itreeoptions.html#idfield" class="tsd-kind-icon">id<wbr>Field</a>
@@ -370,10 +442,16 @@
 								<a href="_api_.itreeoptions.html#ishiddenfield" class="tsd-kind-icon">is<wbr>Hidden<wbr>Field</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_api_.itreeoptions.html#loadingcomponent" class="tsd-kind-icon">loading<wbr>Component</a>
+								<a href="_api_.itreeoptions.html#levelpadding" class="tsd-kind-icon">level<wbr>Padding</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_api_.itreeoptions.html#treenodetemplate" class="tsd-kind-icon">tree<wbr>Node<wbr>Template</a>
+								<a href="_api_.itreeoptions.html#nodeclass" class="tsd-kind-icon">node<wbr>Class</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_api_.itreeoptions.html#nodeheight" class="tsd-kind-icon">node<wbr>Height</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_api_.itreeoptions.html#usevirtualscroll" class="tsd-kind-icon">use<wbr>Virtual<wbr>Scroll</a>
 							</li>
 						</ul>
 					</li>

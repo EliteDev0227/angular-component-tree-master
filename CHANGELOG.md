@@ -1,3 +1,10 @@
+<a name="3.2.1"></a>
+# 3.2.1 (2017-03-07)
+* Updated api and docs
+* Not showing virtual scroll unless enabled
+* Added treeModel to events
+* Fixed getActiveNodes & getExpandedNodes
+
 <a name="3.2.0"></a>
 # 3.2.0 (2017-03-06)
 * Renamed library to angular-tree-component

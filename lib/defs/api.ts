@@ -63,6 +63,12 @@ export interface ITreeOptions {
     */
    nodeClass?: (node: ITreeNode) => string;
    /**
+    * Boolean whether virtual scroll should be used.
+    * Increases performance for large trees
+    * Default is false
+    */
+   useVirtualScroll?: boolean;
+   /**
     * Supply a function for getting each node's height - for virtual scrolling
     * The tree model will account for the extra pixels for the drop slots
     * Default is 22
@@ -74,7 +80,6 @@ export interface ITreeOptions {
     * Default is 2
     */
    dropSlotHeight?: number;
-
  }
 
 /**
@@ -112,7 +117,10 @@ export interface ITreeNode {
    * Path in the tree: Array of IDs.
    */
   path: string[];
-
+  /**
+   * index of the node inside its parent's children
+   */
+  index: number;
   /**
    * A unique key of this node among its siblings.
    * By default it's the 'id' of the original node, unless stated otherwise in options.idField
@@ -207,6 +215,18 @@ export interface ITreeNode {
    */
   blur();
   /**
+   * Hides the node
+   */
+  hide();
+  /**
+   * Makes the node visible
+   */
+  show();
+  /**
+   * @param value  if true makes the node hidden, otherwise visible
+   */
+  setIsHidden(value: boolean);
+  /**
    * Scroll the screen to make the node visible
    */
   scrollIntoView();
@@ -214,6 +234,19 @@ export interface ITreeNode {
    * Fire an event to the renderer of the tree (if it was registered)
    */
   fireEvent(event: any);
+  /**
+   * Invokes a method for every node under this one - depth first
+   * @param fn  a function that receives the node
+   */
+  doForAll(fn: (node: ITreeNode) => any);
+  /**
+   * expand all nodes under this one
+   */
+  expandAll();
+  /**
+   * collapse all nodes under this one
+   */
+  collapseAll();
 }
 
 /**
@@ -238,20 +271,65 @@ export interface ITreeModel {
    * Is the tree currently focused
    */
   isFocused: boolean;
+  /**
+   * @returns Current active (selected) nodes
+   */
+  activeNodes: ITreeNode[];
+  /**
+   * @returns Current expanded nodes
+   */
+  expandedNodes: ITreeNode[];
 
   // helpers
   /**
-   * Current active (selected) node
+   * @returns Current active (selected) node. If multiple nodes are active - returns the first one.
    */
   getActiveNode(): ITreeNode;
   /**
+   * @returns Current focused node (either hovered or traversed with keys)
+   */
+  getFocusedNode(): ITreeNode;
+  /**
+   * Set focus on a node
+   * @param value  true or false - whether to set focus or blur.
+   */
+  setFocusedNode(node: ITreeNode);
+  /**
+   * @param skipHidden  true or false - whether to skip hidden nodes
    * @returns      first root of the tree
    */
-  getFirstRoot(): ITreeNode;
+  getFirstRoot(skipHidden?: boolean): ITreeNode;
   /**
+   * @param skipHidden  true or false - whether to skip hidden nodes
    * @returns      last root of the tree
    */
-  getLastRoot(): ITreeNode;
+  getLastRoot(skipHidden?: boolean): ITreeNode;
+  /**
+   * @returns      true if the tree is empty
+   */
+  isEmptyTree(): boolean;
+  /**
+   * @returns All root nodes that pass the current filter
+   */
+  getVisibleRoots(): ITreeNode[];
+  /**
+   * @param     path  array of node IDs to be traversed respectively
+   * @param     statrNode  optional. Which node to start traversing from
+   * @returns   The node, if found - null otherwise
+   */
+  getNodeByPath(path: any[], startNode?: ITreeNode): ITreeNode;
+  /**
+   * @param     id  node ID to find
+   * @returns   The node, if found - null otherwise
+   */
+  getNodeById(id: any): ITreeNode;
+  /**
+   * @param     predicate - either an object or a function, used as a test condition on all nodes.
+   *            Could be every predicate that's supported by lodash `find` method
+   * @param     statrNode  optional. Which node to start traversing from
+   * @returns   First node that matches the predicate, if found - null otherwise
+   */
+  getNodeBy(predicate: any, startNode?: ITreeNode): ITreeNode;
 
   // actions
   /**
@@ -294,7 +372,19 @@ export interface ITreeModel {
      The combination of node + index tells which node needs to be moved, and to where
    */
   moveNode(node: ITreeNode, to: {node: ITreeNode, index: number});
-
+  /**
+   * Invokes a method for every node of the tree - depth first
+   * @param fn  a function that receives the node
+   */
+  doForAll(fn: (node: ITreeNode) => any);
+  /**
+   * expand all nodes
+   */
+  expandAll();
+  /**
+   * collapse all nodes
+   */
+  collapseAll();
 }
 
 /**

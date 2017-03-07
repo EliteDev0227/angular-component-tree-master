@@ -44,6 +44,7 @@ const actionMapping:IActionMapping = {
       [nodes]="nodes"
       [options]="customTemplateStringOptions"
       [focused]="true"
+      (onEvent)="onEvent($event)"
       
     >
       <template #treeNodeTemplate let-node>
@@ -104,65 +105,68 @@ const actionMapping:IActionMapping = {
   `
 })
 export class AppComponent {
-  nodes:any[] = null;
+  nodes:any[];
   constructor() {
-    // setTimeout(() => {
-    this.nodes = [
-      {
-        expanded: true,
-        name: 'root expanded',
-        subTitle: 'the root',
-        children: [
-          {
-            name: 'child1',
-            subTitle: 'a good child',
-            hasChildren: false
-          }, {
-            name: 'child2',
-            subTitle: 'a bad child',
-            hasChildren: false
-          }
-        ]
-      },
-      {
-        name: 'root2',
-        subTitle: 'the second root',
-        children: [
-          {
-            name: 'child2.1',
-            subTitle: 'new and improved',
-            hasChildren: false
-          }, {
-            name: 'child2.2',
-            subTitle: 'new and improved2',
-            children: [
-              {
-                uuid: 1001,
-                name: 'subsub',
-                subTitle: 'subsub',
-                hasChildren: false
-              }
-            ]
-          }
-        ]
-      },
-      {
-        name: 'asyncroot',
-        hasChildren: true
-      }
-    ];
+  }
+  ngOnInit() {
+    setTimeout(() => {
+      this.nodes = [
+        {
+          expanded: true,
+          name: 'root expanded',
+          subTitle: 'the root',
+          children: [
+            {
+              name: 'child1',
+              subTitle: 'a good child',
+              hasChildren: false
+            }, {
+              name: 'child2',
+              subTitle: 'a bad child',
+              hasChildren: false
+            }
+          ]
+        },
+        {
+          name: 'root2',
+          subTitle: 'the second root',
+          children: [
+            {
+              name: 'child2.1',
+              subTitle: 'new and improved',
+              hasChildren: false
+            }, {
+              name: 'child2.2',
+              subTitle: 'new and improved2',
+              children: [
+                {
+                  uuid: 1001,
+                  name: 'subsub',
+                  subTitle: 'subsub',
+                  hasChildren: false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          name: 'asyncroot',
+          hasChildren: true
+        }
+      ];
 
-    for(let i = 0; i < 1000; i++) {
-      this.nodes.push({
-        name: `rootDynamic${i}`,
-        subTitle: `root created dynamically ${i}`,
-        children: new Array(4).fill(null).map((item, n) => ({
-          name: `childDynamic${i}.${n}`,
-          subTitle: `child created dynamically ${i}`,
-          hasChildren: false
-        }))
-      });
-    }
+      for(let i = 0; i < 1000; i++) {
+        this.nodes.push({
+          name: `rootDynamic${i}`,
+          subTitle: `root created dynamically ${i}`,
+          children: new Array(4).fill(null).map((item, n) => ({
+            name: `childDynamic${i}.${n}`,
+            subTitle: `child created dynamically ${i}`,
+            hasChildren: false
+          }))
+        });
+      }
+    }, 1);
   }
 
   asyncChildren = [
@@ -214,9 +218,12 @@ export class AppComponent {
     getChildren: this.getChildren.bind(this),
     actionMapping,
     nodeHeight: 23,
-    allowDrag: true
+    allowDrag: true,
+    useVirtualScroll: true
   }
-  onEvent = console.log.bind(console);
+  onEvent(event) {
+    console.log(event);
+  }
 
   go($event) {
     $event.stopPropagation();
