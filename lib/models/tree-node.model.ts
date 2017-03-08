@@ -4,7 +4,7 @@ import { TreeOptions } from './tree-options.model';
 import { ITreeNode } from '../defs/api';
 import { TREE_EVENTS } from '../constants/events';
 
-import * as _ from 'lodash';
+import { first, last } from 'lodash-es';
 
 export class TreeNode implements ITreeNode {
   @computed get isHidden() { return this.treeModel.isHidden(this); };
@@ -101,13 +101,13 @@ export class TreeNode implements ITreeNode {
   getFirstChild(skipHidden = false) {
     let children = skipHidden ? this.visibleChildren : this.children;
 
-    return _.first(children || []);
+    return first(children || []);
   }
 
   getLastChild(skipHidden = false) {
     let children = skipHidden ? this.visibleChildren : this.children;
 
-    return _.last(children || []);
+    return last(children || []);
   }
 
   findNextNode(goInside = true, skipHidden = false) {

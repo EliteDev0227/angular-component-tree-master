@@ -1,6 +1,6 @@
 {
   "name": "angular-tree-component",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "description": "A simple yet powerful tree component for Angular2",
   "author": "Adam Klein <adam@500tech.com>",
   "homepage": "https://github.com/500tech/angular-tree-component",
@@ -57,7 +57,7 @@
     "@angular/core": "^2.0.0"
   },
   "dependencies": {
-    "lodash": "^4.6.1",
+    "lodash-es": "4.17.4",
     "mobx": "^3.1.0",
     "ng2-mobx": "^1.2.9"
   },
@@ -80,6 +80,8 @@
     "lodash": "^4.6.1",
     "rimraf": "^2.5.1",
     "rollup": "^0.41.4",
+    "rollup-plugin-commonjs": "7.0.2",
+    "rollup-plugin-node-resolve": "2.0.0",
     "rxjs": "^5.0.0",
     "tslint": "4.4.2",
     "typedoc": "^0.3.12",

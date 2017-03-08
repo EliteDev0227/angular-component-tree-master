@@ -1,3 +1,7 @@
+<a name="3.2.2"></a>
+# 3.2.2 (2017-03-08)
+* Include mobx and lodash inside UMD bundle
+
 <a name="3.2.1"></a>
 # 3.2.1 (2017-03-07)
 * Updated api and docs

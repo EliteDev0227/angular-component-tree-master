@@ -7,8 +7,6 @@ import { TreeVirtualScroll } from '../models/tree-virtual-scroll.model';
 import { TreeNode } from '../models/tree-node.model';
 import { deprecatedSelector } from '../deprecated-selector';
 
-import * as _ from 'lodash';
-
 @Component({
   selector: 'tree-node-collection, TreeNodeCollection',
   encapsulation: ViewEncapsulation.None,
