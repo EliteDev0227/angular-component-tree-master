@@ -1,3 +1,7 @@
+<a name="3.2.3"></a>
+# 3.2.3 (2017-03-08)
+* Using lodash instead of lodash-es
+
 <a name="3.2.2"></a>
 # 3.2.2 (2017-03-08)
 * Include mobx and lodash inside UMD bundle
