@@ -3,7 +3,7 @@ import { TreeModel } from './tree.model';
 import { KEYS } from '../constants/keys';
 import { ITreeOptions } from '../defs/api';
 
-import { defaultsDeep } from 'lodash';
+import { defaultsDeep } from 'lodash-es';
 
 export interface IActionHandler {
   (tree: TreeModel, node: TreeNode, $event: any, ...rest);

@@ -1,6 +1,6 @@
 <a name="3.2.3"></a>
 # 3.2.3 (2017-03-08)
-* Using lodash instead of lodash-es
+* Fixed bug when actionMapping is undefined
 
 <a name="3.2.2"></a>
 # 3.2.2 (2017-03-08)
