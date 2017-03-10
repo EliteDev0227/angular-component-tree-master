@@ -21,11 +21,11 @@ const isFirefox = navigator && navigator.userAgent && navigator.userAgent.indexO
   ],
   providers: [TreeVirtualScroll],
   template: `
-    <div *mobxAutorun>
+    <ng-container *mobxAutorun>
       <div [style.height]="getTotalHeight()">
         <ng-content></ng-content>
       </div>
-    </div>
+    </ng-container>
   `
 })
 export class TreeViewportComponent implements AfterViewInit, OnInit, OnDestroy {

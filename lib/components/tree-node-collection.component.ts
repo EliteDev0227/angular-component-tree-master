@@ -11,7 +11,7 @@ import { deprecatedSelector } from '../deprecated-selector';
   selector: 'tree-node-collection, TreeNodeCollection',
   encapsulation: ViewEncapsulation.None,
   template: `
-    <div *mobxAutorun>
+    <ng-container *mobxAutorun>
       <div
         [style.margin-top]="marginTop">
         <tree-node
@@ -21,7 +21,7 @@ import { deprecatedSelector } from '../deprecated-selector';
           [templates]="templates">
         </tree-node>
       </div>
-    </div>
+    </ng-container>
   `
 })
 export class TreeNodeCollectionComponent implements OnInit, OnDestroy {

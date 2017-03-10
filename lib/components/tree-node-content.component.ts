@@ -5,7 +5,8 @@ import { deprecatedSelector } from '../deprecated-selector';
 @Component({
   selector: 'TreeNodeContent, tree-node-content',
   encapsulation: ViewEncapsulation.None,
-  template: `<span *ngIf="!template">{{ node.displayField }}</span>
+  template: `
+  <span *ngIf="!template">{{ node.displayField }}</span>
   <template
     [ngTemplateOutlet]="template"
     [ngOutletContext]="{ $implicit: node, node: node, index: index }">

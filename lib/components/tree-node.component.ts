@@ -24,7 +24,7 @@ import { deprecatedSelector } from '../deprecated-selector';
     '.node-content-wrapper.is-dragging-over-disabled { opacity: 0.5 }'
   ],
   template: `
-    <div *mobxAutorun>
+    <ng-container *mobxAutorun>
       <div
         *ngIf="!templates.treeNodeFullTemplate"
         class="tree-node tree-node-level-{{ node.level }}"
@@ -60,7 +60,7 @@ import { deprecatedSelector } from '../deprecated-selector';
         [ngTemplateOutlet]="templates.treeNodeFullTemplate"
         [ngOutletContext]="{ $implicit: node, node: node, index: index, templates: templates }">
       </template>
-    </div>`
+    </ng-container>`
 })
 
 export class TreeNodeComponent {

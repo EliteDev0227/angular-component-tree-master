@@ -1,4 +1,4 @@
-import { Injectable, Component, Input, EventEmitter, TemplateRef, Renderer } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { observable, computed, action } from 'mobx';
 import { TreeNode } from './tree-node.model';
 import { TreeOptions } from './tree-options.model';
@@ -14,72 +14,23 @@ export class TreeModel implements ITreeModel {
 
   options: TreeOptions = new TreeOptions();
   nodes: any[];
+  eventNames = Object.keys(TREE_EVENTS);
+  virtualScroll: TreeVirtualScroll;
+
   @observable roots: TreeNode[];
   @observable expandedNodeIds: { [id: string]: boolean } = {};
   @observable activeNodeIds: { [id: string]: boolean } = {};
   @observable hiddenNodeIds: { [id: string]: boolean } = {};
   @observable focusedNodeId: string = null;
   @observable virtualRoot: TreeNode;
-  firstUpdate = true;
-  public virtualScroll: TreeVirtualScroll;
 
-  eventNames = Object.keys(TREE_EVENTS);
-
-  private _treeNodeContentComponent: any;
-  private _loadingComponent: any;
+  private firstUpdate = true;
   private events: any;
 
-  constructor(public renderer: Renderer) {
+  constructor() {
   }
 
-  @action setData({ nodes, options = null, events = null }: {nodes: any, options: any, events: any}) {
-    if (options) {
-      this.options = new TreeOptions(options);
-    }
-    if (events) {
-      this.events = events;
-    }
-    if (nodes) {
-      this.nodes = nodes;
-    }
-
-    this.update();
-  }
-
-  @action update() {
-    // Rebuild tree:
-    let virtualRootConfig = {
-      virtual: true,
-      [this.options.childrenField]: this.nodes
-    };
-
-    this.virtualRoot = new TreeNode(virtualRootConfig, null, this, 0);
-
-    this.roots = this.virtualRoot.children;
-
-    // Fire event:
-    if (this.firstUpdate) {
-      if (this.roots) {
-        this.fireEvent({ eventName: TREE_EVENTS.onInitialized });
-        this.firstUpdate = false;
-        this._calculateExpandedNodes();
-      }
-    } else {
-      this.fireEvent({ eventName: TREE_EVENTS.onUpdateData });
-    }
-  }
-
-  private _calculateExpandedNodes(startNode = null) {
-    startNode = startNode || this.virtualRoot;
-
-    if (startNode.data[this.options.isExpandedField]) {
-      this.expandedNodeIds = Object.assign({}, this.expandedNodeIds, {[startNode.id]: true});
-    }
-    if (startNode.children) {
-      startNode.children.forEach((child) => this._calculateExpandedNodes(child));
-    }
-  }
-
+  // events
   fireEvent(event) {
     event.treeModel = this;
     this.events[event.eventName].emit(event);
@@ -90,13 +41,12 @@ export class TreeModel implements ITreeModel {
     this.events[eventName].subscribe(fn);
   }
 
+
+  // getters
   getFocusedNode(): TreeNode {
     return this.focusedNode;
   }
 
-  @action setFocusedNode(node) {
-    this.focusedNodeId = node ? node.id : null;
-  }
 
   getActiveNode(): TreeNode {
     return this.activeNodes[0];
@@ -126,10 +76,6 @@ export class TreeModel implements ITreeModel {
     return this.focusedNode === node;
   }
 
-  @action setFocus(value) {
-    TreeModel.focusedTree = value ? this : null;
-  }
-
   isEmptyTree(): boolean {
     return this.roots && this.roots.length === 0;
   }
@@ -154,6 +100,7 @@ export class TreeModel implements ITreeModel {
     return compact(nodes);
   }
 
+  // locating nodes
   getNodeByPath(path: any[], startNode= null): TreeNode {
     if (!path) return null;
 
@@ -191,6 +138,65 @@ export class TreeModel implements ITreeModel {
         if (foundInChildren) return foundInChildren;
       }
     }
+  }
+
+  isExpanded(node) {
+    return this.expandedNodeIds[node.id];
+  }
+
+  isHidden(node) {
+    return this.hiddenNodeIds[node.id];
+  }
+
+  isActive(node) {
+    return this.activeNodeIds[node.id];
+  }
+
+  // actions
+  @action setData({ nodes, options = null, events = null }: {nodes: any, options: any, events: any}) {
+    if (options) {
+      this.options = new TreeOptions(options);
+    }
+    if (events) {
+      this.events = events;
+    }
+    if (nodes) {
+      this.nodes = nodes;
+    }
+
+    this.update();
+  }
+
+  @action update() {
+    // Rebuild tree:
+    let virtualRootConfig = {
+      virtual: true,
+      [this.options.childrenField]: this.nodes
+    };
+
+    this.virtualRoot = new TreeNode(virtualRootConfig, null, this, 0);
+
+    this.roots = this.virtualRoot.children;
+
+    // Fire event:
+    if (this.firstUpdate) {
+      if (this.roots) {
+        this.fireEvent({ eventName: TREE_EVENTS.onInitialized });
+        this.firstUpdate = false;
+        this._calculateExpandedNodes();
+      }
+    } else {
+      this.fireEvent({ eventName: TREE_EVENTS.onUpdateData });
+    }
+  }
+
+
+  @action setFocusedNode(node) {
+    this.focusedNodeId = node ? node.id : null;
+  }
+
+  @action setFocus(value) {
+    TreeModel.focusedTree = value ? this : null;
   }
 
   @action doForAll(fn) {
@@ -232,10 +238,6 @@ export class TreeModel implements ITreeModel {
     }
   }
 
-  isActive(node) {
-    return this.activeNodeIds[node.id];
-  }
-
   @action setActiveNode(node, value, multi = false) {
     if (multi) {
       this._setActiveNodeMulti(node, value);
@@ -252,30 +254,6 @@ export class TreeModel implements ITreeModel {
     }
   }
 
-  _setActiveNodeSingle(node, value) {
-    // Deactivate all other nodes:
-    this.activeNodes
-      .filter((activeNode) => activeNode !== node)
-      .forEach((activeNode) => {
-        this.fireEvent({ eventName: TREE_EVENTS.onDeactivate, node: activeNode });
-      });
-
-    if (value) {
-      this.activeNodeIds = {[node.id]: true};
-    }
-    else {
-      this.activeNodeIds = {};
-    }
-  }
-
-  _setActiveNodeMulti(node, value) {
-    this.activeNodeIds = Object.assign({}, this.activeNodeIds, {[node.id]: value});
-  }
-
-  isExpanded(node) {
-    return this.expandedNodeIds[node.id];
-  }
-
   @action setExpandedNode(node, value) {
     this.expandedNodeIds = Object.assign({}, this.expandedNodeIds, {[node.id]: value});
     this.fireEvent({ eventName: TREE_EVENTS.onToggleExpanded, node, isExpanded: value });
@@ -287,10 +265,6 @@ export class TreeModel implements ITreeModel {
 
   @action collapseAll() {
     this.roots.forEach((root) => root.collapseAll());
-  }
-
-  isHidden(node) {
-    return this.hiddenNodeIds[node.id];
   }
 
   @action setIsHidden(node, value) {
@@ -334,42 +308,9 @@ export class TreeModel implements ITreeModel {
     this.fireEvent({ eventName: TREE_EVENTS.onChangeFilter });
   }
 
-  private _filterNode(ids, node, filterFn, autoShow) {
-    // if node passes function then it's visible
-    let isVisible = filterFn(node);
-
-    if (node.children) {
-      // if one of node's children passes filter then this node is also visible
-      node.children.forEach((child) => {
-        if (this._filterNode(ids, child, filterFn, autoShow)) {
-          isVisible = true;
-        }
-      });
-    }
-
-    // mark node as hidden
-    if (!isVisible) {
-      ids[node.id] = true;
-    }
-    // auto expand parents to make sure the filtered nodes are visible
-    if (autoShow && isVisible) {
-      node.ensureVisible();
-    }
-    return isVisible;
-  }
-
   @action clearFilter() {
     this.hiddenNodeIds = {};
     this.fireEvent({ eventName: TREE_EVENTS.onChangeFilter });
-  }
-
-  private _canMoveNode(node, fromIndex, to) {
-    // same node:
-    if (node.parent === to.parent && fromIndex === to.index) {
-      return false;
-    }
-
-    return !to.parent.isDescendantOf(node);
   }
 
   @action moveNode(node, to) {
@@ -400,4 +341,71 @@ export class TreeModel implements ITreeModel {
 
     this.fireEvent({ eventName: TREE_EVENTS.onMoveNode, node: originalNode, to: { parent: to.parent.data, index: toIndex } });
   }
+
+  // private methods
+  private _canMoveNode(node, fromIndex, to) {
+    // same node:
+    if (node.parent === to.parent && fromIndex === to.index) {
+      return false;
+    }
+
+    return !to.parent.isDescendantOf(node);
+  }
+
+
+  private _filterNode(ids, node, filterFn, autoShow) {
+    // if node passes function then it's visible
+    let isVisible = filterFn(node);
+
+    if (node.children) {
+      // if one of node's children passes filter then this node is also visible
+      node.children.forEach((child) => {
+        if (this._filterNode(ids, child, filterFn, autoShow)) {
+          isVisible = true;
+        }
+      });
+    }
+
+    // mark node as hidden
+    if (!isVisible) {
+      ids[node.id] = true;
+    }
+    // auto expand parents to make sure the filtered nodes are visible
+    if (autoShow && isVisible) {
+      node.ensureVisible();
+    }
+    return isVisible;
+  }
+
+  private _calculateExpandedNodes(startNode = null) {
+    startNode = startNode || this.virtualRoot;
+
+    if (startNode.data[this.options.isExpandedField]) {
+      this.expandedNodeIds = Object.assign({}, this.expandedNodeIds, {[startNode.id]: true});
+    }
+    if (startNode.children) {
+      startNode.children.forEach((child) => this._calculateExpandedNodes(child));
+    }
+  }
+
+  private _setActiveNodeSingle(node, value) {
+    // Deactivate all other nodes:
+    this.activeNodes
+      .filter((activeNode) => activeNode !== node)
+      .forEach((activeNode) => {
+        this.fireEvent({ eventName: TREE_EVENTS.onDeactivate, node: activeNode });
+      });
+
+    if (value) {
+      this.activeNodeIds = {[node.id]: true};
+    }
+    else {
+      this.activeNodeIds = {};
+    }
+  }
+
+  private _setActiveNodeMulti(node, value) {
+    this.activeNodeIds = Object.assign({}, this.activeNodeIds, {[node.id]: value});
+  }
+
 }

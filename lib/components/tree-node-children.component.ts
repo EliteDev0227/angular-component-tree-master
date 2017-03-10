@@ -10,7 +10,7 @@ import { deprecatedSelector } from '../deprecated-selector';
     '.tree-children { padding-left: 20px }'
   ],
   template: `
-    <div *mobxAutorun>
+    <ng-container *mobxAutorun>
       <div [class.tree-children]="true"
           [class.tree-children-no-padding]="node.options.levelPadding"
           *ngIf="node.isExpanded">
@@ -27,7 +27,7 @@ import { deprecatedSelector } from '../deprecated-selector';
           [template]="templates.loadingTemplate"
         ></tree-loading-component>
       </div>
-    </div>
+    </ng-container>
   `
 })
 export class TreeNodeChildrenComponent {

@@ -34,7 +34,7 @@ import { deprecatedSelector } from '../deprecated-selector';
     }`
   ],
   template: `
-    <div *mobxAutorun>
+    <ng-container *mobxAutorun>
       <span
         *ngIf="node.hasChildren"
         [class.toggle-children-wrapper-expanded]="node.isExpanded"
@@ -48,7 +48,7 @@ import { deprecatedSelector } from '../deprecated-selector';
         *ngIf="!node.hasChildren"
         class="toggle-children-placeholder">
       </span>
-    </div>
+    </ng-container>
   `
 })
 export class TreeNodeExpanderComponent {
