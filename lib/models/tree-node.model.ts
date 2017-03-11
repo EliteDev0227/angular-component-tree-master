@@ -152,7 +152,7 @@ export class TreeNode implements ITreeNode {
   }
 
   getClass(): string {
-    return this.options.nodeClass(this);
+    return [this.options.nodeClass(this), `tree-node-level-${ this.level }`].join(' ');
   }
 
   onDrop($event) {

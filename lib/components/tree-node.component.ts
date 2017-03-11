@@ -27,8 +27,8 @@ import { deprecatedSelector } from '../deprecated-selector';
     <ng-container *mobxAutorun>
       <div
         *ngIf="!templates.treeNodeFullTemplate"
-        class="tree-node tree-node-level-{{ node.level }}"
         [class]="node.getClass()"
+        [class.tree-node]="true"
         [class.tree-node-expanded]="node.isExpanded && node.hasChildren"
         [class.tree-node-collapsed]="node.isCollapsed && node.hasChildren"
         [class.tree-node-leaf]="node.isLeaf"

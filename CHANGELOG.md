@@ -1,3 +1,9 @@
+<a name="3.2.4"></a>
+# 3.2.4 (2017-XX-XX)
+* Fixed tree-node and tree-node-level-X classes.
+* Removed redundant div in children
+* Added integration tests
+
 <a name="3.2.3"></a>
 # 3.2.3 (2017-03-08)
 * Fixed bug when actionMapping is undefined

@@ -35,7 +35,6 @@
   ],
   "scripts": {
     "doc": "typedoc --module commonjs --out doc lib/defs/api.ts",
-    "test": "karma start",
     "clean": "rimraf node_modules && npm run clean:typescript && npm cache clean",
     "clean:typescript": "rimraf dist",
     "lint": "tslint lib/**/*.ts",
@@ -43,7 +42,10 @@
     "build": "npm run lint && npm run clean:typescript && ngc && npm run rollup",
     "example:cli": "ngc && cp -rf dist example/cli/node_modules/angular-tree-component/ && cd example/cli && ng serve",
     "example:cli:build": "cd example/cli && cp src/index.build.html src/index.html && ng build --aot && cp src/index.dev.html src/index.html",
-    "prepublish": "npm run build && npm run example:cli:build"
+    "test": "protractor protractor.conf.js",
+    "pretest": "npm run e2e:tsc",
+    "prepublish": "npm run build && npm run example:cli:build",
+    "e2e:tsc": "cd e2e && tsc"
   },
   "files": [
     "dist/"
@@ -77,6 +79,9 @@
     "@types/webpack": "^1.12.29",
     "codelyzer": "2.0.0-beta.4",
     "core-js": "^2.4.0",
+    "nightwatch": "0.9.12",
+    "protractor": "5.1.1",
+    "protractor-jasmine2-html-reporter": "0.0.7",
     "rimraf": "^2.5.1",
     "rollup": "^0.41.4",
     "rollup-plugin-commonjs": "7.0.2",

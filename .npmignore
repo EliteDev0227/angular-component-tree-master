@@ -7,3 +7,7 @@ example
 *karma*.js
 *.ts
 !*.d.ts
+testScreenshots
+testResults
+e2eResults
+e2e

@@ -58,3 +58,9 @@ npm-debug.log
 /dist
 
 compiled
+
+testScreenshots
+testResults
+e2eResults
+
+e2e/dist
