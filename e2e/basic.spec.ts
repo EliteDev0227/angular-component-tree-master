@@ -6,11 +6,11 @@ describe('Basic Configuration', () => {
     browser.get('http://localhost:4200/#/basic');
 
     this.tree = new TreeDriver('tree-root');
-    this.root1 = this.tree.getNode(0);
-    this.root2 = this.tree.getNode(1);
-    this.root3 = this.tree.getNode(2);
-    this.root4 = this.tree.getNode(3);
-    this.root5 = this.tree.getNode(4);
+    this.root1 = this.tree.getNode('root1');
+    this.root2 = this.tree.getNode('root2');
+    this.root3 = this.tree.getNode('root3');
+    this.root4 = this.tree.getNode('root4');
+    this.root5 = this.tree.getNode('root5');
   });
 
   it('should show the tree', () => {
@@ -21,7 +21,9 @@ describe('Basic Configuration', () => {
     expect(this.tree.getNodes().count()).toEqual(5);
   });
 
-  it('should have a node named root1');
+  it('should have a node named root1', () => {
+    expect(this.root1.isPresent()).toBe(true);
+  });
 
   it('roots with children should have an expander icon', () => {
     expect(this.root1.getExpander().isPresent()).toBe(true);
@@ -72,5 +74,57 @@ describe('Basic Configuration', () => {
     this.root2.click();
     expect(this.root1.isFocused()).toBe(false);
     expect(this.root2.isFocused()).toBe(true);
+  });
+
+  it('should navigate with keys', () => {
+    this.tree.keyDown();
+    expect(this.root1.isFocused()).toBe(true);
+    this.tree.keyRight();
+    expect(this.root1.isExpanded()).toBe(true);
+    this.tree.keyRight();
+
+    const child1 = this.tree.getNode('child1');
+    const child2 = this.tree.getNode('child2');
+
+    expect(child1.isFocused()).toBe(true);
+    this.tree.keyRight();
+    expect(child1.isFocused()).toBe(true);
+    this.tree.keyDown();
+    this.tree.keyDown();
+    expect(this.root2.isFocused()).toBe(true);
+    this.tree.keyUp();
+    expect(child2.isFocused()).toBe(true);
+    this.tree.keyLeft();
+    expect(this.root1.isFocused()).toBe(true);
+    this.tree.keyLeft();
+    expect(this.root1.isExpanded()).toBe(false);
+    this.tree.keyDown();
+    expect(this.root2.isFocused()).toBe(true);
+    this.tree.keyUp();
+    expect(this.root1.isFocused()).toBe(true);
+  });
+
+  it('should toggle active on space', () => {
+    expect(this.root1.isActive()).toBe(false);
+    this.tree.keyDown();
+    this.tree.keySpace();
+    expect(this.root1.isActive()).toBe(true);
+    this.tree.keyDown();
+    this.tree.keySpace();
+    expect(this.root2.isActive()).toBe(true);
+    this.tree.keySpace();
+    expect(this.root2.isActive()).toBe(false);
+  });
+
+  it('should toggle active on enter', () => {
+    expect(this.root1.isActive()).toBe(false);
+    this.tree.keyDown();
+    this.tree.keyEnter();
+    expect(this.root1.isActive()).toBe(true);
+    this.tree.keyDown();
+    this.tree.keyEnter();
+    expect(this.root2.isActive()).toBe(true);
+    this.tree.keyEnter();
+    expect(this.root2.isActive()).toBe(false);
   });
 });

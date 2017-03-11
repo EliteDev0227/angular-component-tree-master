@@ -8,6 +8,7 @@ import { Router, Route, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { BasicTreeComponent } from './basictree/basictree.component';
 import { FullTreeComponent } from './fulltree/fulltree.component';
+import { TemplatesComponent } from './templates/templates.component';
 
 const routes: Route[] = [
   {
@@ -17,6 +18,10 @@ const routes: Route[] = [
   {
     path: 'basic',
     component: BasicTreeComponent
+  },
+  {
+    path: 'templates',
+    component: TemplatesComponent
   }
 ];
 
@@ -24,7 +29,8 @@ const routes: Route[] = [
   declarations: [
     AppComponent,
     BasicTreeComponent,
-    FullTreeComponent
+    FullTreeComponent,
+    TemplatesComponent
   ],
   imports: [
     BrowserModule,

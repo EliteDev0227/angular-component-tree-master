@@ -1,4 +1,4 @@
-import { browser, ElementArrayFinder, ElementFinder, WebElement, by, element, $, $$, promise } from 'protractor';
+import { Key, browser, ElementArrayFinder, ElementFinder, WebElement, by, element, $, $$, promise } from 'protractor';
 
 function hasClass(element, cls) {
     return element.getAttribute('class').then(function (classes) {
@@ -48,6 +48,12 @@ export class NodeDriver {
   click(): promise.Promise<void> {
     return this.getNodeContentWrapper().click();
   }
+  dblclick() {
+
+  }
+  contextMenu() {
+
+  }
 }
 
 export class TreeDriver {
@@ -65,39 +71,44 @@ export class TreeDriver {
     return this.element.$$('tree-node');
   }
 
-  getNode(index): NodeDriver {
-    const element = this.getNodes().get(index);;
+  getNode(name): NodeDriver {
+    const element = this.getNodes().filter((el) => {
+      return el.$('tree-node-content span').getText().then((text) => text === name);
+    }).get(0);
 
     return new NodeDriver(element);
   }
 
+  getNodeByIndex(index: number): NodeDriver {
+    const element = this.getNodes().get(index);
+
+    return new NodeDriver(element);
+  }
+
+  sendKey(key) {
+    browser.actions().sendKeys(key).perform();
+  }
+
   keyDown() {
+    this.sendKey(Key.ARROW_DOWN);
   }
   keyUp() {
+    this.sendKey(Key.ARROW_UP);
   }
   keyLeft() {
+    this.sendKey(Key.ARROW_LEFT);
   }
   keyRight() {
+    this.sendKey(Key.ARROW_RIGHT);
   }
   keyEnter() {
+    this.sendKey(Key.ENTER);
   }
   keySpace() {
+    this.sendKey(Key.SPACE);
   }
-
-  click(node) {
-
-  }
-  expand(node) {
-
-  }
-  dblclick(node) {
-
-  }
-  contextMenu(node) {
-
-  }
-  drag(node, element) {
-
+  drag(el1, el2) {
+    browser.actions().dragAndDrop(el1, el2).perform();
   }
 }
 

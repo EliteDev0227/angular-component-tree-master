@@ -24,6 +24,7 @@ import { deprecatedSelector } from '../deprecated-selector';
           class="tree-node-loading"
           *ngIf="!node.children"
           [template]="templates.loadingTemplate"
+          [node]="node"
         ></tree-loading-component>
       </div>
     </ng-container>
