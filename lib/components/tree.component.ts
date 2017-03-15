@@ -38,6 +38,7 @@ import { deprecatedSelector } from '../deprecated-selector';
         <tree-node-collection
           *ngIf="treeModel.roots"
           [nodes]="treeModel.roots"
+          [treeModel]="treeModel"
           [templates]="{
             loadingTemplate: loadingTemplate,
             treeNodeTemplate: treeNodeTemplate,

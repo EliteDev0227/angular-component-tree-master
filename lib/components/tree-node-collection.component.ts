@@ -5,6 +5,7 @@ import { reaction, autorun } from 'mobx';
 import { observable, computed } from 'ng2-mobx';
 import { TreeVirtualScroll } from '../models/tree-virtual-scroll.model';
 import { TreeNode } from '../models/tree-node.model';
+import { TreeModel } from '../models/tree.model';
 import { deprecatedSelector } from '../deprecated-selector';
 
 @Component({
@@ -29,8 +30,10 @@ export class TreeNodeCollectionComponent implements OnInit, OnDestroy {
   get nodes() { return this._nodes; }
   set nodes(nodes) { this._nodes = nodes; }
 
-  @observable _nodes;
+  @Input() treeModel: TreeModel;
 
+  @observable _nodes;
+  private virtualScroll: TreeVirtualScroll; // Cannot inject this, because we might be inside treeNodeTemplateFull
   @Input() templates;
 
   @observable viewportNodes: TreeNode[];
@@ -43,11 +46,12 @@ export class TreeNodeCollectionComponent implements OnInit, OnDestroy {
 
   _dispose = [];
 
-  constructor(private virtualScroll: TreeVirtualScroll, private elementRef: ElementRef) {
+  constructor(private elementRef: ElementRef) {
     deprecatedSelector('TreeNodeCollection', 'tree-node-collection', elementRef);
   }
 
   ngOnInit() {
+    this.virtualScroll = this.treeModel.virtualScroll;
     this._dispose = [
       // return node indexes so we can compare structurally,
       reaction(() => {

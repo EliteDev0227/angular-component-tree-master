@@ -4,6 +4,8 @@
 * Removed redundant div in children
 * Added integration tests
 * Passing node in context to loading template
+* Fixed using treeNodeFullTemplate
+* Added more demos
 
 <a name="3.2.3"></a>
 # 3.2.3 (2017-03-08)

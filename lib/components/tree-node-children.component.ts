@@ -17,7 +17,8 @@ import { deprecatedSelector } from '../deprecated-selector';
         <tree-node-collection
           *ngIf="node.children"
           [nodes]="node.children"
-          [templates]="templates">
+          [templates]="templates"
+          [treeModel]="node.treeModel">
         </tree-node-collection>
         <tree-loading-component
           [style.padding-left]="node.getNodePadding()"
