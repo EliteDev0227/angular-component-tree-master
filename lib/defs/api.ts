@@ -9,6 +9,10 @@ export interface IAllowDropFn {
 export interface INodeHeightFn {
   (node: ITreeNode): number;
 }
+
+export interface IAllowDragFn {
+  (node: ITreeNode): boolean;
+}
 /**
 * This is the interface of the options input of the tree.
 * See docs for more detailed explanations
@@ -45,7 +49,7 @@ export interface ITreeOptions {
    /**
     * Allow dragging tree nodes. Default: false
     */
-   allowDrag?: boolean;
+   allowDrag?: boolean | IAllowDragFn;
    /**
     * Allow drop on the tree.
     * Either boolean value, or a function that takes the dragged element and drop location (parent, index)
