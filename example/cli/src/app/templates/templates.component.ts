@@ -1,9 +1,14 @@
 import { Component } from '@angular/core';
+import { ITreeOptions } from 'angular-tree-component';
 
 @Component({
   selector: 'app-templates',
   template: `
-    <tree-root id="tree1" [focused]="true" [nodes]="nodes1" [options]="options">
+    <h3>Display Field</h3>
+    <tree-root id="tree0" [focused]="true" [nodes]="nodes1" [options]="options0"></tree-root>
+
+    <h3>treeNodeTemplate and loadingTemplate</h3>
+    <tree-root id="tree1" [focused]="true" [nodes]="nodes1" [options]="options1">
       <template #treeNodeTemplate let-node let-index="index">
         <span [class]="node.data.className + 'Index'">{{ index }}</span>
         <span [class]="node.data.className" [class.title]="true">{{ node.data.title }}</span>
@@ -13,6 +18,7 @@ import { Component } from '@angular/core';
       </template>
     </tree-root>
 
+    <h3>treeNodeFullTemplate</h3>
     <tree-root id="tree2" [focused]="true" [nodes]="nodes2">
       <template #treeNodeFullTemplate let-node let-index="index">
         <div
@@ -23,9 +29,9 @@ import { Component } from '@angular/core';
           [class.tree-node-active]="node.isActive"
           [class.tree-node-focused]="node.isFocused">
 
-          <input type="checkbox" [checked]="node.isActive" (change)="node.toggleActivated()" />
+          <input type="checkbox" [checked]="node.isActive" (change)="node.toggleActivated(true)" />
           <tree-node-expander [node]="node"></tree-node-expander>
-          <div class="node-content-wrapper" (click)="node.mouseAction('click', $event)">
+          <div class="node-content-wrapper" (click)="node.toggleActivated(true)">
             <span [class]="node.data.className + 'Index'">{{ index }}</span>
             <span [class]="node.data.className" [class.title]="true">{{ node.data.title }}</span>
           </div>
@@ -60,7 +66,12 @@ export class TemplatesComponent {
     }
   ];
 
-  options = {
+  options1: ITreeOptions = {
     getChildren: () => new Promise((resolve, reject) => {})
+  };
+
+  options0: ITreeOptions = {
+    displayField: 'title',
+    nodeClass: (node) => `${node.data.title}Class`
   };
 }

@@ -6,6 +6,32 @@ describe('Basic Configuration', () => {
     browser.get('http://localhost:4200/#/templates');
   });
 
+  describe('#tree0', () => {
+    beforeEach(() => {
+      this.tree = new TreeDriver('#tree0');
+    });
+
+    it('should show the tree', () => {
+      expect(this.tree.isPresent()).toBe(true);
+    });
+
+    it('should have 2 nodes', () => {
+      expect(this.tree.getNodes().count()).toEqual(2);
+    });
+
+    it ('should display the custom display field', () => {
+      const root1 = this.tree.getNode('root1');
+
+      expect(root1.isPresent()).toBe(true);
+    });
+
+    it('should use the nodeClass option', () => {
+      const root1Title = this.tree.element.element(by.cssContainingText('.root1Class', 'root1'));
+
+      expect(root1Title.isPresent()).toBe(true);
+    });
+  });
+
   ['#tree1', '#tree2'].forEach((treeId) => {
     describe(`${treeId}`, () => {
       beforeEach(() => {
