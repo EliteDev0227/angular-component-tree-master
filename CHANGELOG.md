@@ -8,6 +8,7 @@
 * Added more demos
 * Fixed filtering without virtual scroll option
 * allowDrag allows functions
+* Drag and drop fix for IE9+
 
 <a name="3.2.3"></a>
 # 3.2.3 (2017-03-08)
