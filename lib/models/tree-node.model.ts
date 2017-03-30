@@ -166,6 +166,10 @@ export class TreeNode implements ITreeNode {
     return this.options.allowDrop(element, { parent: this, index: 0 });
   }
 
+  allowDrag() {
+    return this.options.allowDrag(this);
+  }
+
 
   // helper methods:
   loadChildren() {
@@ -306,10 +310,6 @@ export class TreeNode implements ITreeNode {
 
   show() {
     this.setIsHidden(false);
-  }
-
-  allowDrag() {
-    return this.options.allowDrag;
   }
 
   mouseAction(actionName: string, $event, data: any = null) {

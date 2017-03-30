@@ -7,6 +7,8 @@ const DRAG_OVER_CLASS = 'is-dragging-over';
   selector: '[treeDrag]'
 })
 export class TreeDragDirective implements DoCheck {
+  private _allowDrag = (node) => true;
+
   @Input('treeDrag') draggedElement;
   @Input() treeDragEnabled;
 
@@ -19,7 +21,7 @@ export class TreeDragDirective implements DoCheck {
 
   @HostListener('dragstart', ['$event']) onDragStart(ev) {
     // setting the data is required by firefox
-    ev.dataTransfer.setData('text/plain', ev.target.id);
+    ev.dataTransfer.setData('text', ev.target.id);
     setTimeout(() => this.treeDraggedElement.set(this.draggedElement), 30);
   }
 
