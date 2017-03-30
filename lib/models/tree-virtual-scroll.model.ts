@@ -27,14 +27,6 @@ export class TreeVirtualScroll {
     return this.treeModel.virtualRoot ? this.treeModel.virtualRoot.height : 0;
   }
 
-  @computed.struct get viewportNodes() {
-    return this.getViewportNodes(this.treeModel.roots);
-  }
-
-  @computed get translateY() {
-    return this.viewportNodes[0] ? this.viewportNodes[0].position + this.y : 0;
-  }
-
   constructor(private treeModel: TreeModel) {
     treeModel.virtualScroll = this;
     this._dispose = autorun(() => this.fixScroll());
@@ -101,14 +93,13 @@ export class TreeVirtualScroll {
   }
 
   getViewportNodes(nodes) {
-    if (!this.isEnabled()) {
-      return nodes;
-    }
-    if (!this.viewportHeight || !nodes || !nodes.length) return [];
+    if (!this.viewportHeight || !nodes) return [];
 
     const visibleNodes = nodes.filter((node) => !node.isHidden);
 
     if (!visibleNodes.length) return [];
+
+    if (!this.isEnabled()) return visibleNodes;
 
     // Search for first node in the viewport using binary search
     // Look for first node that starts after the beginning of the viewport (with buffer)
