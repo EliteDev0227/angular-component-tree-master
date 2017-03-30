@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { BasicTreeComponent } from './basictree/basictree.component';
 import { FullTreeComponent } from './fulltree/fulltree.component';
 import { TemplatesComponent } from './templates/templates.component';
+import { FilterComponent } from './filter/filter.component';
 
 const routes: Route[] = [
   {
@@ -22,6 +23,10 @@ const routes: Route[] = [
   {
     path: 'templates',
     component: TemplatesComponent
+  },
+  {
+    path: 'filter',
+    component: FilterComponent
   }
 ];
 
@@ -30,7 +35,8 @@ const routes: Route[] = [
     AppComponent,
     BasicTreeComponent,
     FullTreeComponent,
-    TemplatesComponent
+    TemplatesComponent,
+    FilterComponent
   ],
   imports: [
     BrowserModule,
