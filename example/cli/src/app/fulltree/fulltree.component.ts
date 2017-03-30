@@ -220,9 +220,7 @@ export class FullTreeComponent {
     getChildren: this.getChildren.bind(this),
     actionMapping,
     nodeHeight: 23,
-    allowDrag: (node:TreeNode) => {
-      return node.data.name == "child1";
-    },
+    allowDrag: true,
     useVirtualScroll: true
   }
   onEvent(event) {

@@ -10,21 +10,13 @@ export class TreeDragDirective implements DoCheck {
   private _allowDrag = (node) => true;
 
   @Input('treeDrag') draggedElement;
-  @Input() set treeDragEnabled (allowDrag){
-    if (allowDrag instanceof Function) {
-      this._allowDrag = allowDrag;
-    }
-    else this._allowDrag = (node) => allowDrag;
-  };
-  allowDrag() {
-    return this._allowDrag(this.draggedElement);
-  }
+  @Input() treeDragEnabled;
 
   constructor(private el: ElementRef, private renderer: Renderer, private treeDraggedElement: TreeDraggedElement) {
   }
 
   ngDoCheck() {
-    this.renderer.setElementAttribute(this.el.nativeElement, 'draggable', this._allowDrag(this.draggedElement) ? 'true' : 'false');
+    this.renderer.setElementAttribute(this.el.nativeElement, 'draggable', this.treeDragEnabled ? 'true' : 'false');
   }
 
   @HostListener('dragstart', ['$event']) onDragStart(ev) {

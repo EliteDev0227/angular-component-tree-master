@@ -87,11 +87,11 @@ export class TreeOptions {
     }
   }
 
-  allowDrag(node:TreeNode): boolean{
+  allowDrag(node: TreeNode): boolean {
     if (this.options.allowDrag instanceof Function) {
       return this.options.allowDrag(node);
     } else {
-      return this.options.allowDrag === undefined ? true : this.options.allowDrag;
+      return this.options.allowDrag;
     }
   }
 

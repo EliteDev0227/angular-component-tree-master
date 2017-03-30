@@ -46,7 +46,7 @@ import { deprecatedSelector } from '../deprecated-selector';
               (treeDrop)="node.onDrop($event)"
               [treeAllowDrop]="node.allowDrop"
               [treeDrag]="node"
-              [treeDragEnabled]="node.allowDrag">
+              [treeDragEnabled]="node.allowDrag()">
 
               <tree-node-content [node]="node" [index]="index" [template]="templates.treeNodeTemplate">
               </tree-node-content>

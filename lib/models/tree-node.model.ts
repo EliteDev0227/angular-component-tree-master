@@ -13,7 +13,6 @@ export class TreeNode implements ITreeNode {
   @computed get isFocused() { return this.treeModel.isNodeFocused(this); };
 
   allowDrop: (draggedElement: any) => boolean;
-  allowDrag: (Element: any) => boolean;
   @observable children: TreeNode[];
   @observable index: number;
   @observable position = 0;
@@ -42,7 +41,6 @@ export class TreeNode implements ITreeNode {
     }
 
     this.allowDrop = this.allowDropUnbound.bind(this);
-    this.allowDrag = this.allowDragUnbound.bind(this);
   }
 
   // helper get functions:
@@ -167,8 +165,9 @@ export class TreeNode implements ITreeNode {
   allowDropUnbound(element) {
     return this.options.allowDrop(element, { parent: this, index: 0 });
   }
-  allowDragUnbound(element) {
-    return this.options.allowDrag(element);
+
+  allowDrag() {
+    return this.options.allowDrag(this);
   }
 
 
