@@ -1,5 +1,5 @@
 <a name="3.2.4"></a>
-# 3.2.4 (2017-XX-XX)
+# 3.2.4 (2017-04-04)
 * Support Angular 4
 * Fixed tree-node and tree-node-level-X classes.
 * Removed redundant div in children
