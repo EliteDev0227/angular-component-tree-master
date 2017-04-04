@@ -1,7 +1,7 @@
 [![npm version](https://badge.fury.io/js/angular-tree-component.svg)](https://badge.fury.io/js/angular-tree-component)
 # angular tree component
 
-## A full featured tree component for Angular 2 and above
+## A full featured tree component for Angular (2 and above, including 4)
 We've built so many projects that required a tree component, and could never find a library that supported all features.
 And building your own tree component is not an easy task.
 
@@ -22,7 +22,7 @@ So, we decided to build one for Angular, with all the features you can think of:
 If you like this, support the project by starring it!
 
 ## Angular supported version
-angular-tree-component supports angular 2.X.X releases, and AoT compilation. (And soon Angular 4). 
+angular-tree-component supports angular 2.X.X releases, 4.X.X releases, and AoT compilation.
 
 ## Getting started, demo & full documentation
 Please refer to the full documentation:  
@@ -64,12 +64,10 @@ Add these lines to systemjs.config.js:
 We would always love to hear suggestions for features & improvements - just open an issue.
 
 Some things on our mind down the road:
-* virtual scroll (WIP)
 * context menu
 * save & restore tree state
 * checkbox & master checkbox support
-* integration tests
-* unit tests
+* tests (WIP)
 
 ## Contributing
 There are currently no unit tests (yet).
