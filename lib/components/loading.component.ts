@@ -6,10 +6,10 @@ import { deprecatedSelector } from '../deprecated-selector';
   selector: 'LoadingComponent, tree-loading-component',
   template: `
     <span *ngIf="!template">loading...</span>
-    <template
+    <ng-container
       [ngTemplateOutlet]="template"
       [ngOutletContext]="{ $implicit: node }">
-    </template>
+    </ng-container>
   `,
 })
 export class LoadingComponent {

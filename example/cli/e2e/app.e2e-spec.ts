@@ -1,10 +1,10 @@
-import { CliPage } from './app.po';
+import { Cli4Page } from './app.po';
 
-describe('cli App', () => {
-  let page: CliPage;
+describe('cli4 App', () => {
+  let page: Cli4Page;
 
   beforeEach(() => {
-    page = new CliPage();
+    page = new Cli4Page();
   });
 
   it('should display message saying app works', () => {

@@ -7,10 +7,10 @@ import { deprecatedSelector } from '../deprecated-selector';
   encapsulation: ViewEncapsulation.None,
   template: `
   <span *ngIf="!template">{{ node.displayField }}</span>
-  <template
+  <ng-container
     [ngTemplateOutlet]="template"
     [ngOutletContext]="{ $implicit: node, node: node, index: index }">
-  </template>`,
+  </ng-container>`,
 })
 export class TreeNodeContent {
   @Input() node: TreeNode;

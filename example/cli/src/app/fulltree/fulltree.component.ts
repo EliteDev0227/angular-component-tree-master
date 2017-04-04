@@ -48,12 +48,12 @@ const actionMapping:IActionMapping = {
       (onEvent)="onEvent($event)"
       
     >
-      <template #treeNodeTemplate let-node>
+      <ng-template #treeNodeTemplate let-node>
         <span title="{{node.data.subTitle}}">{{ node.data.name }}</span>
         <span class="pull-right">{{ childrenCount(node) }}</span>
         <button (click)="go($event)">Custom Action</button>
-      </template>
-      <template #loadingTemplate>Loading, please hold....</template>
+      </ng-template>
+      <ng-template #loadingTemplate>Loading, please hold....</ng-template>
     </tree-root>
   </div>
   <br>

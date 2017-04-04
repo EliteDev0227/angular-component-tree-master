@@ -40,10 +40,13 @@
     "lint": "tslint lib/**/*.ts",
     "rollup": "rollup -c rollup.config.js dist/angular-tree-component.js > dist/angular-tree-component.umd.js",
     "build": "npm run lint && npm run clean:typescript && ngc && npm run rollup",
+    "example:cli2": "ngc && cp -rf dist example/cli2/node_modules/angular-tree-component/ && cd example/cli2 && ng serve",
     "example:cli": "ngc && cp -rf dist example/cli/node_modules/angular-tree-component/ && cd example/cli && ng serve",
+    "selenium": "webdriver-manager update && webdriver-manager start",
     "example:cli:build": "cd example/cli && cp src/index.build.html src/index.html && ng build --aot && cp src/index.dev.html src/index.html",
     "test": "protractor protractor.conf.js",
     "pretest": "npm run e2e:tsc",
+    "test:setup": "concurrently --kill-others \"npm run selenium\" \"npm run example:cli\"",
     "prepublish": "npm run build && npm run example:cli:build",
     "e2e:tsc": "cd e2e && tsc"
   },
@@ -55,8 +58,8 @@
     "Adam Klein <adam@500tech.com>"
   ],
   "peerDependencies": {
-    "@angular/common": "^2.0.0",
-    "@angular/core": "^2.0.0"
+    "@angular/common": ">=2.0.0",
+    "@angular/core": ">=2.0.0"
   },
   "dependencies": {
     "lodash-es": "4.17.4",
@@ -64,21 +67,22 @@
     "ng2-mobx": "^1.2.9"
   },
   "devDependencies": {
-    "@angular/common": "^2.3.0",
-    "@angular/compiler": "^2.3.0",
-    "@angular/compiler-cli": "^2.3.0",
-    "@angular/core": "^2.3.0",
-    "@angular/http": "^2.3.0",
-    "@angular/platform-browser": "^2.3.0",
-    "@angular/platform-browser-dynamic": "^2.3.0",
-    "@angular/platform-server": "^2.3.0",
+    "@angular/common": "^4.0.0",
+    "@angular/compiler": "^4.0.0",
+    "@angular/compiler-cli": "^4.0.0",
+    "@angular/core": "^4.0.0",
+    "@angular/http": "^4.0.0",
+    "@angular/platform-browser": "^4.0.0",
+    "@angular/platform-browser-dynamic": "^4.0.0",
+    "@angular/platform-server": "^4.0.0",
     "@types/jasmine": "2.5.38",
     "@types/lodash-es": "4.14.4",
     "@types/node": "^6.0.38",
     "@types/rx": "2.5.34",
     "@types/webpack": "^1.12.29",
     "codelyzer": "2.0.0-beta.4",
-    "core-js": "^2.4.0",
+    "concurrently": "3.4.0",
+    "core-js": "^2.4.1",
     "nightwatch": "0.9.12",
     "protractor": "5.1.1",
     "protractor-jasmine2-html-reporter": "0.0.7",
@@ -86,11 +90,11 @@
     "rollup": "^0.41.4",
     "rollup-plugin-commonjs": "7.0.2",
     "rollup-plugin-node-resolve": "2.0.0",
-    "rxjs": "^5.0.0",
+    "rxjs": "^5.1.0",
     "tslint": "4.4.2",
     "typedoc": "^0.3.12",
     "typescript": "^2.1.4",
-    "zone.js": "^0.7.2"
+    "zone.js": "^0.8.4"
   },
   "repository": "https://github.com/500tech/angular-tree-component.git",
   "bugs": {

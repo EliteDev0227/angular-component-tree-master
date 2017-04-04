@@ -1,5 +1,6 @@
 <a name="3.2.4"></a>
 # 3.2.4 (2017-XX-XX)
+* Support Angular 4
 * Fixed tree-node and tree-node-level-X classes.
 * Removed redundant div in children
 * Added integration tests
@@ -9,6 +10,7 @@
 * Fixed filtering without virtual scroll option
 * allowDrag allows functions
 * Drag and drop fix for IE9+
+* Fixed doForAll to run recursively
 
 <a name="3.2.3"></a>
 # 3.2.3 (2017-03-08)

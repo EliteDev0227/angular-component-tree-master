@@ -7,10 +7,10 @@ const DRAG_OVER_CLASS = 'is-dragging-over';
   selector: '[treeDrag]'
 })
 export class TreeDragDirective implements DoCheck {
-  private _allowDrag = (node) => true;
-
   @Input('treeDrag') draggedElement;
   @Input() treeDragEnabled;
+
+  private _allowDrag = (node) => true;
 
   constructor(private el: ElementRef, private renderer: Renderer, private treeDraggedElement: TreeDraggedElement) {
   }
