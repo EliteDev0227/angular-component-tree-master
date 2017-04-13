@@ -64,7 +64,7 @@
   "dependencies": {
     "lodash-es": "4.17.4",
     "mobx": "^3.1.0",
-    "ng2-mobx": "^1.2.9"
+    "mobx-angular": "^1.4.2"
   },
   "devDependencies": {
     "@angular/common": "^4.0.0",
