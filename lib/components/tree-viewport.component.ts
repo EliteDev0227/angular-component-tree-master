@@ -4,8 +4,6 @@ import {
 import { TreeVirtualScroll } from '../models/tree-virtual-scroll.model';
 import { deprecatedSelector } from '../deprecated-selector';
 
-import { throttle } from 'lodash-es';
-
 const SCROLL_REFRESH_INTERVAL = 17;
 
 const isFirefox = navigator && navigator.userAgent && navigator.userAgent.indexOf('Firefox') > -1;
@@ -29,14 +27,11 @@ const isFirefox = navigator && navigator.userAgent && navigator.userAgent.indexO
   `
 })
 export class TreeViewportComponent implements AfterViewInit, OnInit, OnDestroy {
-  _debounceOnVirtualScroll: () => void;
-
   constructor(
     private elementRef: ElementRef,
     public virtualScroll: TreeVirtualScroll) {
 
     deprecatedSelector('TreeNode', 'tree-node', elementRef);
-    this._debounceOnVirtualScroll = throttle(this._onVirtualScroll.bind(this), SCROLL_REFRESH_INTERVAL);
   }
 
   ngOnInit() {
