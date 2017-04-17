@@ -1,4 +1,6 @@
+[![Build Status](https://travis-ci.org/500tech/angular-tree-component.svg?branch=master)](https://travis-ci.org/500tech/angular-tree-component)
 [![npm version](https://badge.fury.io/js/angular-tree-component.svg)](https://badge.fury.io/js/angular-tree-component)
+
 # angular tree component
 
 ## A full featured tree component for Angular (2 and above, including 4)
