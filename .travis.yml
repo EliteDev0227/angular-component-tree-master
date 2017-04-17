@@ -14,5 +14,4 @@ before_install:
  - sudo dpkg -i google-chrome*.deb
 
 before_script: 
- - cd example/cli && npm install
- - npm run test:setup
+ - cd example/cli && npm install && cd ../../ && npm run test:setup & && sleep 20
