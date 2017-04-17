@@ -47,7 +47,7 @@
     "test": "protractor protractor.conf.js",
     "pretest": "npm run e2e:tsc",
     "test:setup": "concurrently --kill-others \"npm run selenium\" \"npm run example:cli\"",
-    "prepublish": "npm run build && npm run example:cli:build",
+    "prepublish": "cd example/cli && npm install && cd ../../ && npm run build && npm run example:cli:build",
     "e2e:tsc": "cd e2e && tsc"
   },
   "files": [
