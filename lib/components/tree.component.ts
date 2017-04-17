@@ -7,9 +7,10 @@ import { TreeNode } from '../models/tree-node.model';
 import { TreeDraggedElement } from '../models/tree-dragged-element.model';
 import { TreeOptions } from '../models/tree-options.model';
 
-import { includes } from 'lodash-es/includes';
-import { pick } from 'lodash-es/pick';
 import { deprecatedSelector } from '../deprecated-selector';
+
+const includes = require('lodash/includes');
+const pick = require('lodash/pick');
 
 @Component({
   selector: 'Tree, tree-root',
