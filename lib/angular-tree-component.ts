@@ -1,6 +1,6 @@
 import { NgModule }      from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Ng2MobxModule }      from 'ng2-mobx';
+import { MobxAngularModule } from 'mobx-angular';
 
 import { TREE_ACTIONS, IActionMapping, IActionHandler } from './models/tree-options.model';
 import { ITreeOptions, IAllowDropFn, IAllowDragFn } from './defs/api';
@@ -71,7 +71,7 @@ export {
   ],
   imports: [
     CommonModule,
-    Ng2MobxModule
+    MobxAngularModule
   ],
   providers: [
     TreeDraggedElement
