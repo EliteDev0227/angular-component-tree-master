@@ -1,11 +1,12 @@
 import {
   Component, Input, Output, OnChanges, EventEmitter, Renderer, ElementRef,
-  ViewEncapsulation, ContentChild, TemplateRef, HostListener
+  ViewEncapsulation, ContentChild, TemplateRef, HostListener, ViewChild
 } from '@angular/core';
 import { TreeModel } from '../models/tree.model';
 import { TreeNode } from '../models/tree-node.model';
 import { TreeDraggedElement } from '../models/tree-dragged-element.model';
 import { TreeOptions } from '../models/tree-options.model';
+import { TreeViewportComponent } from './tree-viewport.component';
 
 import { deprecatedSelector } from '../deprecated-selector';
 
@@ -33,7 +34,7 @@ const pick = require('lodash/pick');
     }`
   ],
   template: `
-    <tree-viewport>
+    <tree-viewport #viewport>
       <div
         class="tree"
         [class.node-dragging]="treeDraggedElement.isDragging()">
@@ -64,6 +65,8 @@ export class TreeComponent implements OnChanges {
   @ContentChild('loadingTemplate') loadingTemplate: TemplateRef<any>;
   @ContentChild('treeNodeTemplate') treeNodeTemplate: TemplateRef<any>;
   @ContentChild('treeNodeFullTemplate') treeNodeFullTemplate: TemplateRef<any>;
+
+  @ViewChild('viewport') viewportComponent: TreeViewportComponent;
 
   // Will be handled in ngOnChanges
   @Input() set nodes(nodes: any[]) { };
@@ -121,5 +124,9 @@ export class TreeComponent implements OnChanges {
       nodes: changes.nodes && changes.nodes.currentValue,
       events: pick(this, this.treeModel.eventNames)
     });
+  }
+
+  sizeChanged() {
+    this.viewportComponent.setViewport();
   }
 }

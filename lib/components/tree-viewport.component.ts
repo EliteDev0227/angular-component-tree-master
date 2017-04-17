@@ -35,7 +35,7 @@ export class TreeViewportComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    setTimeout(() => this._onVirtualScroll());
+    setTimeout(() => this.setViewport());
   }
 
   ngOnDestroy() {
@@ -52,10 +52,10 @@ export class TreeViewportComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   _onWheel(e) {
-    this._onVirtualScroll();
+    this.setViewport();
   }
 
-  _onVirtualScroll() {
-    this.virtualScroll.setNewScroll({ viewport: this.elementRef.nativeElement });
+  setViewport() {
+    this.virtualScroll.setViewport(this.elementRef.nativeElement);
   }
 }

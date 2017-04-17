@@ -1,3 +1,9 @@
+<a name="3.3.0"></a>
+# 3.3.0 (2017-17-04)
+* Reduce bundle size
+* Fix tree not rendered when hidden then shown
+* Update to mobx-angular
+
 <a name="3.2.4"></a>
 # 3.2.4 (2017-04-04)
 * Support Angular 4

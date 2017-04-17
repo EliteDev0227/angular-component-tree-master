@@ -12,6 +12,7 @@
   },
   "private": true,
   "dependencies": {
+    "angular-tree-component": "^3.3.0",
     "@angular/common": "^2.4.0",
     "@angular/compiler": "^2.4.0",
     "@angular/core": "^2.4.0",
@@ -29,7 +30,6 @@
     "@angular/compiler-cli": "^2.4.0",
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",
-    "angular-tree-component": "^3.2.1",
     "codelyzer": "~2.0.0",
     "jasmine-core": "~2.5.2",
     "jasmine-spec-reporter": "~3.2.0",

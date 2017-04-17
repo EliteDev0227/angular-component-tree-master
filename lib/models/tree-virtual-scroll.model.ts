@@ -71,7 +71,7 @@ export class TreeVirtualScroll {
     this._dispose();
   }
 
-  @action setNewScroll({ viewport }) {
+  @action setViewport(viewport) {
     Object.assign(this, {
       viewport,
       x: viewport.scrollLeft,
@@ -93,13 +93,13 @@ export class TreeVirtualScroll {
   }
 
   getViewportNodes(nodes) {
-    if (!this.viewportHeight || !nodes) return [];
+    if (!nodes) return [];
 
     const visibleNodes = nodes.filter((node) => !node.isHidden);
 
-    if (!visibleNodes.length) return [];
-
     if (!this.isEnabled()) return visibleNodes;
+
+    if (!this.viewportHeight || !visibleNodes.length) return [];
 
     // Search for first node in the viewport using binary search
     // Look for first node that starts after the beginning of the viewport (with buffer)
