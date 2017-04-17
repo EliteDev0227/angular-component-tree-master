@@ -4,10 +4,6 @@ import {
 import { TreeVirtualScroll } from '../models/tree-virtual-scroll.model';
 import { deprecatedSelector } from '../deprecated-selector';
 
-const SCROLL_REFRESH_INTERVAL = 17;
-
-const isFirefox = navigator && navigator.userAgent && navigator.userAgent.indexOf('Firefox') > -1;
-
 @Component({
   selector: 'TreeViewport, tree-viewport',
   styles: [
