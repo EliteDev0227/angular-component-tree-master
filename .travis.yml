@@ -17,5 +17,5 @@ before_script:
  - cd example/cli
  - npm install
  - cd ../../
- - npm run test:setup &
+ - npm run test:setup > /dev/null &
  - sleep 20
