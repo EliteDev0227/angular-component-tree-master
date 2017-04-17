@@ -2,7 +2,7 @@ import {
   Component, Input, ViewEncapsulation, OnInit, OnDestroy, ElementRef
 } from '@angular/core';
 import { reaction, autorun } from 'mobx';
-import { observable, computed } from 'ng2-mobx';
+import { observable, computed } from 'mobx-angular';
 import { TreeVirtualScroll } from '../models/tree-virtual-scroll.model';
 import { TreeNode } from '../models/tree-node.model';
 import { TreeModel } from '../models/tree.model';
