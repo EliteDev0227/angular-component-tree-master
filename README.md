@@ -66,10 +66,11 @@ Add these lines to systemjs.config.js:
 We would always love to hear suggestions for features & improvements - just open an issue.
 
 Some things on our mind down the road:
-* context menu
-* save & restore tree state
-* checkbox & master checkbox support
-* tests (WIP)
+* Context menu
+* Save & restore tree state
+* Checkbox & master checkbox support
+* Add more tests
+* Add more examples
 
 ## Contributing
 There are currently no unit tests (yet).
