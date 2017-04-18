@@ -21,7 +21,7 @@ import { ITreeOptions } from 'angular-tree-component';
     <h3>treeNodeWrapper</h3>
     <tree-root id="tree2" [focused]="true" [nodes]="nodes2" [options]="options2">
       <ng-template #treeNodeWrapperTemplate let-node let-index="index">
-        <span>hi</span>
+         <input type="checkbox"><span>&rarr;</span>
         <span [class]="node.data.className" [class.title]="true">{{ node.data.title }}</span>
       </ng-template>
     </tree-root>
