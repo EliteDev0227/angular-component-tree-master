@@ -17,6 +17,14 @@ import { ITreeOptions } from 'angular-tree-component';
         <div [class]="node.data.className + 'Loading'">Loading {{ node.data.title }}...</div>
       </ng-template>
     </tree-root>
+    
+    <h3>treeNodeWrapper</h3>
+    <tree-root id="tree2" [focused]="true" [nodes]="nodes2" [options]="options2">
+      <ng-template #treeNodeWrapperTemplate let-node let-index="index">
+        <span>hi</span>
+        <span [class]="node.data.className" [class.title]="true">{{ node.data.title }}</span>
+      </ng-template>
+    </tree-root>
 
     <h3>treeNodeFullTemplate</h3>
     <tree-root id="tree2" [focused]="true" [nodes]="nodes2">

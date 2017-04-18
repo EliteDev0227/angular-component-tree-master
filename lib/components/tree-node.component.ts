@@ -37,21 +37,7 @@ import { deprecatedSelector } from '../deprecated-selector';
 
         <tree-node-drop-slot *ngIf="index === 0" [dropIndex]="node.index" [node]="node.parent"></tree-node-drop-slot>
 
-          <div class="node-wrapper" [style.padding-left]="node.getNodePadding()">
-            <tree-node-expander [node]="node"></tree-node-expander>
-            <div class="node-content-wrapper"
-              (click)="node.mouseAction('click', $event)"
-              (dblclick)="node.mouseAction('dblClick', $event)"
-              (contextmenu)="node.mouseAction('contextMenu', $event)"
-              (treeDrop)="node.onDrop($event)"
-              [treeAllowDrop]="node.allowDrop"
-              [treeDrag]="node"
-              [treeDragEnabled]="node.allowDrag()">
-
-              <tree-node-content [node]="node" [index]="index" [template]="templates.treeNodeTemplate">
-              </tree-node-content>
-            </div>
-          </div>
+        <tree-node-wrapper [node]="node" [index]="index" [templates]="templates"></tree-node-wrapper>
 
         <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
         <tree-node-drop-slot [dropIndex]="node.index + 1" [node]="node.parent"></tree-node-drop-slot>

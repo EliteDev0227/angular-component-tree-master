@@ -17,6 +17,7 @@ import { TreeNodeDropSlot } from './components/tree-node-drop-slot.component';
 import { TreeNodeExpanderComponent } from './components/tree-node-expander.component';
 import { TreeNodeChildrenComponent } from './components/tree-node-children.component';
 import { TreeNodeCollectionComponent } from './components/tree-node-collection.component';
+import { TreeNodeWrapperComponent } from './components/tree-node-wrapper.component';
 import { TreeViewportComponent } from './components/tree-viewport.component';
 import { TreeDropDirective } from './directives/tree-drop.directive';
 import { TreeDragDirective } from './directives/tree-drag.directive';
@@ -34,7 +35,8 @@ const exportedDirectives = [
   TreeNodeChildrenComponent,
   TreeNodeDropSlot,
   TreeNodeCollectionComponent,
-  TreeViewportComponent
+  TreeViewportComponent,
+  TreeNodeWrapperComponent
 ];
 
 export {
