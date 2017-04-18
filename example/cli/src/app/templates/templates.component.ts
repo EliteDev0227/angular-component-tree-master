@@ -4,9 +4,6 @@ import { ITreeOptions } from 'angular-tree-component';
 @Component({
   selector: 'app-templates',
   template: `
-    <h3>Display Field</h3>
-    <tree-root id="tree0" [focused]="true" [nodes]="nodes1" [options]="options0"></tree-root>
-
     <h3>treeNodeTemplate and loadingTemplate</h3>
     <tree-root id="tree1" [focused]="true" [nodes]="nodes1" [options]="options1">
       <ng-template #treeNodeTemplate let-node let-index="index">
