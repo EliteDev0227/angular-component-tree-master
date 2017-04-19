@@ -1,3 +1,7 @@
+<a name="3.3.1"></a>
+# 3.3.1 (2017-19-04)
+* Support useStrict mode in MobX
+
 <a name="3.3.0"></a>
 # 3.3.0 (2017-17-04)
 * Reduce bundle size
