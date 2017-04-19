@@ -19,7 +19,7 @@ import { ITreeOptions } from 'angular-tree-component';
     </tree-root>
     
     <h3>treeNodeWrapper</h3>
-    <tree-root id="tree2" [focused]="true" [nodes]="nodes2" [options]="options1">
+    <tree-root id="tree3" [focused]="true" [nodes]="nodes2" [options]="options1">
       <ng-template #treeNodeWrapperTemplate let-node let-index="index">
          <input type="checkbox"><span>&rarr;</span>
         <span [class]="node.data.className" [class.title]="true">{{ node.data.title }}</span>
