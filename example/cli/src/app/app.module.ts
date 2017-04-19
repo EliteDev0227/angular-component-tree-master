@@ -10,6 +10,7 @@ import { BasicTreeComponent } from './basictree/basictree.component';
 import { FullTreeComponent } from './fulltree/fulltree.component';
 import { TemplatesComponent } from './templates/templates.component';
 import { FilterComponent } from './filter/filter.component';
+import { FieldsComponent } from './fields/fields.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { FilterComponent } from './filter/filter.component';
     BasicTreeComponent,
     FullTreeComponent,
     TemplatesComponent,
+    FieldsComponent,
     FilterComponent
   ],
   imports: [

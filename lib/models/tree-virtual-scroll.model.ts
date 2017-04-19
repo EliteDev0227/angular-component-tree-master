@@ -29,20 +29,23 @@ export class TreeVirtualScroll {
 
   constructor(private treeModel: TreeModel) {
     treeModel.virtualScroll = this;
-    this._dispose = autorun(() => this.fixScroll());
+    this._dispose = [autorun(() => this.fixScroll())];
   }
 
   init() {
     const fn = this.recalcPositions.bind(this);
 
     fn();
-    reaction(() => this.treeModel.roots, fn);
-    reaction(() => this.treeModel.expandedNodeIds, fn);
-    reaction(() => this.treeModel.hiddenNodeIds, fn);
+    this._dispose = [
+      ...this._dispose,
+      reaction(() => this.treeModel.roots, fn),
+      reaction(() => this.treeModel.expandedNodeIds, fn),
+      reaction(() => this.treeModel.hiddenNodeIds, fn)
+    ];
     this.treeModel.subscribe(TREE_EVENTS.onLoadChildren, fn);
   }
 
-  recalcPositions() {
+  @action recalcPositions() {
     this.treeModel.virtualRoot.height = this._getPositionAfter(this.treeModel.getVisibleRoots(), 0);
   }
 
@@ -68,7 +71,7 @@ export class TreeVirtualScroll {
 
 
   clear() {
-    this._dispose();
+    this._dispose.forEach((d) => d());
   }
 
   @action setViewport(viewport) {
