@@ -49,7 +49,7 @@ export class TreeNodeWrapperComponent {
 
   @Input() node: TreeNode;
   @Input() index: number;
-  @Input() templates: TemplateRef<any>;
+  @Input() templates: any;
 
   constructor() { }
 
