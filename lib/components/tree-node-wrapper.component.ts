@@ -12,11 +12,14 @@ import { TreeNode } from '../models/tree-node.model';
       transition: background-color .15s,box-shadow .15s;
     }`,
     '.node-wrapper {display: flex; align-items: flex-start;}',
-    '.tree-node-active > .node-wrapper > .node-content-wrapper { background: #beebff }',
-    '.tree-node-active.tree-node-focused > .node-wrapper > .node-content-wrapper { background: #beebff }',
-    '.tree-node-focused > .node-wrapper > .node-content-wrapper { background: #e7f4f9 }',
+    `.node-content-wrapper-active,
+     .node-content-wrapper.node-content-wrapper-active:hover,
+     .node-content-wrapper-active.node-content-wrapper-focused {
+        background: #beebff;
+     }`,
+    '.node-content-wrapper-focused { background: #e7f4f9 }',
     '.node-content-wrapper:hover { background: #f7fbff }',
-    `.tree-node-active > .node-wrapper > .node-content-wrapper, .tree-node-focused > .node-content-wrapper, .node-content-wrapper:hover {
+    `.node-content-wrapper-active, .node-content-wrapper-focused, .node-content-wrapper:hover {
       box-shadow: inset 0 0 1px #999;
     }`,
     '.node-content-wrapper.is-dragging-over { background: #ddffee; box-shadow: inset 0 0 1px #999; }',
@@ -26,6 +29,8 @@ import { TreeNode } from '../models/tree-node.model';
       <div *ngIf="!templates.treeNodeWrapperTemplate" class="node-wrapper" [style.padding-left]="node.getNodePadding()">
         <tree-node-expander [node]="node"></tree-node-expander>
         <div class="node-content-wrapper"
+          [class.node-content-wrapper-active]="node.isActive"
+          [class.node-content-wrapper-focused]="node.isFocused"
           (click)="node.mouseAction('click', $event)"
           (dblclick)="node.mouseAction('dblClick', $event)"
           (contextmenu)="node.mouseAction('contextMenu', $event)"

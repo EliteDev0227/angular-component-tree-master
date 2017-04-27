@@ -5,24 +5,7 @@ import { deprecatedSelector } from '../deprecated-selector';
 @Component({
   selector: 'TreeNode, tree-node',
   encapsulation: ViewEncapsulation.None,
-  styles: [
-    `.node-content-wrapper {
-      display: inline-block;
-      padding: 2px 5px;
-      border-radius: 2px;
-      transition: background-color .15s,box-shadow .15s;
-    }`,
-    '.node-wrapper {display: flex; align-items: flex-start;}',
-    '.tree-node-active > .node-wrapper > .node-content-wrapper { background: #beebff }',
-    '.tree-node-active.tree-node-focused > .node-wrapper > .node-content-wrapper { background: #beebff }',
-    '.tree-node-focused > .node-wrapper > .node-content-wrapper { background: #e7f4f9 }',
-    '.node-content-wrapper:hover { background: #f7fbff }',
-    `.tree-node-active > .node-wrapper > .node-content-wrapper, .tree-node-focused > .node-content-wrapper, .node-content-wrapper:hover {
-      box-shadow: inset 0 0 1px #999;
-    }`,
-    '.node-content-wrapper.is-dragging-over { background: #ddffee; box-shadow: inset 0 0 1px #999; }',
-    '.node-content-wrapper.is-dragging-over-disabled { opacity: 0.5 }'
-  ],
+  styles: [],
   template: `
     <ng-container *mobxAutorun>
       <div
@@ -33,7 +16,8 @@ import { deprecatedSelector } from '../deprecated-selector';
         [class.tree-node-collapsed]="node.isCollapsed && node.hasChildren"
         [class.tree-node-leaf]="node.isLeaf"
         [class.tree-node-active]="node.isActive"
-        [class.tree-node-focused]="node.isFocused">
+        [class.tree-node-focused]="node.isFocused"
+        >
 
         <tree-node-drop-slot *ngIf="index === 0" [dropIndex]="node.index" [node]="node.parent"></tree-node-drop-slot>
 

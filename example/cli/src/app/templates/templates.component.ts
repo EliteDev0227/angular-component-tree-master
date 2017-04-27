@@ -19,24 +19,21 @@ import { ITreeOptions } from 'angular-tree-component';
     <tree-root id="tree3" [focused]="true" [nodes]="nodes2" [options]="options1">
       <ng-template #treeNodeWrapperTemplate let-node let-index="index">
          <input type="checkbox"><span>&rarr;</span>
-        <span [class]="node.data.className" [class.title]="true">{{ node.data.title }}</span>
+         <span [class]="node.data.className" [class.title]="true">{{ node.data.title }}</span>
       </ng-template>
     </tree-root>
 
     <h3>treeNodeFullTemplate</h3>
     <tree-root id="tree2" [focused]="true" [nodes]="nodes2">
       <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
-        <div
-          [class.tree-node]="true"
-          [class.tree-node-expanded]="node.isExpanded && node.hasChildren"
-          [class.tree-node-collapsed]="node.isCollapsed && node.hasChildren"
-          [class.tree-node-leaf]="node.isLeaf"
-          [class.tree-node-active]="node.isActive"
-          [class.tree-node-focused]="node.isFocused">
-
+        <div class="tree-node">
           <input type="checkbox" [checked]="node.isActive" (change)="node.toggleActivated(true)" />
           <tree-node-expander [node]="node"></tree-node-expander>
-          <div class="node-content-wrapper" (click)="node.toggleActivated(true)">
+          <div
+            class="node-content-wrapper"
+            [class.node-content-wrapper-active]="node.isActive"
+            [class.node-content-wrapper-focused]="node.isFocused"
+            (click)="node.toggleActivated(true)">
             <span [class]="node.data.className + 'Index'">{{ index }}</span>
             <span [class]="node.data.className" [class.title]="true">{{ node.data.title }}</span>
           </div>
