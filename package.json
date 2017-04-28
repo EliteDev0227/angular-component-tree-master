@@ -1,6 +1,6 @@
 {
   "name": "angular-tree-component",
-  "version": "3.3.1",
+  "version": "3.4.0",
   "description": "A simple yet powerful tree component for Angular2",
   "author": "Adam Klein <adam@500tech.com>",
   "homepage": "https://github.com/500tech/angular-tree-component",
@@ -41,7 +41,7 @@
     "rollup": "./node_modules/.bin/rollup -c rollup.config.js dist/angular-tree-component.js -o dist/angular-tree-component.umd.js",
     "build": "npm run lint && npm run clean:typescript && ./node_modules/.bin/ngc && npm run rollup",
     "example:cli2": "./node_modules/.bin/ngc && cp -rf dist example/cli2/node_modules/angular-tree-component/ && cd example/cli2 && ./node_modules/.bin/ng serve",
-    "example:cli": "./node_modules/.bin/ngc && cd example/cli && npm install ../../ && ./node_modules/.bin/ng serve",
+    "example:cli": "./node_modules/.bin/ngc && cd example/cli && cp -rf ../../dist node_modules/angular-tree-component && ./node_modules/.bin/ng serve",
     "selenium": "webdriver-manager update && webdriver-manager start",
     "example:cli:build": "npm run build && cd example/cli && npm install ../../ && cp src/index.build.html src/index.html && ./node_modules/.bin/ng build --aot && cp src/index.dev.html src/index.html && mkdir -p 500tech/angular2-tree-component/master/example/cli/ && cp -rf dist 500tech/angular2-tree-component/master/example/cli/",
     "test": "protractor protractor.conf.js",
