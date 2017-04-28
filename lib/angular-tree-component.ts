@@ -24,13 +24,6 @@ import { TreeDragDirective } from './directives/tree-drag.directive';
 import { TreeAnimateOpenDirective } from './directives/tree-animate-open.directive';
 
 import './polyfills';
-import { useStrict } from 'mobx';
-
-/*
-  Turn on to check if tree supports strict mode in MobX.
-  But remember to turn off (to allow users of MobX not to use strict mode in their apps)
-*/
-// useStrict(true);
 
 export {
   TreeModel,
