@@ -157,11 +157,11 @@ export class FullTreeComponent {
         }
       ];
 
-      for(let i = 0; i < 100; i++) {
+      for(let i = 0; i < 4; i++) {
         this.nodes.push({
           name: `rootDynamic${i}`,
           subTitle: `root created dynamically ${i}`,
-          children: new Array(4).fill(null).map((item, n) => ({
+          children: new Array((i + 1) * 100).fill(null).map((item, n) => ({
             name: `childDynamic${i}.${n}`,
             subTitle: `child created dynamically ${i}`,
             hasChildren: false
@@ -221,7 +221,10 @@ export class FullTreeComponent {
     actionMapping,
     nodeHeight: 23,
     allowDrag: true,
-    useVirtualScroll: true
+    useVirtualScroll: true,
+    animateExpand: true,
+    animateSpeed: 30,
+    animateAcceleration: 1.2
   }
   onEvent(event) {
     console.log(event);

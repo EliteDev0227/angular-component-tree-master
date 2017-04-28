@@ -72,6 +72,9 @@ export class TreeOptions {
   get getChildren(): any { return this.options.getChildren; }
   get levelPadding(): number { return this.options.levelPadding || 0; }
   get useVirtualScroll(): boolean { return this.options.useVirtualScroll; }
+  get animateExpand(): boolean { return this.options.animateExpand; }
+  get animateSpeed(): number { return this.options.animateSpeed || 30; }
+  get animateAcceleration(): number { return this.options.animateAcceleration || 1.2; }
   actionMapping: IActionMapping;
 
   constructor(private options: ITreeOptions = {}) {

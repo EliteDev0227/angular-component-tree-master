@@ -19,10 +19,6 @@ export class TreeVirtualScroll {
     return this.yBlocks * Y_EPSILON;
   }
 
-  isEnabled() {
-    return this.treeModel.options.useVirtualScroll;
-  }
-
   @computed get totalHeight() {
     return this.treeModel.virtualRoot ? this.treeModel.virtualRoot.height : 0;
   }
@@ -43,6 +39,14 @@ export class TreeVirtualScroll {
       reaction(() => this.treeModel.hiddenNodeIds, fn)
     ];
     this.treeModel.subscribe(TREE_EVENTS.onLoadChildren, fn);
+  }
+
+  isEnabled() {
+    return this.treeModel.options.useVirtualScroll;
+  }
+
+  @action private _setYBlocks(value) {
+    this.yBlocks = value;
   }
 
   @action recalcPositions() {
@@ -91,7 +95,7 @@ export class TreeVirtualScroll {
         node.position - this.viewportHeight / 2 : // scroll to middle
         node.position; // scroll to start
 
-      this.yBlocks = Math.floor(this.viewport.scrollTop / Y_EPSILON);
+      this._setYBlocks(Math.floor(this.viewport.scrollTop / Y_EPSILON));
     }
   }
 
@@ -129,8 +133,8 @@ export class TreeVirtualScroll {
   fixScroll() {
     const maxY = Math.max(0, this.totalHeight - this.viewportHeight);
 
-    if (this.y < 0) this.yBlocks = 0;
-    if (this.y > maxY) this.yBlocks = maxY / Y_EPSILON;
+    if (this.y < 0) this._setYBlocks(0);
+    if (this.y > maxY) this._setYBlocks(maxY / Y_EPSILON);
   }
 }
 
