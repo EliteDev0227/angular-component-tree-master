@@ -14,6 +14,15 @@ import { ITreeOptions } from 'angular-tree-component';
         <div [class]="node.data.className + 'Loading'">Loading {{ node.data.title }}...</div>
       </ng-template>
     </tree-root>
+    
+    <h3>treeNodeWrapper</h3>
+    <tree-root id="tree3" [focused]="true" [nodes]="nodes2" [options]="options1">
+      <ng-template #treeNodeWrapperTemplate let-node let-index="index">
+        <span [class]="node.data.className + 'Index'">{{ index }}</span>      
+         <input type="checkbox"><span>&rarr;</span>
+        <span [class]="node.data.className" [class.title]="true">{{ node.data.title }}</span>
+      </ng-template>
+    </tree-root>
 
     <h3>treeNodeFullTemplate</h3>
     <tree-root id="tree2" [focused]="true" [nodes]="nodes2">
@@ -61,13 +70,13 @@ export class TemplatesComponent {
       title: 'root2',
       className: 'root2Class',
       children: [
-        {title: 'child1', className: 'child1Class'}
+        { title: 'child1', className: 'child1Class' }
       ]
     }
   ];
 
   options1: ITreeOptions = {
-    getChildren: () => new Promise((resolve, reject) => {})
+    getChildren: () => new Promise((resolve, reject) => { })
   };
 
   options0: ITreeOptions = {
