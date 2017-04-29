@@ -4,8 +4,8 @@ import { TreeOptions } from './tree-options.model';
 import { ITreeNode } from '../defs/api';
 import { TREE_EVENTS } from '../constants/events';
 
-const first  = require('lodash/first');
-const last  = require('lodash/last');
+import * as _ from 'lodash';
+const { first, last } = _;
 
 export class TreeNode implements ITreeNode {
   @computed get isHidden() { return this.treeModel.isHidden(this); };

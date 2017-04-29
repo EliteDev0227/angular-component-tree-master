@@ -1,3 +1,7 @@
+<a name="3.4.1"></a>
+# 3.4.1 (2017-29-04)
+* Fixed SystemJS errors
+
 <a name="3.4.0"></a>
 # 3.4.0 (2017-28-04)
 * Add animations

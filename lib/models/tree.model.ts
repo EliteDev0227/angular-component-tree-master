@@ -6,16 +6,10 @@ import { TreeVirtualScroll } from './tree-virtual-scroll.model';
 import { ITreeModel } from '../defs/api';
 import { TREE_EVENTS } from '../constants/events';
 
-const first = require('lodash/first');
-const last = require('lodash/last');
-const compact = require('lodash/compact');
-const find = require('lodash/find');
-const includes = require('lodash/includes');
-const remove = require('lodash/remove');
-const indexOf = require('lodash/indexOf');
-const pullAt = require('lodash/pullAt');
-const isString = require('lodash/isString');
-const isFunction = require('lodash/isFunction');
+import * as _ from 'lodash';
+
+const { first, last, compact, find, includes,
+  remove, indexOf, pullAt, isString, isFunction } = _;
 
 @Injectable()
 export class TreeModel implements ITreeModel {
