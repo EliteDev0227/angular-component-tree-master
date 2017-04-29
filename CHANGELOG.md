@@ -1,3 +1,7 @@
+<a name="3.5.0"></a>
+# 3.5.0 (2017-29-04)
+* doForAll allows promises (supports expandAll of async nodes)
+
 <a name="3.4.1"></a>
 # 3.4.1 (2017-29-04)
 * Fixed SystemJS errors

@@ -212,10 +212,11 @@ export class TreeNode implements ITreeNode {
   }
 
   doForAll(fn: (node: ITreeNode) => any) {
-    fn(this);
-    if (this.children) {
-      this.children.forEach((child) => child.doForAll(fn));
-    }
+    Promise.resolve(fn(this)).then(() => {
+      if (this.children) {
+        this.children.forEach((child) => child.doForAll(fn));
+      }
+    });
   }
 
   expandAll() {

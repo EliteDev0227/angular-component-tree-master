@@ -4027,6 +4027,7 @@ var actionMapping = {
             alert("context menu for " + node.data.name);
         },
         dblClick: function (tree, node, $event) {
+            console.log($event.currentTarget);
             if (node.hasChildren)
                 __WEBPACK_IMPORTED_MODULE_0_angular_tree_component__["b" /* TREE_ACTIONS */].TOGGLE_EXPANDED(tree, node, $event);
         },
