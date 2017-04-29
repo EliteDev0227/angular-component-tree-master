@@ -3,7 +3,7 @@ import { TreeModel } from './tree.model';
 import { KEYS } from '../constants/keys';
 import { ITreeOptions } from '../defs/api';
 
-const defaultsDeep = require('lodash/defaultsDeep');
+import * as _ from 'lodash';
 
 export interface IActionHandler {
   (tree: TreeModel, node: TreeNode, $event: any, ...rest);
@@ -78,7 +78,7 @@ export class TreeOptions {
   actionMapping: IActionMapping;
 
   constructor(private options: ITreeOptions = {}) {
-    this.actionMapping = defaultsDeep({}, this.options.actionMapping, defaultActionMapping);
+    this.actionMapping = _.defaultsDeep({}, this.options.actionMapping, defaultActionMapping);
   }
 
   allowDrop(element, to): boolean {

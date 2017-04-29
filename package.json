@@ -1,6 +1,6 @@
 {
   "name": "angular-tree-component",
-  "version": "3.4.0",
+  "version": "3.4.1",
   "description": "A simple yet powerful tree component for Angular2",
   "author": "Adam Klein <adam@500tech.com>",
   "homepage": "https://github.com/500tech/angular-tree-component",
@@ -63,6 +63,7 @@
   },
   "dependencies": {
     "lodash": "4.17.4",
+    "lodash-es": "4.17.4",
     "mobx": "^3.1.0",
     "mobx-angular": "^1.5.0"
   },
@@ -76,7 +77,7 @@
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/platform-server": "^4.0.0",
     "@types/jasmine": "2.5.38",
-    "@types/lodash": "4.14.62",
+    "@types/lodash": "^4.14.62",
     "@types/node": "^6.0.38",
     "@types/rx": "2.5.34",
     "@types/webpack": "^1.12.29",
