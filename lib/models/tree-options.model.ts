@@ -3,7 +3,7 @@ import { TreeModel } from './tree.model';
 import { KEYS } from '../constants/keys';
 import { ITreeOptions } from '../defs/api';
 
-const defaultsDeep = require('lodash/defaultsDeep');
+import * as _ from 'lodash';
 
 export interface IActionHandler {
   (tree: TreeModel, node: TreeNode, $event: any, ...rest);
@@ -72,10 +72,13 @@ export class TreeOptions {
   get getChildren(): any { return this.options.getChildren; }
   get levelPadding(): number { return this.options.levelPadding || 0; }
   get useVirtualScroll(): boolean { return this.options.useVirtualScroll; }
+  get animateExpand(): boolean { return this.options.animateExpand; }
+  get animateSpeed(): number { return this.options.animateSpeed || 30; }
+  get animateAcceleration(): number { return this.options.animateAcceleration || 1.2; }
   actionMapping: IActionMapping;
 
   constructor(private options: ITreeOptions = {}) {
-    this.actionMapping = defaultsDeep({}, this.options.actionMapping, defaultActionMapping);
+    this.actionMapping = _.defaultsDeep({}, this.options.actionMapping, defaultActionMapping);
   }
 
   allowDrop(element, to): boolean {

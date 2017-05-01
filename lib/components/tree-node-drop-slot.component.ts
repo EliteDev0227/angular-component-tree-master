@@ -6,7 +6,7 @@ import { deprecatedSelector } from '../deprecated-selector';
   selector: 'TreeNodeDropSlot, tree-node-drop-slot',
   encapsulation: ViewEncapsulation.None,
   styles: [
-    '.node-drop-slot { display: block; height: 2px; width: 100%}',
+    '.node-drop-slot { display: block; height: 2px }',
     '.node-drop-slot.is-dragging-over { background: #ddffee; height: 20px; border: 2px dotted #888; }'
   ],
   template: `

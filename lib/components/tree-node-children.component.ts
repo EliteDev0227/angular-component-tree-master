@@ -7,13 +7,17 @@ import { deprecatedSelector } from '../deprecated-selector';
   encapsulation: ViewEncapsulation.None,
   styles: [
     '.tree-children.tree-children-no-padding { padding-left: 0 }',
-    '.tree-children { padding-left: 20px }'
+    '.tree-children { padding-left: 20px; overflow: hidden }'
   ],
   template: `
     <ng-container *mobxAutorun>
       <div [class.tree-children]="true"
           [class.tree-children-no-padding]="node.options.levelPadding"
-          *ngIf="node.isExpanded">
+          *treeAnimateOpen="
+            node.isExpanded;
+            speed:node.options.animateExpand;
+            acceleration:node.options.animateAcceleration;
+            enabled:node.options.animateExpand">
         <tree-node-collection
           *ngIf="node.children"
           [nodes]="node.children"

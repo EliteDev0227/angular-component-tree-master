@@ -84,6 +84,21 @@ export interface ITreeOptions {
     * Default is 2
     */
    dropSlotHeight?: number;
+   /**
+    * Boolean whether or not to animate expand / collapse of nodes.
+    * Default is false
+    */
+   animateExpand?: boolean;
+   /**
+    * Speed of expand animation (described in pixels per 17 ms).
+    * Default is 30
+    */
+   animateSpeed?: number;
+   /**
+    * Increase of expand animation speed (described in multiply per 17 ms).
+    * Default is 1.2
+    */
+   animateAcceleration?: number;
  }
 
 /**

@@ -10,8 +10,8 @@ import { TreeViewportComponent } from './tree-viewport.component';
 
 import { deprecatedSelector } from '../deprecated-selector';
 
-const includes = require('lodash/includes');
-const pick = require('lodash/pick');
+import * as _ from 'lodash';
+const { includes, pick }  = _;
 
 @Component({
   selector: 'Tree, tree-root',
@@ -45,6 +45,7 @@ const pick = require('lodash/pick');
           [templates]="{
             loadingTemplate: loadingTemplate,
             treeNodeTemplate: treeNodeTemplate,
+            treeNodeWrapperTemplate: treeNodeWrapperTemplate,
             treeNodeFullTemplate: treeNodeFullTemplate
           }">
         </tree-node-collection>
@@ -64,6 +65,7 @@ export class TreeComponent implements OnChanges {
 
   @ContentChild('loadingTemplate') loadingTemplate: TemplateRef<any>;
   @ContentChild('treeNodeTemplate') treeNodeTemplate: TemplateRef<any>;
+  @ContentChild('treeNodeWrapperTemplate') treeNodeWrapperTemplate: TemplateRef<any>;
   @ContentChild('treeNodeFullTemplate') treeNodeFullTemplate: TemplateRef<any>;
 
   @ViewChild('viewport') viewportComponent: TreeViewportComponent;

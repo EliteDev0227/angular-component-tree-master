@@ -6,7 +6,7 @@ describe('Basic Configuration', () => {
     browser.get('http://localhost:4200/#/templates');
   });
 
-  ['#tree1', '#tree2'].forEach((treeId) => {
+  ['#tree1', '#tree2', '#tree3'].forEach((treeId) => {
     describe(`${treeId}`, () => {
       beforeEach(() => {
         this.tree = new TreeDriver(treeId);

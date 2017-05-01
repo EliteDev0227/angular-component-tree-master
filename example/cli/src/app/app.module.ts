@@ -12,6 +12,14 @@ import { TemplatesComponent } from './templates/templates.component';
 import { FilterComponent } from './filter/filter.component';
 import { FieldsComponent } from './fields/fields.component';
 
+/*
+  Turn on to check if tree supports strict mode in MobX.
+  But remember to turn off (to allow users of MobX not to use strict mode in their apps)
+*/
+import { useStrict } from 'mobx';
+useStrict(true);
+
+
 @NgModule({
   declarations: [
     AppComponent,
