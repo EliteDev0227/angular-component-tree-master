@@ -34,7 +34,7 @@ export class TreeNode implements ITreeNode {
   get originalNode() { return this._originalNode; };
 
   constructor(public data: any, public parent: TreeNode, public treeModel: TreeModel, index: number) {
-    this.id = this.id || uuid(); // Make sure there's a unique ID
+    this.id = (this.id || this.id === 0) ? this.id : uuid(); // Make sure there's a unique ID
     this.index = index;
 
     if (this.getField('children')) {
