@@ -10,35 +10,35 @@ const DRAG_DISABLED_CLASS = 'is-dragging-over-disabled';
 export class TreeDropDirective {
   @Output('treeDrop') onDropCallback = new EventEmitter();
 
-  private _allowDrop = (element) => true;
+  private _allowDrop = (element, $event) => true;
   @Input() set treeAllowDrop(allowDrop) {
     if (allowDrop instanceof Function) {
       this._allowDrop = allowDrop;
     }
-    else this._allowDrop = (element) => allowDrop;
+    else this._allowDrop = (element, $event) => allowDrop;
   }
-  allowDrop() {
-    return this._allowDrop(this.treeDraggedElement.get());
+  allowDrop($event) {
+    return this._allowDrop(this.treeDraggedElement.get(), $event);
   }
 
   constructor(private el: ElementRef, private renderer: Renderer, private treeDraggedElement: TreeDraggedElement) {
   }
 
   @HostListener('dragover', ['$event']) onDragOver($event) {
-    if (!this.allowDrop()) return this.addDisabledClass();
+    if (!this.allowDrop($event)) return this.addDisabledClass();
 
     $event.preventDefault();
     this.addClass();
   }
 
   @HostListener('dragleave', ['$event']) onDragLeave($event) {
-    if (!this.allowDrop()) return this.removeDisabledClass();
+    if (!this.allowDrop($event)) return this.removeDisabledClass();
 
     this.removeClass();
   }
 
   @HostListener('drop', ['$event']) onDrop($event) {
-    if (!this.allowDrop()) return;
+    if (!this.allowDrop($event)) return;
 
     $event.preventDefault();
     this.onDropCallback.emit({event: $event, element: this.treeDraggedElement.get()});
