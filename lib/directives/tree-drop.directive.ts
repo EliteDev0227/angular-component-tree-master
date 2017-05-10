@@ -9,6 +9,9 @@ const DRAG_DISABLED_CLASS = 'is-dragging-over-disabled';
 })
 export class TreeDropDirective {
   @Output('treeDrop') onDropCallback = new EventEmitter();
+  @Output('treeDropDragOver') onDragOverCallback = new EventEmitter();
+  @Output('treeDropDragLeave') onDragLeaveCallback = new EventEmitter();
+  @Output('treeDropDragEnter') onDragEnterCallback = new EventEmitter();
 
   private _allowDrop = (element) => true;
   @Input() set treeAllowDrop(allowDrop) {
@@ -27,12 +30,22 @@ export class TreeDropDirective {
   @HostListener('dragover', ['$event']) onDragOver($event) {
     if (!this.allowDrop()) return this.addDisabledClass();
 
+    this.onDragOverCallback.emit({event: $event, element: this.treeDraggedElement.get()});
+
     $event.preventDefault();
     this.addClass();
   }
 
+  @HostListener('dragenter', ['$event']) onDragEnter($event) {
+    if (!this.allowDrop()) return;
+
+    this.onDragEnterCallback.emit({event: $event, element: this.treeDraggedElement.get()});
+  }
+
   @HostListener('dragleave', ['$event']) onDragLeave($event) {
     if (!this.allowDrop()) return this.removeDisabledClass();
+
+    this.onDragLeaveCallback.emit({event: $event, element: this.treeDraggedElement.get()});
 
     this.removeClass();
   }

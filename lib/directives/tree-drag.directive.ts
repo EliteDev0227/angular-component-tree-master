@@ -23,10 +23,12 @@ export class TreeDragDirective implements DoCheck {
     // setting the data is required by firefox
     ev.dataTransfer.setData('text', ev.target.id);
 
-    if (this.draggedElement.mouseAction) {
-      this.draggedElement.mouseAction('dragStart', ev);
-    }
-    setTimeout(() => this.treeDraggedElement.set(this.draggedElement), 30);
+    setTimeout(() => {
+      this.treeDraggedElement.set(this.draggedElement);
+      if (this.draggedElement.mouseAction) {
+        this.draggedElement.mouseAction('dragStart', ev);
+      }
+    }, 30);
   }
 
   @HostListener('dragend') onDragEnd() {
