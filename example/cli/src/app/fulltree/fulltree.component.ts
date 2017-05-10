@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { TreeNode, TREE_ACTIONS, KEYS, IActionMapping } from 'angular-tree-component';
+import { TreeNode, TREE_ACTIONS, KEYS, IActionMapping, ITreeOptions } from 'angular-tree-component';
 
 const actionMapping:IActionMapping = {
   mouse: {
@@ -213,7 +213,7 @@ export class FullTreeComponent {
       .setActiveAndVisible();
   }
 
-  customTemplateStringOptions = {
+  customTemplateStringOptions: ITreeOptions = {
     // displayField: 'subTitle',
     isExpandedField: 'expanded',
     idField: 'uuid',

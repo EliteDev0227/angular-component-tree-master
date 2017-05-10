@@ -32,7 +32,7 @@ export class TreeNodeDropSlot {
     });
   }
 
-  allowDrop(element) {
-    return this.node.options.allowDrop(element, { parent: this.node, index: this.dropIndex });
+  allowDrop(element, $event) {
+    return this.node.options.allowDrop(element, { parent: this.node, index: this.dropIndex }, $event);
   }
 }
