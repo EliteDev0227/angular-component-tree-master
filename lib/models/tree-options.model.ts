@@ -81,9 +81,9 @@ export class TreeOptions {
     this.actionMapping = _.defaultsDeep({}, this.options.actionMapping, defaultActionMapping);
   }
 
-  allowDrop(element, to): boolean {
+  allowDrop(element, to, $event?): boolean {
     if (this.options.allowDrop instanceof Function) {
-      return this.options.allowDrop(element, to);
+      return this.options.allowDrop(element, to, $event);
     }
     else {
       return this.options.allowDrop === undefined ? true : this.options.allowDrop;
