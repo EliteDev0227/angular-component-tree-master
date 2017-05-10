@@ -3,7 +3,7 @@
  */
 
 export interface IAllowDropFn {
-  (element: any, to: {parent: ITreeNode, index: number}): boolean;
+  (element: any, to: {parent: ITreeNode, index: number}, $event?: any): boolean;
 }
 
 export interface INodeHeightFn {

@@ -13,7 +13,7 @@ export class TreeNode implements ITreeNode {
   @computed get isActive() { return this.treeModel.isActive(this); };
   @computed get isFocused() { return this.treeModel.isNodeFocused(this); };
 
-  allowDrop: (draggedElement: any) => boolean;
+  allowDrop: (draggedElement: any, $event?: any) => boolean;
   @observable children: TreeNode[];
   @observable index: number;
   @observable position = 0;
@@ -34,7 +34,7 @@ export class TreeNode implements ITreeNode {
   get originalNode() { return this._originalNode; };
 
   constructor(public data: any, public parent: TreeNode, public treeModel: TreeModel, index: number) {
-    this.id = this.id || uuid(); // Make sure there's a unique ID
+    this.id = (this.id !== undefined && this.id !== null) ? this.id : uuid(); // Make sure there's a unique ID
     this.index = index;
 
     if (this.getField('children')) {
@@ -163,8 +163,8 @@ export class TreeNode implements ITreeNode {
     });
   }
 
-  allowDropUnbound(element) {
-    return this.options.allowDrop(element, { parent: this, index: 0 });
+  allowDropUnbound(element, $event?) {
+    return this.options.allowDrop(element, { parent: this, index: 0 }, $event);
   }
 
   allowDrag() {
