@@ -1,3 +1,7 @@
+<a name="3.6.0"></a>
+# 3.6.0 (2017-10-05)
+* added drag over / leave / enter / end to action mapping
+
 <a name="3.5.0"></a>
 # 3.5.0 (2017-29-04)
 * doForAll allows promises (supports expandAll of async nodes)
