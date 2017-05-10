@@ -37,7 +37,7 @@ export class TreeDropDirective {
   }
 
   @HostListener('dragenter', ['$event']) onDragEnter($event) {
-    if (!this.allowDrop()) return;
+    if (!this.allowDrop($event)) return;
 
     this.onDragEnterCallback.emit({event: $event, element: this.treeDraggedElement.get()});
   }
