@@ -73,8 +73,7 @@ Some things on our mind down the road:
 * Add more examples
 
 ## Contributing
-There are currently no unit tests (yet).
-
-However, if you wish to contribute code, you can run `npm run example:cli` and open [localhost:4200](http://localhost:4200) to test your code manually before submitting a pull request.
+run `npm run example:cli` and open [localhost:4200](http://localhost:4200) to test your code before submitting a pull request.  
+Windows users - if it doesn't work try `npm run example:cli:win`.  
 
 Please check the issues / project before starting to work on a feature / bug to make sure it's not already in progress.
