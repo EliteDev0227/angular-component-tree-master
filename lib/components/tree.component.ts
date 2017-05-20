@@ -7,7 +7,6 @@ import { TreeNode } from '../models/tree-node.model';
 import { TreeDraggedElement } from '../models/tree-dragged-element.model';
 import { TreeOptions } from '../models/tree-options.model';
 import { TreeViewportComponent } from './tree-viewport.component';
-
 import { deprecatedSelector } from '../deprecated-selector';
 
 import * as _ from 'lodash';
@@ -89,6 +88,18 @@ export class TreeComponent implements OnChanges {
   @Output() onLoadChildren;
   @Output() onChangeFilter;
   @Output() onEvent;
+
+  @Output() toggleExpanded;
+  @Output() activate;
+  @Output() deactivate;
+  @Output() focus;
+  @Output() blur;
+  @Output() updateData;
+  @Output() initialized;
+  @Output() moveNode;
+  @Output() loadChildren;
+  @Output() changeFilter;
+  @Output() event;
 
   constructor(
     public treeModel: TreeModel,

@@ -1,3 +1,9 @@
+<a name="3.7.0"></a>
+# 3.7.0 (2017-20-05)
+* Firing onInitialized after viewport set
+* Rename events - "onXXX" => "XXX"
+* Added 'dropOnNode' to event when dropping directly on node
+
 <a name="3.6.0"></a>
 # 3.6.0 (2017-10-05)
 * added drag over / leave / enter / end to action mapping

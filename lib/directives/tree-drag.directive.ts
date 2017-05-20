@@ -10,8 +10,6 @@ export class TreeDragDirective implements DoCheck {
   @Input('treeDrag') draggedElement;
   @Input() treeDragEnabled;
 
-  private _allowDrag = (node) => true;
-
   constructor(private el: ElementRef, private renderer: Renderer, private treeDraggedElement: TreeDraggedElement) {
   }
 

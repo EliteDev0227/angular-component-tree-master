@@ -4,7 +4,7 @@ import { TreeNode } from './tree-node.model';
 import { TreeOptions } from './tree-options.model';
 import { TreeVirtualScroll } from './tree-virtual-scroll.model';
 import { ITreeModel } from '../defs/api';
-import { TREE_EVENTS } from '../constants/events';
+import { TREE_EVENTS, newName } from '../constants/events';
 
 import * as _ from 'lodash';
 
@@ -36,8 +36,16 @@ export class TreeModel implements ITreeModel {
   // events
   fireEvent(event) {
     event.treeModel = this;
+    const newEventName = newName(event.eventName);
+    const deprecatedEvent = Object.assign({}, event, {
+      deprecated: `This event is deprecated, please use ${newEventName} instead`
+    });
+    event.eventName = newEventName;
+
+    this.events[deprecatedEvent.eventName].emit(deprecatedEvent);
     this.events[event.eventName].emit(event);
-    this.events.onEvent.emit(event);
+    this.events.onEvent.emit(deprecatedEvent);
+    this.events.event.emit(event);
   }
 
   subscribe(eventName, fn) {
@@ -184,7 +192,6 @@ export class TreeModel implements ITreeModel {
     // Fire event:
     if (this.firstUpdate) {
       if (this.roots) {
-        this.fireEvent({ eventName: TREE_EVENTS.onInitialized });
         this.firstUpdate = false;
         this._calculateExpandedNodes();
       }

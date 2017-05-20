@@ -28,7 +28,7 @@ export class TreeDropDirective {
   }
 
   @HostListener('dragover', ['$event']) onDragOver($event) {
-    if (!this.allowDrop($event)) return this.addDisabledClass();
+    if (!this.allowDrop($event)) return;
 
     this.onDragOverCallback.emit({event: $event, element: this.treeDraggedElement.get()});
 
@@ -37,7 +37,7 @@ export class TreeDropDirective {
   }
 
   @HostListener('dragenter', ['$event']) onDragEnter($event) {
-    if (!this.allowDrop($event)) return;
+    if (!this.allowDrop($event)) return this.addDisabledClass();
 
     this.onDragEnterCallback.emit({event: $event, element: this.treeDraggedElement.get()});
   }

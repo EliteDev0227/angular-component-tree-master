@@ -28,6 +28,10 @@ export class TreeVirtualScroll {
     this._dispose = [autorun(() => this.fixScroll())];
   }
 
+  fireEvent(event) {
+    this.treeModel.fireEvent(event);
+  }
+
   init() {
     const fn = this.recalcPositions.bind(this);
 

@@ -13,7 +13,6 @@ export class TreeNode implements ITreeNode {
   @computed get isActive() { return this.treeModel.isActive(this); };
   @computed get isFocused() { return this.treeModel.isNodeFocused(this); };
 
-  allowDrop: (draggedElement: any, $event?: any) => boolean;
   @observable children: TreeNode[];
   @observable index: number;
   @observable position = 0;
@@ -40,8 +39,6 @@ export class TreeNode implements ITreeNode {
     if (this.getField('children')) {
       this._initChildren();
     }
-
-    this.allowDrop = this.allowDropUnbound.bind(this);
   }
 
   // helper get functions:
@@ -159,11 +156,11 @@ export class TreeNode implements ITreeNode {
   onDrop($event) {
     this.mouseAction('drop', $event.event, {
       from: $event.element,
-      to: { parent: this, index: 0 }
+      to: { parent: this, index: 0, dropOnNode: true }
     });
   }
 
-  allowDropUnbound(element, $event?) {
+  allowDrop = (element, $event?) => {
     return this.options.allowDrop(element, { parent: this, index: 0 }, $event);
   }
 

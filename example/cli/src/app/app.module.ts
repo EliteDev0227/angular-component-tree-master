@@ -17,6 +17,7 @@ import { FieldsComponent } from './fields/fields.component';
   But remember to turn off (to allow users of MobX not to use strict mode in their apps)
 */
 import { useStrict } from 'mobx';
+import { EmptyComponent } from './empty/empty.component';
 useStrict(true);
 
 
@@ -27,7 +28,8 @@ useStrict(true);
     FullTreeComponent,
     TemplatesComponent,
     FieldsComponent,
-    FilterComponent
+    FilterComponent,
+    EmptyComponent
   ],
   imports: [
     BrowserModule,

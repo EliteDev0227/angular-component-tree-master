@@ -6,6 +6,7 @@ import { FullTreeComponent } from './fulltree/fulltree.component';
 import { TemplatesComponent } from './templates/templates.component';
 import { FieldsComponent } from './fields/fields.component';
 import { FilterComponent } from './filter/filter.component';
+import { EmptyComponent } from './empty/empty.component';
 
 const routes: Routes = [
   {
@@ -27,7 +28,11 @@ const routes: Routes = [
   {
     path: 'filter',
     component: FilterComponent
-  }
+  },
+  {
+    path: 'empty',
+    component: EmptyComponent
+  },
 ];
 
 @NgModule({

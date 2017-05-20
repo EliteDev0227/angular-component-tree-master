@@ -3,6 +3,7 @@ import {
 } from '@angular/core';
 import { TreeVirtualScroll } from '../models/tree-virtual-scroll.model';
 import { deprecatedSelector } from '../deprecated-selector';
+import { TREE_EVENTS } from '../constants/events';
 
 @Component({
   selector: 'TreeViewport, tree-viewport',
@@ -35,7 +36,10 @@ export class TreeViewportComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    setTimeout(() => this.setViewport());
+    setTimeout(() => {
+      this.setViewport();
+      this.virtualScroll.fireEvent({ eventName: TREE_EVENTS.onInitialized });
+    });
   }
 
   ngOnDestroy() {
