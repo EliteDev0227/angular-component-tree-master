@@ -58,6 +58,8 @@ export class TreeAnimateOpenDirective {
     // increase maxHeight until height doesn't change
     setTimeout(() => { // Allow inner element to create its content
       const i = setInterval(() => {
+        if (!this._isOpen || !this.innerElement) return clearInterval(i);
+
         maxHeight += delta;
         const roundedMaxHeight = Math.round(maxHeight);
 
@@ -84,6 +86,8 @@ export class TreeAnimateOpenDirective {
 
     // slowly decrease maxHeight to 0, starting from current height
     const i = setInterval(() => {
+      if (this._isOpen || !this.innerElement) return clearInterval(i);
+
       height -= delta;
       this.renderer.setElementStyle(this.innerElement, 'max-height', `${height}px`);
       delta *= ease;
