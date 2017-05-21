@@ -1,3 +1,7 @@
+<a name="3.7.1"></a>
+# 3.7.1 (2017-21-05)
+* Fixed allowDrop
+
 <a name="3.7.0"></a>
 # 3.7.0 (2017-20-05)
 * Firing onInitialized after viewport set
