@@ -10,8 +10,8 @@ export interface IActionHandler {
 }
 
 export const TREE_ACTIONS = {
-  TOGGLE_SELECTED: (tree: TreeModel, node: TreeNode, $event: any) => node.toggleActivated(),
-  TOGGLE_SELECTED_MULTI: (tree: TreeModel, node: TreeNode, $event: any) => node.toggleActivated(true),
+  TOGGLE_SELECTED: (tree: TreeModel, node: TreeNode, $event: any) => node && node.toggleActivated(),
+  TOGGLE_SELECTED_MULTI: (tree: TreeModel, node: TreeNode, $event: any) => node && node.toggleActivated(true),
   SELECT: (tree: TreeModel, node: TreeNode, $event: any) => node.setIsActive(true),
   DESELECT: (tree: TreeModel, node: TreeNode, $event: any) => node.setIsActive(false),
   FOCUS: (tree: TreeModel, node: TreeNode, $event: any) => node.focus(),
