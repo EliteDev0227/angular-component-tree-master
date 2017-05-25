@@ -56,6 +56,7 @@ export class TreeDropDirective {
     $event.preventDefault();
     this.onDropCallback.emit({event: $event, element: this.treeDraggedElement.get()});
     this.removeClass();
+    this.treeDraggedElement.set(null);
   }
 
   private addClass() {
