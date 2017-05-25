@@ -50,17 +50,10 @@ ng serve
 ```
 
 ## SystemJS
-You'll need to load the UMD bundle to work with SystemJS.  
-Add these lines to systemjs.config.js:  
-```
-  map: {
-    // angular bundles
-    '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
-    …
-    'angular-tree-component': 'node_modules/angular2-tree-component/dist/angular-tree-component.umd.js',
-    …
-  }
-```
+Sorry guys, SystemJS is not supported.
+Modern web applications use bundlers like Webpack.
+
+We've tried to support SystemJS for a year, but it just causes too many issues.
 
 ## What's next
 We would always love to hear suggestions for features & improvements - just open an issue.
