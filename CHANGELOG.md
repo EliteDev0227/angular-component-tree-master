@@ -1,3 +1,8 @@
+<a name="3.7.3"></a>
+# 3.7.3 (2017-08-06)
+* Prevent overwriting existing node ids to allow use with immutable objects
+* Fix MobX version to support AoT
+
 <a name="3.7.2"></a>
 # 3.7.2 (2017-21-05)
 * Fixed close / open quickly when animating

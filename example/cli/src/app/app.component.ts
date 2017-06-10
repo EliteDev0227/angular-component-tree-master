@@ -8,3 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 }
+
+@observer class TodoView extends React.Component {
+  render() {
+    return <div>{this.props.store.filteredItems}</div>
+  }
+}
