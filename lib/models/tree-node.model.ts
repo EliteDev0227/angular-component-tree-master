@@ -172,7 +172,7 @@ export class TreeNode implements ITreeNode {
 
 
   // helper methods:
-  loadChildren() {
+  loadChildrenTree() {
     if (!this.options.getChildren) {
       return Promise.resolve(); // Not getChildren method - for using redux
     }
@@ -244,7 +244,7 @@ export class TreeNode implements ITreeNode {
       this.treeModel.setExpandedNode(this, value);
 
       if (!this.children && this.hasChildren && value) {
-        return this.loadChildren();
+        return this.loadChildrenTree();
       }
     }
 

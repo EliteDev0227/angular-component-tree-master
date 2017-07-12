@@ -97,7 +97,7 @@ export class TreeComponent implements OnChanges {
   @Output() updateData;
   @Output() initialized;
   @Output() moveNode;
-  @Output() loadChildren;
+  @Output() loadChildrenTree;
   @Output() changeFilter;
   @Output() event;
 
