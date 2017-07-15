@@ -1,3 +1,8 @@
+<a name="3.8.0"></a>
+# 3.8.0 (2017-15-07)
+* Added scrollOnFocus
+* Added RTL example
+
 <a name="3.7.3"></a>
 # 3.7.3 (2017-08-06)
 * Prevent overwriting existing node ids to allow use with immutable objects

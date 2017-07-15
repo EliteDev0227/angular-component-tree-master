@@ -7,6 +7,7 @@ import { TemplatesComponent } from './templates/templates.component';
 import { FieldsComponent } from './fields/fields.component';
 import { FilterComponent } from './filter/filter.component';
 import { EmptyComponent } from './empty/empty.component';
+import { RtlTreeComponent } from './rtl/rtl-tree.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'empty',
     component: EmptyComponent
+  },
+  {
+    path: 'rtl',
+    component: RtlTreeComponent
   },
 ];
 

@@ -11,6 +11,7 @@ import { FullTreeComponent } from './fulltree/fulltree.component';
 import { TemplatesComponent } from './templates/templates.component';
 import { FilterComponent } from './filter/filter.component';
 import { FieldsComponent } from './fields/fields.component';
+import { RtlTreeComponent } from './rtl/rtl-tree.component';
 
 /*
   Turn on to check if tree supports strict mode in MobX.
@@ -29,7 +30,8 @@ useStrict(true);
     TemplatesComponent,
     FieldsComponent,
     FilterComponent,
-    EmptyComponent
+    EmptyComponent,
+    RtlTreeComponent
   ],
   imports: [
     BrowserModule,

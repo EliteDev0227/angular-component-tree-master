@@ -77,6 +77,7 @@ export class TreeOptions {
   get animateExpand(): boolean { return this.options.animateExpand; }
   get animateSpeed(): number { return this.options.animateSpeed || 30; }
   get animateAcceleration(): number { return this.options.animateAcceleration || 1.2; }
+  get scrollOnSelect(): boolean { return this.options.scrollOnSelect === undefined ? true : this.options.scrollOnSelect; }
   actionMapping: IActionMapping;
 
   constructor(private options: ITreeOptions = {}) {

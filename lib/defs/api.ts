@@ -99,6 +99,11 @@ export interface ITreeOptions {
     * Default is 1.2
     */
    animateAcceleration?: number;
+   /**
+    * Whether to scroll to the node to make it visible when it is selected.
+    * Default is true
+    */
+    scrollOnSelect?: boolean;
  }
 
 /**

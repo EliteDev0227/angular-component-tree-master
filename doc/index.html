@@ -105,15 +105,10 @@ npm install
 npm install -<span class="hljs-keyword">g</span> angular-<span class="hljs-keyword">cli</span>
 ng serve
 </code></pre><h2 id="systemjs">SystemJS</h2>
-				<p>You&#39;ll need to load the UMD bundle to work with SystemJS.<br>Add these lines to systemjs.config.js:  </p>
-				<pre><code><span class="xml">  map: </span><span class="hljs-expression">{
-    /<span class="hljs-end-block">/ angular bundles</span>
-    '@<span class="hljs-variable">angular</span><span class="hljs-end-block">/core</span>': '<span class="hljs-variable">npm</span>:@<span class="hljs-variable">angular</span><span class="hljs-end-block">/core</span><span class="hljs-end-block">/bundles</span><span class="hljs-end-block">/core.umd.js</span>',
-    …
-    '<span class="hljs-variable">angular-tree-component</span>': '<span class="hljs-variable">node</span>_<span class="hljs-variable">modules</span><span class="hljs-end-block">/angular</span>2<span class="hljs-variable">-tree-component</span><span class="hljs-end-block">/dist</span><span class="hljs-end-block">/angular-tree-component.umd.js</span>',
-    …
-  }</span><span class="xml"></span>
-</code></pre><h2 id="what-s-next">What&#39;s next</h2>
+				<p>Sorry guys, SystemJS is not supported.
+				Modern web applications use bundlers like Webpack.</p>
+				<p>We&#39;ve tried to support SystemJS for a year, but it just causes too many issues.</p>
+				<h2 id="what-s-next">What&#39;s next</h2>
 				<p>We would always love to hear suggestions for features &amp; improvements - just open an issue.</p>
 				<p>Some things on our mind down the road:</p>
 				<ul>

@@ -1,16 +1,16 @@
 webpackJsonp([1,4],{
 
-/***/ 113:
+/***/ 114:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tree_node_collection_component_ngfactory__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tree_node_collection_component_ngfactory__ = __webpack_require__(115);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_components_tree_node_collection_component__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__loading_component_ngfactory__ = __webpack_require__(186);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular_tree_component_dist_components_loading_component__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__loading_component_ngfactory__ = __webpack_require__(188);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular_tree_component_dist_components_loading_component__ = __webpack_require__(79);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angular_tree_component_dist_directives_tree_animate_open_directive__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angular_tree_component_dist_directives_tree_animate_open_directive__ = __webpack_require__(120);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_mobx_angular_dist_directives_mobx_autorun_directive__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_angular_tree_component_dist_components_tree_node_children_component__ = __webpack_require__(53);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return RenderType_TreeNodeChildrenComponent; });
@@ -213,13 +213,13 @@ var TreeNodeChildrenComponentNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_co
 
 /***/ }),
 
-/***/ 114:
+/***/ 115:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tree_node_component_ngfactory__ = __webpack_require__(189);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_components_tree_node_component__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tree_node_component_ngfactory__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_components_tree_node_component__ = __webpack_require__(82);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_common__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_mobx_angular_dist_directives_mobx_autorun_directive__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular_tree_component_dist_components_tree_node_collection_component__ = __webpack_require__(54);
@@ -341,14 +341,14 @@ var TreeNodeCollectionComponentNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_
 
 /***/ }),
 
-/***/ 115:
+/***/ 116:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular_tree_component_dist_components_tree_node_drop_slot_component__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_directives_tree_drop_directive__ = __webpack_require__(83);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_tree_component_dist_models_tree_dragged_element_model__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_directives_tree_drop_directive__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_tree_component_dist_models_tree_dragged_element_model__ = __webpack_require__(10);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return RenderType_TreeNodeDropSlot; });
 /* harmony export (immutable) */ __webpack_exports__["a"] = View_TreeNodeDropSlot_0;
 /* unused harmony export TreeNodeDropSlotNgFactory */
@@ -456,7 +456,7 @@ var TreeNodeDropSlotNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_core__["_31
 
 /***/ }),
 
-/***/ 116:
+/***/ 117:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -601,7 +601,7 @@ var TreeNodeExpanderComponentNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_co
 
 /***/ }),
 
-/***/ 173:
+/***/ 174:
 /***/ (function(module, exports) {
 
 function webpackEmptyContext(req) {
@@ -610,19 +610,19 @@ function webpackEmptyContext(req) {
 webpackEmptyContext.keys = function() { return []; };
 webpackEmptyContext.resolve = webpackEmptyContext;
 module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 173;
+webpackEmptyContext.id = 174;
 
 
 /***/ }),
 
-/***/ 174:
+/***/ 175:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__gendir_app_app_module_ngfactory__ = __webpack_require__(179);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__gendir_app_app_module_ngfactory__ = __webpack_require__(180);
 
 
 
@@ -634,13 +634,13 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["a
 
 /***/ }),
 
-/***/ 178:
+/***/ 179:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(112);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_component__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_component__ = __webpack_require__(194);
 /* unused harmony export RenderType_AppComponent */
 /* unused harmony export View_AppComponent_0 */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponentNgFactory; });
@@ -687,34 +687,36 @@ var AppComponentNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_core__["_31" /*
 
 /***/ }),
 
-/***/ 179:
+/***/ 180:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_app_module__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_app_module__ = __webpack_require__(195);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__(113);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_forms__ = __webpack_require__(111);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_http__ = __webpack_require__(177);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_mobx_angular_dist_mobx_angular__ = __webpack_require__(102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_angular_tree_component_dist_angular_tree_component__ = __webpack_require__(117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_app_routing_module__ = __webpack_require__(191);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_angular_tree_component_dist_models_tree_dragged_element_model__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__fulltree_fulltree_component_ngfactory__ = __webpack_require__(184);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__basictree_basictree_component_ngfactory__ = __webpack_require__(180);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__fields_fields_component_ngfactory__ = __webpack_require__(182);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__templates_templates_component_ngfactory__ = __webpack_require__(185);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__filter_filter_component_ngfactory__ = __webpack_require__(183);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__empty_empty_component_ngfactory__ = __webpack_require__(181);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__app_component_ngfactory__ = __webpack_require__(178);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__app_fulltree_fulltree_component__ = __webpack_require__(76);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__app_basictree_basictree_component__ = __webpack_require__(72);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__app_fields_fields_component__ = __webpack_require__(74);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__app_templates_templates_component__ = __webpack_require__(77);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__app_filter_filter_component__ = __webpack_require__(75);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__app_empty_empty_component__ = __webpack_require__(73);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_forms__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_http__ = __webpack_require__(178);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_mobx_angular_dist_mobx_angular__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_angular_tree_component_dist_angular_tree_component__ = __webpack_require__(118);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_app_routing_module__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_angular_tree_component_dist_models_tree_dragged_element_model__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__fulltree_fulltree_component_ngfactory__ = __webpack_require__(185);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__basictree_basictree_component_ngfactory__ = __webpack_require__(181);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__fields_fields_component_ngfactory__ = __webpack_require__(183);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__templates_templates_component_ngfactory__ = __webpack_require__(187);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__filter_filter_component_ngfactory__ = __webpack_require__(184);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__empty_empty_component_ngfactory__ = __webpack_require__(182);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__rtl_rtl_tree_component_ngfactory__ = __webpack_require__(186);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__app_component_ngfactory__ = __webpack_require__(179);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__app_fulltree_fulltree_component__ = __webpack_require__(76);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__app_basictree_basictree_component__ = __webpack_require__(72);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__app_fields_fields_component__ = __webpack_require__(74);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__app_templates_templates_component__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__app_filter_filter_component__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__app_empty_empty_component__ = __webpack_require__(73);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__app_rtl_rtl_tree_component__ = __webpack_require__(77);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModuleNgFactory; });
 /**
  * @fileoverview This file is generated by the Angular template compiler.
@@ -756,6 +758,8 @@ var __extends = (this && this.__extends) || (function () {
 
 
 
+
+
 var AppModuleInjector = (function (_super) {
     __extends(AppModuleInjector, _super);
     function AppModuleInjector(parent) {
@@ -766,8 +770,9 @@ var AppModuleInjector = (function (_super) {
             __WEBPACK_IMPORTED_MODULE_14__templates_templates_component_ngfactory__["a" /* TemplatesComponentNgFactory */],
             __WEBPACK_IMPORTED_MODULE_15__filter_filter_component_ngfactory__["a" /* FilterComponentNgFactory */],
             __WEBPACK_IMPORTED_MODULE_16__empty_empty_component_ngfactory__["a" /* EmptyComponentNgFactory */],
-            __WEBPACK_IMPORTED_MODULE_17__app_component_ngfactory__["a" /* AppComponentNgFactory */]
-        ], [__WEBPACK_IMPORTED_MODULE_17__app_component_ngfactory__["a" /* AppComponentNgFactory */]]) || this;
+            __WEBPACK_IMPORTED_MODULE_17__rtl_rtl_tree_component_ngfactory__["a" /* RtlTreeComponentNgFactory */],
+            __WEBPACK_IMPORTED_MODULE_18__app_component_ngfactory__["a" /* AppComponentNgFactory */]
+        ], [__WEBPACK_IMPORTED_MODULE_18__app_component_ngfactory__["a" /* AppComponentNgFactory */]]) || this;
     }
     Object.defineProperty(AppModuleInjector.prototype, "_LOCALE_ID_28", {
         get: function () {
@@ -1124,27 +1129,31 @@ var AppModuleInjector = (function (_super) {
         this._ROUTES_23 = [[
                 {
                     path: '',
-                    component: __WEBPACK_IMPORTED_MODULE_18__app_fulltree_fulltree_component__["a" /* FullTreeComponent */]
+                    component: __WEBPACK_IMPORTED_MODULE_19__app_fulltree_fulltree_component__["a" /* FullTreeComponent */]
                 },
                 {
                     path: 'basic',
-                    component: __WEBPACK_IMPORTED_MODULE_19__app_basictree_basictree_component__["a" /* BasicTreeComponent */]
+                    component: __WEBPACK_IMPORTED_MODULE_20__app_basictree_basictree_component__["a" /* BasicTreeComponent */]
                 },
                 {
                     path: 'fields',
-                    component: __WEBPACK_IMPORTED_MODULE_20__app_fields_fields_component__["a" /* FieldsComponent */]
+                    component: __WEBPACK_IMPORTED_MODULE_21__app_fields_fields_component__["a" /* FieldsComponent */]
                 },
                 {
                     path: 'templates',
-                    component: __WEBPACK_IMPORTED_MODULE_21__app_templates_templates_component__["a" /* TemplatesComponent */]
+                    component: __WEBPACK_IMPORTED_MODULE_22__app_templates_templates_component__["a" /* TemplatesComponent */]
                 },
                 {
                     path: 'filter',
-                    component: __WEBPACK_IMPORTED_MODULE_22__app_filter_filter_component__["a" /* FilterComponent */]
+                    component: __WEBPACK_IMPORTED_MODULE_23__app_filter_filter_component__["a" /* FilterComponent */]
                 },
                 {
                     path: 'empty',
-                    component: __WEBPACK_IMPORTED_MODULE_23__app_empty_empty_component__["a" /* EmptyComponent */]
+                    component: __WEBPACK_IMPORTED_MODULE_24__app_empty_empty_component__["a" /* EmptyComponent */]
+                },
+                {
+                    path: 'rtl',
+                    component: __WEBPACK_IMPORTED_MODULE_25__app_rtl_rtl_tree_component__["a" /* RtlTreeComponent */]
                 }
             ]
         ];
@@ -1345,20 +1354,20 @@ var AppModuleInjector = (function (_super) {
     return AppModuleInjector;
 }(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* ɵNgModuleInjector */]));
 var AppModuleNgFactory = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* NgModuleFactory */](AppModuleInjector, __WEBPACK_IMPORTED_MODULE_1__app_app_module__["a" /* AppModule */]);
-//# sourceMappingURL=data:application/json;base64,eyJmaWxlIjoiL1VzZXJzL2FkYW1rbGVpbi9wcm9qZWN0cy9uZzJ0cmVlL2V4YW1wbGUvY2xpL3NyYy9hcHAvYXBwLm1vZHVsZS5uZ2ZhY3RvcnkudHMiLCJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJuZzovLy9Vc2Vycy9hZGFta2xlaW4vcHJvamVjdHMvbmcydHJlZS9leGFtcGxlL2NsaS9zcmMvYXBwL2FwcC5tb2R1bGUudHMiXSwic291cmNlc0NvbnRlbnQiOlsiICJdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OzsifQ==
+//# sourceMappingURL=data:application/json;base64,eyJmaWxlIjoiL1VzZXJzL2FkYW1rbGVpbi9wcm9qZWN0cy9uZzJ0cmVlL2V4YW1wbGUvY2xpL3NyYy9hcHAvYXBwLm1vZHVsZS5uZ2ZhY3RvcnkudHMiLCJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJuZzovLy9Vc2Vycy9hZGFta2xlaW4vcHJvamVjdHMvbmcydHJlZS9leGFtcGxlL2NsaS9zcmMvYXBwL2FwcC5tb2R1bGUudHMiXSwic291cmNlc0NvbnRlbnQiOlsiICJdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OyJ9
 //# sourceMappingURL=app.module.ngfactory.js.map
 
 /***/ }),
 
-/***/ 180:
+/***/ 181:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gendir_node_modules_angular_tree_component_dist_components_tree_component_ngfactory__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_tree_component_dist_components_tree_component__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular_tree_component_dist_models_tree_dragged_element_model__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gendir_node_modules_angular_tree_component_dist_components_tree_component_ngfactory__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_tree_component_dist_components_tree_component__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular_tree_component_dist_models_tree_dragged_element_model__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_basictree_basictree_component__ = __webpack_require__(72);
 /* unused harmony export RenderType_BasicTreeComponent */
 /* unused harmony export View_BasicTreeComponent_0 */
@@ -1445,15 +1454,15 @@ var BasicTreeComponentNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_core__["_
 
 /***/ }),
 
-/***/ 181:
+/***/ 182:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gendir_node_modules_angular_tree_component_dist_components_tree_component_ngfactory__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_tree_component_dist_components_tree_component__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular_tree_component_dist_models_tree_dragged_element_model__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gendir_node_modules_angular_tree_component_dist_components_tree_component_ngfactory__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_tree_component_dist_components_tree_component__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular_tree_component_dist_models_tree_dragged_element_model__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_empty_empty_component__ = __webpack_require__(73);
 /* unused harmony export RenderType_EmptyComponent */
 /* unused harmony export View_EmptyComponent_0 */
@@ -1631,15 +1640,15 @@ var EmptyComponentNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_core__["_31" 
 
 /***/ }),
 
-/***/ 182:
+/***/ 183:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gendir_node_modules_angular_tree_component_dist_components_tree_component_ngfactory__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_tree_component_dist_components_tree_component__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular_tree_component_dist_models_tree_dragged_element_model__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gendir_node_modules_angular_tree_component_dist_components_tree_component_ngfactory__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_tree_component_dist_components_tree_component__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular_tree_component_dist_models_tree_dragged_element_model__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_fields_fields_component__ = __webpack_require__(74);
 /* unused harmony export RenderType_FieldsComponent */
 /* unused harmony export View_FieldsComponent_0 */
@@ -1738,15 +1747,15 @@ var FieldsComponentNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_core__["_31"
 
 /***/ }),
 
-/***/ 183:
+/***/ 184:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gendir_node_modules_angular_tree_component_dist_components_tree_component_ngfactory__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_tree_component_dist_components_tree_component__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular_tree_component_dist_models_tree_dragged_element_model__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gendir_node_modules_angular_tree_component_dist_components_tree_component_ngfactory__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_tree_component_dist_components_tree_component__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular_tree_component_dist_models_tree_dragged_element_model__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_filter_filter_component__ = __webpack_require__(75);
 /* unused harmony export RenderType_FilterComponent */
 /* unused harmony export View_FilterComponent_0 */
@@ -1900,17 +1909,17 @@ var FilterComponentNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_core__["_31"
 
 /***/ }),
 
-/***/ 184:
+/***/ 185:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__(112);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_fulltree_fulltree_component__ = __webpack_require__(76);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gendir_node_modules_angular_tree_component_dist_components_tree_component_ngfactory__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular_tree_component_dist_models_tree_model__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular_tree_component_dist_components_tree_component__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angular_tree_component_dist_models_tree_dragged_element_model__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gendir_node_modules_angular_tree_component_dist_components_tree_component_ngfactory__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular_tree_component_dist_models_tree_model__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular_tree_component_dist_components_tree_component__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angular_tree_component_dist_models_tree_dragged_element_model__ = __webpack_require__(10);
 /* unused harmony export RenderType_FullTreeComponent */
 /* unused harmony export View_FullTreeComponent_0 */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FullTreeComponentNgFactory; });
@@ -2449,20 +2458,119 @@ var FullTreeComponentNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_core__["_3
 
 /***/ }),
 
-/***/ 185:
+/***/ 186:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gendir_node_modules_angular_tree_component_dist_components_tree_node_expander_component_ngfactory__ = __webpack_require__(116);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gendir_node_modules_angular_tree_component_dist_components_tree_component_ngfactory__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_tree_component_dist_components_tree_component__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular_tree_component_dist_models_tree_dragged_element_model__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_rtl_rtl_tree_component__ = __webpack_require__(77);
+/* unused harmony export RenderType_RtlTreeComponent */
+/* unused harmony export View_RtlTreeComponent_0 */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RtlTreeComponentNgFactory; });
+/**
+ * @fileoverview This file is generated by the Angular template compiler.
+ * Do not edit.
+ * @suppress {suspiciousCode,uselessCode,missingProperties}
+ */
+/* tslint:disable */
+
+
+
+
+
+
+var styles_RtlTreeComponent = [];
+var RenderType_RtlTreeComponent = __WEBPACK_IMPORTED_MODULE_0__angular_core__["_26" /* ɵcrt */]({
+    encapsulation: 2,
+    styles: styles_RtlTreeComponent,
+    data: {}
+});
+function View_RtlTreeComponent_0(l) {
+    return __WEBPACK_IMPORTED_MODULE_0__angular_core__["_27" /* ɵvid */](0, [
+        (l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_28" /* ɵted */](null, ['\n    '])),
+        (l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_29" /* ɵeld */](0, null, null, 6, 'tree-root', [[
+                'class',
+                'rtl'
+            ]
+        ], null, [
+            [
+                'body',
+                'keydown'
+            ],
+            [
+                'body',
+                'mousedown'
+            ]
+        ], function (v, en, $event) {
+            var ad = true;
+            if (('body:keydown' === en)) {
+                var pd_0 = (__WEBPACK_IMPORTED_MODULE_0__angular_core__["_32" /* ɵnov */](v, 3).onKeydown($event) !== false);
+                ad = (pd_0 && ad);
+            }
+            if (('body:mousedown' === en)) {
+                var pd_1 = (__WEBPACK_IMPORTED_MODULE_0__angular_core__["_32" /* ɵnov */](v, 3).onMousedown($event) !== false);
+                ad = (pd_1 && ad);
+            }
+            return ad;
+        }, __WEBPACK_IMPORTED_MODULE_1__gendir_node_modules_angular_tree_component_dist_components_tree_component_ngfactory__["a" /* View_TreeComponent_0 */], __WEBPACK_IMPORTED_MODULE_1__gendir_node_modules_angular_tree_component_dist_components_tree_component_ngfactory__["b" /* RenderType_TreeComponent */])),
+        __WEBPACK_IMPORTED_MODULE_0__angular_core__["_33" /* ɵprd */](256, null, __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__["a" /* TreeModel */], __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__["a" /* TreeModel */], []),
+        __WEBPACK_IMPORTED_MODULE_0__angular_core__["_30" /* ɵdid */](286720, null, 4, __WEBPACK_IMPORTED_MODULE_3_angular_tree_component_dist_components_tree_component__["a" /* TreeComponent */], [
+            __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__["a" /* TreeModel */],
+            __WEBPACK_IMPORTED_MODULE_4_angular_tree_component_dist_models_tree_dragged_element_model__["a" /* TreeDraggedElement */],
+            __WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* Renderer */],
+            __WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* ElementRef */]
+        ], {
+            nodes: [
+                0,
+                'nodes'
+            ],
+            focused: [
+                1,
+                'focused'
+            ]
+        }, null),
+        __WEBPACK_IMPORTED_MODULE_0__angular_core__["_34" /* ɵqud */](167772160, 1, { loadingTemplate: 0 }),
+        __WEBPACK_IMPORTED_MODULE_0__angular_core__["_34" /* ɵqud */](167772160, 2, { treeNodeTemplate: 0 }),
+        __WEBPACK_IMPORTED_MODULE_0__angular_core__["_34" /* ɵqud */](167772160, 3, { treeNodeWrapperTemplate: 0 }),
+        __WEBPACK_IMPORTED_MODULE_0__angular_core__["_34" /* ɵqud */](167772160, 4, { treeNodeFullTemplate: 0 }),
+        (l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_28" /* ɵted */](null, ['\n  ']))
+    ], function (ck, v) {
+        var co = v.component;
+        var currVal_0 = co.nodes;
+        var currVal_1 = true;
+        ck(v, 3, 0, currVal_0, currVal_1);
+    }, null);
+}
+function View_RtlTreeComponent_Host_0(l) {
+    return __WEBPACK_IMPORTED_MODULE_0__angular_core__["_27" /* ɵvid */](0, [
+        (l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_29" /* ɵeld */](0, null, null, 1, 'app-basictree', [], null, null, null, View_RtlTreeComponent_0, RenderType_RtlTreeComponent)),
+        __WEBPACK_IMPORTED_MODULE_0__angular_core__["_30" /* ɵdid */](24576, null, 0, __WEBPACK_IMPORTED_MODULE_5__app_rtl_rtl_tree_component__["a" /* RtlTreeComponent */], [], null, null)
+    ], null, null);
+}
+var RtlTreeComponentNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_core__["_31" /* ɵccf */]('app-basictree', __WEBPACK_IMPORTED_MODULE_5__app_rtl_rtl_tree_component__["a" /* RtlTreeComponent */], View_RtlTreeComponent_Host_0, {}, {}, []);
+//# sourceMappingURL=data:application/json;base64,eyJmaWxlIjoiL1VzZXJzL2FkYW1rbGVpbi9wcm9qZWN0cy9uZzJ0cmVlL2V4YW1wbGUvY2xpL3NyYy9hcHAvcnRsL3J0bC10cmVlLmNvbXBvbmVudC5uZ2ZhY3RvcnkudHMiLCJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJuZzovLy9Vc2Vycy9hZGFta2xlaW4vcHJvamVjdHMvbmcydHJlZS9leGFtcGxlL2NsaS9zcmMvYXBwL3J0bC9ydGwtdHJlZS5jb21wb25lbnQudHMiLCJuZzovLy9Vc2Vycy9hZGFta2xlaW4vcHJvamVjdHMvbmcydHJlZS9leGFtcGxlL2NsaS9zcmMvYXBwL3J0bC9ydGwtdHJlZS5jb21wb25lbnQudHMuUnRsVHJlZUNvbXBvbmVudC5odG1sIiwibmc6Ly8vVXNlcnMvYWRhbWtsZWluL3Byb2plY3RzL25nMnRyZWUvZXhhbXBsZS9jbGkvc3JjL2FwcC9ydGwvcnRsLXRyZWUuY29tcG9uZW50LnRzLlJ0bFRyZWVDb21wb25lbnRfSG9zdC5odG1sIl0sInNvdXJjZXNDb250ZW50IjpbIiAiLCJcbiAgICA8dHJlZS1yb290IGNsYXNzPVwicnRsXCIgW2ZvY3VzZWRdPVwidHJ1ZVwiIFtub2Rlc109XCJub2Rlc1wiPjwvdHJlZS1yb290PlxuICAiLCI8YXBwLWJhc2ljdHJlZT48L2FwcC1iYXNpY3RyZWU+Il0sIm1hcHBpbmdzIjoiQUFBQTs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7SUNBQTtNQUNJO1FBQUE7UUFBQTtNQUFBO0lBQUE7TUFBQTtRQUFBO1FBQUE7TUFBQTs7TUFBQTtRQUFBO1FBQUE7TUFBQTs7SUFBQTtLQUFBO01BQUE7TUFBQTtRQUFBO1FBQUE7TUFBQTtNQUFBO1FBQUE7UUFBQTtNQUFBO01BQUE7SUFBQTtnQkFBQTtnQkFBQTs7Ozs7SUFBQTtLQUFBO01BQUE7UUFBQTtRQUFBO01BQUE7O01BQUE7UUFBQTtRQUFBO01BQUE7O0lBQUE7S0FBQTtnQkFBQTtnQkFBQTtnQkFBQTtnQkFBQTtJQUFvRTs7OztJQUE1QjtJQUFqQjtJQUF2QixTQUF3QyxVQUFqQixTQUF2Qjs7Ozs7SUNESjtnQkFBQTs7OzsifQ==
+//# sourceMappingURL=rtl-tree.component.ngfactory.js.map
+
+/***/ }),
+
+/***/ 187:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gendir_node_modules_angular_tree_component_dist_components_tree_node_expander_component_ngfactory__ = __webpack_require__(117);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_components_tree_node_expander_component__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gendir_node_modules_angular_tree_component_dist_components_tree_node_children_component_ngfactory__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gendir_node_modules_angular_tree_component_dist_components_tree_node_children_component_ngfactory__ = __webpack_require__(114);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular_tree_component_dist_components_tree_node_children_component__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__gendir_node_modules_angular_tree_component_dist_components_tree_component_ngfactory__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angular_tree_component_dist_models_tree_model__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular_tree_component_dist_components_tree_component__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_angular_tree_component_dist_models_tree_dragged_element_model__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_templates_templates_component__ = __webpack_require__(77);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__gendir_node_modules_angular_tree_component_dist_components_tree_component_ngfactory__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angular_tree_component_dist_models_tree_model__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular_tree_component_dist_components_tree_component__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_angular_tree_component_dist_models_tree_dragged_element_model__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_templates_templates_component__ = __webpack_require__(78);
 /* unused harmony export RenderType_TemplatesComponent */
 /* unused harmony export View_TemplatesComponent_0 */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TemplatesComponentNgFactory; });
@@ -2966,13 +3074,13 @@ var TemplatesComponentNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_core__["_
 
 /***/ }),
 
-/***/ 186:
+/***/ 188:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_components_loading_component__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_components_loading_component__ = __webpack_require__(79);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return RenderType_LoadingComponent; });
 /* harmony export (immutable) */ __webpack_exports__["a"] = View_LoadingComponent_0;
 /* unused harmony export LoadingComponentNgFactory */
@@ -3048,13 +3156,13 @@ var LoadingComponentNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_core__["_31
 
 /***/ }),
 
-/***/ 187:
+/***/ 189:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_components_tree_node_content_component__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_components_tree_node_content_component__ = __webpack_require__(80);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return RenderType_TreeNodeContent; });
 /* harmony export (immutable) */ __webpack_exports__["a"] = View_TreeNodeContent_0;
 /* unused harmony export TreeNodeContentNgFactory */
@@ -3141,20 +3249,20 @@ var TreeNodeContentNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_core__["_31"
 
 /***/ }),
 
-/***/ 188:
+/***/ 190:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tree_node_expander_component_ngfactory__ = __webpack_require__(116);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tree_node_expander_component_ngfactory__ = __webpack_require__(117);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_components_tree_node_expander_component__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_tree_component_dist_directives_tree_drop_directive__ = __webpack_require__(83);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular_tree_component_dist_models_tree_dragged_element_model__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular_tree_component_dist_directives_tree_drag_directive__ = __webpack_require__(120);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__tree_node_content_component_ngfactory__ = __webpack_require__(187);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular_tree_component_dist_components_tree_node_content_component__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_tree_component_dist_directives_tree_drop_directive__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular_tree_component_dist_models_tree_dragged_element_model__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular_tree_component_dist_directives_tree_drag_directive__ = __webpack_require__(121);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__tree_node_content_component_ngfactory__ = __webpack_require__(189);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular_tree_component_dist_components_tree_node_content_component__ = __webpack_require__(80);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_common__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_angular_tree_component_dist_components_tree_node_wrapper_component__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_angular_tree_component_dist_components_tree_node_wrapper_component__ = __webpack_require__(81);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return RenderType_TreeNodeWrapperComponent; });
 /* harmony export (immutable) */ __webpack_exports__["a"] = View_TreeNodeWrapperComponent_0;
 /* unused harmony export TreeNodeWrapperComponentNgFactory */
@@ -3459,20 +3567,20 @@ var TreeNodeWrapperComponentNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_cor
 
 /***/ }),
 
-/***/ 189:
+/***/ 191:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tree_node_drop_slot_component_ngfactory__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tree_node_drop_slot_component_ngfactory__ = __webpack_require__(116);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_components_tree_node_drop_slot_component__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_common__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tree_node_wrapper_component_ngfactory__ = __webpack_require__(188);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular_tree_component_dist_components_tree_node_wrapper_component__ = __webpack_require__(80);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__tree_node_children_component_ngfactory__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tree_node_wrapper_component_ngfactory__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angular_tree_component_dist_components_tree_node_wrapper_component__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__tree_node_children_component_ngfactory__ = __webpack_require__(114);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular_tree_component_dist_components_tree_node_children_component__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_mobx_angular_dist_directives_mobx_autorun_directive__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_angular_tree_component_dist_components_tree_node_component__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_angular_tree_component_dist_components_tree_node_component__ = __webpack_require__(82);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return RenderType_TreeNodeComponent; });
 /* harmony export (immutable) */ __webpack_exports__["a"] = View_TreeNodeComponent_0;
 /* unused harmony export TreeNodeComponentNgFactory */
@@ -3705,15 +3813,15 @@ var TreeNodeComponentNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_core__["_3
 
 /***/ }),
 
-/***/ 190:
+/***/ 192:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_mobx_angular_dist_directives_mobx_autorun_directive__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_virtual_scroll_model__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_tree_component_dist_models_tree_model__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular_tree_component_dist_components_tree_viewport_component__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_tree_component_dist_models_tree_model__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular_tree_component_dist_components_tree_viewport_component__ = __webpack_require__(83);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return RenderType_TreeViewportComponent; });
 /* harmony export (immutable) */ __webpack_exports__["a"] = View_TreeViewportComponent_0;
 /* unused harmony export TreeViewportComponentNgFactory */
@@ -3797,17 +3905,19 @@ var TreeViewportComponentNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_core__
 
 /***/ }),
 
-/***/ 191:
+/***/ 193:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__basictree_basictree_component__ = __webpack_require__(72);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__fulltree_fulltree_component__ = __webpack_require__(76);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__templates_templates_component__ = __webpack_require__(77);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__templates_templates_component__ = __webpack_require__(78);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__fields_fields_component__ = __webpack_require__(74);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__filter_filter_component__ = __webpack_require__(75);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__empty_empty_component__ = __webpack_require__(73);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__rtl_rtl_tree_component__ = __webpack_require__(77);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppRoutingModule; });
+
 
 
 
@@ -3839,6 +3949,10 @@ var routes = [
         path: 'empty',
         component: __WEBPACK_IMPORTED_MODULE_5__empty_empty_component__["a" /* EmptyComponent */]
     },
+    {
+        path: 'rtl',
+        component: __WEBPACK_IMPORTED_MODULE_6__rtl_rtl_tree_component__["a" /* RtlTreeComponent */]
+    },
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {
@@ -3850,7 +3964,7 @@ var AppRoutingModule = (function () {
 
 /***/ }),
 
-/***/ 192:
+/***/ 194:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3865,11 +3979,11 @@ var AppComponent = (function () {
 
 /***/ }),
 
-/***/ 193:
+/***/ 195:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mobx__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mobx__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mobx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_mobx__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 /*
@@ -3888,30 +4002,22 @@ var AppModule = (function () {
 
 /***/ }),
 
-/***/ 383:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(174);
-
-
-/***/ }),
-
-/***/ 39:
+/***/ 34:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tree_node_collection_component_ngfactory__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tree_node_collection_component_ngfactory__ = __webpack_require__(115);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_components_tree_node_collection_component__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tree_node_drop_slot_component_ngfactory__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tree_node_drop_slot_component_ngfactory__ = __webpack_require__(116);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angular_tree_component_dist_components_tree_node_drop_slot_component__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tree_viewport_component_ngfactory__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tree_viewport_component_ngfactory__ = __webpack_require__(192);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angular_tree_component_dist_models_tree_virtual_scroll_model__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular_tree_component_dist_models_tree_model__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_angular_tree_component_dist_components_tree_viewport_component__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular_tree_component_dist_models_tree_model__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_angular_tree_component_dist_components_tree_viewport_component__ = __webpack_require__(83);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_common__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_angular_tree_component_dist_components_tree_component__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_angular_tree_component_dist_models_tree_dragged_element_model__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_angular_tree_component_dist_components_tree_component__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_angular_tree_component_dist_models_tree_dragged_element_model__ = __webpack_require__(10);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return RenderType_TreeComponent; });
 /* harmony export (immutable) */ __webpack_exports__["a"] = View_TreeComponent_0;
 /* unused harmony export TreeComponentNgFactory */
@@ -4146,6 +4252,14 @@ var TreeComponentNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_core__["_31" /
 
 /***/ }),
 
+/***/ 385:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(175);
+
+
+/***/ }),
+
 /***/ 72:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4305,7 +4419,7 @@ function fuzzysearch(needle, haystack) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular_tree_component__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular_tree_component__ = __webpack_require__(118);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FullTreeComponent; });
 
 var actionMapping = {
@@ -4478,6 +4592,39 @@ var _a;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RtlTreeComponent; });
+var RtlTreeComponent = (function () {
+    function RtlTreeComponent() {
+        this.nodes = [
+            {
+                name: 'עץ תיקיות',
+                children: [
+                    { name: 'קובץ 1' },
+                    { name: 'קובץ 2' }
+                ]
+            },
+            {
+                name: 'עוד עץ',
+                children: [
+                    { name: 'עלה', children: [] },
+                    { name: 'ענף', children: [
+                            { name: 'בן של ענף' }
+                        ] }
+                ]
+            }
+        ];
+    }
+    return RtlTreeComponent;
+}());
+
+//# sourceMappingURL=rtl-tree.component.js.map
+
+/***/ }),
+
+/***/ 78:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TemplatesComponent; });
 var TemplatesComponent = (function () {
     function TemplatesComponent() {
@@ -4520,5 +4667,5 @@ var TemplatesComponent = (function () {
 
 /***/ })
 
-},[383]);
+},[385]);
 //# sourceMappingURL=main.bundle.js.map
