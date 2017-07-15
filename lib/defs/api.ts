@@ -19,89 +19,200 @@ export interface IAllowDragFn {
 */
 export interface ITreeOptions {
    /**
-    * Override children field. Default: 'children'
+    * A string representing the attribute of the node that contains the array of children.
+
+    * **Default value: `children`.**
+
+    For example, if your nodes have a `nodes` attribute, that contains the children, use:
+    ```
+      options = { childrenField: 'nodes' }
+    ```
     */
    childrenField?: string;
    /**
-    * Override display field. Default: 'name'
+    * A string representing the attribute of the node to display.
+
+    * **Default value: `name`**
+
+      For example, if your nodes have a `title` attribute that should be displayed, use:
+      ```
+        options = { displayField: 'title' }
+      ```
     */
    displayField?: string;
    /**
-    * Override id field. Default: 'id'
+    * A string representing the attribute of the node that contains the unique ID.
+      This will be used to construct the `path`, which is an array of IDs that point to the node.
+
+      * **Default value: `id`.**
+
+      For example, if your nodes have a `uuid` attribute, that contains the unique key, use:
+      ```
+        options = { idField: 'uuid' }
+      ```
     */
    idField?: string;
    /**
-    * Override isExpanded field. Default: 'isExpanded'
+    * A string representing the attribute of the node that contains whether the node starts as expanded.
+
+      * **Default value: `isExpanded`.**
+
+      For example, if your nodes have an `expanded` attribute, that contains a boolean value, use:
+      ```
+        options = { isExpandedField: 'expanded' }
+      ```
     */
    isExpandedField?: string;
    /**
-    * Override isHidden field. Default: 'isHidden'
+    * The name of the node's field that determines if the node's element is displayed or not.
+
+    * **Default value: `isHidden`.**
+
+    For example, if one of your nodes has a `hidden` attribute, that contains true,
+    and you give the following configuration, then it will not be displayed:
+    ```
+    * options = { isHiddenField: 'hidden' }
+    * nodes = [
+    *   { id: 1, hidden: true, name: 'node1'},
+    *   { id: 2, name: 'node2'}
+    * ]
+    ```
     */
    isHiddenField?: string;
    /**
-    * Supply function for getting fields asynchronously. Should return a Promise
+    * Function for loading a node's children.
+      The function receives a TreeNode, and returns a value or a promise that resolves to the node's children.
+
+      This function will be called whenever a node is expanded, the `hasChildren` field is true, and the `children` field is empty.
+      The result will be loaded into the node's children attribute.
+
+      Example:
+      ```
+      * options = {
+      *   getChildren: (node:TreeNode) => {
+      *     return request('/api/children/' + node.id);
+      *   }
+      * }
+      ```
     */
    getChildren?: (node: ITreeNode) => any;
    /**
-    * Change the default mouse and key actions on the tree
+    * Rewire which trigger causes which action using this attribute, or create custom actions / event bindings.
+    * See the [Action Mapping Section](https://angular2-tree.readme.io/docs/action-mapping) for more details.
     */
    actionMapping?: any;
    /**
-    * Allow dragging tree nodes. Default: false
+    * Specify if dragging tree nodes is allowed.
+    * This could be a boolean, or a function that receives a TreeNode and returns a boolean
+
+    * **Default value: false**
+
+    Example:
+    ```
+    * options = {
+    *  allowDrag: true
+    * }
+    ```
     */
    allowDrag?: boolean | IAllowDragFn;
    /**
-    * Allow drop on the tree.
-    * Either boolean value, or a function that takes the dragged element and drop location (parent, index)
-    * and returns a boolean value.
-    * Will be called when dragging over the nodes or between nodes, and allow to prevent the drop style
-    * Default: true
-    */
+    * Specify whether dropping inside the tree is allowed. Optional types:
+    *  - boolean
+    *  - (element:any, to:{parent:ITreeNode, index:number}):boolean
+         A function that receives the dragged element, and the drop location (parent node and index inside the parent),
+         and returns true or false.
+
+    * **Default Value: true**
+
+    example:
+    ```
+    * options = {
+    *  allowDrop: (element, {parent, index}) => parent.isLeaf
+    * }
+    ```
+   */
    allowDrop?: boolean | IAllowDropFn;
    /**
-   * Specify padding per node instead of children padding (to allow full row select for example)
+   * Specify padding per node (integer).
+    Each node will have padding-left value of level * levelPadding, instead of using the default padding for children.
+
+    This option is good for example for allowing whole row selection, etc.
+
+    You can alternatively use the tree-node-level-X classes to give padding on a per-level basis.
+
+    * **Default value: 0**
    */
    levelPadding?: number;
    /**
-    * Supply function for getting a custom class for the node component
+    * Specify a function that returns a class per node. Useful for styling the nodes individually.
+
+      Example:
+      ```
+      * options = {
+      *   nodeClass: (node:TreeNode) => {
+      *     return 'icon-' + node.data.icon;
+      *   }
+      * }
+      ```
     */
    nodeClass?: (node: ITreeNode) => string;
    /**
-    * Boolean whether virtual scroll should be used.
-    * Increases performance for large trees
-    * Default is false
+    Boolean flag to use the virtual scroll option.
+
+    To use this option, you must supply the height of the container, and the height of each node in the tree.
+
+    You can also specify height for the dropSlot which is located between nodes.
+
+    * **Default Value: false**
+
+    example:
+    ```
+    * options = {
+    *   useVirtualScroll: true,
+    *   nodeHeight: (node: TreeNode) => node.myHeight,
+    *   dropSlotHeight: 3
+    * }
+    ```
     */
    useVirtualScroll?: boolean;
    /**
-    * Supply a function for getting each node's height - for virtual scrolling
-    * The tree model will account for the extra pixels for the drop slots
-    * Default is 22
+    * For use with `useVirtualScroll` option.
+    * Specify a height for nodes in pixels. Could be either:
+    * - number
+    * - (node: TreeNode) => number
+
+    * **Default Value: 22**
     */
    nodeHeight?: number | INodeHeightFn;
    /**
-    * Supply a function for getting the height of the dropslow that's located
-    * between nodes. This is used for height calculations for virtual scrolling
-    * Default is 2
+    * For use with `useVirtualScroll` option.
+    * Specify a height for drop slots (located between nodes) in pixels
+
+    * **Default Value: 2**
     */
    dropSlotHeight?: number;
    /**
     * Boolean whether or not to animate expand / collapse of nodes.
-    * Default is false
+
+    * **Default Value: false**
     */
    animateExpand?: boolean;
    /**
     * Speed of expand animation (described in pixels per 17 ms).
-    * Default is 30
+
+    * **Default Value: 30**
     */
    animateSpeed?: number;
    /**
     * Increase of expand animation speed (described in multiply per 17 ms).
-    * Default is 1.2
+
+    * **Default Value: 1.2**
     */
    animateAcceleration?: number;
    /**
     * Whether to scroll to the node to make it visible when it is selected.
-    * Default is true
+
+    * **Default Value: true**
     */
     scrollOnSelect?: boolean;
  }
