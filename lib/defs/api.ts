@@ -13,10 +13,7 @@ export interface INodeHeightFn {
 export interface IAllowDragFn {
   (node: ITreeNode): boolean;
 }
-/**
-* This is the interface of the options input of the tree.
-* See docs for more detailed explanations
-*/
+
 export interface ITreeOptions {
    /**
     * A string representing the attribute of the node that contains the array of children.
@@ -217,9 +214,6 @@ export interface ITreeOptions {
     scrollOnSelect?: boolean;
  }
 
-/**
- * This is the interface of a single Tree Node
- */
 export interface ITreeNode {
   // properties
   /**
@@ -384,9 +378,6 @@ export interface ITreeNode {
   collapseAll();
 }
 
-/**
- * This is the interface of the TreeModel
- */
 export interface ITreeModel {
   // properties
   /**
