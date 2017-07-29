@@ -1,3 +1,9 @@
+<a name="3.9.0"></a>
+# 3.9.0 (2017-28-07)
+* Added setHiddenNodeIds
+* Added state 2 way binding
+* Removed isHiddenField
+
 <a name="3.8.0"></a>
 # 3.8.0 (2017-15-07)
 * Added scrollOnFocus

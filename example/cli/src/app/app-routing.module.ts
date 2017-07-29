@@ -8,6 +8,8 @@ import { FieldsComponent } from './fields/fields.component';
 import { FilterComponent } from './filter/filter.component';
 import { EmptyComponent } from './empty/empty.component';
 import { RtlTreeComponent } from './rtl/rtl-tree.component';
+import { AsyncTreeComponent } from './async/async.component';
+import { SaveRestoreComponent } from './save-restore/save-restore.component';
 
 const routes: Routes = [
   {
@@ -38,6 +40,14 @@ const routes: Routes = [
     path: 'rtl',
     component: RtlTreeComponent
   },
+  {
+    path: 'async',
+    component: AsyncTreeComponent
+  },
+  {
+    path: 'save-restore',
+    component: SaveRestoreComponent
+  }
 ];
 
 @NgModule({
