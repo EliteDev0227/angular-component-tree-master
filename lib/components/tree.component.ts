@@ -1,5 +1,5 @@
 import {
-  Component, Input, Output, OnChanges, EventEmitter, Renderer, ElementRef,
+  Component, Input, Output, OnChanges, EventEmitter, Renderer,
   ViewEncapsulation, ContentChild, TemplateRef, HostListener, ViewChild
 } from '@angular/core';
 import { TreeModel } from '../models/tree.model';
@@ -7,7 +7,6 @@ import { TreeNode } from '../models/tree-node.model';
 import { TreeDraggedElement } from '../models/tree-dragged-element.model';
 import { TreeOptions } from '../models/tree-options.model';
 import { TreeViewportComponent } from './tree-viewport.component';
-import { deprecatedSelector } from '../deprecated-selector';
 
 import * as _ from 'lodash';
 
@@ -110,10 +109,8 @@ export class TreeComponent implements OnChanges {
   constructor(
     public treeModel: TreeModel,
     public treeDraggedElement: TreeDraggedElement,
-    private renderer: Renderer,
-    private elementRef: ElementRef) {
+    private renderer: Renderer) {
 
-      deprecatedSelector('Tree', 'tree-root', elementRef);
       treeModel.eventNames.forEach((name) => this[name] = new EventEmitter());
       treeModel.subscribeToState((state) => this.stateChange.emit(state));
   }

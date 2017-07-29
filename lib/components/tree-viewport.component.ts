@@ -2,11 +2,10 @@ import {
   Component, ElementRef, ViewEncapsulation, HostListener, AfterViewInit, OnInit, OnDestroy
 } from '@angular/core';
 import { TreeVirtualScroll } from '../models/tree-virtual-scroll.model';
-import { deprecatedSelector } from '../deprecated-selector';
 import { TREE_EVENTS } from '../constants/events';
 
 @Component({
-  selector: 'TreeViewport, tree-viewport',
+  selector: 'tree-viewport',
   styles: [
     `:host {
       height: 100%;
@@ -27,8 +26,6 @@ export class TreeViewportComponent implements AfterViewInit, OnInit, OnDestroy {
   constructor(
     private elementRef: ElementRef,
     public virtualScroll: TreeVirtualScroll) {
-
-    deprecatedSelector('TreeNode', 'tree-node', elementRef);
   }
 
   ngOnInit() {

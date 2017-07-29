@@ -4,6 +4,7 @@
 * Fixed bug for Angular Universal
 * added 'drag' action mapping
 * removed deprecated event names onXXX
+* removed deprecated component names
 
 <a name="3.9.0"></a>
 # 3.9.0 (2017-28-07)
