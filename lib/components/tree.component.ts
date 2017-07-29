@@ -78,6 +78,10 @@ export class TreeComponent implements OnChanges {
     this.treeModel.setFocus(value);
   }
 
+  @Input() set state(state) {
+    this.treeModel.setState(state);
+  }
+
   @Output() onToggleExpanded;
   @Output() onActivate;
   @Output() onDeactivate;
@@ -101,6 +105,7 @@ export class TreeComponent implements OnChanges {
   @Output() loadChildren;
   @Output() changeFilter;
   @Output() event;
+  @Output() stateChange;
 
   constructor(
     public treeModel: TreeModel,
@@ -110,6 +115,7 @@ export class TreeComponent implements OnChanges {
 
       deprecatedSelector('Tree', 'tree-root', elementRef);
       treeModel.eventNames.forEach((name) => this[name] = new EventEmitter());
+      treeModel.subscribeToState((state) => this.stateChange.emit(state));
   }
 
   @HostListener('body: keydown', ['$event'])

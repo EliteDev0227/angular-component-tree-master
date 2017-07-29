@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { observable, computed, action } from 'mobx';
+import { observable, computed, action, autorun } from 'mobx';
 import { TreeNode } from './tree-node.model';
 import { TreeOptions } from './tree-options.model';
 import { TreeVirtualScroll } from './tree-virtual-scroll.model';
@@ -281,6 +281,12 @@ export class TreeModel implements ITreeModel {
     this.hiddenNodeIds = Object.assign({}, this.hiddenNodeIds, {[node.id]: value});
   }
 
+  @action setHiddenNodeIds(nodeIds) {
+    this.hiddenNodeIds = nodeIds.reduce((id, hiddenNodeIds) => Object.assign(hiddenNodeIds, {
+      [id]: true
+    }), {});
+  }
+
   performKeyAction(node, $event) {
     const action = this.options.actionMapping.keys[$event.keyCode];
     if (action) {
@@ -350,6 +356,30 @@ export class TreeModel implements ITreeModel {
     }
 
     this.fireEvent({ eventName: TREE_EVENTS.onMoveNode, node: originalNode, to: { parent: to.parent.data, index: toIndex } });
+  }
+
+  getState() {
+    return {
+      expandedNodeIds: this.expandedNodeIds,
+      activeNodeIds: this.activeNodeIds,
+      hiddenNodeIds: this.hiddenNodeIds,
+      focusedNodeId: this.focusedNodeId
+    };
+  }
+
+  @action setState(state) {
+    if (!state) return;
+
+    Object.assign(this, {
+      expandedNodeIds: state.expandedNodeIds,
+      activeNodeIds: state.activeNodeIds,
+      hiddenNodeIds: state.hiddenNodeIds,
+      focusedNodeId: state.focusedNodeId
+    });
+  }
+
+  subscribeToState(fn) {
+    autorun(() => fn(this.getState()));
   }
 
   // private methods

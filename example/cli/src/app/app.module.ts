@@ -12,6 +12,9 @@ import { TemplatesComponent } from './templates/templates.component';
 import { FilterComponent } from './filter/filter.component';
 import { FieldsComponent } from './fields/fields.component';
 import { RtlTreeComponent } from './rtl/rtl-tree.component';
+import { AsyncTreeComponent } from './async/async.component';
+import { SaveRestoreComponent } from './save-restore/save-restore.component';
+import { CheckboxesComponent } from './checkboxes/checkboxes.component';
 
 /*
   Turn on to check if tree supports strict mode in MobX.
@@ -31,7 +34,10 @@ useStrict(true);
     FieldsComponent,
     FilterComponent,
     EmptyComponent,
-    RtlTreeComponent
+    RtlTreeComponent,
+    AsyncTreeComponent,
+    SaveRestoreComponent,
+    CheckboxesComponent
   ],
   imports: [
     BrowserModule,

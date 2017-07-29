@@ -70,7 +70,6 @@ export class TreeOptions {
   get displayField(): string { return this.options.displayField || 'name'; }
   get idField(): string { return this.options.idField || 'id'; }
   get isExpandedField(): string { return this.options.isExpandedField || 'isExpanded'; }
-  get isHiddenField(): string { return this.options.isHiddenField || 'isHidden'; }
   get getChildren(): any { return this.options.getChildren; }
   get levelPadding(): number { return this.options.levelPadding || 0; }
   get useVirtualScroll(): boolean { return this.options.useVirtualScroll; }

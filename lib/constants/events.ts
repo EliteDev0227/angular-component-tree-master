@@ -21,7 +21,8 @@ export const TREE_EVENTS = {
   moveNode: 'moveNode',
   event: 'event',
   loadChildren: 'loadChildren',
-  changeFilter: 'changeFilterr'
+  changeFilter: 'changeFilterr',
+  stateChange: 'stateChange'
 };
 
 export function newName(name) {

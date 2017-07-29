@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>INodeHeightFn | angular-tree-component</title>
+	<title>ITreeState | angular-tree-component</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -60,10 +60,10 @@
 					<a href="../modules/_api_.html">&quot;api&quot;</a>
 				</li>
 				<li>
-					<a href="_api_.inodeheightfn.html">INodeHeightFn</a>
+					<a href="_api_.itreestate.html">ITreeState</a>
 				</li>
 			</ul>
-			<h1>Interface INodeHeightFn</h1>
+			<h1>Interface ITreeState</h1>
 		</div>
 	</div>
 </header>
@@ -74,31 +74,92 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">INodeHeightFn</span>
+						<span class="target">ITreeState</span>
 					</li>
 				</ul>
 			</section>
-			<section class="tsd-panel">
-				<h3 class="tsd-before-signature">Callable</h3>
-				<ul class="tsd-signatures tsd-kind-interface tsd-parent-kind-external-module">
-					<li class="tsd-signature tsd-kind-icon">__call<span class="tsd-signature-symbol">(</span>node<span class="tsd-signature-symbol">: </span><a href="_api_.itreenode.html" class="tsd-signature-type">ITreeNode</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L9">api.ts:9</a></li>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_.itreestate.html#activenodeids" class="tsd-kind-icon">active<wbr>Node<wbr>Ids</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_.itreestate.html#expandednodeids" class="tsd-kind-icon">expanded<wbr>Node<wbr>Ids</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_.itreestate.html#focusednodeid" class="tsd-kind-icon">focused<wbr>Node<wbr>Id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_api_.itreestate.html#hiddennodeids" class="tsd-kind-icon">hidden<wbr>Node<wbr>Ids</a></li>
 							</ul>
-						</aside>
-						<h4 class="tsd-parameters-title">Parameters</h4>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="activenodeids" class="tsd-anchor"></a>
+					<h3>active<wbr>Node<wbr>Ids</h3>
+					<div class="tsd-signature tsd-kind-icon">active<wbr>Node<wbr>Ids<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L19">api.ts:19</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
-							<li>
-								<h5>node: <a href="_api_.itreenode.html" class="tsd-signature-type">ITreeNode</a></h5>
+							<li class="tsd-parameter-index-signature">
+								<h5><span class="tsd-signature-symbol">[</span>id: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">boolean</span></h5>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
-					</li>
-				</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="expandednodeids" class="tsd-anchor"></a>
+					<h3>expanded<wbr>Node<wbr>Ids</h3>
+					<div class="tsd-signature tsd-kind-icon">expanded<wbr>Node<wbr>Ids<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L18">api.ts:18</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-index-signature">
+								<h5><span class="tsd-signature-symbol">[</span>id: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">boolean</span></h5>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="focusednodeid" class="tsd-anchor"></a>
+					<h3>focused<wbr>Node<wbr>Id</h3>
+					<div class="tsd-signature tsd-kind-icon">focused<wbr>Node<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L21">api.ts:21</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="hiddennodeids" class="tsd-anchor"></a>
+					<h3>hidden<wbr>Node<wbr>Ids</h3>
+					<div class="tsd-signature tsd-kind-icon">hidden<wbr>Node<wbr>Ids<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L20">api.ts:20</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-index-signature">
+								<h5><span class="tsd-signature-symbol">[</span>id: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">boolean</span></h5>
+							</li>
+						</ul>
+					</div>
+				</section>
 			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -120,13 +181,9 @@
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="_api_.iallowdropfn.html" class="tsd-kind-icon">IAllow<wbr>Drop<wbr>Fn</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="_api_.inodeheightfn.html" class="tsd-kind-icon">INode<wbr>Height<wbr>Fn</a>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="_api_.itreemodel.html" class="tsd-kind-icon">ITree<wbr>Model</a>
 					</li>
@@ -139,9 +196,27 @@
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="_api_.itreeoptions.html" class="tsd-kind-icon">ITree<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="_api_.itreestate.html" class="tsd-kind-icon">ITree<wbr>State</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_api_.itreestate.html#activenodeids" class="tsd-kind-icon">active<wbr>Node<wbr>Ids</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_api_.itreestate.html#expandednodeids" class="tsd-kind-icon">expanded<wbr>Node<wbr>Ids</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_api_.itreestate.html#focusednodeid" class="tsd-kind-icon">focused<wbr>Node<wbr>Id</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_api_.itreestate.html#hiddennodeids" class="tsd-kind-icon">hidden<wbr>Node<wbr>Ids</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 				</ul>
 			</nav>
 		</div>

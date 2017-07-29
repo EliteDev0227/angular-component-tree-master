@@ -13,10 +13,14 @@ export interface INodeHeightFn {
 export interface IAllowDragFn {
   (node: ITreeNode): boolean;
 }
-/**
-* This is the interface of the options input of the tree.
-* See docs for more detailed explanations
-*/
+
+export interface ITreeState {
+  expandedNodeIds: { [id: string]: boolean };
+  activeNodeIds: { [id: string]: boolean };
+  hiddenNodeIds: { [id: string]: boolean };
+  focusedNodeId: string;
+}
+
 export interface ITreeOptions {
    /**
     * A string representing the attribute of the node that contains the array of children.
@@ -63,22 +67,6 @@ export interface ITreeOptions {
       ```
     */
    isExpandedField?: string;
-   /**
-    * The name of the node's field that determines if the node's element is displayed or not.
-
-    * **Default value: `isHidden`.**
-
-    For example, if one of your nodes has a `hidden` attribute, that contains true,
-    and you give the following configuration, then it will not be displayed:
-    ```
-    * options = { isHiddenField: 'hidden' }
-    * nodes = [
-    *   { id: 1, hidden: true, name: 'node1'},
-    *   { id: 2, name: 'node2'}
-    * ]
-    ```
-    */
-   isHiddenField?: string;
    /**
     * Function for loading a node's children.
       The function receives a TreeNode, and returns a value or a promise that resolves to the node's children.
@@ -217,9 +205,6 @@ export interface ITreeOptions {
     scrollOnSelect?: boolean;
  }
 
-/**
- * This is the interface of a single Tree Node
- */
 export interface ITreeNode {
   // properties
   /**
@@ -384,9 +369,6 @@ export interface ITreeNode {
   collapseAll();
 }
 
-/**
- * This is the interface of the TreeModel
- */
 export interface ITreeModel {
   // properties
   /**
@@ -520,8 +502,17 @@ export interface ITreeModel {
    * collapse all nodes
    */
   collapseAll();
-}
+  /**
+   * get tree state
+   */
+  getState(): ITreeState;
+  /**
+   * set tree state
+   */
+  setState(state: ITreeState);
 
+  subscribeToState(fn: (state: ITreeState) => any);
+}
 /**
  * This is the interface of the TreeNodeDrag service
  */
