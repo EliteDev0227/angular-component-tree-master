@@ -42,7 +42,7 @@ export class TreeVirtualScroll {
       reaction(() => this.treeModel.expandedNodeIds, fn),
       reaction(() => this.treeModel.hiddenNodeIds, fn)
     ];
-    this.treeModel.subscribe(TREE_EVENTS.onLoadNodeChildren, fn);
+    this.treeModel.subscribe(TREE_EVENTS.loadNodeChildren, fn);
   }
 
   isEnabled() {

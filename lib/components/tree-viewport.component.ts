@@ -38,7 +38,7 @@ export class TreeViewportComponent implements AfterViewInit, OnInit, OnDestroy {
   ngAfterViewInit() {
     setTimeout(() => {
       this.setViewport();
-      this.virtualScroll.fireEvent({ eventName: TREE_EVENTS.onInitialized });
+      this.virtualScroll.fireEvent({ eventName: TREE_EVENTS.initialized });
     });
   }
 
