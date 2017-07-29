@@ -70,13 +70,13 @@ export class TreeOptions {
   get displayField(): string { return this.options.displayField || 'name'; }
   get idField(): string { return this.options.idField || 'id'; }
   get isExpandedField(): string { return this.options.isExpandedField || 'isExpanded'; }
-  get isHiddenField(): string { return this.options.isHiddenField || 'isHidden'; }
   get getChildren(): any { return this.options.getChildren; }
   get levelPadding(): number { return this.options.levelPadding || 0; }
   get useVirtualScroll(): boolean { return this.options.useVirtualScroll; }
   get animateExpand(): boolean { return this.options.animateExpand; }
   get animateSpeed(): number { return this.options.animateSpeed || 30; }
   get animateAcceleration(): number { return this.options.animateAcceleration || 1.2; }
+  get scrollOnSelect(): boolean { return this.options.scrollOnSelect === undefined ? true : this.options.scrollOnSelect; }
   actionMapping: IActionMapping;
 
   constructor(private options: ITreeOptions = {}) {

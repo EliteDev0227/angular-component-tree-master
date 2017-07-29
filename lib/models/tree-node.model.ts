@@ -254,7 +254,7 @@ export class TreeNode implements ITreeNode {
   setIsActive(value, multi = false) {
     this.treeModel.setActiveNode(this, value, multi);
     if (value) {
-      this.focus();
+      this.focus(this.options.scrollOnSelect);
     }
 
     return this;
@@ -279,10 +279,12 @@ export class TreeNode implements ITreeNode {
     this.treeModel.virtualScroll.scrollIntoView(this, force);
   }
 
-  focus() {
+  focus(scroll = true) {
     let previousNode = this.treeModel.getFocusedNode();
     this.treeModel.setFocusedNode(this);
-    this.scrollIntoView();
+    if (scroll) {
+      this.scrollIntoView();
+    }
     if (previousNode) {
       this.fireEvent({ eventName: TREE_EVENTS.onBlur, node: previousNode });
     }

@@ -70,13 +70,6 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>This is the interface of the TreeModel</p>
-					</div>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -119,11 +112,14 @@
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_api_.itreemodel.html#getnodeby" class="tsd-kind-icon">get<wbr>Node<wbr>By</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_api_.itreemodel.html#getnodebyid" class="tsd-kind-icon">get<wbr>Node<wbr>ById</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_api_.itreemodel.html#getnodebypath" class="tsd-kind-icon">get<wbr>Node<wbr>ByPath</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_api_.itreemodel.html#getstate" class="tsd-kind-icon">get<wbr>State</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_api_.itreemodel.html#getvisibleroots" class="tsd-kind-icon">get<wbr>Visible<wbr>Roots</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_api_.itreemodel.html#isemptytree" class="tsd-kind-icon">is<wbr>Empty<wbr>Tree</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_api_.itreemodel.html#movenode" class="tsd-kind-icon">move<wbr>Node</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_api_.itreemodel.html#setfocus" class="tsd-kind-icon">set<wbr>Focus</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_api_.itreemodel.html#setfocusednode" class="tsd-kind-icon">set<wbr>Focused<wbr>Node</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_api_.itreemodel.html#setstate" class="tsd-kind-icon">set<wbr>State</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_api_.itreemodel.html#subscribetostate" class="tsd-kind-icon">subscribe<wbr>ToState</a></li>
 							</ul>
 						</section>
 					</div>
@@ -137,7 +133,7 @@
 					<div class="tsd-signature tsd-kind-icon">active<wbr>Nodes<span class="tsd-signature-symbol">:</span> <a href="_api_.itreenode.html" class="tsd-signature-type">ITreeNode</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L296">api.ts:296</a></li>
+							<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L394">api.ts:394</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -154,7 +150,7 @@
 					<div class="tsd-signature tsd-kind-icon">expanded<wbr>Nodes<span class="tsd-signature-symbol">:</span> <a href="_api_.itreenode.html" class="tsd-signature-type">ITreeNode</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L300">api.ts:300</a></li>
+							<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L398">api.ts:398</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -171,7 +167,7 @@
 					<div class="tsd-signature tsd-kind-icon">focused<wbr>Node<span class="tsd-signature-symbol">:</span> <a href="_api_.itreenode.html" class="tsd-signature-type">ITreeNode</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L283">api.ts:283</a></li>
+							<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L381">api.ts:381</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -186,7 +182,7 @@
 					<div class="tsd-signature tsd-kind-icon">is<wbr>Focused<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L292">api.ts:292</a></li>
+							<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L390">api.ts:390</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -201,7 +197,7 @@
 					<div class="tsd-signature tsd-kind-icon">options<span class="tsd-signature-symbol">:</span> <a href="_api_.itreeoptions.html" class="tsd-signature-type">ITreeOptions</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L287">api.ts:287</a></li>
+							<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L385">api.ts:385</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -216,7 +212,7 @@
 					<div class="tsd-signature tsd-kind-icon">roots<span class="tsd-signature-symbol">:</span> <a href="_api_.itreenode.html" class="tsd-signature-type">ITreeNode</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L279">api.ts:279</a></li>
+							<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L377">api.ts:377</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -238,7 +234,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L387">api.ts:387</a></li>
+									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L485">api.ts:485</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -260,7 +256,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L406">api.ts:406</a></li>
+									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L504">api.ts:504</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -282,7 +278,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L398">api.ts:398</a></li>
+									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L496">api.ts:496</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -331,7 +327,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L402">api.ts:402</a></li>
+									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L500">api.ts:500</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -353,7 +349,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L383">api.ts:383</a></li>
+									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L481">api.ts:481</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -393,7 +389,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L370">api.ts:370</a></li>
+									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L468">api.ts:468</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -415,7 +411,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L374">api.ts:374</a></li>
+									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L472">api.ts:472</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -437,7 +433,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L362">api.ts:362</a></li>
+									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L460">api.ts:460</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -459,7 +455,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L366">api.ts:366</a></li>
+									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L464">api.ts:464</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -481,7 +477,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L306">api.ts:306</a></li>
+									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L404">api.ts:404</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -501,7 +497,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L320">api.ts:320</a></li>
+									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L418">api.ts:418</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -530,7 +526,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L310">api.ts:310</a></li>
+									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L408">api.ts:408</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -550,7 +546,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L325">api.ts:325</a></li>
+									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L423">api.ts:423</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -579,7 +575,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L351">api.ts:351</a></li>
+									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L449">api.ts:449</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -612,7 +608,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L344">api.ts:344</a></li>
+									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L442">api.ts:442</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -641,7 +637,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L339">api.ts:339</a></li>
+									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L437">api.ts:437</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -664,6 +660,28 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="getstate" class="tsd-anchor"></a>
+					<h3>get<wbr>State</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>State<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_api_.itreestate.html" class="tsd-signature-type">ITreeState</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L508">api.ts:508</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>get tree state</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="_api_.itreestate.html" class="tsd-signature-type">ITreeState</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 					<a name="getvisibleroots" class="tsd-anchor"></a>
 					<h3>get<wbr>Visible<wbr>Roots</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
@@ -673,7 +691,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L333">api.ts:333</a></li>
+									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L431">api.ts:431</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -693,7 +711,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L329">api.ts:329</a></li>
+									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L427">api.ts:427</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -713,7 +731,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L393">api.ts:393</a></li>
+									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L491">api.ts:491</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -752,7 +770,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L358">api.ts:358</a></li>
+									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L456">api.ts:456</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -783,7 +801,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L315">api.ts:315</a></li>
+									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L413">api.ts:413</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -795,6 +813,75 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>node: <a href="_api_.itreenode.html" class="tsd-signature-type">ITreeNode</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="setstate" class="tsd-anchor"></a>
+					<h3>set<wbr>State</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>State<span class="tsd-signature-symbol">(</span>state<span class="tsd-signature-symbol">: </span><a href="_api_.itreestate.html" class="tsd-signature-type">ITreeState</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L512">api.ts:512</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>set tree state</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>state: <a href="_api_.itreestate.html" class="tsd-signature-type">ITreeState</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="subscribetostate" class="tsd-anchor"></a>
+					<h3>subscribe<wbr>ToState</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">subscribe<wbr>ToState<span class="tsd-signature-symbol">(</span>fn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L514">api.ts:514</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>fn: <span class="tsd-signature-type">function</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>state<span class="tsd-signature-symbol">: </span><a href="_api_.itreestate.html" class="tsd-signature-type">ITreeState</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>state: <a href="_api_.itreestate.html" class="tsd-signature-type">ITreeState</a></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
@@ -897,6 +984,9 @@
 								<a href="_api_.itreemodel.html#getnodebypath" class="tsd-kind-icon">get<wbr>Node<wbr>ByPath</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="_api_.itreemodel.html#getstate" class="tsd-kind-icon">get<wbr>State</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="_api_.itreemodel.html#getvisibleroots" class="tsd-kind-icon">get<wbr>Visible<wbr>Roots</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
@@ -911,6 +1001,12 @@
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="_api_.itreemodel.html#setfocusednode" class="tsd-kind-icon">set<wbr>Focused<wbr>Node</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="_api_.itreemodel.html#setstate" class="tsd-kind-icon">set<wbr>State</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="_api_.itreemodel.html#subscribetostate" class="tsd-kind-icon">subscribe<wbr>ToState</a>
+							</li>
 						</ul>
 					</li>
 				</ul>
@@ -923,6 +1019,9 @@
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="_api_.itreeoptions.html" class="tsd-kind-icon">ITree<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_api_.itreestate.html" class="tsd-kind-icon">ITree<wbr>State</a>
 					</li>
 				</ul>
 			</nav>

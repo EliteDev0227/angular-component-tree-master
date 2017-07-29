@@ -7,6 +7,10 @@ import { TemplatesComponent } from './templates/templates.component';
 import { FieldsComponent } from './fields/fields.component';
 import { FilterComponent } from './filter/filter.component';
 import { EmptyComponent } from './empty/empty.component';
+import { RtlTreeComponent } from './rtl/rtl-tree.component';
+import { AsyncTreeComponent } from './async/async.component';
+import { SaveRestoreComponent } from './save-restore/save-restore.component';
+import { CheckboxesComponent } from './checkboxes/checkboxes.component';
 
 const routes: Routes = [
   {
@@ -33,6 +37,22 @@ const routes: Routes = [
     path: 'empty',
     component: EmptyComponent
   },
+  {
+    path: 'rtl',
+    component: RtlTreeComponent
+  },
+  {
+    path: 'async',
+    component: AsyncTreeComponent
+  },
+  {
+    path: 'save-restore',
+    component: SaveRestoreComponent
+  },
+  {
+    path: 'checkboxes',
+    component: CheckboxesComponent
+  }
 ];
 
 @NgModule({

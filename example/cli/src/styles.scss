@@ -3,3 +3,13 @@
     .root1Class { color: blue }
     .root2Class { color: red }
 }
+.rtl {
+    direction: rtl;
+    .toggle-children-wrapper-collapsed .toggle-children {
+        transform: rotate(180deg) !important;
+    }
+    .tree-children {
+        padding-right: 20px;
+        padding-left: 0;
+    }
+}

@@ -6,8 +6,27 @@ function hasClass(element, cls) {
     });
 };
 
-export class NodeDriver {
-  constructor(private element: ElementFinder) {}
+class BaseDriver {
+  constructor(protected element: ElementFinder) {}
+
+  isPresent(): promise.Promise<boolean> {
+    return this.element.isPresent();
+  }
+
+  getNodes(): ElementArrayFinder {
+    return this.element.$$('tree-node');
+  }
+
+  getNode(name): NodeDriver {
+    const element = this.getNodes().filter((el) => {
+      return el.$('tree-node-content span').getText().then((text) => text === name);
+    }).get(0);
+
+    return new NodeDriver(element);
+  }
+}
+
+export class NodeDriver extends BaseDriver {
 
   isPresent(): promise.Promise<boolean> {
     return this.element.isPresent();
@@ -56,27 +75,9 @@ export class NodeDriver {
   }
 }
 
-export class TreeDriver {
-  element: ElementFinder;
-
+export class TreeDriver extends BaseDriver {
   constructor(elementCss) {
-    this.element = $(elementCss);
-  }
-
-  isPresent(): promise.Promise<boolean> {
-    return this.element.isPresent();
-  }
-
-  getNodes(): ElementArrayFinder {
-    return this.element.$$('tree-node');
-  }
-
-  getNode(name): NodeDriver {
-    const element = this.getNodes().filter((el) => {
-      return el.$('tree-node-content span').getText().then((text) => text === name);
-    }).get(0);
-
-    return new NodeDriver(element);
+    super($(elementCss));
   }
 
   getNodeByIndex(index: number): NodeDriver {
