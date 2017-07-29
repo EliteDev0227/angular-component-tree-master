@@ -8,7 +8,7 @@ export const TREE_EVENTS = {
   onUpdateData: 'onUpdateData',
   onMoveNode: 'onMoveNode',
   onEvent: 'onEvent',
-  onLoadChildren: 'onLoadChildren',
+  onLoadNodeChildren: 'onLoadNodeChildren',
   onChangeFilter: 'onChangeFilter',
 
   toggleExpanded: 'toggleExpanded',

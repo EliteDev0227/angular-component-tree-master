@@ -188,7 +188,7 @@ export class TreeNode implements ITreeNode {
           });
       }}).then(() => {
         this.fireEvent({
-          eventName: TREE_EVENTS.onLoadChildren,
+          eventName: TREE_EVENTS.onLoadNodeChildren,
           node: this
         });
       });
