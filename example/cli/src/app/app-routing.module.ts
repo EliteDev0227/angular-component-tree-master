@@ -10,6 +10,7 @@ import { EmptyComponent } from './empty/empty.component';
 import { RtlTreeComponent } from './rtl/rtl-tree.component';
 import { AsyncTreeComponent } from './async/async.component';
 import { SaveRestoreComponent } from './save-restore/save-restore.component';
+import { CheckboxesComponent } from './checkboxes/checkboxes.component';
 
 const routes: Routes = [
   {
@@ -47,6 +48,10 @@ const routes: Routes = [
   {
     path: 'save-restore',
     component: SaveRestoreComponent
+  },
+  {
+    path: 'checkboxes',
+    component: CheckboxesComponent
   }
 ];
 
