@@ -8,7 +8,7 @@ export const TREE_EVENTS = {
   onUpdateData: 'onUpdateData',
   onMoveNode: 'onMoveNode',
   onEvent: 'onEvent',
-  onLoadChildren: 'onLoadChildren',
+  onLoadNodeChildren: 'onLoadNodeChildren',
   onChangeFilter: 'onChangeFilter',
 
   toggleExpanded: 'toggleExpanded',
@@ -20,7 +20,7 @@ export const TREE_EVENTS = {
   updateData: 'updateData',
   moveNode: 'moveNode',
   event: 'event',
-  loadChildren: 'loadChildren',
+  loadNodeChildren: 'loadNodeChildren',
   changeFilter: 'changeFilterr',
   stateChange: 'stateChange'
 };
