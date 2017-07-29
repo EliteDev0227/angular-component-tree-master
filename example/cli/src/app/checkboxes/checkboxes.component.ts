@@ -8,9 +8,9 @@ import { Component } from '@angular/core';
     <tree-root
       #tree
       [nodes]="nodes"
-      [options]="treeOptions">
+      [options]="options">
 
-      <template #treeNodeTemplate let-node="node" let-index="index" >
+      <ng-template #treeNodeTemplate let-node="node" let-index="index" >
         <input
           (change)="check(node, !node.data.checked)"
           type="checkbox"
@@ -18,7 +18,7 @@ import { Component } from '@angular/core';
           [checked]="node.data.checked">
 
           {{ node.data.name }}
-      </template>
+      </ng-template>
     </tree-root>
   `,
   styles: []
@@ -57,7 +57,6 @@ export class CheckboxesComponent {
     this.updateParentNodeCheckbox(node.realParent);
   }
   public updateChildNodeCheckbox(node, checked) {
-    node.setIsActive(checked);
     node.data.checked = checked;
     if (node.children) {
       node.children.forEach((child) => this.updateChildNodeCheckbox(child, checked));

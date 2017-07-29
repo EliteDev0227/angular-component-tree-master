@@ -1,10 +1,10 @@
 <a name="4.0.0"></a>
 # 4.0.0 (2017-29-07)
-* Renamed loadChildren to loadNodeChildren because of AoT
+* Breaking change - Renamed loadChildren to loadNodeChildren because of AoT
+* Breaking change - removed deprecated event names onXXX
+* Breaking change - removed deprecated component names
 * Fixed bug for Angular Universal
 * added 'drag' action mapping
-* removed deprecated event names onXXX
-* removed deprecated component names
 
 <a name="3.9.0"></a>
 # 3.9.0 (2017-28-07)
