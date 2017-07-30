@@ -15,6 +15,7 @@ import { RtlTreeComponent } from './rtl/rtl-tree.component';
 import { AsyncTreeComponent } from './async/async.component';
 import { SaveRestoreComponent } from './save-restore/save-restore.component';
 import { CheckboxesComponent } from './checkboxes/checkboxes.component';
+import { DragComponent } from './drag/drag.component';
 
 /*
   Turn on to check if tree supports strict mode in MobX.
@@ -37,7 +38,8 @@ useStrict(true);
     RtlTreeComponent,
     AsyncTreeComponent,
     SaveRestoreComponent,
-    CheckboxesComponent
+    CheckboxesComponent,
+    DragComponent
   ],
   imports: [
     BrowserModule,

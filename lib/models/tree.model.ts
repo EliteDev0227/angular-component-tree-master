@@ -3,7 +3,7 @@ import { observable, computed, action, autorun } from 'mobx';
 import { TreeNode } from './tree-node.model';
 import { TreeOptions } from './tree-options.model';
 import { TreeVirtualScroll } from './tree-virtual-scroll.model';
-import { ITreeModel } from '../defs/api';
+import { ITreeModel, IDType, IDTypeDictionary } from '../defs/api';
 import { TREE_EVENTS } from '../constants/events';
 
 import * as _ from 'lodash';
@@ -21,10 +21,10 @@ export class TreeModel implements ITreeModel {
   virtualScroll: TreeVirtualScroll;
 
   @observable roots: TreeNode[];
-  @observable expandedNodeIds: { [id: string]: boolean } = {};
-  @observable activeNodeIds: { [id: string]: boolean } = {};
-  @observable hiddenNodeIds: { [id: string]: boolean } = {};
-  @observable focusedNodeId: string = null;
+  @observable expandedNodeIds: IDTypeDictionary = {};
+  @observable activeNodeIds: IDTypeDictionary = {};
+  @observable hiddenNodeIds: IDTypeDictionary = {};
+  @observable focusedNodeId: IDType = null;
   @observable virtualRoot: TreeNode;
 
   private firstUpdate = true;
@@ -363,9 +363,9 @@ export class TreeModel implements ITreeModel {
     if (!state) return;
 
     Object.assign(this, {
-      expandedNodeIds: state.expandedNodeIds,
-      activeNodeIds: state.activeNodeIds,
-      hiddenNodeIds: state.hiddenNodeIds,
+      expandedNodeIds: state.expandedNodeIds || {},
+      activeNodeIds: state.activeNodeIds || {},
+      hiddenNodeIds: state.hiddenNodeIds || {},
       focusedNodeId: state.focusedNodeId
     });
   }

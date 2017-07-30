@@ -1,6 +1,8 @@
 /**
  * Welcome to ng2tree
  */
+export type IDType = string | number;
+export type IDTypeDictionary = { [id: string]: boolean } | { [id: number]: boolean };
 
 export interface IAllowDropFn {
   (element: any, to: {parent: ITreeNode, index: number}, $event?: any): boolean;
@@ -14,11 +16,12 @@ export interface IAllowDragFn {
   (node: ITreeNode): boolean;
 }
 
+
 export interface ITreeState {
-  expandedNodeIds: { [id: string]: boolean };
-  activeNodeIds: { [id: string]: boolean };
-  hiddenNodeIds: { [id: string]: boolean };
-  focusedNodeId: string;
+  expandedNodeIds?: IDTypeDictionary;
+  activeNodeIds?: IDTypeDictionary;
+  hiddenNodeIds?: IDTypeDictionary;
+  focusedNodeId?: IDType;
 }
 
 export interface ITreeOptions {
@@ -245,7 +248,7 @@ export interface ITreeNode {
    * A unique key of this node among its siblings.
    * By default it's the 'id' of the original node, unless stated otherwise in options.idField
    */
-  id: any;
+  id: IDType;
 
   // helpers
   isExpanded: boolean;
@@ -439,7 +442,7 @@ export interface ITreeModel {
    * @param     id  node ID to find
    * @returns   The node, if found - null otherwise
    */
-  getNodeById(id: any): ITreeNode;
+  getNodeById(id: IDType): ITreeNode;
   /**
    * @param     predicate - either an object or a function, used as a test condition on all nodes.
    *            Could be every predicate that's supported by lodash's `find` method

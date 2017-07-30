@@ -1,10 +1,15 @@
 import { Key, browser, ElementArrayFinder, ElementFinder, WebElement, by, element, $, $$, promise } from 'protractor';
+import { code as htmlDnd } from 'html-dnd';
 
 function hasClass(element, cls) {
     return element.getAttribute('class').then(function (classes) {
         return classes.split(' ').indexOf(cls) !== -1;
     });
 };
+
+export function dragAndDrop(from, to) {
+  browser.executeScript(htmlDnd, from, to, 0, 0);
+}
 
 class BaseDriver {
   constructor(protected element: ElementFinder) {}
@@ -60,6 +65,10 @@ export class NodeDriver extends BaseDriver {
     return this.element.$('.tree-children');
   }
 
+  getDropSlot(index = 0): ElementFinder {
+    return this.element.$$('.node-drop-slot').get(index);
+  }
+
   clickExpander(): promise.Promise<void> {
     return this.getExpander().click();
   }
@@ -72,6 +81,18 @@ export class NodeDriver extends BaseDriver {
   }
   contextMenu() {
 
+  }
+  dragToNode(node) {
+    dragAndDrop(
+      this.getNodeContentWrapper(),
+      node.getNodeContentWrapper()
+    );
+  }
+  dragToDropSlot(node) {
+    dragAndDrop(
+      this.getNodeContentWrapper(),
+      node.getDropSlot()
+    );
   }
 }
 
@@ -107,9 +128,6 @@ export class TreeDriver extends BaseDriver {
   }
   keySpace() {
     this.sendKey(Key.SPACE);
-  }
-  drag(el1, el2) {
-    browser.actions().dragAndDrop(el1, el2).perform();
   }
 }
 
