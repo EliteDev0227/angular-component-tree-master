@@ -81,18 +81,6 @@ export class TreeComponent implements OnChanges {
     this.treeModel.setState(state);
   }
 
-  @Output() onToggleExpanded;
-  @Output() onActivate;
-  @Output() onDeactivate;
-  @Output() onFocus;
-  @Output() onBlur;
-  @Output() onUpdateData;
-  @Output() onInitialized;
-  @Output() onMoveNode;
-  @Output() onLoadNodeChildren;
-  @Output() onChangeFilter;
-  @Output() onEvent;
-
   @Output() toggleExpanded;
   @Output() activate;
   @Output() deactivate;
@@ -101,6 +89,7 @@ export class TreeComponent implements OnChanges {
   @Output() updateData;
   @Output() initialized;
   @Output() moveNode;
+  @Output() copyNode;
   @Output() loadNodeChildren;
   @Output() changeFilter;
   @Output() event;

@@ -1,3 +1,8 @@
+<a name="4.1.0"></a>
+# 4.1.0 (2017-XX-XX)
+* Fixed changeFilterr typo
+* Added copyNode on ctrl
+
 <a name="4.0.0"></a>
 # 4.0.0 (2017-29-07)
 * Breaking change - Renamed loadChildren to loadNodeChildren because of AoT

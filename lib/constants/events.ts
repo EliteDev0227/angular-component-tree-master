@@ -7,6 +7,7 @@ export const TREE_EVENTS = {
   initialized: 'initialized',
   updateData: 'updateData',
   moveNode: 'moveNode',
+  copyNode: 'copyNode',
   event: 'event',
   loadNodeChildren: 'loadNodeChildren',
   changeFilter: 'changeFilter',

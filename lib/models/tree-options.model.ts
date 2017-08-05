@@ -24,7 +24,11 @@ export const TREE_ACTIONS = {
   PREVIOUS_NODE: (tree: TreeModel, node: TreeNode, $event: any) =>  tree.focusPreviousNode(),
   MOVE_NODE: (tree: TreeModel, node: TreeNode, $event: any, {from , to}: {from: any, to: any}) => {
     // default action assumes from = node, to = {parent, index}
-    tree.moveNode(from, to);
+    if ($event.ctrlKey) {
+      tree.copyNode(from, to);
+    } else {
+      tree.moveNode(from, to);
+    }
   }
 };
 
@@ -81,6 +85,14 @@ export class TreeOptions {
 
   constructor(private options: ITreeOptions = {}) {
     this.actionMapping = _.defaultsDeep({}, this.options.actionMapping, defaultActionMapping);
+  }
+
+  getNodeClone(node: TreeNode): any {
+    if (this.options.getNodeClone) {
+      return this.options.getNodeClone(node);
+    }
+
+    return _.omit(Object.assign({}, node.data), ['id']);
   }
 
   allowDrop(element, to, $event?): boolean {

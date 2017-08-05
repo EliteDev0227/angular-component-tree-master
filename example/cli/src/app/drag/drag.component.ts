@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { ITreeState } from 'angular-tree-component';
+import { ITreeState, ITreeOptions } from 'angular-tree-component';
+import uuid from 'uuid';
 
 @Component({
   selector: 'app-drag',
@@ -18,8 +19,13 @@ export class DragComponent {
     activeNodeIds: {}
   };
 
-  options = {
-    allowDrag: (node) => node.isLeaf
+  options: ITreeOptions = {
+    allowDrag: (node) => node.isLeaf,
+    getNodeClone: (node) => ({
+      ...node.data,
+      id: uuid.v4(),
+      name: `copy of ${node.data.name}`
+    })
   };
 
   nodes = [

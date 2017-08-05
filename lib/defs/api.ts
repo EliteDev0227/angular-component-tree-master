@@ -206,6 +206,26 @@ export interface ITreeOptions {
     * **Default Value: true**
     */
     scrollOnSelect?: boolean;
+   /**
+    * Function to clone a node.
+    * Receives a TreeNode object, and returns a node object (only the data).
+    * This callback will be called when copying a node inside the tree,
+    * by either calling copyNode, or by dragging and holding the ctrl key
+    *
+    * For example:
+      ```
+        options: ITreeOptions = {
+          getNodeClone: (node) => ({
+            ...node.data,
+            id: uuid.v4(),
+            name: `copy of ${node.data.name}`
+          })
+        };
+      ```
+    *
+    * **Default Value: clone the node using Object.assign, and remove 'id' property**
+    */
+    getNodeClone?: (node: ITreeNode) => any;
  }
 
 export interface ITreeNode {

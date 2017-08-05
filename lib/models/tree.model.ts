@@ -350,6 +350,29 @@ export class TreeModel implements ITreeModel {
     this.fireEvent({ eventName: TREE_EVENTS.moveNode, node: originalNode, to: { parent: to.parent.data, index: toIndex } });
   }
 
+  @action copyNode(node, to) {
+    const fromIndex = node.getIndexInParent();
+
+    if (!this._canMoveNode(node, fromIndex , to)) return;
+
+    // If node doesn't have children - create children array
+    if (!to.parent.getField('children')) {
+      to.parent.setField('children', []);
+    }
+    const toChildren = to.parent.getField('children');
+
+    const nodeCopy = this.options.getNodeClone(node);
+
+    toChildren.splice(to.index, 0, nodeCopy);
+
+    node.treeModel.update();
+    if (to.parent.treeModel !== node.treeModel) {
+      to.parent.treeModel.update();
+    }
+
+    this.fireEvent({ eventName: TREE_EVENTS.copyNode, node: nodeCopy, to: { parent: to.parent.data, index: to.index } });
+  }
+
   getState() {
     return {
       expandedNodeIds: this.expandedNodeIds,
