@@ -25,8 +25,12 @@ So, we decided to build one for Angular, with all the features you can think of:
 ## Angular supported version
 angular-tree-component supports angular 2.X.X releases, 4.X.X releases, and AoT compilation.
 
-## Getting started, demo & full documentation
+## Getting started
 Please refer to the full documentation:  
+[https://angular2-tree.readme.io/docs](https://angular2-tree.readme.io/docs)
+
+## Demo
+You can find working demos inside the docs:
 [https://angular2-tree.readme.io/docs](https://angular2-tree.readme.io/docs)
 
 ## Call for styles
