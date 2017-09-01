@@ -33,7 +33,7 @@ const { includes, pick }  = _;
     }`
   ],
   template: `
-    <tree-viewport #viewport>
+    <tree-viewport>
       <div
         class="tree"
         [class.node-dragging]="treeDraggedElement.isDragging()">
@@ -66,8 +66,6 @@ export class TreeComponent implements OnChanges {
   @ContentChild('treeNodeTemplate') treeNodeTemplate: TemplateRef<any>;
   @ContentChild('treeNodeWrapperTemplate') treeNodeWrapperTemplate: TemplateRef<any>;
   @ContentChild('treeNodeFullTemplate') treeNodeFullTemplate: TemplateRef<any>;
-
-  @ViewChild('viewport') viewportComponent: TreeViewportComponent;
 
   // Will be handled in ngOnChanges
   @Input() set nodes(nodes: any[]) { };
@@ -130,9 +128,5 @@ export class TreeComponent implements OnChanges {
       nodes: changes.nodes && changes.nodes.currentValue,
       events: pick(this, this.treeModel.eventNames)
     });
-  }
-
-  sizeChanged() {
-    this.viewportComponent.setViewport();
   }
 }

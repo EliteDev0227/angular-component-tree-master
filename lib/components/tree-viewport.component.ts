@@ -43,16 +43,12 @@ export class TreeViewportComponent implements AfterViewInit, OnInit, OnDestroy {
     this.virtualScroll.clear();
   }
 
-  @HostListener('scroll', ['$event'])
-  onScroll(e) {
-    this._onWheel(e);
-  }
-
   getTotalHeight() {
     return this.virtualScroll.isEnabled() && this.virtualScroll.totalHeight + 'px' || 'auto';
   }
 
-  _onWheel(e) {
+  @HostListener('scroll', ['$event'])
+  onScroll() {
     this.setViewport();
   }
 
