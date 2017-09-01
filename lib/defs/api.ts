@@ -226,6 +226,11 @@ export interface ITreeOptions {
     * **Default Value: clone the node using Object.assign, and remove 'id' property**
     */
     getNodeClone?: (node: ITreeNode) => any;
+    /**
+     * Makes the tree right-to-left.
+     * This include direction, expander style, and change key binding (right key collapse and left key expands instead of vice-versa)
+     */
+    rtl?: boolean;
  }
 
 export interface ITreeNode {

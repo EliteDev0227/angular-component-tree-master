@@ -14,29 +14,14 @@ const { includes, pick }  = _;
 
 @Component({
   selector: 'Tree, tree-root',
-  encapsulation: ViewEncapsulation.None,
   providers: [TreeModel],
-  styles: [
-    '.tree-children { padding-left: 20px }',
-    '.empty-tree-drop-slot .node-drop-slot { height: 20px; min-width: 100px }',
-    `.tree {
-      width: 100%;
-      position:relative;
-      display: inline-block;
-      cursor: pointer;
-      -webkit-touch-callout: none; /* iOS Safari */
-      -webkit-user-select: none;   /* Chrome/Safari/Opera */
-      -khtml-user-select: none;    /* Konqueror */
-      -moz-user-select: none;      /* Firefox */
-      -ms-user-select: none;       /* IE/Edge */
-      user-select: none;           /* non-prefixed version, currently not supported by any browser */
-    }`
-  ],
+  styles: [],
   template: `
     <tree-viewport>
       <div
         class="tree"
-        [class.node-dragging]="treeDraggedElement.isDragging()">
+        [class.node-dragging]="treeDraggedElement.isDragging()"
+        [class.tree-rtl]="treeModel.options.rtl">
         <tree-node-collection
           *ngIf="treeModel.roots"
           [nodes]="treeModel.roots"
