@@ -19,9 +19,9 @@ const { includes, pick }  = _;
   template: `
     <tree-viewport>
       <div
-        class="tree"
+        class="angular-tree-component"
         [class.node-dragging]="treeDraggedElement.isDragging()"
-        [class.tree-rtl]="treeModel.options.rtl">
+        [class.angular-tree-component-rtl]="treeModel.options.rtl">
         <tree-node-collection
           *ngIf="treeModel.roots"
           [nodes]="treeModel.roots"

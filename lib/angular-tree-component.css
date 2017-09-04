@@ -54,7 +54,7 @@ tree-viewport {
 }
 .tree-children { padding-left: 20px }
 .empty-tree-drop-slot .node-drop-slot { height: 20px; min-width: 100px }
-.tree {
+.angular-tree-component {
   width: 100%;
   position:relative;
   display: inline-block;
@@ -67,13 +67,13 @@ tree-viewport {
   user-select: none;           /* non-prefixed version, currently not supported by any browser */
 }
 
-tree-root .tree-rtl {
+tree-root .angular-tree-component-rtl {
   direction: rtl;
 }
-tree-root .tree-rtl .toggle-children-wrapper-collapsed .toggle-children {
+tree-root .angular-tree-component-rtl .toggle-children-wrapper-collapsed .toggle-children {
   transform: rotate(180deg) !important;
 }
-tree-root .tree-rtl .tree-children {
+tree-root .angular-tree-component-rtl .tree-children {
   padding-right: 20px;
   padding-left: 0;
 }
