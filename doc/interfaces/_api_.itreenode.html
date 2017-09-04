@@ -126,6 +126,8 @@
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_api_.itreenode.html#hide" class="tsd-kind-icon">hide</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_api_.itreenode.html#isdescendantof" class="tsd-kind-icon">is<wbr>Descendant<wbr>Of</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_api_.itreenode.html#scrollintoview" class="tsd-kind-icon">scroll<wbr>Into<wbr>View</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_api_.itreenode.html#setactiveandvisible" class="tsd-kind-icon">set<wbr>Active<wbr>And<wbr>Visible</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_api_.itreenode.html#setisactive" class="tsd-kind-icon">set<wbr>IsActive</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_api_.itreenode.html#setishidden" class="tsd-kind-icon">set<wbr>IsHidden</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_api_.itreenode.html#show" class="tsd-kind-icon">show</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_api_.itreenode.html#toggleactivated" class="tsd-kind-icon">toggle<wbr>Activated</a></li>
@@ -870,6 +872,68 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="setactiveandvisible" class="tsd-anchor"></a>
+					<h3>set<wbr>Active<wbr>And<wbr>Visible</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Active<wbr>And<wbr>Visible<span class="tsd-signature-symbol">(</span>multi<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L408">api.ts:408</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>sets the node to be active and makes sure it&#39;s visible by expanding all nodes above it and scrolling it into view.
+										Very similar to calling <code>activate</code>, <code>ensureVisible</code> and <code>scrollIntoView</code> methods.
+									If multi is true (default false) - does a multiselect.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>multi: <span class="tsd-signature-type">boolean</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="setisactive" class="tsd-anchor"></a>
+					<h3>set<wbr>IsActive</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>IsActive<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span>, multi<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/500tech/angular-tree-component/blob/master/lib/defs/api.ts#L402">api.ts:402</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>sets the node to active / inactive according to the value.
+									If multi is true (default false) - does a multiselect.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">boolean</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> multi: <span class="tsd-signature-type">boolean</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 					<a name="setishidden" class="tsd-anchor"></a>
 					<h3>set<wbr>IsHidden</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
@@ -1108,6 +1172,12 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="_api_.itreenode.html#scrollintoview" class="tsd-kind-icon">scroll<wbr>Into<wbr>View</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="_api_.itreenode.html#setactiveandvisible" class="tsd-kind-icon">set<wbr>Active<wbr>And<wbr>Visible</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="_api_.itreenode.html#setisactive" class="tsd-kind-icon">set<wbr>IsActive</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="_api_.itreenode.html#setishidden" class="tsd-kind-icon">set<wbr>IsHidden</a>

@@ -395,6 +395,17 @@ export interface ITreeNode {
    * collapse all nodes under this one
    */
   collapseAll();
+  /**
+   * sets the node to active / inactive according to the value.
+   * If multi is true (default false) - does a multiselect.
+   */
+  setIsActive(value: boolean, multi?: boolean);
+  /**
+   * sets the node to be active and makes sure it's visible by expanding all nodes above it and scrolling it into view.
+   * Very similar to calling `activate`, `ensureVisible` and `scrollIntoView` methods.
+   * If multi is true (default false) - does a multiselect.
+   */
+  setActiveAndVisible(multi: boolean);
 }
 
 export interface ITreeModel {
