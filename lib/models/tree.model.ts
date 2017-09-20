@@ -170,6 +170,7 @@ export class TreeModel implements ITreeModel {
   @action update() {
     // Rebuild tree:
     let virtualRootConfig = {
+      id: this.options.rootId,
       virtual: true,
       [this.options.childrenField]: this.nodes
     };
