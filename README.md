@@ -48,8 +48,7 @@ git clone https://github.com/500tech/angular-tree-component
 
 cd angular-tree-component/example/cli
 npm install
-npm install -g angular-cli
-ng serve
+./node_modules/.bin/ng serve
 ```
 
 ## SystemJS
