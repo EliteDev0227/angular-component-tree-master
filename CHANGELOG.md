@@ -1,3 +1,7 @@
+<a name="5.1.0"></a>
+* Removing dependencies from UMD bundle
+* Passing custom id to virtualRoot node
+
 <a name="5.0.0"></a>
 # 5.0.0 (2017-01-09)
 * Breaking change - Moved styles to external CSS
