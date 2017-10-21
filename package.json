@@ -1,6 +1,6 @@
 {
   "name": "angular-tree-component",
-  "version": "4.1.0",
+  "version": "5.0.0",
   "description": "A simple yet powerful tree component for Angular2",
   "author": "Adam Klein <adam@500tech.com>",
   "homepage": "https://github.com/500tech/angular-tree-component",
@@ -39,7 +39,7 @@
     "clean:typescript": "rimraf dist",
     "lint": "tslint lib/**/*.ts",
     "rollup": "./node_modules/.bin/rollup -c rollup.config.js dist/angular-tree-component.js -o dist/angular-tree-component.umd.js",
-    "build": "npm run lint && npm run clean:typescript && ./node_modules/.bin/ngc && npm run rollup",
+    "build": "npm run lint && npm run clean:typescript && ./node_modules/.bin/ngc && npm run rollup && cp lib/angular-tree-component.css dist",
     "example:cli2": "./node_modules/.bin/ngc && cd example/cli2 && npm install && npm install ../../ && ./node_modules/.bin/ng serve",
     "example:cli": "./node_modules/.bin/ngc && cd example/cli && npm install && npm install ../../ && ./node_modules/.bin/ng serve",
     "example:cli:win": ".\\node_modules\\.bin\\ngc && cd example\\cli && npm install && npm install ..\\..\\ && .\\node_modules\\.bin\\ng serve",
@@ -64,7 +64,7 @@
   },
   "dependencies": {
     "lodash": "4.17.4",
-    "mobx": "3.1.11",
+    "mobx": "3.2.2",
     "mobx-angular": "1.5.0"
   },
   "devDependencies": {

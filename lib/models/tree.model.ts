@@ -30,9 +30,6 @@ export class TreeModel implements ITreeModel {
   private firstUpdate = true;
   private events: any;
 
-  constructor() {
-  }
-
   // events
   fireEvent(event) {
     event.treeModel = this;
