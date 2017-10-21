@@ -524,10 +524,10 @@ export interface ITreeModel {
   clearFilter();
   /**
    * moves a node from one location in the tree to another
-   * @param location  has a from and a to attributes, each has a node and index attributes.
-     The combination of node + index tells which node needs to be moved, and to where
+   * @param node describes which node needs to be moved
+   * @param to describes where to move the node to. Contains a 'parent' node, an 'index', and a 'dropOnNode' - to distinguish between dropping between nodes or on the node
    */
-  moveNode(node: ITreeNode, to: {node: ITreeNode, index: number});
+  moveNode(node: ITreeNode, to: {parent: ITreeNode, index: number, dropOnNode: boolean});
   /**
    * Invokes a method for every node of the tree - depth first
    * @param fn  a function that receives the node
