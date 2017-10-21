@@ -19,4 +19,4 @@ before_script:
  - npm install ../../
  - cd ../../
  - npm run test:setup > /dev/null &
- - sleep 40
+ - sleep 90
