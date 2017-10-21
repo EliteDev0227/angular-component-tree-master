@@ -529,7 +529,8 @@ export interface ITreeModel {
   /**
    * moves a node from one location in the tree to another
    * @param node describes which node needs to be moved
-   * @param to describes where to move the node to. Contains a 'parent' node, an 'index', and a 'dropOnNode' - to distinguish between dropping between nodes or on the node
+   * @param to describes where to move the node to.
+   * Contains a 'parent' node, an 'index', and a 'dropOnNode' - to distinguish between dropping between nodes or on the node
    */
   moveNode(node: ITreeNode, to: {parent: ITreeNode, index: number, dropOnNode: boolean});
   /**
