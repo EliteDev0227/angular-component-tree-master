@@ -231,6 +231,10 @@ export interface ITreeOptions {
      * This include direction, expander style, and change key binding (right key collapse and left key expands instead of vice-versa)
      */
     rtl?: boolean;
+    /**
+     * Specifies id of root node (virtualRoot)
+     */
+    rootId?: any;
  }
 
 export interface ITreeNode {
