@@ -8,7 +8,7 @@ import { deprecatedSelector } from '../deprecated-selector';
     <span *ngIf="!template">loading...</span>
     <ng-container
       [ngTemplateOutlet]="template"
-      [ngOutletContext]="{ $implicit: node }">
+      [ngTemplateOutletContext]="{ $implicit: node }">
     </ng-container>
   `,
 })
