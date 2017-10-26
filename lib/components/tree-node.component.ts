@@ -58,7 +58,7 @@ import { deprecatedSelector } from '../deprecated-selector';
       </div>
       <ng-container
         [ngTemplateOutlet]="templates.treeNodeFullTemplate"
-        [ngOutletContext]="{ $implicit: node, node: node, index: index, templates: templates }">
+        [ngTemplateOutletContext]="{ $implicit: node, node: node, index: index, templates: templates }">
       </ng-container>
     </ng-container>`
 })
