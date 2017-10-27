@@ -25,32 +25,6 @@ import { TreeAnimateOpenDirective } from './directives/tree-animate-open.directi
 
 import './polyfills';
 
-export {
-  TreeModel,
-  TreeNode,
-  TreeDraggedElement,
-  TreeVirtualScroll,
-  ITreeOptions,
-  TREE_ACTIONS,
-  KEYS,
-  IActionMapping,
-  IActionHandler,
-  IAllowDropFn,
-  IAllowDragFn,
-  LoadingComponent,
-  TreeComponent,
-  TreeNodeComponent,
-  TreeNodeContent,
-  TreeDropDirective,
-  TreeDragDirective,
-  TreeNodeExpanderComponent,
-  TreeNodeChildrenComponent,
-  TreeNodeDropSlot,
-  TreeNodeCollectionComponent,
-  TreeViewportComponent,
-  ITreeState
-};
-
 @NgModule({
   declarations: [
     TreeComponent,
@@ -92,4 +66,28 @@ export {
 })
 export class TreeModule {}
 
-export default TreeModule;
+export {
+  TreeModel,
+  TreeNode,
+  TreeDraggedElement,
+  TreeVirtualScroll,
+  ITreeOptions,
+  TREE_ACTIONS,
+  KEYS,
+  IActionMapping,
+  IActionHandler,
+  IAllowDropFn,
+  IAllowDragFn,
+  LoadingComponent,
+  TreeComponent,
+  TreeNodeComponent,
+  TreeNodeContent,
+  TreeDropDirective,
+  TreeDragDirective,
+  TreeNodeExpanderComponent,
+  TreeNodeChildrenComponent,
+  TreeNodeDropSlot,
+  TreeNodeCollectionComponent,
+  TreeViewportComponent,
+  ITreeState
+};

@@ -10,6 +10,7 @@
     "inlineSources": true,
     "declaration": true,
     "skipLibCheck": true,
+    "stripInternal": true,
     "lib": ["es2015", "dom"]
   },
   "files": [

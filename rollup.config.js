@@ -19,13 +19,11 @@ export default {
     'mobx-angular'
   ],
   onwarn: function (warning) {
-    // ignore spurious warnings about TS generated code such as __decorate, etc.
-    if (warning.code === 'THIS_IS_UNDEFINED' || warning.message.indexOf("The 'this' keyword is equivalent to 'undefined'") > -1) { 
-      return; 
-    }
-    
-    // console.warn everything else
-    console.warn( warning.message );
+    const skip_codes = [
+      'THIS_IS_UNDEFINED',
+      'MISSING_GLOBAL_NAME'
+  ];
+  if ( skip_codes.indexOf(warning.code) != -1 ) return;
+    console.error(warning);
   }
-
 };

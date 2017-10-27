@@ -8,8 +8,7 @@ import { TREE_EVENTS } from '../constants/events';
 
 import * as _ from 'lodash';
 
-const { first, last, compact, find, includes,
-  remove, indexOf, pullAt, isString, isFunction } = _;
+const { first, last, compact, find, includes, isString, isFunction } = _;
 
 @Injectable()
 export class TreeModel implements ITreeModel {

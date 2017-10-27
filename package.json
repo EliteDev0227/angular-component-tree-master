@@ -1,13 +1,11 @@
 {
   "name": "angular-tree-component",
-  "version": "5.1.0",
+  "version": "5.1.1",
   "description": "A simple yet powerful tree component for Angular2",
   "author": "Adam Klein <adam@500tech.com>",
   "homepage": "https://github.com/500tech/angular-tree-component",
   "license": "MIT",
   "main": "dist/angular-tree-component.umd.js",
-  "jsnext:main": "dist/angular-tree-component.js",
-  "module": "dist/angular-tree-component.js",
   "types": "dist/angular-tree-component.d.ts",
   "keywords": [
     "ng",
