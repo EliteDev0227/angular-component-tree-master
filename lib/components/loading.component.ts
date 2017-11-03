@@ -8,7 +8,7 @@ import { TreeNode } from '../models/tree-node.model';
     <span *ngIf="!template">loading...</span>
     <ng-container
       [ngTemplateOutlet]="template"
-      [ngOutletContext]="{ $implicit: node }">
+      [ngTemplateOutletContext]="{ $implicit: node }">
     </ng-container>
   `,
 })
