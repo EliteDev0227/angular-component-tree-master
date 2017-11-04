@@ -1,5 +1,5 @@
-import { browser, element, by, $ } from 'protractor';
-import { TreeDriver } from './helpers/tree.driver';
+const { browser, element, by, $ } = require('protractor');
+const { TreeDriver } = require('./helpers/tree.driver');
 
 describe('Async Children', () => {
   beforeEach(() => {

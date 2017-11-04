@@ -1,5 +1,5 @@
-import { browser, element, by } from 'protractor';
-import { TreeDriver, dragAndDrop } from './helpers/tree.driver';
+const { browser, element, by, $ } = require('protractor');
+const { TreeDriver, dragAndDrop } = require('./helpers/tree.driver');
 
 fdescribe('Basic Configuration', () => {
   beforeEach(() => {

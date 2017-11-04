@@ -3,7 +3,7 @@ const Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
 exports.config = {
   framework: 'jasmine',
   seleniumAddress: 'http://localhost:4444/wd/hub',
-  specs: ['e2e/dist/*.spec.js'],
+  specs: ['e2e/*.spec.js'],
   capabilities: {
     browserName: 'chrome'
   },

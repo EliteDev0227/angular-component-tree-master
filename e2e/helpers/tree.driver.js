@@ -1,5 +1,5 @@
-import { Key, browser, ElementArrayFinder, ElementFinder, WebElement, by, element, $, $$, promise } from 'protractor';
-import { code as htmlDnd } from 'html-dnd';
+const { Key, browser, ElementArrayFinder, ElementFinder, WebElement, by, element, $, $$, promise } = require('protractor');
+const { code: htmlDnd } = require('html-dnd');
 
 function hasClass(element, cls) {
     return element.getAttribute('class').then(function (classes) {
@@ -7,22 +7,24 @@ function hasClass(element, cls) {
     });
 };
 
-export function dragAndDrop(from, to) {
+function dragAndDrop(from, to) {
   browser.executeScript(htmlDnd, from, to, 0, 0);
 }
 
 class BaseDriver {
-  constructor(protected element: ElementFinder) {}
+  constructor(element) {
+    this.element = element;
+  }
 
-  isPresent(): promise.Promise<boolean> {
+  isPresent() {
     return this.element.isPresent();
   }
 
-  getNodes(): ElementArrayFinder {
+  getNodes() {
     return this.element.$$('tree-node');
   }
 
-  getNode(name): NodeDriver {
+  getNode(name) {
     const element = this.getNodes().filter((el) => {
       return el.$('tree-node-content span').getText().then((text) => text === name);
     }).get(0);
@@ -31,49 +33,49 @@ class BaseDriver {
   }
 }
 
-export class NodeDriver extends BaseDriver {
+class NodeDriver extends BaseDriver {
 
-  isPresent(): promise.Promise<boolean> {
+  isPresent() {
     return this.element.isPresent();
   }
 
-  isActive(): promise.Promise<boolean> {
+  isActive() {
     return hasClass(this.getTreeNodeElement(), 'tree-node-active');
   }
 
-  isFocused(): promise.Promise<boolean> {
+  isFocused() {
     return hasClass(this.getTreeNodeElement(), 'tree-node-focused');
   }
 
-  isExpanded(): promise.Promise<boolean> {
+  isExpanded() {
     return hasClass(this.getTreeNodeElement(), 'tree-node-expanded');
   }
 
-  getTreeNodeElement(): ElementFinder {
+  getTreeNodeElement() {
     return this.element.$('.tree-node');
   }
 
-  getNodeContentWrapper(): ElementFinder {
+  getNodeContentWrapper() {
     return this.element.$('.node-content-wrapper');
   }
 
-  getExpander(): ElementFinder {
+  getExpander() {
     return this.element.$('.toggle-children-wrapper');
   }
 
-  getChildren(): ElementFinder {
+  getChildren() {
     return this.element.$('.tree-children');
   }
 
-  getDropSlot(index = 0): ElementFinder {
+  getDropSlot(index = 0) {
     return this.element.$$('.node-drop-slot').get(index);
   }
 
-  clickExpander(): promise.Promise<void> {
+  clickExpander() {
     return this.getExpander().click();
   }
 
-  click(): promise.Promise<void> {
+  click() {
     return this.getNodeContentWrapper().click();
   }
   dblclick() {
@@ -96,12 +98,12 @@ export class NodeDriver extends BaseDriver {
   }
 }
 
-export class TreeDriver extends BaseDriver {
+class TreeDriver extends BaseDriver {
   constructor(elementCss) {
     super($(elementCss));
   }
 
-  getNodeByIndex(index: number): NodeDriver {
+  getNodeByIndex(index) {
     const element = this.getNodes().get(index);
 
     return new NodeDriver(element);
@@ -131,8 +133,15 @@ export class TreeDriver extends BaseDriver {
   }
 }
 
-export class InputDriver {
-  constructor(private element) {
-
+class InputDriver {
+  constructor(element) {
+    this.element = element;
   }
 }
+
+module.exports = {
+  dragAndDrop,
+  InputDriver,
+  NodeDriver,
+  TreeDriver
+};
