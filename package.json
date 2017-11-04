@@ -6,6 +6,8 @@
   "homepage": "https://github.com/500tech/angular-tree-component",
   "license": "MIT",
   "main": "dist/angular-tree-component.umd.js",
+  "js:next": "dist/angular-tree-component.js",
+  "module": "dist/angular-tree-component.js",
   "types": "dist/angular-tree-component.d.ts",
   "keywords": [
     "ng",
@@ -95,7 +97,7 @@
     "rxjs": "^5.1.0",
     "tslint": "4.4.2",
     "typedoc": "^0.3.12",
-    "typescript": "^2.1.4",
+    "typescript": "^2.5.3",
     "zone.js": "^0.8.4"
   },
   "repository": "https://github.com/500tech/angular-tree-component.git",
