@@ -1,3 +1,6 @@
+<a name="5.2.0"></a>
+* Angular 5
+
 <a name="5.1.0"></a>
 * Removing dependencies from UMD bundle
 * Passing custom id to virtualRoot node

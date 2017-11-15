@@ -1,14 +1,14 @@
-import { Cli4Page } from './app.po';
+import { AppPage } from './app.po';
 
-describe('cli4 App', () => {
-  let page: Cli4Page;
+describe('cli App', () => {
+  let page: AppPage;
 
   beforeEach(() => {
-    page = new Cli4Page();
+    page = new AppPage();
   });
 
-  it('should display message saying app works', () => {
+  it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    expect(page.getParagraphText()).toEqual('Welcome to app!');
   });
 });
