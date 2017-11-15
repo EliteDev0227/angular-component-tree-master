@@ -1185,7 +1185,7 @@ function View_FullTreeComponent_0(_l) { return __WEBPACK_IMPORTED_MODULE_0__angu
     } return ad; }, null, null)), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_17" /* ɵdid */](2, 16384, null, 0, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["f" /* ɵbf */], [], null, null), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_17" /* ɵdid */](3, 4210688, null, 0, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["d" /* NgForm */], [[8, null], [8, null]], null, null), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_34" /* ɵprd */](2048, null, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* ControlContainer */], null, [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["d" /* NgForm */]]), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_17" /* ɵdid */](5, 16384, null, 0, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["c" /* NgControlStatusGroup */], [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* ControlContainer */]], null, null), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_37" /* ɵted */](-1, null, ["\n    "])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_18" /* ɵeld */](7, 0, [["filter", 1]], null, 0, "input", [["placeholder", "filter nodes"]], null, [[null, "keyup"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("keyup" === en)) {
         var pd_0 = (_co.filterNodes(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_32" /* ɵnov */](_v, 7).value, __WEBPACK_IMPORTED_MODULE_0__angular_core__["_32" /* ɵnov */](_v, 14)) !== false);
         ad = (pd_0 && ad);
-    } return ad; }, null, null)), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_37" /* ɵted */](-1, null, ["\n  "])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_37" /* ɵted */](-1, null, ["\n  "])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_18" /* ɵeld */](10, 0, null, null, 14, "div", [["style", "height: 400px; width: 300px; overflow: hidden;"]], null, null, null, null, null)), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_37" /* ɵted */](-1, null, ["\n\n    "])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_18" /* ɵeld */](12, 0, null, null, 11, "tree-root", [], null, [[null, "event"], [null, "initialized"], ["body", "keydown"], ["body", "mousedown"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("body:keydown" === en)) {
+    } return ad; }, null, null)), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_37" /* ɵted */](-1, null, ["\n  "])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_37" /* ɵted */](-1, null, ["\n  "])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_18" /* ɵeld */](10, 0, null, null, 14, "div", [["style", "height: 400px; width: 400px; overflow: hidden;"]], null, null, null, null, null)), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_37" /* ɵted */](-1, null, ["\n\n    "])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_18" /* ɵeld */](12, 0, null, null, 11, "tree-root", [], null, [[null, "event"], [null, "initialized"], ["body", "keydown"], ["body", "mousedown"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("body:keydown" === en)) {
         var pd_0 = (__WEBPACK_IMPORTED_MODULE_0__angular_core__["_32" /* ɵnov */](_v, 14).onKeydown($event) !== false);
         ad = (pd_0 && ad);
     } if (("body:mousedown" === en)) {
@@ -1289,9 +1289,10 @@ var actionMapping = {
 var FullTreeComponent = (function () {
     function FullTreeComponent() {
         this.nodes2 = [{ name: 'root' }, { name: 'root2' }];
-        this.asyncChildren = new Array(1000).fill(null).map(function (item, n) { return ({
+        this.asyncChildren = new Array(4).fill(null).map(function (item, n) { return ({
             name: 'async child2.' + n,
-            subTitle: 'async child ' + n
+            subTitle: 'async child ' + n,
+            hasChildren: n < 5
         }); });
         this.customTemplateStringOptions = {
             // displayField: 'subTitle',
@@ -1317,69 +1318,74 @@ var FullTreeComponent = (function () {
     FullTreeComponent.prototype.ngOnInit = function () {
         var _this = this;
         setTimeout(function () {
-            _this.nodes = [];
-            // this.nodes = [
-            //   {
-            //     expanded: true,
-            //     name: 'root expanded',
-            //     subTitle: 'the root',
-            //     children: [
-            //       {
-            //         name: 'child1',
-            //         subTitle: 'a good child',
-            //         hasChildren: false
-            //       }, {
-            //         name: 'child2',
-            //         subTitle: 'a bad child',
-            //         hasChildren: false
-            //       }
-            //     ]
-            //   },
-            //   {
-            //     name: 'root2',
-            //     subTitle: 'the second root',
-            //     children: [
-            //       {
-            //         name: 'child2.1',
-            //         subTitle: 'new and improved',
-            //         uuid: '11',
-            //         hasChildren: false
-            //       }, {
-            //         name: 'child2.2',
-            //         subTitle: 'new and improved2',
-            //         children: [
-            //           {
-            //             uuid: 1001,
-            //             name: 'subsub',
-            //             subTitle: 'subsub',
-            //             hasChildren: false
-            //           }
-            //         ]
-            //       }
-            //     ]
-            //   },
-            //   {
-            //     name: 'asyncroot',
-            //     hasChildren: true
-            //   }
-            // ];
-            for (var i = 0; i < 200; i++) {
+            _this.nodes = [
+                {
+                    expanded: true,
+                    name: 'root expanded',
+                    subTitle: 'the root',
+                    children: [
+                        {
+                            name: 'child1',
+                            subTitle: 'a good child',
+                            hasChildren: false
+                        }, {
+                            name: 'child2',
+                            subTitle: 'a bad child',
+                            hasChildren: false
+                        }
+                    ]
+                },
+                {
+                    name: 'root2',
+                    subTitle: 'the second root',
+                    children: [
+                        {
+                            name: 'child2.1',
+                            subTitle: 'new and improved',
+                            uuid: '11',
+                            hasChildren: false
+                        }, {
+                            name: 'child2.2',
+                            subTitle: 'new and improved2',
+                            children: [
+                                {
+                                    uuid: 1001,
+                                    name: 'subsub',
+                                    subTitle: 'subsub',
+                                    hasChildren: false
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: 'asyncroot',
+                    hasChildren: true
+                }
+            ];
+            var _loop_1 = function (i) {
                 _this.nodes.push({
                     name: "rootDynamic" + i,
                     subTitle: "root created dynamically " + i,
-                    hasChildren: true
+                    children: new Array(100).fill(null).map(function (item, n) { return ({
+                        name: "rootChildDynamic" + i + "." + n,
+                        subTitle: "rootChildDynamicTitle" + i + "." + n
+                    }); })
                 });
+            };
+            for (var i = 0; i < 1000; i++) {
+                _loop_1(i);
             }
         }, 1);
     };
     FullTreeComponent.prototype.getChildren = function (node) {
         var _this = this;
         return new Promise(function (resolve, reject) {
-            resolve(_this.asyncChildren.map(function (c) {
+            setTimeout(function () { return resolve(_this.asyncChildren.map(function (c) {
                 return Object.assign({}, c, {
                     hasChildren: node.level < 5
                 });
-            }));
+            })); }, 2000);
         });
     };
     FullTreeComponent.prototype.addNode = function (tree) {
@@ -1418,7 +1424,7 @@ var FullTreeComponent = (function () {
             styles: [
                 "button: {\n        line - height: 24px;\n        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);\n        border: none;\n        border-radius: 2px;\n        background: #A3D9F5;\n        cursor: pointer;\n        margin: 0 3px;\n      }"
             ],
-            template: "\n  <form>\n    <input #filter (keyup)=\"filterNodes(filter.value, tree)\" placeholder=\"filter nodes\"/>\n  </form>\n  <div style=\"height: 400px; width: 300px; overflow: hidden;\">\n\n    <tree-root\n      #tree\n      [nodes]=\"nodes\"\n      [options]=\"customTemplateStringOptions\"\n      [focused]=\"true\"\n      (event)=\"onEvent($event)\"\n      (initialized)=\"onInitialized(tree)\"\n      \n    >\n      <ng-template #treeNodeTemplate let-node>\n        <span title=\"{{node.data.subTitle}}\">{{ node.data.name }}</span>\n        <span class=\"pull-right\">{{ childrenCount(node) }}</span>\n        <button (click)=\"go($event)\">Custom Action</button>\n      </ng-template>\n      <ng-template #loadingTemplate>Loading, please hold....</ng-template>\n    </tree-root>\n  </div>\n  <br>\n  <p>Keys:</p>\n  down | up | left | right | space | enter\n  <p>Mouse:</p>\n  click to select | shift+click to select multi\n  <p>API:</p>\n  <button (click)=\"tree.treeModel.focusNextNode()\">next node</button>\n  <button (click)=\"tree.treeModel.focusPreviousNode()\">previous node</button>\n  <button (click)=\"tree.treeModel.focusDrillDown()\">drill down</button>\n  <button (click)=\"tree.treeModel.focusDrillUp()\">drill up</button>\n  <button (click)=\"customTemplateStringOptions.allowDrag = true\">allowDrag</button>\n  <p></p>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().toggleActivated()\">\n    {{ tree.treeModel.getFocusedNode()?.isActive ? 'deactivate' : 'activate' }}\n  </button>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().toggleExpanded()\">\n    {{ tree.treeModel.getFocusedNode()?.isExpanded ? 'collapse' : 'expand' }}\n  </button>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().blur()\">\n    blur\n  </button>\n  <button\n    (click)=\"addNode(tree)\">\n    Add Node\n  </button>\n  <button\n    (click)=\"activateSubSub(tree)\">\n    Activate inner node\n  </button>\n  <button\n    (click)=\"tree.treeModel.expandAll()\">\n    Expand All\n  </button>\n  <button\n    (click)=\"tree.treeModel.collapseAll()\">\n    Collapse All\n  </button>\n  <button\n    (click)=\"activeNodes(tree.treeModel)\">\n    getActiveNodes()\n  </button>\n  "
+            template: "\n  <form>\n    <input #filter (keyup)=\"filterNodes(filter.value, tree)\" placeholder=\"filter nodes\"/>\n  </form>\n  <div style=\"height: 400px; width: 400px; overflow: hidden;\">\n\n    <tree-root\n      #tree\n      [nodes]=\"nodes\"\n      [options]=\"customTemplateStringOptions\"\n      [focused]=\"true\"\n      (event)=\"onEvent($event)\"\n      (initialized)=\"onInitialized(tree)\"\n      \n    >\n      <ng-template #treeNodeTemplate let-node>\n        <span title=\"{{node.data.subTitle}}\">{{ node.data.name }}</span>\n        <span class=\"pull-right\">{{ childrenCount(node) }}</span>\n        <button (click)=\"go($event)\">Custom Action</button>\n      </ng-template>\n      <ng-template #loadingTemplate>Loading, please hold....</ng-template>\n    </tree-root>\n  </div>\n  <br>\n  <p>Keys:</p>\n  down | up | left | right | space | enter\n  <p>Mouse:</p>\n  click to select | shift+click to select multi\n  <p>API:</p>\n  <button (click)=\"tree.treeModel.focusNextNode()\">next node</button>\n  <button (click)=\"tree.treeModel.focusPreviousNode()\">previous node</button>\n  <button (click)=\"tree.treeModel.focusDrillDown()\">drill down</button>\n  <button (click)=\"tree.treeModel.focusDrillUp()\">drill up</button>\n  <button (click)=\"customTemplateStringOptions.allowDrag = true\">allowDrag</button>\n  <p></p>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().toggleActivated()\">\n    {{ tree.treeModel.getFocusedNode()?.isActive ? 'deactivate' : 'activate' }}\n  </button>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().toggleExpanded()\">\n    {{ tree.treeModel.getFocusedNode()?.isExpanded ? 'collapse' : 'expand' }}\n  </button>\n  <button\n    [disabled]=\"!tree.treeModel.getFocusedNode()\"\n    (click)=\"tree.treeModel.getFocusedNode().blur()\">\n    blur\n  </button>\n  <button\n    (click)=\"addNode(tree)\">\n    Add Node\n  </button>\n  <button\n    (click)=\"activateSubSub(tree)\">\n    Activate inner node\n  </button>\n  <button\n    (click)=\"tree.treeModel.expandAll()\">\n    Expand All\n  </button>\n  <button\n    (click)=\"tree.treeModel.collapseAll()\">\n    Collapse All\n  </button>\n  <button\n    (click)=\"activeNodes(tree.treeModel)\">\n    getActiveNodes()\n  </button>\n  "
         }),
         __metadata("design:paramtypes", [])
     ], FullTreeComponent);
