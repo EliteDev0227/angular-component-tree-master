@@ -64,7 +64,7 @@ export class TreeAnimateOpenDirective {
         const roundedMaxHeight = Math.round(maxHeight);
 
         this.renderer.setElementStyle(this.innerElement, 'max-height', `${roundedMaxHeight}px`);
-        const height = this.innerElement.getBoundingClientRect().height; // TBD use renderer
+        const height = this.innerElement.getBoundingClientRect ? this.innerElement.getBoundingClientRect().height : 0; // TBD use renderer
 
         delta *= ease;
         ease *= EASE_ACCELERATION;

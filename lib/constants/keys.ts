@@ -4,5 +4,6 @@ export const KEYS = {
   RIGHT: 39,
   DOWN: 40,
   ENTER: 13,
-  SPACE: 32
+  SPACE: 32,
+  CONTEXT_MENU: 32
 };

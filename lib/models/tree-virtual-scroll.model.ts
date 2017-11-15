@@ -87,7 +87,7 @@ export class TreeVirtualScroll {
       viewport,
       x: viewport.scrollLeft,
       yBlocks: Math.round(viewport.scrollTop / Y_EPSILON),
-      viewportHeight: viewport.getBoundingClientRect().height
+      viewportHeight: viewport.getBoundingClientRect ? viewport.getBoundingClientRect().height : 0
     });
   }
 
