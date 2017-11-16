@@ -163,7 +163,7 @@ export class FullTreeComponent {
         this.nodes.push({
           name: `rootDynamic${i}`,
           subTitle: `root created dynamically ${i}`,
-          children: new Array(100).fill(null).map((item, n) => ({
+          children: new Array(10).fill(null).map((item, n) => ({
             name: `rootChildDynamic${i}.${n}`,
             subTitle: `rootChildDynamicTitle${i}.${n}`
           }))

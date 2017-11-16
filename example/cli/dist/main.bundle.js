@@ -1367,7 +1367,7 @@ var FullTreeComponent = (function () {
                 _this.nodes.push({
                     name: "rootDynamic" + i,
                     subTitle: "root created dynamically " + i,
-                    children: new Array(100).fill(null).map(function (item, n) { return ({
+                    children: new Array(10).fill(null).map(function (item, n) { return ({
                         name: "rootChildDynamic" + i + "." + n,
                         subTitle: "rootChildDynamicTitle" + i + "." + n
                     }); })
