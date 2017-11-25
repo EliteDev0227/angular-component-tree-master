@@ -1,4 +1,4 @@
-import { observable, computed, autorun, action } from 'mobx';
+import { observable, computed, reaction, autorun, action } from 'mobx';
 import { TreeModel } from './tree.model';
 import { TreeOptions } from './tree-options.model';
 import { ITreeNode } from '../defs/api';
@@ -41,6 +41,7 @@ export class TreeNode implements ITreeNode {
     if (this.getField('children')) {
       this._initChildren();
     }
+    this.autoLoadChildren();
   }
 
   // helper get functions:
@@ -198,10 +199,10 @@ export class TreeNode implements ITreeNode {
 
   expand() {
     if (!this.isExpanded) {
-      return this.toggleExpanded();
+      this.toggleExpanded();
     }
 
-    return Promise.resolve();
+    return this;
   }
 
   collapse() {
@@ -238,20 +239,30 @@ export class TreeNode implements ITreeNode {
   }
 
   toggleExpanded() {
-    return this.setIsExpanded(!this.isExpanded);
+    this.setIsExpanded(!this.isExpanded);
+
+    return this;
   }
 
   setIsExpanded(value) {
     if (this.hasChildren) {
       this.treeModel.setExpandedNode(this, value);
-
-      if (!this.children && this.hasChildren && value) {
-        return this.loadNodeChildren();
-      }
     }
 
-    return Promise.resolve();
+    return this;
   };
+
+  autoLoadChildren() {
+    reaction(
+      () => this.isExpanded,
+      (isExpanded) => {
+        if (!this.children && this.hasChildren && isExpanded) {
+          this.loadNodeChildren();
+        }
+      },
+      { fireImmediately: true }
+    );
+  }
 
   setIsActive(value, multi = false) {
     this.treeModel.setActiveNode(this, value, multi);
