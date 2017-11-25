@@ -2,6 +2,7 @@
 # 6.0.0 (2017-25-11)
 * Breaking change - not returning promise anymore for setIdExpanded
 * Fixed restore state for async children
+* Returned sizeChanged method
 
 <a name="5.2.1"></a>
 # 5.2.1 (2017-15-11)
