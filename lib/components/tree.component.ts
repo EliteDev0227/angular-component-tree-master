@@ -52,7 +52,7 @@ export class TreeComponent implements OnChanges {
   @ContentChild('treeNodeWrapperTemplate') treeNodeWrapperTemplate: TemplateRef<any>;
   @ContentChild('treeNodeFullTemplate') treeNodeFullTemplate: TemplateRef<any>;
   @ViewChild('viewport') viewportComponent: TreeViewportComponent;
-  
+
   // Will be handled in ngOnChanges
   @Input() set nodes(nodes: any[]) { };
   @Input() set options(options: TreeOptions) { };
