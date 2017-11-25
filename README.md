@@ -3,7 +3,7 @@
 
 # angular tree component
 
-## A full featured tree component for Angular (2 and above, including 4)
+## A full featured tree component for Angular (2, 4, 5)
 We've built so many projects that required a tree component, and could never find a library that supported all features.
 And building your own tree component is not an easy task.
 
@@ -23,7 +23,7 @@ So, we decided to build one for Angular, with all the features you can think of:
 * Easily styled (comes with very minimal styling)
 
 ## Angular supported version
-angular-tree-component supports angular 2.X.X releases, 4.X.X releases, and AoT compilation.
+angular-tree-component supports angular 2.X.X, 4.X.X and 5.X.X releases, and AoT compilation.
 
 ## Getting started
 Please refer to the full documentation:  
