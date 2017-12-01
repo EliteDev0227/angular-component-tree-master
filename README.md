@@ -3,7 +3,7 @@
 
 # angular tree component
 
-## A full featured tree component for Angular (2 and above, including 5)
+## A full featured tree component for Angular (2 and above, including 4 and 5)
 We've built so many projects that required a tree component, and could never find a library that supported all features.
 And building your own tree component is not an easy task.
 
