@@ -79,7 +79,7 @@ export class TreeOptions {
   get levelPadding(): number { return this.options.levelPadding || 0; }
   get useVirtualScroll(): boolean { return this.options.useVirtualScroll; }
   get animateExpand(): boolean { return this.options.animateExpand; }
-  get animateSpeed(): number { return this.options.animateSpeed || 30; }
+  get animateSpeed(): number { return this.options.animateSpeed || 1; }
   get animateAcceleration(): number { return this.options.animateAcceleration || 1.2; }
   get scrollOnSelect(): boolean { return this.options.scrollOnSelect === undefined ? true : this.options.scrollOnSelect; }
   get rtl(): boolean { return !!this.options.rtl; }

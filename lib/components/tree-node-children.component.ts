@@ -11,7 +11,7 @@ import { TreeNode } from '../models/tree-node.model';
           [class.tree-children-no-padding]="node.options.levelPadding"
           *treeAnimateOpen="
             node.isExpanded;
-            speed:node.options.animateExpand;
+            speed:node.options.animateSpeed;
             acceleration:node.options.animateAcceleration;
             enabled:node.options.animateExpand">
         <tree-node-collection

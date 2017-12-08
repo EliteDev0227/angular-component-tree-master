@@ -226,9 +226,7 @@ export class FullTreeComponent {
       return true;
     },
     useVirtualScroll: true,
-    animateExpand: true,
-    animateSpeed: 30,
-    animateAcceleration: 1.2
+    animateExpand: true
   }
   onEvent(event) {
     console.log(event);

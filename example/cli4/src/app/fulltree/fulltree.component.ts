@@ -232,7 +232,7 @@ export class FullTreeComponent {
     },
     useVirtualScroll: true,
     animateExpand: true,
-    animateSpeed: 30,
+    animateSpeed: 3,
     animateAcceleration: 1.2
   }
   onEvent(event) {

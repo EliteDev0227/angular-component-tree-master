@@ -1,5 +1,9 @@
+<a name="6.1.1"></a>
+# 6.1.1 (2017-09-12)
+* Fixed animateSpeed
+
 <a name="6.1.0"></a>
-# 6.1.0 (2017-20-12)
+# 6.1.0 (2017-08-12)
 * Allow dropslot = 0
 * Fixed change detection
 * Added hasChildrenField
