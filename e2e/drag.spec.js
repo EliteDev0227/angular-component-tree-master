@@ -1,7 +1,7 @@
 const { browser, element, by, $ } = require('protractor');
 const { TreeDriver, dragAndDrop } = require('./helpers/tree.driver');
 
-fdescribe('Basic Configuration', () => {
+describe('Basic Configuration', () => {
   beforeEach(() => {
     browser.get('http://localhost:4200/#/drag');
 
