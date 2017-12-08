@@ -46,7 +46,7 @@ export class TreeNode implements ITreeNode {
 
   // helper get functions:
   get hasChildren(): boolean {
-    return !!(this.data.hasChildren || (this.children && this.children.length > 0));
+    return !!(this.data[this.options.hasChildrenField] || (this.children && this.children.length > 0));
   }
   get isCollapsed(): boolean { return !this.isExpanded; }
   get isLeaf(): boolean { return !this.hasChildren; }
