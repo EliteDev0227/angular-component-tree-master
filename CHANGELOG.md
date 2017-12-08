@@ -1,5 +1,5 @@
-<a name="6.0.1"></a>
-# 6.0.1 (2017-20-12)
+<a name="6.1.0"></a>
+# 6.1.0 (2017-20-12)
 * Allow dropslot = 0
 * Fixed change detection
 * Added hasChildrenField
