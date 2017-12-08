@@ -138,6 +138,6 @@ export class TreeOptions {
   }
 
   get dropSlotHeight(): number {
-    return this.options.dropSlotHeight || 2;
+    return _.isNumber(this.options.dropSlotHeight) ? this.options.dropSlotHeight : 2;
   }
 }

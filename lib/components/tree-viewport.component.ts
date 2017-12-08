@@ -9,7 +9,7 @@ import { TREE_EVENTS } from '../constants/events';
   styles: [],
   providers: [TreeVirtualScroll],
   template: `
-    <ng-container *mobxAutorun>
+    <ng-container *mobxAutorun="{dontDetach: true}">
       <div [style.height]="getTotalHeight()">
         <ng-content></ng-content>
       </div>

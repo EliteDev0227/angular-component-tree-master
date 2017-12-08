@@ -11,7 +11,7 @@ import { TreeModel } from '../models/tree.model';
   selector: 'tree-node-collection',
   encapsulation: ViewEncapsulation.None,
   template: `
-    <ng-container *mobxAutorun>
+    <ng-container *mobxAutorun="{dontDetach: true}">
       <div
         [style.margin-top]="marginTop">
         <tree-node
