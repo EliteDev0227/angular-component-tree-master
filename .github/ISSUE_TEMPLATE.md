@@ -5,7 +5,7 @@ To allow for a faster response, please read carefully:
 Please look for an answer in the docs before submitting an issue:
 angular2-tree.readme.io.
 
-In case you are reporting a bug, please reproduce it in a GIT repo or fork this online template:
+In case you are reporting a bug, or requesting help, please reproduce it in a GIT repo or fork this online template:
 https://plnkr.co/edit/u5fMmaM14rJ0aqG3k240?p=preview
 
 If you are unable to reproduce, please:
