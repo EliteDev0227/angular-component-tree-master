@@ -70,6 +70,7 @@ export interface IActionMapping {
 }
 
 export class TreeOptions {
+  get hasChildrenField(): string { return this.options.hasChildrenField || 'hasChildren'; }
   get childrenField(): string { return this.options.childrenField || 'children'; }
   get displayField(): string { return this.options.displayField || 'name'; }
   get idField(): string { return this.options.idField || 'id'; }
