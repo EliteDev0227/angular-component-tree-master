@@ -47,7 +47,6 @@ const actionMapping:IActionMapping = {
       [focused]="true"
       (event)="onEvent($event)"
       (initialized)="onInitialized(tree)"
-      
     >
       <ng-template #treeNodeTemplate let-node>
         <span title="{{node.data.subTitle}}">{{ node.data.name }}</span>

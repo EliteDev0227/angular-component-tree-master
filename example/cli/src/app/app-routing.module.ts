@@ -12,6 +12,9 @@ import { AsyncTreeComponent } from './async/async.component';
 import { SaveRestoreComponent } from './save-restore/save-restore.component';
 import { CheckboxesComponent } from './checkboxes/checkboxes.component';
 import { DragComponent } from './drag/drag.component';
+import { VirtualscrollComponent } from './virtualscroll/virtualscroll.component';
+import { ApiComponent } from './api/api.component';
+import { ActionsComponent } from './actions/actions.component';
 
 const routes: Routes = [
   {
@@ -57,6 +60,18 @@ const routes: Routes = [
   {
     path: 'drag',
     component: DragComponent
+  },
+  {
+    path: 'virtual',
+    component: VirtualscrollComponent
+  },
+  {
+    path: 'api',
+    component: ApiComponent
+  },
+  {
+    path: 'actions',
+    component: ActionsComponent
   }
 ];
 

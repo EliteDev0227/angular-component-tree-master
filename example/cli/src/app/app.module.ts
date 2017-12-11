@@ -17,6 +17,9 @@ import { AsyncTreeComponent } from './async/async.component';
 import { SaveRestoreComponent } from './save-restore/save-restore.component';
 import { CheckboxesComponent } from './checkboxes/checkboxes.component';
 import { DragComponent } from './drag/drag.component';
+import { VirtualscrollComponent } from './virtualscroll/virtualscroll.component';
+import { ApiComponent } from './api/api.component';
+import { ActionsComponent } from './actions/actions.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,10 @@ import { DragComponent } from './drag/drag.component';
     AsyncTreeComponent,
     SaveRestoreComponent,
     CheckboxesComponent,
-    DragComponent
+    DragComponent,
+    VirtualscrollComponent,
+    ApiComponent,
+    ActionsComponent
   ],
   imports: [
     BrowserModule,

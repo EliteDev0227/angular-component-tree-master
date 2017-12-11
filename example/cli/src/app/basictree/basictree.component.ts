@@ -4,6 +4,9 @@ import { Component } from '@angular/core';
   selector: 'app-basictree',
   template: `
     <tree-root [focused]="true" [nodes]="nodes"></tree-root>
+    <br>
+    <p>Keys:</p>
+    down | up | left | right | space | enter
   `,
   styles: []
 })
