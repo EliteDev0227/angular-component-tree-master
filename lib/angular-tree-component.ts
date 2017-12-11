@@ -19,6 +19,7 @@ import { TreeNodeChildrenComponent } from './components/tree-node-children.compo
 import { TreeNodeCollectionComponent } from './components/tree-node-collection.component';
 import { TreeNodeWrapperComponent } from './components/tree-node-wrapper.component';
 import { TreeViewportComponent } from './components/tree-viewport.component';
+import { TreeNodeCheckboxComponent } from './components/tree-node-checkbox.component';
 import { TreeDropDirective } from './directives/tree-drop.directive';
 import { TreeDragDirective } from './directives/tree-drag.directive';
 import { TreeAnimateOpenDirective } from './directives/tree-animate-open.directive';
@@ -39,6 +40,7 @@ import './polyfills';
     TreeNodeCollectionComponent,
     TreeViewportComponent,
     TreeNodeWrapperComponent,
+    TreeNodeCheckboxComponent,
     TreeAnimateOpenDirective
   ],
   exports: [
@@ -54,6 +56,7 @@ import './polyfills';
     TreeNodeCollectionComponent,
     TreeViewportComponent,
     TreeNodeWrapperComponent,
+    TreeNodeCheckboxComponent,
     TreeAnimateOpenDirective
   ],
   imports: [
@@ -89,5 +92,6 @@ export {
   TreeNodeDropSlot,
   TreeNodeCollectionComponent,
   TreeViewportComponent,
+  TreeNodeCheckboxComponent,
   ITreeState
 };

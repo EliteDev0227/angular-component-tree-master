@@ -51,6 +51,14 @@ class NodeDriver extends BaseDriver {
     return hasClass(this.getTreeNodeElement(), 'tree-node-expanded');
   }
 
+  isChecked() {
+    return this.getCheckbox().isSelected();
+  }
+
+  getIndeterminate() {
+    return this.getCheckbox().getAttribute('indeterminate');
+  }
+
   getTreeNodeElement() {
     return this.element.$('.tree-node');
   }
@@ -63,6 +71,10 @@ class NodeDriver extends BaseDriver {
     return this.element.$('.toggle-children-wrapper');
   }
 
+  getCheckbox() {
+    return this.element.$('.tree-node-checkbox');
+  }
+  
   getChildren() {
     return this.element.$('.tree-children');
   }
@@ -73,6 +85,10 @@ class NodeDriver extends BaseDriver {
 
   clickExpander() {
     return this.getExpander().click();
+  }
+
+  clickCheckbox() {
+    return this.getCheckbox().click();
   }
 
   click() {

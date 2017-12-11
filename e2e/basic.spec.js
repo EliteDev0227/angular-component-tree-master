@@ -127,4 +127,9 @@ describe('Basic Configuration', () => {
     this.tree.keyEnter();
     expect(this.root2.isActive()).toBe(false);
   });
+
+  it('should not show checkboxes', () => {
+    expect(this.root1.getCheckbox().isPresent()).toBe(false);
+  });
+
 });

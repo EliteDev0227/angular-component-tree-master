@@ -213,7 +213,7 @@ export interface ITreeOptions {
     */
    animateAcceleration?: number;
    /**
-    * Whether to scroll to the node to make it visible when it is selected.
+    * Whether to scroll to the node to make it visible when it is selected / activated.
 
     * **Default Value: true**
     */
@@ -247,6 +247,10 @@ export interface ITreeOptions {
      * Specifies id of root node (virtualRoot)
      */
     rootId?: any;
+    /**
+     * Whether to display a checkbox next to the node or not
+     */
+    useCheckbox?: boolean;
  }
 
 export interface ITreeNode {

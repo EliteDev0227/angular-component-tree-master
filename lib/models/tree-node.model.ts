@@ -5,13 +5,30 @@ import { ITreeNode } from '../defs/api';
 import { TREE_EVENTS } from '../constants/events';
 
 import * as _ from 'lodash';
-const { first, last } = _;
+const { first, last, some, every } = _;
 
 export class TreeNode implements ITreeNode {
   @computed get isHidden() { return this.treeModel.isHidden(this); };
   @computed get isExpanded() { return this.treeModel.isExpanded(this); };
   @computed get isActive() { return this.treeModel.isActive(this); };
   @computed get isFocused() { return this.treeModel.isNodeFocused(this); };
+  @computed get isSelected() {
+    if (this.isLeaf) {
+      return this.treeModel.isSelected(this);
+    } else {
+      return some(this.children, (node) => node.isSelected);
+    }
+  };
+  @computed get isAllSelected() {
+    if (this.isLeaf) {
+      return this.isSelected;
+    } else {
+      return every(this.children, (node) => node.isAllSelected);
+    }
+  };
+  @computed get isPartiallySelected() {
+    return this.isSelected && !this.isAllSelected;
+  }
 
   @observable children: TreeNode[];
   @observable index: number;
@@ -269,6 +286,22 @@ export class TreeNode implements ITreeNode {
     if (value) {
       this.focus(this.options.scrollOnSelect);
     }
+
+    return this;
+  }
+
+  setIsSelected(value) {
+    if (this.isLeaf) {
+      this.treeModel.setSelectedNode(this, value);
+    } else {
+      this.children.forEach((child) => child.setIsSelected(value));
+    }
+
+    return this;
+  }
+
+  toggleSelected() {
+    this.setIsSelected(!this.isSelected);
 
     return this;
   }

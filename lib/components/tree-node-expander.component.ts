@@ -2,7 +2,7 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { TreeNode } from '../models/tree-node.model';
 
 @Component({
-  selector: 'TreeNodeExpander, tree-node-expander',
+  selector: 'tree-node-expander',
   encapsulation: ViewEncapsulation.None,
   styles: [],
   template: `

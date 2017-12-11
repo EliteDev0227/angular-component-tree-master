@@ -1,6 +1,8 @@
-<a name="6.1.1"></a>
-# 6.1.1 (2017-09-12)
-* Fixed animateSpeed
+<a name="7.0.0"></a>
+# 7.0.0 (2017-11-12)
+* Added checkbox support with useCheckbox
+* Added selection support in models (used by checkbox)
+* Breaking Change - renamed TOGGLE_SELECTED_* actions to TOGGLE_ACTIVE_*, and added TOGGLE_SELECTED for checkboxes
 
 <a name="6.1.0"></a>
 # 6.1.0 (2017-08-12)
