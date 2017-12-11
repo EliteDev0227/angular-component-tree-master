@@ -259,7 +259,7 @@ export class TreeModel implements ITreeModel {
   }
 
   @action setSelectedNode(node, value) {
-    this.selectedLeafNodeIds = Object.assign({}, this.selectedLeafNodeIds, {[node.id]: value});    
+    this.selectedLeafNodeIds = Object.assign({}, this.selectedLeafNodeIds, {[node.id]: value});
 
     if (value) {
       node.focus();
