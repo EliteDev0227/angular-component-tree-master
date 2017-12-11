@@ -69,6 +69,13 @@ Some things on our mind down the road:
 
 ## Contributing
 run `npm run example:cli` and open [localhost:4200](http://localhost:4200) to test your code before submitting a pull request.  
+
 Windows users - if it doesn't work try `npm run example:cli:win`.  
+
+To run tests locally - make sure port 4200 is available and run:
+```
+$ npm run test:setup  # Wait until webpack finishes and http://localhost:4200 is available
+$ npm run test
+```
 
 Please check the issues / project before starting to work on a feature / bug to make sure it's not already in progress.
