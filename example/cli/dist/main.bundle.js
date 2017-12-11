@@ -589,17 +589,13 @@ var BasicTreeComponent = (function () {
 var styles_CheckboxesComponent = [];
 var RenderType_CheckboxesComponent = __WEBPACK_IMPORTED_MODULE_0__angular_core__["_17" /* ɵcrt */]({ encapsulation: 2, styles: styles_CheckboxesComponent, data: {} });
 
-function View_CheckboxesComponent_1(_l) { return __WEBPACK_IMPORTED_MODULE_0__angular_core__["_39" /* ɵvid */](0, [(_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["\n        "])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_19" /* ɵeld */](1, 0, null, null, 0, "input", [["type", "checkbox"]], [[8, "indeterminate", 0], [8, "checked", 0]], [[null, "change"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("change" === en)) {
-        var pd_0 = (_co.check(_v.context.node, !_v.context.node.data.checked) !== false);
-        ad = (pd_0 && ad);
-    } return ad; }, null, null)), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](2, null, ["\n\n          ", "\n      "]))], null, function (_ck, _v) { var currVal_0 = _v.context.node.data.indeterminate; var currVal_1 = _v.context.node.data.checked; _ck(_v, 1, 0, currVal_0, currVal_1); var currVal_2 = _v.context.node.data.name; _ck(_v, 2, 0, currVal_2); }); }
-function View_CheckboxesComponent_0(_l) { return __WEBPACK_IMPORTED_MODULE_0__angular_core__["_39" /* ɵvid */](0, [(_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["\n    "])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_19" /* ɵeld */](1, 0, null, null, 1, "h3", [], null, null, null, null, null)), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["tri-state checkboxes"])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["\n    "])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_19" /* ɵeld */](4, 0, null, null, 9, "tree-root", [], null, [["body", "keydown"], ["body", "mousedown"]], function (_v, en, $event) { var ad = true; if (("body:keydown" === en)) {
+function View_CheckboxesComponent_0(_l) { return __WEBPACK_IMPORTED_MODULE_0__angular_core__["_39" /* ɵvid */](0, [(_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["\n    "])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_19" /* ɵeld */](1, 0, null, null, 1, "h3", [], null, null, null, null, null)), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["tri-state checkboxes"])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["\n    "])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_19" /* ɵeld */](4, 0, null, null, 7, "tree-root", [], null, [["body", "keydown"], ["body", "mousedown"]], function (_v, en, $event) { var ad = true; if (("body:keydown" === en)) {
         var pd_0 = (__WEBPACK_IMPORTED_MODULE_0__angular_core__["_33" /* ɵnov */](_v, 6).onKeydown($event) !== false);
         ad = (pd_0 && ad);
     } if (("body:mousedown" === en)) {
         var pd_1 = (__WEBPACK_IMPORTED_MODULE_0__angular_core__["_33" /* ɵnov */](_v, 6).onMousedown($event) !== false);
         ad = (pd_1 && ad);
-    } return ad; }, __WEBPACK_IMPORTED_MODULE_1__node_modules_angular_tree_component_dist_components_tree_component_ngfactory__["b" /* View_TreeComponent_0 */], __WEBPACK_IMPORTED_MODULE_1__node_modules_angular_tree_component_dist_components_tree_component_ngfactory__["a" /* RenderType_TreeComponent */])), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_35" /* ɵprd */](512, null, __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__["a" /* TreeModel */], __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__["a" /* TreeModel */], []), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_18" /* ɵdid */](6, 573440, [["tree", 4]], 4, __WEBPACK_IMPORTED_MODULE_3_angular_tree_component_dist_components_tree_component__["a" /* TreeComponent */], [__WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__["a" /* TreeModel */], __WEBPACK_IMPORTED_MODULE_4_angular_tree_component_dist_models_tree_dragged_element_model__["a" /* TreeDraggedElement */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Renderer */]], { nodes: [0, "nodes"], options: [1, "options"] }, null), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 1, { loadingTemplate: 0 }), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 2, { treeNodeTemplate: 0 }), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 3, { treeNodeWrapperTemplate: 0 }), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 4, { treeNodeFullTemplate: 0 }), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["\n\n      "])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* ɵand */](0, [[2, 2], ["treeNodeTemplate", 2]], null, 0, null, View_CheckboxesComponent_1)), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["\n    "])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["\n  "]))], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.nodes; var currVal_1 = _co.options; _ck(_v, 6, 0, currVal_0, currVal_1); }, null); }
+    } return ad; }, __WEBPACK_IMPORTED_MODULE_1__node_modules_angular_tree_component_dist_components_tree_component_ngfactory__["b" /* View_TreeComponent_0 */], __WEBPACK_IMPORTED_MODULE_1__node_modules_angular_tree_component_dist_components_tree_component_ngfactory__["a" /* RenderType_TreeComponent */])), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_35" /* ɵprd */](512, null, __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__["a" /* TreeModel */], __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__["a" /* TreeModel */], []), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_18" /* ɵdid */](6, 573440, null, 4, __WEBPACK_IMPORTED_MODULE_3_angular_tree_component_dist_components_tree_component__["a" /* TreeComponent */], [__WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__["a" /* TreeModel */], __WEBPACK_IMPORTED_MODULE_4_angular_tree_component_dist_models_tree_dragged_element_model__["a" /* TreeDraggedElement */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Renderer */]], { nodes: [0, "nodes"], options: [1, "options"] }, null), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 1, { loadingTemplate: 0 }), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 2, { treeNodeTemplate: 0 }), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 3, { treeNodeWrapperTemplate: 0 }), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 4, { treeNodeFullTemplate: 0 }), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["\n    "])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["\n  "]))], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.nodes; var currVal_1 = _co.options; _ck(_v, 6, 0, currVal_0, currVal_1); }, null); }
 function View_CheckboxesComponent_Host_0(_l) { return __WEBPACK_IMPORTED_MODULE_0__angular_core__["_39" /* ɵvid */](0, [(_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_19" /* ɵeld */](0, 0, null, null, 1, "app-checkboxes", [], null, null, null, View_CheckboxesComponent_0, RenderType_CheckboxesComponent)), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_18" /* ɵdid */](1, 49152, null, 0, __WEBPACK_IMPORTED_MODULE_5__checkboxes_component__["a" /* CheckboxesComponent */], [], null, null)], null, null); }
 var CheckboxesComponentNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_core__["_15" /* ɵccf */]("app-checkboxes", __WEBPACK_IMPORTED_MODULE_5__checkboxes_component__["a" /* CheckboxesComponent */], View_CheckboxesComponent_Host_0, {}, {}, []);
 
@@ -622,77 +618,29 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 var CheckboxesComponent = (function () {
     function CheckboxesComponent() {
-        var _this = this;
         this.nodes = [
             {
-                name: 'root1',
-                checked: true,
+                name: 'root1'
             },
             {
                 name: 'root2',
-                checked: false,
                 children: [
-                    { name: 'child1', checked: false },
-                    { name: 'child2', checked: false, children: [
-                            { name: 'grandchild1', checked: false },
-                            { name: 'grandchild2', checked: false }
+                    { name: 'child1' },
+                    { name: 'child2', children: [
+                            { name: 'grandchild1' },
+                            { name: 'grandchild2' }
                         ] }
                 ]
             }
         ];
-        this.actionMapping = {
-            mouse: {
-                click: function (tree, node) { return _this.check(node, !node.data.checked); }
-            }
-        };
         this.options = {
-            actionMapping: this.actionMapping
+            useCheckbox: true
         };
     }
-    CheckboxesComponent.prototype.check = function (node, checked) {
-        this.updateChildNodeCheckbox(node, checked);
-        this.updateParentNodeCheckbox(node.realParent);
-    };
-    CheckboxesComponent.prototype.updateChildNodeCheckbox = function (node, checked) {
-        var _this = this;
-        node.data.checked = checked;
-        if (node.children) {
-            node.children.forEach(function (child) { return _this.updateChildNodeCheckbox(child, checked); });
-        }
-    };
-    CheckboxesComponent.prototype.updateParentNodeCheckbox = function (node) {
-        if (!node) {
-            return;
-        }
-        var allChildrenChecked = true;
-        var noChildChecked = true;
-        for (var _i = 0, _a = node.children; _i < _a.length; _i++) {
-            var child = _a[_i];
-            if (!child.data.checked || child.data.indeterminate) {
-                allChildrenChecked = false;
-            }
-            if (child.data.checked) {
-                noChildChecked = false;
-            }
-        }
-        if (allChildrenChecked) {
-            node.data.checked = true;
-            node.data.indeterminate = false;
-        }
-        else if (noChildChecked) {
-            node.data.checked = false;
-            node.data.indeterminate = false;
-        }
-        else {
-            node.data.checked = true;
-            node.data.indeterminate = true;
-        }
-        this.updateParentNodeCheckbox(node.parent);
-    };
     CheckboxesComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["k" /* Component */])({
             selector: 'app-checkboxes',
-            template: "\n    <h3>tri-state checkboxes</h3>\n    <tree-root\n      #tree\n      [nodes]=\"nodes\"\n      [options]=\"options\">\n\n      <ng-template #treeNodeTemplate let-node=\"node\" let-index=\"index\" >\n        <input\n          (change)=\"check(node, !node.data.checked)\"\n          type=\"checkbox\"\n          [indeterminate]=\"node.data.indeterminate\"\n          [checked]=\"node.data.checked\">\n\n          {{ node.data.name }}\n      </ng-template>\n    </tree-root>\n  ",
+            template: "\n    <h3>tri-state checkboxes</h3>\n    <tree-root\n      [nodes]=\"nodes\"\n      [options]=\"options\">\n    </tree-root>\n  ",
             styles: []
         })
     ], CheckboxesComponent);
@@ -1273,8 +1221,8 @@ var ɵ0 = function (tree, node, $event) {
         __WEBPACK_IMPORTED_MODULE_1_angular_tree_component__["b" /* TREE_ACTIONS */].TOGGLE_EXPANDED(tree, node, $event);
 }, ɵ2 = function (tree, node, $event) {
     $event.shiftKey
-        ? __WEBPACK_IMPORTED_MODULE_1_angular_tree_component__["b" /* TREE_ACTIONS */].TOGGLE_SELECTED_MULTI(tree, node, $event)
-        : __WEBPACK_IMPORTED_MODULE_1_angular_tree_component__["b" /* TREE_ACTIONS */].TOGGLE_SELECTED(tree, node, $event);
+        ? __WEBPACK_IMPORTED_MODULE_1_angular_tree_component__["b" /* TREE_ACTIONS */].TOGGLE_ACTIVE_MULTI(tree, node, $event)
+        : __WEBPACK_IMPORTED_MODULE_1_angular_tree_component__["b" /* TREE_ACTIONS */].TOGGLE_ACTIVE(tree, node, $event);
 };
 var actionMapping = {
     mouse: {
@@ -1310,9 +1258,7 @@ var FullTreeComponent = (function () {
                 return true;
             },
             useVirtualScroll: true,
-            animateExpand: true,
-            animateSpeed: 30,
-            animateAcceleration: 1.2
+            animateExpand: true
         };
     }
     FullTreeComponent.prototype.ngOnInit = function () {
