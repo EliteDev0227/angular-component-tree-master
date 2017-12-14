@@ -9,8 +9,16 @@ import { Component } from '@angular/core';
       [nodes]="nodes"
       [options]="options">
     </tree-root>
+    <h3>The tree is using flexbox.<br>
+    Switch expander and checkbox with CSS 'order' attribute:</h3>
+    <tree-root
+      class="reverse"
+      [nodes]="nodes"
+      [options]="options">
+    </tree-root>
   `,
-  styles: []
+  styles: [
+  ]
 })
 export class CheckboxesComponent {
   nodes = [
