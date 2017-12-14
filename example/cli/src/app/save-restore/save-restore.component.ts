@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ITreeState } from 'angular-tree-component';
 
 const getChildren = () => new Promise((resolve) => {
   setTimeout(() => resolve([
@@ -18,7 +19,7 @@ const getChildren = () => new Promise((resolve) => {
   styles: []
 })
 export class SaveRestoreComponent {
-  state = localStorage.treeState && JSON.parse(localStorage.treeState);
+  state: ITreeState = localStorage.treeState && JSON.parse(localStorage.treeState);
   options = {
     getChildren
   };
@@ -39,7 +40,7 @@ export class SaveRestoreComponent {
     }
   ];
 
-  setState(state) {
+  setState(state: ITreeState) {
     localStorage.treeState = JSON.stringify(state);
   }
 }

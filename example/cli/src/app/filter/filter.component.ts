@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TreeModel } from 'angular-tree-component';
+import { TreeModel, TreeNode } from 'angular-tree-component';
 
 @Component({
   selector: 'app-filter',
@@ -48,13 +48,13 @@ export class FilterComponent {
     }
   ];
 
-  filterFn(value, treeModel: TreeModel) {
-    treeModel.filterNodes((node) => fuzzysearch(value, node.data.name));
+  filterFn(value: string, treeModel: TreeModel) {
+    treeModel.filterNodes((node: TreeNode) => fuzzysearch(value, node.data.name));
   }
 }
 
 
-function fuzzysearch (needle, haystack) {
+function fuzzysearch (needle: string, haystack: string) {
   const haystackLC = haystack.toLowerCase();
   const needleLC = needle.toLowerCase();
 

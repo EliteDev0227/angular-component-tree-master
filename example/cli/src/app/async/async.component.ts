@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ITreeOptions } from 'angular-tree-component';
+import { ITreeOptions, TreeNode} from 'angular-tree-component';
 
 
 let id = 10;
@@ -16,7 +16,7 @@ export class AsyncTreeComponent {
     getChildren: this.getChildren.bind(this)
   };
 
-  nodes = [];
+  nodes: any[] = [];
 
   asyncChildren = [
     {

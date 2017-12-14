@@ -4,16 +4,21 @@
 export type IDType = string | number;
 export type IDTypeDictionary = { [id: string]: boolean } | { [id: number]: boolean };
 
+/**
+ * See ITreeNode for documentation
+ */
+export declare type TreeNode = any;
+
 export interface IAllowDropFn {
-  (element: any, to: {parent: ITreeNode, index: number}, $event?: any): boolean;
+  (element: any, to: {parent: TreeNode, index: number}, $event?: any): boolean;
 }
 
 export interface INodeHeightFn {
-  (node: ITreeNode): number;
+  (node: TreeNode): number;
 }
 
 export interface IAllowDragFn {
-  (node: ITreeNode): boolean;
+  (node: TreeNode): boolean;
 }
 
 
@@ -98,7 +103,7 @@ export interface ITreeOptions {
       * }
       ```
     */
-   getChildren?: (node: ITreeNode) => any;
+   getChildren?: (node: TreeNode) => any;
    /**
     * Rewire which trigger causes which action using this attribute, or create custom actions / event bindings.
     * See the [Action Mapping Section](https://angular2-tree.readme.io/docs/action-mapping) for more details.
@@ -121,7 +126,7 @@ export interface ITreeOptions {
    /**
     * Specify whether dropping inside the tree is allowed. Optional types:
     *  - boolean
-    *  - (element:any, to:{parent:ITreeNode, index:number}):boolean
+    *  - (element:any, to:{parent:TreeNode, index:number}):boolean
          A function that receives the dragged element, and the drop location (parent node and index inside the parent),
          and returns true or false.
 
@@ -158,7 +163,7 @@ export interface ITreeOptions {
       * }
       ```
     */
-   nodeClass?: (node: ITreeNode) => string;
+   nodeClass?: (node: TreeNode) => string;
    /**
     Boolean flag to use the virtual scroll option.
 
@@ -237,7 +242,7 @@ export interface ITreeOptions {
     *
     * **Default Value: clone the node using Object.assign, and remove 'id' property**
     */
-    getNodeClone?: (node: ITreeNode) => any;
+    getNodeClone?: (node: TreeNode) => any;
     /**
      * Makes the tree right-to-left.
      * This include direction, expander style, and change key binding (right key collapse and left key expands instead of vice-versa)
@@ -582,5 +587,5 @@ export interface ITreeNodeDrag {
    * @param node  The parent node of the current dragged node
    * @param index  The index inside parent's children, of the current dragged node
    */
-  getDragNode(): { node: ITreeNode, index: number };
+  getDragNode(): { node: TreeNode, index: number };
 }

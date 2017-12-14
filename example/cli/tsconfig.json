@@ -7,6 +7,9 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "strict": true,
+    "noStrictGenericChecks": true,
+    "strictNullChecks": true,
     "target": "es5",
     "typeRoots": [
       "node_modules/@types"
@@ -15,5 +18,11 @@
       "es2017",
       "dom"
     ]
-  }
+  },
+  "angularCompilerOptions": {
+    "preserveWhitespaces": false
+  },
+  "include": [
+    "src/**/*"
+  ]
 }

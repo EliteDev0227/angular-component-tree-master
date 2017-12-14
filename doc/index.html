@@ -121,8 +121,12 @@ npm install
 					<li>Add more examples</li>
 				</ul>
 				<h2 id="contributing">Contributing</h2>
-				<p>run <code>npm run example:cli</code> and open <a href="http://localhost:4200">localhost:4200</a> to test your code before submitting a pull request.<br>Windows users - if it doesn&#39;t work try <code>npm run example:cli:win</code>.  </p>
-				<p>Please check the issues / project before starting to work on a feature / bug to make sure it&#39;s not already in progress.</p>
+				<p>run <code>npm run example:cli</code> and open <a href="http://localhost:4200">localhost:4200</a> to test your code before submitting a pull request.  </p>
+				<p>Windows users - if it doesn&#39;t work try <code>npm run example:cli:win</code>.  </p>
+				<p>To run tests locally - make sure port 4200 is available and run:</p>
+				<pre><code>$ npm <span class="hljs-keyword">run</span> <span class="hljs-keyword">test</span>:setup  # Wait until webpack finishes and http:<span class="hljs-comment">//localhost:4200 is available</span>
+$ npm <span class="hljs-keyword">run</span> <span class="hljs-keyword">test</span>
+</code></pre><p>Please check the issues / project before starting to work on a feature / bug to make sure it&#39;s not already in progress.</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">

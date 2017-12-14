@@ -90,20 +90,20 @@ export class ApiComponent {
     }
   ];
 
-  addNode(tree) {
+  addNode(tree: any) {
     this.nodes[0].children.push({
       name: 'a new child'
     });
     tree.treeModel.update();
   }
 
-  activateSubSub(tree) {
+  activateSubSub(tree: any) {
     // tree.treeModel.getNodeBy((node) => node.data.name === 'subsub')
     tree.treeModel.getNodeById(1001)
       .setActiveAndVisible();
   }
 
-  activeNodes(treeModel) {
+  activeNodes(treeModel: any) {
     console.log(treeModel.activeNodes);
   }
 }

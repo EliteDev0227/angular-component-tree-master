@@ -5,13 +5,13 @@ import { ITreeOptions } from 'angular-tree-component';
   selector: 'app-fields',
   template: `
     <h3>Overriding displayField & nodeClass</h3>
-    <tree-root id="tree1" [focused]="true" [nodes]="nodes1" [options]="options1"></tree-root>
+    <tree-root id="tree1" [focused]="true" [nodes]="nodes" [options]="options"></tree-root>
   `,
   styles: [
   ]
 })
 export class FieldsComponent {
-  nodes1 = [
+  nodes = [
     {
       _id: '1',
       title: 'root1',
@@ -25,7 +25,7 @@ export class FieldsComponent {
     }
   ];
 
-  options1: ITreeOptions = {
+  options: ITreeOptions = {
     displayField: 'title',
     idField: '_id',
     childrenField: 'nodes',

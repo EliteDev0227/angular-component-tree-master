@@ -1,14 +1,16 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { TreeNode, TreeModel, TREE_ACTIONS, KEYS, IActionMapping, ITreeOptions } from 'angular-tree-component';
 
-const actionMapping:IActionMapping = {
+const actionMapping: IActionMapping = {
   mouse: {
     contextMenu: (tree, node, $event) => {
       $event.preventDefault();
       alert(`context menu for ${node.data.name}`);
     },
     dblClick: (tree, node, $event) => {
-      if (node.hasChildren) TREE_ACTIONS.TOGGLE_EXPANDED(tree, node, $event);
+      if (node.hasChildren) {
+        TREE_ACTIONS.TOGGLE_EXPANDED(tree, node, $event);
+      }
     },
     click: (tree, node, $event) => {
       $event.shiftKey
@@ -105,9 +107,32 @@ const actionMapping:IActionMapping = {
   </button>
   `
 })
-export class FullTreeComponent {
+export class FullTreeComponent implements OnInit {
   nodes: any[];
   nodes2 = [{name: 'root'}, {name: 'root2'}];
+  asyncChildren = new Array(4).fill(null).map((item, n) => ({
+    name: 'async child2.' + n,
+    subTitle: 'async child ' + n,
+    hasChildren: n < 5
+  }));
+  customTemplateStringOptions: ITreeOptions = {
+    // displayField: 'subTitle',
+    isExpandedField: 'expanded',
+    idField: 'uuid',
+    getChildren: this.getChildren.bind(this),
+    actionMapping,
+    nodeHeight: 23,
+    allowDrag: (node) => {
+      // console.log('allowDrag?');
+      return true;
+    },
+    allowDrop: (node) => {
+      // console.log('allowDrop?');
+      return true;
+    },
+    useVirtualScroll: true,
+    animateExpand: true
+  };
   constructor() {
   }
   ngOnInit() {
@@ -119,19 +144,11 @@ export class FullTreeComponent {
           subTitle: 'the root',
           children: [
             {
-              name: 'blubla',
-              subTitle: 'a good child',
-              hasChildren: false
-            }, {
               name: 'child2',
               subTitle: 'a bad child',
               hasChildren: false
             },
             {
-              name: 'bla',
-              subTitle: 'a good child',
-              hasChildren: false
-            }, {
               name: 'child2',
               subTitle: 'a bad child',
               hasChildren: false
@@ -180,13 +197,7 @@ export class FullTreeComponent {
     }, 1);
   }
 
-  asyncChildren = new Array(4).fill(null).map((item, n) => ({
-    name: 'async child2.' + n,
-    subTitle: 'async child ' + n,
-    hasChildren: n < 5
-  }));
-
-  getChildren(node:any) {
+  getChildren(node: TreeNode) {
     return new Promise((resolve, reject) => {
       setTimeout(() => resolve(this.asyncChildren.map((c) => {
         return Object.assign({}, c, {
@@ -196,7 +207,7 @@ export class FullTreeComponent {
     });
   }
 
-  addNode(tree) {
+  addNode(tree: any) {
     this.nodes[0].children.push({
 
       name: 'a new child'
@@ -208,48 +219,30 @@ export class FullTreeComponent {
     return node && node.children ? `(${node.children.length})` : '';
   }
 
-  filterNodes(text, tree) {
+  filterNodes(text: string, tree: any) {
     tree.treeModel.filterNodes(text);
   }
 
-  activateSubSub(tree) {
+  activateSubSub(tree: any) {
     // tree.treeModel.getNodeBy((node) => node.data.name === 'subsub')
     tree.treeModel.getNodeById(1001)
       .setActiveAndVisible();
   }
 
-  customTemplateStringOptions: ITreeOptions = {
-    // displayField: 'subTitle',
-    isExpandedField: 'expanded',
-    idField: 'uuid',
-    getChildren: this.getChildren.bind(this),
-    actionMapping,
-    nodeHeight: 23,
-    allowDrag: (node) => {
-      // console.log('allowDrag?');
-      return true;
-    },
-    allowDrop: (node) => {
-      // console.log('allowDrop?');
-      return true;
-    },
-    useVirtualScroll: true,
-    animateExpand: true
-  }
-  onEvent(event) {
+  onEvent(event: any) {
     console.log(event);
   }
 
-  onInitialized(tree) {
+  onInitialized(tree: any) {
     // tree.treeModel.getNodeById('11').setActiveAndVisible();
   }
 
-  go($event) {
+  go($event: any) {
     $event.stopPropagation();
     alert('this method is on the app component');
   }
 
-  activeNodes(treeModel) {
+  activeNodes(treeModel: TreeModel) {
     console.log(treeModel.activeNodes);
   }
 }

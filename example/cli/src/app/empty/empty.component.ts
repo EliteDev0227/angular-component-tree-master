@@ -10,8 +10,8 @@ import { Component } from '@angular/core';
   styles: []
 })
 export class EmptyComponent {
-  nodes = [];
-  nodes2 = null;
+  nodes: any[] = [];
+  nodes2: any[] | null = null;
 
   loadNodes() {
     this.nodes = [{ name: 'node' }];
