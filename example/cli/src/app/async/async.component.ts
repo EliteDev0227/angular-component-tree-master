@@ -8,7 +8,6 @@ let id = 10;
   selector: 'app-async',
   template: `
     <tree-root #tree [options]="options" [nodes]="nodes"></tree-root>
-    <button (click)="addNodes()">add nodes</button>
  `,
   styles: []
 })
@@ -44,14 +43,6 @@ export class AsyncTreeComponent {
         name: 'root3'
       }
     ];
-  }
-
-  addNodes() {
-    this.nodes[1].children.push({
-      id: ++id,
-      name: `node ${id}`
-    });
-    this.nodes = [...this.nodes];
   }
 
   getChildren(node: any) {

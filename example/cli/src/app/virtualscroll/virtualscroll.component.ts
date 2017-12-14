@@ -6,7 +6,6 @@ import { TreeNode, TreeModel, ITreeOptions } from 'angular-tree-component';
   styles: [
   ],
   template: `
-  <p>Loaded</p>
   <div style="height: 800px; width: 500px; overflow: hidden;">
 
     <tree-root

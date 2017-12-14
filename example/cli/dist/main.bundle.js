@@ -707,10 +707,7 @@ function View_AsyncTreeComponent_0(_l) { return __WEBPACK_IMPORTED_MODULE_0__ang
     } if (("body:mousedown" === en)) {
         var pd_1 = (__WEBPACK_IMPORTED_MODULE_0__angular_core__["_33" /* ɵnov */](_v, 3).onMousedown($event) !== false);
         ad = (pd_1 && ad);
-    } return ad; }, __WEBPACK_IMPORTED_MODULE_1__node_modules_angular_tree_component_dist_components_tree_component_ngfactory__["b" /* View_TreeComponent_0 */], __WEBPACK_IMPORTED_MODULE_1__node_modules_angular_tree_component_dist_components_tree_component_ngfactory__["a" /* RenderType_TreeComponent */])), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_35" /* ɵprd */](512, null, __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__["a" /* TreeModel */], __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__["a" /* TreeModel */], []), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_18" /* ɵdid */](3, 573440, [["tree", 4]], 4, __WEBPACK_IMPORTED_MODULE_3_angular_tree_component_dist_components_tree_component__["a" /* TreeComponent */], [__WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__["a" /* TreeModel */], __WEBPACK_IMPORTED_MODULE_4_angular_tree_component_dist_models_tree_dragged_element_model__["a" /* TreeDraggedElement */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Renderer */]], { nodes: [0, "nodes"], options: [1, "options"] }, null), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 1, { loadingTemplate: 0 }), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 2, { treeNodeTemplate: 0 }), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 3, { treeNodeWrapperTemplate: 0 }), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 4, { treeNodeFullTemplate: 0 }), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["\n    "])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_19" /* ɵeld */](9, 0, null, null, 1, "button", [], null, [[null, "click"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("click" === en)) {
-        var pd_0 = (_co.addNodes() !== false);
-        ad = (pd_0 && ad);
-    } return ad; }, null, null)), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["add nodes"])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["\n "]))], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.nodes; var currVal_1 = _co.options; _ck(_v, 3, 0, currVal_0, currVal_1); }, null); }
+    } return ad; }, __WEBPACK_IMPORTED_MODULE_1__node_modules_angular_tree_component_dist_components_tree_component_ngfactory__["b" /* View_TreeComponent_0 */], __WEBPACK_IMPORTED_MODULE_1__node_modules_angular_tree_component_dist_components_tree_component_ngfactory__["a" /* RenderType_TreeComponent */])), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_35" /* ɵprd */](512, null, __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__["a" /* TreeModel */], __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__["a" /* TreeModel */], []), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_18" /* ɵdid */](3, 573440, [["tree", 4]], 4, __WEBPACK_IMPORTED_MODULE_3_angular_tree_component_dist_components_tree_component__["a" /* TreeComponent */], [__WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__["a" /* TreeModel */], __WEBPACK_IMPORTED_MODULE_4_angular_tree_component_dist_models_tree_dragged_element_model__["a" /* TreeDraggedElement */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Renderer */]], { nodes: [0, "nodes"], options: [1, "options"] }, null), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 1, { loadingTemplate: 0 }), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 2, { treeNodeTemplate: 0 }), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 3, { treeNodeWrapperTemplate: 0 }), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 4, { treeNodeFullTemplate: 0 }), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["\n "]))], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.nodes; var currVal_1 = _co.options; _ck(_v, 3, 0, currVal_0, currVal_1); }, null); }
 function View_AsyncTreeComponent_Host_0(_l) { return __WEBPACK_IMPORTED_MODULE_0__angular_core__["_39" /* ɵvid */](0, [(_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_19" /* ɵeld */](0, 0, null, null, 1, "app-async", [], null, null, null, View_AsyncTreeComponent_0, RenderType_AsyncTreeComponent)), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_18" /* ɵdid */](1, 49152, null, 0, __WEBPACK_IMPORTED_MODULE_5__async_component__["a" /* AsyncTreeComponent */], [], null, null)], null, null); }
 var AsyncTreeComponentNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_core__["_15" /* ɵccf */]("app-async", __WEBPACK_IMPORTED_MODULE_5__async_component__["a" /* AsyncTreeComponent */], View_AsyncTreeComponent_Host_0, {}, {}, []);
 
@@ -765,13 +762,6 @@ var AsyncTreeComponent = (function () {
             }
         ];
     }
-    AsyncTreeComponent.prototype.addNodes = function () {
-        this.nodes[1].children.push({
-            id: ++id,
-            name: "node " + id
-        });
-        this.nodes = this.nodes.slice();
-    };
     AsyncTreeComponent.prototype.getChildren = function (node) {
         var newNodes = this.asyncChildren.map(function (c) { return Object.assign({}, c); });
         return new Promise(function (resolve, reject) {
@@ -781,7 +771,7 @@ var AsyncTreeComponent = (function () {
     AsyncTreeComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["k" /* Component */])({
             selector: 'app-async',
-            template: "\n    <tree-root #tree [options]=\"options\" [nodes]=\"nodes\"></tree-root>\n    <button (click)=\"addNodes()\">add nodes</button>\n ",
+            template: "\n    <tree-root #tree [options]=\"options\" [nodes]=\"nodes\"></tree-root>\n ",
             styles: []
         }),
         __metadata("design:paramtypes", [])
@@ -1217,8 +1207,8 @@ var EmptyComponent = (function () {
 
 
 
-var styles_FieldsComponent = [".root1Class[_ngcontent-%COMP%] { color: blue }", ".root2Class[_ngcontent-%COMP%] { color: red }"];
-var RenderType_FieldsComponent = __WEBPACK_IMPORTED_MODULE_0__angular_core__["_17" /* ɵcrt */]({ encapsulation: 0, styles: styles_FieldsComponent, data: {} });
+var styles_FieldsComponent = [];
+var RenderType_FieldsComponent = __WEBPACK_IMPORTED_MODULE_0__angular_core__["_17" /* ɵcrt */]({ encapsulation: 2, styles: styles_FieldsComponent, data: {} });
 
 function View_FieldsComponent_0(_l) { return __WEBPACK_IMPORTED_MODULE_0__angular_core__["_39" /* ɵvid */](0, [(_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["\n    "])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_19" /* ɵeld */](1, 0, null, null, 1, "h3", [], null, null, null, null, null)), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["Overriding displayField & nodeClass"])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["\n    "])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_19" /* ɵeld */](4, 0, null, null, 6, "tree-root", [["id", "tree1"]], null, [["body", "keydown"], ["body", "mousedown"]], function (_v, en, $event) { var ad = true; if (("body:keydown" === en)) {
         var pd_0 = (__WEBPACK_IMPORTED_MODULE_0__angular_core__["_33" /* ɵnov */](_v, 6).onKeydown($event) !== false);
@@ -1251,16 +1241,21 @@ var FieldsComponent = (function () {
     function FieldsComponent() {
         this.nodes1 = [
             {
+                _id: '1',
                 title: 'root1',
-                className: 'root1Class'
+                className: 'root1Class',
+                nodes: [{ _id: '3', title: 'child1', className: 'root1Class' }]
             },
             {
+                _id: '2',
                 title: 'root2',
                 className: 'root2Class'
             }
         ];
         this.options1 = {
             displayField: 'title',
+            idField: '_id',
+            childrenField: 'nodes',
             nodeClass: function (node) { return node.data.className; }
         };
     }
@@ -1268,10 +1263,7 @@ var FieldsComponent = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["k" /* Component */])({
             selector: 'app-fields',
             template: "\n    <h3>Overriding displayField & nodeClass</h3>\n    <tree-root id=\"tree1\" [focused]=\"true\" [nodes]=\"nodes1\" [options]=\"options1\"></tree-root>\n  ",
-            styles: [
-                '.root1Class { color: blue }',
-                '.root2Class { color: red }'
-            ]
+            styles: []
         })
     ], FieldsComponent);
     return FieldsComponent;
@@ -1604,7 +1596,16 @@ var FullTreeComponent = (function () {
                     subTitle: 'the root',
                     children: [
                         {
-                            name: 'child1',
+                            name: 'blubla',
+                            subTitle: 'a good child',
+                            hasChildren: false
+                        }, {
+                            name: 'child2',
+                            subTitle: 'a bad child',
+                            hasChildren: false
+                        },
+                        {
+                            name: 'bla',
                             subTitle: 'a good child',
                             hasChildren: false
                         }, {
@@ -2089,13 +2090,13 @@ var TemplatesComponent = (function () {
 var styles_VirtualscrollComponent = [];
 var RenderType_VirtualscrollComponent = __WEBPACK_IMPORTED_MODULE_0__angular_core__["_17" /* ɵcrt */]({ encapsulation: 2, styles: styles_VirtualscrollComponent, data: {} });
 
-function View_VirtualscrollComponent_0(_l) { return __WEBPACK_IMPORTED_MODULE_0__angular_core__["_39" /* ɵvid */](0, [(_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["\n  "])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_19" /* ɵeld */](1, 0, null, null, 1, "p", [], null, null, null, null, null)), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["Loaded"])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["\n  "])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_19" /* ɵeld */](4, 0, null, null, 10, "div", [["style", "height: 800px; width: 500px; overflow: hidden;"]], null, null, null, null, null)), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["\n\n    "])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_19" /* ɵeld */](6, 0, null, null, 7, "tree-root", [], null, [["body", "keydown"], ["body", "mousedown"]], function (_v, en, $event) { var ad = true; if (("body:keydown" === en)) {
-        var pd_0 = (__WEBPACK_IMPORTED_MODULE_0__angular_core__["_33" /* ɵnov */](_v, 8).onKeydown($event) !== false);
+function View_VirtualscrollComponent_0(_l) { return __WEBPACK_IMPORTED_MODULE_0__angular_core__["_39" /* ɵvid */](0, [(_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["\n  "])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_19" /* ɵeld */](1, 0, null, null, 10, "div", [["style", "height: 800px; width: 500px; overflow: hidden;"]], null, null, null, null, null)), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["\n\n    "])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_19" /* ɵeld */](3, 0, null, null, 7, "tree-root", [], null, [["body", "keydown"], ["body", "mousedown"]], function (_v, en, $event) { var ad = true; if (("body:keydown" === en)) {
+        var pd_0 = (__WEBPACK_IMPORTED_MODULE_0__angular_core__["_33" /* ɵnov */](_v, 5).onKeydown($event) !== false);
         ad = (pd_0 && ad);
     } if (("body:mousedown" === en)) {
-        var pd_1 = (__WEBPACK_IMPORTED_MODULE_0__angular_core__["_33" /* ɵnov */](_v, 8).onMousedown($event) !== false);
+        var pd_1 = (__WEBPACK_IMPORTED_MODULE_0__angular_core__["_33" /* ɵnov */](_v, 5).onMousedown($event) !== false);
         ad = (pd_1 && ad);
-    } return ad; }, __WEBPACK_IMPORTED_MODULE_1__node_modules_angular_tree_component_dist_components_tree_component_ngfactory__["b" /* View_TreeComponent_0 */], __WEBPACK_IMPORTED_MODULE_1__node_modules_angular_tree_component_dist_components_tree_component_ngfactory__["a" /* RenderType_TreeComponent */])), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_35" /* ɵprd */](512, null, __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__["a" /* TreeModel */], __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__["a" /* TreeModel */], []), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_18" /* ɵdid */](8, 573440, [["tree", 4]], 4, __WEBPACK_IMPORTED_MODULE_3_angular_tree_component_dist_components_tree_component__["a" /* TreeComponent */], [__WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__["a" /* TreeModel */], __WEBPACK_IMPORTED_MODULE_4_angular_tree_component_dist_models_tree_dragged_element_model__["a" /* TreeDraggedElement */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Renderer */]], { nodes: [0, "nodes"], options: [1, "options"], focused: [2, "focused"] }, null), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 1, { loadingTemplate: 0 }), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 2, { treeNodeTemplate: 0 }), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 3, { treeNodeWrapperTemplate: 0 }), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 4, { treeNodeFullTemplate: 0 }), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["\n    "])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["\n  "])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["\n  "]))], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.nodes; var currVal_1 = _co.options; var currVal_2 = true; _ck(_v, 8, 0, currVal_0, currVal_1, currVal_2); }, null); }
+    } return ad; }, __WEBPACK_IMPORTED_MODULE_1__node_modules_angular_tree_component_dist_components_tree_component_ngfactory__["b" /* View_TreeComponent_0 */], __WEBPACK_IMPORTED_MODULE_1__node_modules_angular_tree_component_dist_components_tree_component_ngfactory__["a" /* RenderType_TreeComponent */])), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_35" /* ɵprd */](512, null, __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__["a" /* TreeModel */], __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__["a" /* TreeModel */], []), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_18" /* ɵdid */](5, 573440, [["tree", 4]], 4, __WEBPACK_IMPORTED_MODULE_3_angular_tree_component_dist_components_tree_component__["a" /* TreeComponent */], [__WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__["a" /* TreeModel */], __WEBPACK_IMPORTED_MODULE_4_angular_tree_component_dist_models_tree_dragged_element_model__["a" /* TreeDraggedElement */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Renderer */]], { nodes: [0, "nodes"], options: [1, "options"], focused: [2, "focused"] }, null), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 1, { loadingTemplate: 0 }), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 2, { treeNodeTemplate: 0 }), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 3, { treeNodeWrapperTemplate: 0 }), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 4, { treeNodeFullTemplate: 0 }), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["\n    "])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["\n  "])), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["\n  "]))], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.nodes; var currVal_1 = _co.options; var currVal_2 = true; _ck(_v, 5, 0, currVal_0, currVal_1, currVal_2); }, null); }
 function View_VirtualscrollComponent_Host_0(_l) { return __WEBPACK_IMPORTED_MODULE_0__angular_core__["_39" /* ɵvid */](0, [(_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_19" /* ɵeld */](0, 0, null, null, 1, "app-virtualscroll", [], null, null, null, View_VirtualscrollComponent_0, RenderType_VirtualscrollComponent)), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_18" /* ɵdid */](1, 49152, null, 0, __WEBPACK_IMPORTED_MODULE_5__virtualscroll_component__["a" /* VirtualscrollComponent */], [], null, null)], null, null); }
 var VirtualscrollComponentNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_core__["_15" /* ɵccf */]("app-virtualscroll", __WEBPACK_IMPORTED_MODULE_5__virtualscroll_component__["a" /* VirtualscrollComponent */], View_VirtualscrollComponent_Host_0, {}, {}, []);
 
@@ -2138,7 +2139,7 @@ var VirtualscrollComponent = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["k" /* Component */])({
             selector: 'app-virtualscroll',
             styles: [],
-            template: "\n  <p>Loaded</p>\n  <div style=\"height: 800px; width: 500px; overflow: hidden;\">\n\n    <tree-root\n      #tree\n      [nodes]=\"nodes\"\n      [options]=\"options\"\n      [focused]=\"true\"\n    >\n    </tree-root>\n  </div>\n  "
+            template: "\n  <div style=\"height: 800px; width: 500px; overflow: hidden;\">\n\n    <tree-root\n      #tree\n      [nodes]=\"nodes\"\n      [options]=\"options\"\n      [focused]=\"true\"\n    >\n    </tree-root>\n  </div>\n  "
         }),
         __metadata("design:paramtypes", [])
     ], VirtualscrollComponent);

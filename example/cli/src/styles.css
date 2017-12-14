@@ -9,3 +9,5 @@
 .reverse .node-content-wrapper {
   order: 2;
 }
+.root1Class { color: blue }
+.root2Class { color: red }

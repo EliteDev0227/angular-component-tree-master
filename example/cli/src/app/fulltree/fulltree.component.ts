@@ -119,7 +119,16 @@ export class FullTreeComponent {
           subTitle: 'the root',
           children: [
             {
-              name: 'child1',
+              name: 'blubla',
+              subTitle: 'a good child',
+              hasChildren: false
+            }, {
+              name: 'child2',
+              subTitle: 'a bad child',
+              hasChildren: false
+            },
+            {
+              name: 'bla',
               subTitle: 'a good child',
               hasChildren: false
             }, {

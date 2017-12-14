@@ -98,8 +98,9 @@ export class TreeNode implements ITreeNode {
   // traversing:
   _findAdjacentSibling(steps, skipHidden = false) {
     const siblings = this._getParentsChildren(skipHidden);
+    const index = siblings.indexOf(this);
 
-    return siblings.length > this.index + steps ? siblings[this.index + steps] : null;
+    return siblings.length > index + steps ? siblings[index + steps] : null;
   }
 
   findNextSibling(skipHidden = false) {

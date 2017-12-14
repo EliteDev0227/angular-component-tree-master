@@ -8,17 +8,18 @@ import { ITreeOptions } from 'angular-tree-component';
     <tree-root id="tree1" [focused]="true" [nodes]="nodes1" [options]="options1"></tree-root>
   `,
   styles: [
-    '.root1Class { color: blue }',
-    '.root2Class { color: red }'
   ]
 })
 export class FieldsComponent {
   nodes1 = [
     {
+      _id: '1',
       title: 'root1',
-      className: 'root1Class'
+      className: 'root1Class',
+      nodes: [{_id: '3', title: 'child1', className: 'root1Class'}]
     },
     {
+      _id: '2',
       title: 'root2',
       className: 'root2Class'
     }
@@ -26,6 +27,8 @@ export class FieldsComponent {
 
   options1: ITreeOptions = {
     displayField: 'title',
+    idField: '_id',
+    childrenField: 'nodes',
     nodeClass: (node) => node.data.className
   };
 }
