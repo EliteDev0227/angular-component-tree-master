@@ -36,11 +36,11 @@ describe('Basic Configuration', () => {
   describe(`loading component`, () => {
     beforeEach(() => {
       this.tree = new TreeDriver('#tree1');
-      this.root2 = this.tree.getNodeByIndex(1);
+      this.root2 = () => this.tree.getNodeByIndex(1);
     });
 
     it('should show the loading template', () => {
-      this.root2.clickExpander();
+      this.root2().clickExpander();
       const loadingComponent = this.tree.element.element(by.cssContainingText('.root2ClassLoading', 'Loading root2...'));
 
       expect(loadingComponent.isPresent()).toBe(true);
