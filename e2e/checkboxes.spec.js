@@ -4,6 +4,7 @@ const { TreeDriver } = require('./helpers/tree.driver');
 describe('Checkboxes', () => {
   beforeEach(() => {
     browser.get('http://localhost:4200/#/checkboxes');
+    browser.sleep(2);
     
     this.tree = new TreeDriver('tree-root');
     this.root1 = () => this.tree.getNode('root1');

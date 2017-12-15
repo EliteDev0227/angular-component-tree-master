@@ -4,6 +4,7 @@ const { TreeDriver, dragAndDrop } = require('./helpers/tree.driver');
 describe('Basic Configuration', () => {
   beforeEach(() => {
     browser.get('http://localhost:4200/#/drag');
+    browser.sleep(2);
     
     this.tree = new TreeDriver('tree-root');
     this.root1 = () => this.tree.getNode('root1');

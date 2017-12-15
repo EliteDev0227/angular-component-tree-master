@@ -4,6 +4,7 @@ const { TreeDriver } = require('./helpers/tree.driver');
 describe('Basic Configuration', () => {
   beforeEach(() => {
     browser.get('http://localhost:4200/#/templates');
+    browser.sleep(2);
   });
 
   ['#tree1', '#tree2', '#tree3'].forEach((treeId) => {

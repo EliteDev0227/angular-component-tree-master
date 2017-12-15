@@ -4,7 +4,8 @@ const { TreeDriver } = require('./helpers/tree.driver');
 describe('Async Children', () => {
   beforeEach(() => {
     browser.get('http://localhost:4200/#/filter');
-
+    browser.sleep(2);
+    
     this.tree = new TreeDriver('tree-root');
   });
 

@@ -4,6 +4,7 @@ const { TreeDriver } = require('./helpers/tree.driver');
 describe('Empty Tree', () => {
   beforeEach(() => {
     browser.get('http://localhost:4200/#/empty');
+    browser.sleep(2);
   });
 
   const testEmptyTree = (treeId) => {

@@ -4,6 +4,7 @@ const { TreeDriver } = require('./helpers/tree.driver');
 describe('Custom Fields', () => {
   beforeEach(() => {
     browser.get('http://localhost:4200/#/fields');
+    browser.sleep(2);
   });
 
   describe('#tree1', () => {

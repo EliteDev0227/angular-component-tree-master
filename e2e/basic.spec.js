@@ -4,7 +4,8 @@ const { TreeDriver } = require('./helpers/tree.driver');
 describe('Basic Configuration', () => {
   beforeEach(() => {
     browser.get('http://localhost:4200/#/basic');
-
+    browser.sleep(2);
+    
     this.tree = new TreeDriver('tree-root');
     this.root1 = () => this.tree.getNode('root1');
     this.root2 = () => this.tree.getNode('root2');
