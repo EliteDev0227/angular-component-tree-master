@@ -1,5 +1,9 @@
+<a name="7.0.1"></a>
+# 7.0.1 (2017-15-12)
+* Fixed typescript 2.6.1 strict checking
+
 <a name="7.0.0"></a>
-# 7.0.0 (2017-15-12)
+# 7.0.0 (2017-14-12)
 * Added checkbox support with useCheckbox
 * Added selection support in models (used by checkbox)
 * Breaking Change - renamed TOGGLE_SELECTED_* actions to TOGGLE_ACTIVE_*, and added TOGGLE_SELECTED for checkboxes
