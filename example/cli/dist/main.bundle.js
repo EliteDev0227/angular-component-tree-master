@@ -100,7 +100,7 @@ var actionMapping = {
         _a[__WEBPACK_IMPORTED_MODULE_1_angular_tree_component__["a" /* KEYS */].ENTER] = function (tree, node, $event) { return alert("This is " + node.data.name); },
         _a)
 };
-var ActionsComponent = (function () {
+var ActionsComponent = /** @class */ (function () {
     function ActionsComponent() {
         this.nodes = [
             {
@@ -245,7 +245,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var ApiComponent = (function () {
+var ApiComponent = /** @class */ (function () {
     function ApiComponent() {
         this.options = {};
         this.nodes = [
@@ -406,7 +406,7 @@ var routes = [
         component: __WEBPACK_IMPORTED_MODULE_15__actions_actions_component__["a" /* ActionsComponent */]
     }
 ];
-var AppRoutingModule = (function () {
+var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
     }
     AppRoutingModule = __decorate([
@@ -466,7 +466,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var AppComponent = (function () {
+var AppComponent = /** @class */ (function () {
     function AppComponent() {
     }
     AppComponent = __decorate([
@@ -632,7 +632,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var AppModule = (function () {
+var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
@@ -732,7 +732,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 var id = 10;
-var AsyncTreeComponent = (function () {
+var AsyncTreeComponent = /** @class */ (function () {
     function AsyncTreeComponent() {
         this.options = {
             getChildren: this.getChildren.bind(this)
@@ -839,7 +839,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var BasicTreeComponent = (function () {
+var BasicTreeComponent = /** @class */ (function () {
     function BasicTreeComponent() {
         this.nodes = [
             {
@@ -939,7 +939,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var CheckboxesComponent = (function () {
+var CheckboxesComponent = /** @class */ (function () {
     function CheckboxesComponent() {
         this.nodes = [
             {
@@ -1041,7 +1041,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 
 
-var DragComponent = (function () {
+var DragComponent = /** @class */ (function () {
     function DragComponent() {
         this.state = {
             expandedNodeIds: {
@@ -1053,7 +1053,7 @@ var DragComponent = (function () {
         };
         this.options = {
             allowDrag: function (node) { return node.isLeaf; },
-            getNodeClone: function (node) { return (__assign({}, node.data, { id: __WEBPACK_IMPORTED_MODULE_1_uuid___default.a.v4(), name: "copy of " + node.data.name })); }
+            getNodeClone: function (node) { return (__assign({}, node.data, { id: Object(__WEBPACK_IMPORTED_MODULE_1_uuid__["v4"])(), name: "copy of " + node.data.name })); }
         };
         this.nodes = [
             {
@@ -1158,7 +1158,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var EmptyComponent = (function () {
+var EmptyComponent = /** @class */ (function () {
     function EmptyComponent() {
         this.nodes = [];
         this.nodes2 = null;
@@ -1216,7 +1216,7 @@ function View_FieldsComponent_0(_l) { return __WEBPACK_IMPORTED_MODULE_0__angula
     } if (("body:mousedown" === en)) {
         var pd_1 = (__WEBPACK_IMPORTED_MODULE_0__angular_core__["_33" /* ɵnov */](_v, 6).onMousedown($event) !== false);
         ad = (pd_1 && ad);
-    } return ad; }, __WEBPACK_IMPORTED_MODULE_1__node_modules_angular_tree_component_dist_components_tree_component_ngfactory__["b" /* View_TreeComponent_0 */], __WEBPACK_IMPORTED_MODULE_1__node_modules_angular_tree_component_dist_components_tree_component_ngfactory__["a" /* RenderType_TreeComponent */])), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_35" /* ɵprd */](512, null, __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__["a" /* TreeModel */], __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__["a" /* TreeModel */], []), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_18" /* ɵdid */](6, 573440, null, 4, __WEBPACK_IMPORTED_MODULE_3_angular_tree_component_dist_components_tree_component__["a" /* TreeComponent */], [__WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__["a" /* TreeModel */], __WEBPACK_IMPORTED_MODULE_4_angular_tree_component_dist_models_tree_dragged_element_model__["a" /* TreeDraggedElement */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Renderer */]], { nodes: [0, "nodes"], options: [1, "options"], focused: [2, "focused"] }, null), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 1, { loadingTemplate: 0 }), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 2, { treeNodeTemplate: 0 }), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 3, { treeNodeWrapperTemplate: 0 }), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 4, { treeNodeFullTemplate: 0 }), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["\n  "]))], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.nodes1; var currVal_1 = _co.options1; var currVal_2 = true; _ck(_v, 6, 0, currVal_0, currVal_1, currVal_2); }, null); }
+    } return ad; }, __WEBPACK_IMPORTED_MODULE_1__node_modules_angular_tree_component_dist_components_tree_component_ngfactory__["b" /* View_TreeComponent_0 */], __WEBPACK_IMPORTED_MODULE_1__node_modules_angular_tree_component_dist_components_tree_component_ngfactory__["a" /* RenderType_TreeComponent */])), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_35" /* ɵprd */](512, null, __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__["a" /* TreeModel */], __WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__["a" /* TreeModel */], []), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_18" /* ɵdid */](6, 573440, null, 4, __WEBPACK_IMPORTED_MODULE_3_angular_tree_component_dist_components_tree_component__["a" /* TreeComponent */], [__WEBPACK_IMPORTED_MODULE_2_angular_tree_component_dist_models_tree_model__["a" /* TreeModel */], __WEBPACK_IMPORTED_MODULE_4_angular_tree_component_dist_models_tree_dragged_element_model__["a" /* TreeDraggedElement */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Renderer */]], { nodes: [0, "nodes"], options: [1, "options"], focused: [2, "focused"] }, null), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 1, { loadingTemplate: 0 }), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 2, { treeNodeTemplate: 0 }), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 3, { treeNodeWrapperTemplate: 0 }), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_36" /* ɵqud */](335544320, 4, { treeNodeFullTemplate: 0 }), (_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_38" /* ɵted */](-1, null, ["\n  "]))], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.nodes; var currVal_1 = _co.options; var currVal_2 = true; _ck(_v, 6, 0, currVal_0, currVal_1, currVal_2); }, null); }
 function View_FieldsComponent_Host_0(_l) { return __WEBPACK_IMPORTED_MODULE_0__angular_core__["_39" /* ɵvid */](0, [(_l()(), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_19" /* ɵeld */](0, 0, null, null, 1, "app-fields", [], null, null, null, View_FieldsComponent_0, RenderType_FieldsComponent)), __WEBPACK_IMPORTED_MODULE_0__angular_core__["_18" /* ɵdid */](1, 49152, null, 0, __WEBPACK_IMPORTED_MODULE_5__fields_component__["a" /* FieldsComponent */], [], null, null)], null, null); }
 var FieldsComponentNgFactory = __WEBPACK_IMPORTED_MODULE_0__angular_core__["_15" /* ɵccf */]("app-fields", __WEBPACK_IMPORTED_MODULE_5__fields_component__["a" /* FieldsComponent */], View_FieldsComponent_Host_0, {}, {}, []);
 
@@ -1237,9 +1237,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var FieldsComponent = (function () {
+var FieldsComponent = /** @class */ (function () {
     function FieldsComponent() {
-        this.nodes1 = [
+        this.nodes = [
             {
                 _id: '1',
                 title: 'root1',
@@ -1252,7 +1252,7 @@ var FieldsComponent = (function () {
                 className: 'root2Class'
             }
         ];
-        this.options1 = {
+        this.options = {
             displayField: 'title',
             idField: '_id',
             childrenField: 'nodes',
@@ -1262,7 +1262,7 @@ var FieldsComponent = (function () {
     FieldsComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["k" /* Component */])({
             selector: 'app-fields',
-            template: "\n    <h3>Overriding displayField & nodeClass</h3>\n    <tree-root id=\"tree1\" [focused]=\"true\" [nodes]=\"nodes1\" [options]=\"options1\"></tree-root>\n  ",
+            template: "\n    <h3>Overriding displayField & nodeClass</h3>\n    <tree-root id=\"tree1\" [focused]=\"true\" [nodes]=\"nodes\" [options]=\"options\"></tree-root>\n  ",
             styles: []
         })
     ], FieldsComponent);
@@ -1341,7 +1341,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var FilterComponent = (function () {
+var FilterComponent = /** @class */ (function () {
     function FilterComponent() {
         this.nodes = [
             {
@@ -1542,8 +1542,9 @@ var ɵ0 = function (tree, node, $event) {
     $event.preventDefault();
     alert("context menu for " + node.data.name);
 }, ɵ1 = function (tree, node, $event) {
-    if (node.hasChildren)
+    if (node.hasChildren) {
         __WEBPACK_IMPORTED_MODULE_1_angular_tree_component__["b" /* TREE_ACTIONS */].TOGGLE_EXPANDED(tree, node, $event);
+    }
 }, ɵ2 = function (tree, node, $event) {
     $event.shiftKey
         ? __WEBPACK_IMPORTED_MODULE_1_angular_tree_component__["b" /* TREE_ACTIONS */].TOGGLE_ACTIVE_MULTI(tree, node, $event)
@@ -1559,7 +1560,7 @@ var actionMapping = {
         _a[__WEBPACK_IMPORTED_MODULE_1_angular_tree_component__["a" /* KEYS */].ENTER] = function (tree, node, $event) { return alert("This is " + node.data.name); },
         _a)
 };
-var FullTreeComponent = (function () {
+var FullTreeComponent = /** @class */ (function () {
     function FullTreeComponent() {
         this.nodes2 = [{ name: 'root' }, { name: 'root2' }];
         this.asyncChildren = new Array(4).fill(null).map(function (item, n) { return ({
@@ -1596,19 +1597,11 @@ var FullTreeComponent = (function () {
                     subTitle: 'the root',
                     children: [
                         {
-                            name: 'blubla',
-                            subTitle: 'a good child',
-                            hasChildren: false
-                        }, {
                             name: 'child2',
                             subTitle: 'a bad child',
                             hasChildren: false
                         },
                         {
-                            name: 'bla',
-                            subTitle: 'a good child',
-                            hasChildren: false
-                        }, {
                             name: 'child2',
                             subTitle: 'a bad child',
                             hasChildren: false
@@ -1773,7 +1766,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var RtlTreeComponent = (function () {
+var RtlTreeComponent = /** @class */ (function () {
     function RtlTreeComponent() {
         this.options = {
             rtl: true
@@ -1884,7 +1877,7 @@ var getChildren = function () { return new Promise(function (resolve) {
     ]); }, 2000);
 }); };
 var ɵ0 = getChildren;
-var SaveRestoreComponent = (function () {
+var SaveRestoreComponent = /** @class */ (function () {
     function SaveRestoreComponent() {
         this.state = localStorage.treeState && JSON.parse(localStorage.treeState);
         this.options = {
@@ -2010,7 +2003,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var TemplatesComponent = (function () {
+var TemplatesComponent = /** @class */ (function () {
     function TemplatesComponent() {
         this.nodes1 = [
             {
@@ -2120,7 +2113,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
-var VirtualscrollComponent = (function () {
+var VirtualscrollComponent = /** @class */ (function () {
     function VirtualscrollComponent() {
         this.options = {
             nodeHeight: 23,
