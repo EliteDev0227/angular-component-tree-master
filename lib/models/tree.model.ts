@@ -287,7 +287,7 @@ export class TreeModel implements ITreeModel {
   }
 
   @action setHiddenNodeIds(nodeIds) {
-    this.hiddenNodeIds = nodeIds.reduce((id, hiddenNodeIds) => Object.assign(hiddenNodeIds, {
+    this.hiddenNodeIds = nodeIds.reduce((hiddenNodeIds, id) => Object.assign(hiddenNodeIds, {
       [id]: true
     }), {});
   }
