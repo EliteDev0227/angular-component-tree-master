@@ -42,7 +42,7 @@ export class TreeViewportComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   @HostListener('scroll', ['$event'])
-  onScroll() {
+  onScroll(event: Event) {
     this.setViewport();
   }
 
