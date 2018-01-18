@@ -3,6 +3,13 @@
 
 # angular tree component
 
+# support
+Please fill this form to get quick and professional support (bug report / feature request / help implementing / etc.):
+[https://goo.gl/forms/9KobHoFkjSMtGC2K3](https://goo.gl/forms/9KobHoFkjSMtGC2K3)
+
+* note: This project is completely free and open to use under the MIT license.
+If you wish to get help from fellow community developers, feel free to use Github issues.
+
 ## A full featured tree component for Angular (2, 4, 5)
 We've built so many projects that required a tree component, and could never find a library that supported all features.
 And building your own tree component is not an easy task.
