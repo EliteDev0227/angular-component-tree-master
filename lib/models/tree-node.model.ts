@@ -295,7 +295,7 @@ export class TreeNode implements ITreeNode {
     if (this.isLeaf) {
       this.treeModel.setSelectedNode(this, value);
     } else {
-      this.children.forEach((child) => child.setIsSelected(value));
+      this.children.forEach((child) => child.setIsSelected(value && !child.isHidden));
     }
 
     return this;
