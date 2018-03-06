@@ -1,3 +1,4 @@
+// Portions created by Telerik AD - Copyright © 2018 Telerik AD. All rights reserved.
 /**
  * Welcome to ng2tree
  */
@@ -256,6 +257,11 @@ export interface ITreeOptions {
      * Whether to display a checkbox next to the node or not
      */
     useCheckbox?: boolean;
+    // Fix for issue #551.
+    /**
+     * Whether to use TriState mechanism if the useCheckbox is set to true
+     */
+    useTriState?: boolean;
  }
 
 export interface ITreeNode {

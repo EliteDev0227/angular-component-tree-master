@@ -1,3 +1,4 @@
+// Portions created by Telerik AD - Copyright © 2018 Telerik AD. All rights reserved.
 import { observable, computed, reaction, autorun, action } from 'mobx';
 import { TreeModel } from './tree.model';
 import { TreeOptions } from './tree-options.model';
@@ -292,10 +293,15 @@ export class TreeNode implements ITreeNode {
   }
 
   setIsSelected(value) {
-    if (this.isLeaf) {
-      this.treeModel.setSelectedNode(this, value);
+    // Fix for issue #551.
+    if (this.treeModel.options.useTriState) {
+      if (this.isLeaf) {
+        this.treeModel.setSelectedNode(this, value);
+      } else {
+        this.children.forEach((child) => child.setIsSelected(value));
+      }
     } else {
-      this.children.forEach((child) => child.setIsSelected(value));
+      this.treeModel.setSelectedNode(this, value);
     }
 
     return this;
