@@ -14,17 +14,27 @@ export class TreeNode implements ITreeNode {
   @computed get isActive() { return this.treeModel.isActive(this); };
   @computed get isFocused() { return this.treeModel.isNodeFocused(this); };
   @computed get isSelected() {
-    if (this.isLeaf) {
-      return this.treeModel.isSelected(this);
+    // Fix for issue #551.
+    if (this.treeModel.options.useTriState) {
+      if (this.isLeaf) {
+        return this.treeModel.isSelected(this);
+      } else {
+        return some(this.children, (node) => node.isSelected);
+      }
     } else {
-      return some(this.children, (node) => node.isSelected);
+      return this.treeModel.isSelected(this);
     }
   };
   @computed get isAllSelected() {
-    if (this.isLeaf) {
-      return this.isSelected;
+    // Fix for issue #551.
+    if (this.treeModel.options.useTriState) {
+      if (this.isLeaf) {
+        return this.isSelected;
+      } else {
+        return every(this.children, (node) => node.isAllSelected);
+      }
     } else {
-      return every(this.children, (node) => node.isAllSelected);
+      return this.isSelected;
     }
   };
   @computed get isPartiallySelected() {
