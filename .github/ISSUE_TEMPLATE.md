@@ -1,5 +1,8 @@
-Hi,
+# Professional Support
+Please fill this form to get quick and professional support (bug report / feature request / help implementing / etc.):
+[https://goo.gl/forms/9KobHoFkjSMtGC2K3](https://goo.gl/forms/9KobHoFkjSMtGC2K3)
 
+# Community Support
 To allow for a faster response, please read carefully:
 
 Please look for an answer in the docs before submitting an issue:
