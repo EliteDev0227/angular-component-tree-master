@@ -1,3 +1,8 @@
+<a name="7.0.2"></a>
+# 7.0.2 (2017-13-03)
+* Load specific lodash modules
+* Fix mobx and mobx-angular versions
+
 <a name="7.0.1"></a>
 # 7.0.1 (2017-15-12)
 * Fixed typescript 2.6.1 strict checking

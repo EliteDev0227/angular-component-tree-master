@@ -1,6 +1,6 @@
 {
   "name": "angular-tree-component",
-  "version": "7.0.1",
+  "version": "7.0.2",
   "description": "A simple yet powerful tree component for Angular2",
   "author": "Adam Klein <adam@500tech.com>",
   "homepage": "https://github.com/500tech/angular-tree-component",
@@ -64,8 +64,8 @@
   },
   "dependencies": {
     "lodash": "4.17.4",
-    "mobx": ">=3",
-    "mobx-angular": ">=1"
+    "mobx": "3.6.2",
+    "mobx-angular": "2.1.1"
   },
   "devDependencies": {
     "@angular/common": "^4.0.0",
