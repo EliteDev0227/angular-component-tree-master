@@ -196,7 +196,7 @@ export class TreeModel implements ITreeModel {
     };
 
     // Dispose reactions of the replaced nodes
-    this.nodes.forEach(function (node) { node.handler(); });
+    this.disposeTreeNodes([this.virtualRoot]);
 
     this.virtualRoot = new TreeNode(virtualRootConfig, null, this, 0);
 
