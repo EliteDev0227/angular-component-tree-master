@@ -174,6 +174,19 @@ export class TreeModel implements ITreeModel {
     this.update();
   }
 
+  private disposeTreeNodes = (nodes) => {
+    if (!!nodes && nodes[0]) {
+      nodes.forEach(function (node) {
+        if (node.handler) {
+          if (node.children) {
+            this.disposeTreeNodes(node.children);
+          }
+          node.handler();
+        }
+      });
+    }
+  }
+
   @action update() {
     // Rebuild tree:
     let virtualRootConfig = {
