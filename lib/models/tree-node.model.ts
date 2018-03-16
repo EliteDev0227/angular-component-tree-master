@@ -10,7 +10,7 @@ import some from 'lodash/some';
 import every from 'lodash/every';
 
 export class TreeNode implements ITreeNode {
-  static handlers: IReactionDisposer[] = [];
+  handler: IReactionDisposer;
   @computed get isHidden() { return this.treeModel.isHidden(this); };
   @computed get isExpanded() { return this.treeModel.isExpanded(this); };
   @computed get isActive() { return this.treeModel.isActive(this); };
@@ -274,7 +274,7 @@ export class TreeNode implements ITreeNode {
   };
 
   autoLoadChildren() {
-    TreeNode.handlers.push(
+    this.handler =
       reaction(
         () => this.isExpanded,
         (isExpanded) => {
@@ -283,8 +283,7 @@ export class TreeNode implements ITreeNode {
           }
         },
         { fireImmediately: true }
-      )
-    );
+      );
   }
 
   setIsActive(value, multi = false) {

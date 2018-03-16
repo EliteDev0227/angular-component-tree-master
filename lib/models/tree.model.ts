@@ -183,10 +183,7 @@ export class TreeModel implements ITreeModel {
     };
 
     // Dispose reactions of the replaced nodes
-    if (TreeNode.handlers) {
-      TreeNode.handlers.forEach(function (handler) { handler(); });
-      TreeNode.handlers = [];
-    }
+    this.nodes.forEach(function (node) { node.handler(); });
 
     this.virtualRoot = new TreeNode(virtualRootConfig, null, this, 0);
 
