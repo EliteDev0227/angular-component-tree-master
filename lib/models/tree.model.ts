@@ -174,17 +174,6 @@ export class TreeModel implements ITreeModel {
     this.update();
   }
 
-  private disposeTreeNodes = (nodes) => {
-    if (!!nodes && nodes[0]) {
-      nodes.forEach(function (node) {
-          if (node.children) {
-            this.disposeTreeNodes(node.children);
-          }
-          node.dispose();
-      });
-    }
-  }
-
   @action update() {
     // Rebuild tree:
     let virtualRootConfig = {
@@ -194,7 +183,9 @@ export class TreeModel implements ITreeModel {
     };
 
     // Dispose reactions of the replaced nodes
-    this.disposeTreeNodes([this.virtualRoot]);
+    if (this.virtualRoot) {
+      this.virtualRoot.dispose();
+    }
 
     this.virtualRoot = new TreeNode(virtualRootConfig, null, this, 0);
 

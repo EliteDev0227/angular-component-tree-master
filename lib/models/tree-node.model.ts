@@ -287,6 +287,9 @@ export class TreeNode implements ITreeNode {
   }
 
   dispose() {
+    if (this.children) {
+      this.children.forEach((child) => child.dispose());
+    }
     if (this.handler) {
       this.handler();
     }
