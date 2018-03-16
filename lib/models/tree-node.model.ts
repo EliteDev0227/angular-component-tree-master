@@ -1,4 +1,4 @@
-import { observable, computed, reaction, autorun, action } from 'mobx';
+import { observable, computed, reaction, autorun, action, IReactionDisposer } from 'mobx';
 import { TreeModel } from './tree.model';
 import { TreeOptions } from './tree-options.model';
 import { ITreeNode } from '../defs/api';
@@ -10,6 +10,7 @@ import some from 'lodash/some';
 import every from 'lodash/every';
 
 export class TreeNode implements ITreeNode {
+  static handlers: IReactionDisposer[] = [];
   @computed get isHidden() { return this.treeModel.isHidden(this); };
   @computed get isExpanded() { return this.treeModel.isExpanded(this); };
   @computed get isActive() { return this.treeModel.isActive(this); };
@@ -273,14 +274,16 @@ export class TreeNode implements ITreeNode {
   };
 
   autoLoadChildren() {
-    reaction(
-      () => this.isExpanded,
-      (isExpanded) => {
-        if (!this.children && this.hasChildren && isExpanded) {
-          this.loadNodeChildren();
-        }
-      },
-      { fireImmediately: true }
+    TreeNode.handlers.push(
+      reaction(
+        () => this.isExpanded,
+        (isExpanded) => {
+          if (!this.children && this.hasChildren && isExpanded) {
+            this.loadNodeChildren();
+          }
+        },
+        { fireImmediately: true }
+      )
     );
   }
 
