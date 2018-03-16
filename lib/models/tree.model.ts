@@ -177,12 +177,10 @@ export class TreeModel implements ITreeModel {
   private disposeTreeNodes = (nodes) => {
     if (!!nodes && nodes[0]) {
       nodes.forEach(function (node) {
-        if (node.handler) {
           if (node.children) {
             this.disposeTreeNodes(node.children);
           }
-          node.handler();
-        }
+          node.dispose();
       });
     }
   }
