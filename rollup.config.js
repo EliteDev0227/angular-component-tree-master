@@ -13,23 +13,7 @@ export default {
   sourceMap: true,
   external: [
     '@angular/core',
-    '@angular/common',
-    'lodash/compact',
-    'lodash/defaultsDeep',
-    'lodash/every',
-    'lodash/find',
-    'lodash/first',
-    'lodash/get',
-    'lodash/includes',
-    'lodash/isFunction',
-    'lodash/isNumber',
-    'lodash/isString',
-    'lodash/last',
-    'lodash/omit',
-    'lodash/pick',
-    'lodash/some',
-    'mobx', 
-    'mobx-angular'
+    '@angular/common'
   ],
   onwarn: function (warning) {
     const skip_codes = [
