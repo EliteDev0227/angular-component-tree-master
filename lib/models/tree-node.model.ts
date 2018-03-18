@@ -10,7 +10,7 @@ import some from 'lodash/some';
 import every from 'lodash/every';
 
 export class TreeNode implements ITreeNode {
-  private handler: IReactionDisposer;
+  handler: IReactionDisposer;
   @computed get isHidden() { return this.treeModel.isHidden(this); };
   @computed get isExpanded() { return this.treeModel.isExpanded(this); };
   @computed get isActive() { return this.treeModel.isActive(this); };
