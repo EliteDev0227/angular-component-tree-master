@@ -104,10 +104,7 @@
     "tslint": "4.4.2",
     "typedoc": "^0.3.12",
     "typescript": "^2.5.3",
-    "zone.js": "^0.8.4",
-    "ecstatic": "~> 2.0.0",
-    "ejs": "~> 2.5.5",
-    "handlebars": "~> 4.0.0"
+    "zone.js": "^0.8.4"
   },
   "repository": "https://github.com/500tech/angular-tree-component.git",
   "bugs": {
