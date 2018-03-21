@@ -1,4 +1,3 @@
-// Portions created by Telerik AD - Copyright © 2018 Telerik AD. All rights reserved.
 import { TreeNode } from './tree-node.model';
 import { TreeModel } from './tree.model';
 import { KEYS } from '../constants/keys';
@@ -94,7 +93,7 @@ export class TreeOptions {
   get rtl(): boolean { return !!this.options.rtl; }
   get rootId(): any {return this.options.rootId; }
   get useCheckbox(): boolean { return this.options.useCheckbox; }
-  // Fix for issue #551.
+  
   get useTriState(): boolean { return this.options.useTriState === undefined ? true : this.options.useTriState; }
   actionMapping: IActionMapping;
 

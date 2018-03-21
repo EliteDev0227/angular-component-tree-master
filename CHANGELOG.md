@@ -5,6 +5,7 @@
 * Added SELECT and DESLECT that do selection instead of activation
 * Breaking change - renamed scrollOnSelect to scrollOnActivate
 * Fixed setHiddenNodesIds with correct reduce order
+* Added useTriState to options to decide if using master checkboxes or not
 
 <a name="7.0.2"></a>
 # 7.0.2 (2018-13-03)
