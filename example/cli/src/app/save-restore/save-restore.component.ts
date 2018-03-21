@@ -14,12 +14,18 @@ const getChildren = () => new Promise((resolve) => {
   selector: 'app-saverestore',
   template: `
     <input id="filter" #filter (keyup)="tree.treeModel.filterNodes(filter.value)" placeholder="filter nodes"/>
-    <tree-root [options]="options" [state]="state" (stateChange)="setState($event)" #tree [focused]="true" [nodes]="nodes"></tree-root>
+    <tree-root [options]="options" [(state)]="state" #tree [focused]="true" [nodes]="nodes"></tree-root>
   `,
   styles: []
 })
 export class SaveRestoreComponent {
-  state: ITreeState = localStorage.treeState && JSON.parse(localStorage.treeState);
+  get state(): ITreeState {
+    return localStorage.treeState && JSON.parse(localStorage.treeState);
+  }
+  set state(state: ITreeState) {
+    localStorage.treeState = JSON.stringify(state);
+  }
+
   options = {
     getChildren
   };
@@ -40,7 +46,4 @@ export class SaveRestoreComponent {
     }
   ];
 
-  setState(state: ITreeState) {
-    localStorage.treeState = JSON.stringify(state);
-  }
 }

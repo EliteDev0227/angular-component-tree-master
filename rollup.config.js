@@ -13,10 +13,7 @@ export default {
   sourceMap: true,
   external: [
     '@angular/core',
-    '@angular/common',
-    'lodash',
-    'mobx', 
-    'mobx-angular'
+    '@angular/common'
   ],
   onwarn: function (warning) {
     const skip_codes = [

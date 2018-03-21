@@ -5,8 +5,10 @@ import { TreeOptions } from './tree-options.model';
 import { ITreeNode } from '../defs/api';
 import { TREE_EVENTS } from '../constants/events';
 
-import * as _ from 'lodash';
-const { first, last, some, every } = _;
+import first from 'lodash/first';
+import last from 'lodash/last';
+import some from 'lodash/some';
+import every from 'lodash/every';
 
 export class TreeNode implements ITreeNode {
   @computed get isHidden() { return this.treeModel.isHidden(this); };
@@ -296,13 +298,13 @@ export class TreeNode implements ITreeNode {
   setIsActive(value, multi = false) {
     this.treeModel.setActiveNode(this, value, multi);
     if (value) {
-      this.focus(this.options.scrollOnSelect);
+      this.focus(this.options.scrollOnActivate);
     }
 
     return this;
   }
 
-  setIsSelected(value) {
+  @action setIsSelected(value) {
     // Fix for issue #551.
     if (this.treeModel.options.useTriState) {
       if (this.isLeaf) {
