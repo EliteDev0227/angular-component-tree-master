@@ -114,7 +114,6 @@
     "url": "https://github.com/500tech/angular-tree-component/issues"
   },
   "engines": {
-    "node": ">=7.6.0",
-    "npm": ">=4.1.2"
+    "node": ">=8.0.0"
   }
 }
