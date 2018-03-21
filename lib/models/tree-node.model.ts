@@ -15,17 +15,27 @@ export class TreeNode implements ITreeNode {
   @computed get isActive() { return this.treeModel.isActive(this); };
   @computed get isFocused() { return this.treeModel.isNodeFocused(this); };
   @computed get isSelected() {
-    if (this.isLeaf) {
-      return this.treeModel.isSelected(this);
+    
+    if (this.treeModel.options.useTriState) {
+      if (this.isLeaf) {
+        return this.treeModel.isSelected(this);
+      } else {
+        return some(this.children, (node) => node.isSelected);
+      }
     } else {
-      return some(this.children, (node) => node.isSelected);
+      return this.treeModel.isSelected(this);
     }
   };
   @computed get isAllSelected() {
-    if (this.isLeaf) {
-      return this.isSelected;
+    
+    if (this.treeModel.options.useTriState) {
+      if (this.isLeaf) {
+        return this.isSelected;
+      } else {
+        return every(this.children, (node) => node.isAllSelected);
+      }
     } else {
-      return every(this.children, (node) => node.isAllSelected);
+      return this.isSelected;
     }
   };
   @computed get isPartiallySelected() {
@@ -287,17 +297,22 @@ export class TreeNode implements ITreeNode {
   setIsActive(value, multi = false) {
     this.treeModel.setActiveNode(this, value, multi);
     if (value) {
-      this.focus(this.options.scrollOnSelect);
+      this.focus(this.options.scrollOnActivate);
     }
 
     return this;
   }
 
-  setIsSelected(value) {
-    if (this.isLeaf) {
-      this.treeModel.setSelectedNode(this, value);
+  @action setIsSelected(value) {
+    
+    if (this.treeModel.options.useTriState) {
+      if (this.isLeaf) {
+        this.treeModel.setSelectedNode(this, value);
+      } else {
+        this.children.forEach((child) => child.setIsSelected(value));
+      }
     } else {
-      this.children.forEach((child) => child.setIsSelected(value));
+      this.treeModel.setSelectedNode(this, value);
     }
 
     return this;

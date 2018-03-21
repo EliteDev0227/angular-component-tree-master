@@ -1,5 +1,5 @@
 const { browser, element, by, $ } = require('protractor');
-const { TreeDriver, dragAndDrop } = require('./helpers/tree.driver');
+const { TreeDriver } = require('./helpers/tree.driver');
 
 describe('Basic Configuration', () => {
   beforeEach(() => {
