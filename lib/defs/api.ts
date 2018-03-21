@@ -27,6 +27,7 @@ export interface ITreeState {
   selectedNodeIds?: IDTypeDictionary;
   activeNodeIds?: IDTypeDictionary;
   hiddenNodeIds?: IDTypeDictionary;
+  selectedLeafNodeIds?: IDTypeDictionary;
   focusedNodeId?: IDType;
 }
 
