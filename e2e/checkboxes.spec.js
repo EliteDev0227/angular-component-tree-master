@@ -19,7 +19,7 @@ describe('Checkboxes', () => {
     expect(this.tree.isPresent()).toBe(true);
   });
 
-  it('should show checkboxes', () => {
+  fit('should show checkboxes', () => {
     expect(this.root1().getCheckbox().isPresent()).toBe(true);
   });
 

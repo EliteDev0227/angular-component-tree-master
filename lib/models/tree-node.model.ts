@@ -287,13 +287,13 @@ export class TreeNode implements ITreeNode {
   setIsActive(value, multi = false) {
     this.treeModel.setActiveNode(this, value, multi);
     if (value) {
-      this.focus(this.options.scrollOnSelect);
+      this.focus(this.options.scrollOnActivate);
     }
 
     return this;
   }
 
-  setIsSelected(value) {
+  @action setIsSelected(value) {
     if (this.isLeaf) {
       this.treeModel.setSelectedNode(this, value);
     } else {
