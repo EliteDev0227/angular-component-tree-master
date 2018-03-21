@@ -1,3 +1,4 @@
+// Portions created by Telerik AD - Copyright © 2018 Telerik AD. All rights reserved.
 import { observable, computed, reaction, autorun, action } from 'mobx';
 import { TreeModel } from './tree.model';
 import { TreeOptions } from './tree-options.model';
@@ -15,17 +16,27 @@ export class TreeNode implements ITreeNode {
   @computed get isActive() { return this.treeModel.isActive(this); };
   @computed get isFocused() { return this.treeModel.isNodeFocused(this); };
   @computed get isSelected() {
-    if (this.isLeaf) {
-      return this.treeModel.isSelected(this);
+    // Fix for issue #551.
+    if (this.treeModel.options.useTriState) {
+      if (this.isLeaf) {
+        return this.treeModel.isSelected(this);
+      } else {
+        return some(this.children, (node) => node.isSelected);
+      }
     } else {
-      return some(this.children, (node) => node.isSelected);
+      return this.treeModel.isSelected(this);
     }
   };
   @computed get isAllSelected() {
-    if (this.isLeaf) {
-      return this.isSelected;
+    // Fix for issue #551.
+    if (this.treeModel.options.useTriState) {
+      if (this.isLeaf) {
+        return this.isSelected;
+      } else {
+        return every(this.children, (node) => node.isAllSelected);
+      }
     } else {
-      return every(this.children, (node) => node.isAllSelected);
+      return this.isSelected;
     }
   };
   @computed get isPartiallySelected() {
@@ -294,10 +305,15 @@ export class TreeNode implements ITreeNode {
   }
 
   @action setIsSelected(value) {
-    if (this.isLeaf) {
-      this.treeModel.setSelectedNode(this, value);
+    // Fix for issue #551.
+    if (this.treeModel.options.useTriState) {
+      if (this.isLeaf) {
+        this.treeModel.setSelectedNode(this, value);
+      } else {
+        this.children.forEach((child) => child.setIsSelected(value));
+      }
     } else {
-      this.children.forEach((child) => child.setIsSelected(value));
+      this.treeModel.setSelectedNode(this, value);
     }
 
     return this;

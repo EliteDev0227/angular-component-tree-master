@@ -58,7 +58,7 @@ export class TreeNodeCollectionComponent implements OnInit, OnDestroy {
         return this.virtualScroll.getViewportNodes(this.nodes).map(n => n.index);
       }, (nodeIndexes) => {
           this.viewportNodes = nodeIndexes.map((i) => this.nodes[i]);
-        }, { compareStructural: true, fireImmediately: true }
+        }, { compareStructural: true, fireImmediately: true } as any
       ),
       reaction(() => this.nodes, (nodes) => {
         this.viewportNodes = this.virtualScroll.getViewportNodes(nodes);
