@@ -3,7 +3,10 @@ import { TreeModel } from './tree.model';
 import { KEYS } from '../constants/keys';
 import { ITreeOptions } from '../defs/api';
 
-import * as _ from 'lodash';
+import defaultsDeep from 'lodash/defaultsDeep';
+import get from 'lodash/get';
+import omit from 'lodash/omit';
+import isNumber from 'lodash/isNumber';
 
 export interface IActionHandler {
   (tree: TreeModel, node: TreeNode, $event: any, ...rest);
@@ -13,8 +16,10 @@ export const TREE_ACTIONS = {
   TOGGLE_ACTIVE: (tree: TreeModel, node: TreeNode, $event: any) => node && node.toggleActivated(),
   TOGGLE_ACTIVE_MULTI: (tree: TreeModel, node: TreeNode, $event: any) => node && node.toggleActivated(true),
   TOGGLE_SELECTED: (tree: TreeModel, node: TreeNode, $event: any) => node && node.toggleSelected(),
-  SELECT: (tree: TreeModel, node: TreeNode, $event: any) => node.setIsActive(true),
-  DESELECT: (tree: TreeModel, node: TreeNode, $event: any) => node.setIsActive(false),
+  ACTIVATE: (tree: TreeModel, node: TreeNode, $event: any) => node.setIsActive(true),
+  DEACTIVATE: (tree: TreeModel, node: TreeNode, $event: any) => node.setIsActive(false),
+  SELECT: (tree: TreeModel, node: TreeNode, $event: any) => node.setIsSelected(true),
+  DESELECT: (tree: TreeModel, node: TreeNode, $event: any) => node.setIsSelected(false),
   FOCUS: (tree: TreeModel, node: TreeNode, $event: any) => node.focus(),
   TOGGLE_EXPANDED: (tree: TreeModel, node: TreeNode, $event: any) => node.hasChildren && node.toggleExpanded(),
   EXPAND: (tree: TreeModel, node: TreeNode, $event: any) => node.expand(),
@@ -84,17 +89,18 @@ export class TreeOptions {
   get animateExpand(): boolean { return this.options.animateExpand; }
   get animateSpeed(): number { return this.options.animateSpeed || 1; }
   get animateAcceleration(): number { return this.options.animateAcceleration || 1.2; }
-  get scrollOnSelect(): boolean { return this.options.scrollOnSelect === undefined ? true : this.options.scrollOnSelect; }
+  get scrollOnActivate(): boolean { return this.options.scrollOnActivate === undefined ? true : this.options.scrollOnActivate; }
   get rtl(): boolean { return !!this.options.rtl; }
   get rootId(): any {return this.options.rootId; }
   get useCheckbox(): boolean { return this.options.useCheckbox; }
+  get useTriState(): boolean { return this.options.useTriState === undefined ? true : this.options.useTriState; }
   actionMapping: IActionMapping;
 
   constructor(private options: ITreeOptions = {}) {
-    this.actionMapping = _.defaultsDeep({}, this.options.actionMapping, defaultActionMapping);
+    this.actionMapping = defaultsDeep({}, this.options.actionMapping, defaultActionMapping);
     if (options.rtl) {
-      this.actionMapping.keys[KEYS.RIGHT] = <IActionHandler>_.get(options, ['actionMapping', 'keys', KEYS.RIGHT]) || TREE_ACTIONS.DRILL_UP;
-      this.actionMapping.keys[KEYS.LEFT] = <IActionHandler>_.get(options, ['actionMapping', 'keys', KEYS.LEFT]) || TREE_ACTIONS.DRILL_DOWN;
+      this.actionMapping.keys[KEYS.RIGHT] = <IActionHandler>get(options, ['actionMapping', 'keys', KEYS.RIGHT]) || TREE_ACTIONS.DRILL_UP;
+      this.actionMapping.keys[KEYS.LEFT] = <IActionHandler>get(options, ['actionMapping', 'keys', KEYS.LEFT]) || TREE_ACTIONS.DRILL_DOWN;
     }
   }
 
@@ -103,7 +109,7 @@ export class TreeOptions {
       return this.options.getNodeClone(node);
     }
 
-    return _.omit(Object.assign({}, node.data), ['id']);
+    return omit(Object.assign({}, node.data), ['id']);
   }
 
   allowDrop(element, to, $event?): boolean {
@@ -143,6 +149,6 @@ export class TreeOptions {
   }
 
   get dropSlotHeight(): number {
-    return _.isNumber(this.options.dropSlotHeight) ? this.options.dropSlotHeight : 2;
+    return isNumber(this.options.dropSlotHeight) ? this.options.dropSlotHeight : 2;
   }
 }

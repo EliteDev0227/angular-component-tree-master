@@ -8,7 +8,8 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "strict": true,
-    "noStrictGenericChecks": true,
+    "noStrictGenericChecks": false,
+    "skipLibCheck": true,
     "strictNullChecks": true,
     "target": "es5",
     "typeRoots": [
