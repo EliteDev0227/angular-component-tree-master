@@ -27,7 +27,7 @@ jobs:
           - v1-dependencies-
 
       - run: yarn install
-      - run: yarn example:cli &
+      - run: yarn test:setup
 
       - save_cache:
           paths:
@@ -35,7 +35,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
         
       # run tests!
-      - run: yarn test
+      - run: yarn temp
 
       - store_test_results:
           path: /tmp/test-results
