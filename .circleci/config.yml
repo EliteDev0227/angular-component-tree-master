@@ -27,7 +27,7 @@ jobs:
           - v1-dependencies-
 
       - run: yarn install
-      - run: yarn test:setup
+      - run: yarn example:cli >/dev/null 2>&1 &
 
       - save_cache:
           paths:
