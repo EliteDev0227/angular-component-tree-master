@@ -15,7 +15,6 @@ export class TreeNode implements ITreeNode {
   @computed get isActive() { return this.treeModel.isActive(this); };
   @computed get isFocused() { return this.treeModel.isNodeFocused(this); };
   @computed get isSelected() {
-    
     if (this.treeModel.options.useTriState) {
       if (this.isLeaf) {
         return this.treeModel.isSelected(this);
@@ -27,7 +26,6 @@ export class TreeNode implements ITreeNode {
     }
   };
   @computed get isAllSelected() {
-    
     if (this.treeModel.options.useTriState) {
       if (this.isLeaf) {
         return this.isSelected;
@@ -304,7 +302,6 @@ export class TreeNode implements ITreeNode {
   }
 
   @action setIsSelected(value) {
-    
     if (this.treeModel.options.useTriState) {
       if (this.isLeaf) {
         this.treeModel.setSelectedNode(this, value);

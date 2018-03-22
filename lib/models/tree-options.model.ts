@@ -93,7 +93,6 @@ export class TreeOptions {
   get rtl(): boolean { return !!this.options.rtl; }
   get rootId(): any {return this.options.rootId; }
   get useCheckbox(): boolean { return this.options.useCheckbox; }
-  
   get useTriState(): boolean { return this.options.useTriState === undefined ? true : this.options.useTriState; }
   actionMapping: IActionMapping;
 
