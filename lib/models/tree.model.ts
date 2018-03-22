@@ -1,4 +1,4 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable, EventEmitter, OnDestroy } from '@angular/core';
 import { observable, computed, action, autorun } from 'mobx';
 import { TreeNode } from './tree-node.model';
 import { TreeOptions } from './tree-options.model';
@@ -14,7 +14,7 @@ import isString from 'lodash/isString';
 import isFunction from 'lodash/isFunction';
 
 @Injectable()
-export class TreeModel implements ITreeModel {
+export class TreeModel implements ITreeModel, OnDestroy {
   static focusedTree = null;
 
   options: TreeOptions = new TreeOptions();
@@ -159,6 +159,18 @@ export class TreeModel implements ITreeModel {
     return this.selectedLeafNodeIds[node.id];
   }
 
+  ngOnDestroy() {
+    console.log('destroy');
+    this.dispose();
+  }
+
+  dispose() {
+    // Dispose reactions of the replaced nodes
+    if (this.virtualRoot) {
+      this.virtualRoot.dispose();
+    }
+  }
+
   // actions
   @action setData({ nodes, options = null, events = null }: {nodes: any, options: any, events: any}) {
     if (options) {
@@ -181,6 +193,8 @@ export class TreeModel implements ITreeModel {
       virtual: true,
       [this.options.childrenField]: this.nodes
     };
+
+    this.dispose();
 
     this.virtualRoot = new TreeNode(virtualRootConfig, null, this, 0);
 
