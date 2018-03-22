@@ -1,3 +1,17 @@
+<a name="7.1.0"></a>
+# 7.1.0 (2018-18-03)
+* Breaking change - Renamed SELECT action to ACTIVATE
+* Breaking change - Renamed DESELECT action to DEACTIVATE
+* Added SELECT and DESLECT that do selection instead of activation
+* Breaking change - renamed scrollOnSelect to scrollOnActivate
+* Fixed setHiddenNodesIds with correct reduce order
+* Added useTriState to options to decide if using master checkboxes or not
+
+<a name="7.0.2"></a>
+# 7.0.2 (2018-13-03)
+* Load specific lodash modules
+* Fix mobx and mobx-angular versions
+
 <a name="7.0.1"></a>
 # 7.0.1 (2017-15-12)
 * Fixed typescript 2.6.1 strict checking

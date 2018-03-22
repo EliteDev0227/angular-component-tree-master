@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   template: `
     <h3>tri-state checkboxes</h3>
     <tree-root
+      id="tree1"
       [nodes]="nodes"
       [options]="options">
     </tree-root>
@@ -13,8 +14,15 @@ import { Component } from '@angular/core';
     Switch expander and checkbox with CSS 'order' attribute:</h3>
     <tree-root
       class="reverse"
+      id="tree2"
       [nodes]="nodes"
       [options]="options">
+    </tree-root>
+    <h3>Disable tri-state checkboxes</h3>
+    <tree-root
+      id="tree3"
+      [nodes]="nodes"
+      [options]="optionsDisabled">
     </tree-root>
   `,
   styles: [
@@ -39,5 +47,10 @@ export class CheckboxesComponent {
 
   options: ITreeOptions = {
     useCheckbox: true
+  };
+
+  optionsDisabled: ITreeOptions = {
+    useCheckbox: true,
+    useTriState: false
   };
 }

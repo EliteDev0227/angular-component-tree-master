@@ -4,8 +4,8 @@
 # angular tree component
 
 # support
-Please fill this form to get quick and professional support (bug report / feature request / help implementing / etc.):
-[https://goo.gl/forms/9KobHoFkjSMtGC2K3](https://goo.gl/forms/9KobHoFkjSMtGC2K3)
+Get Quick and Professional (paid) Support:  
+<a href="https://goo.gl/forms/9KobHoFkjSMtGC2K3" target="_blank"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnzsBPel0j5qAOT6QJGiogkYKhfM39YNQnV7hRYGa_x-pwExBr" height="100"/></a>
 
 * note: This project is completely free and open to use under the MIT license.
 If you wish to get help from fellow community developers, feel free to use Github issues.
