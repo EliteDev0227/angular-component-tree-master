@@ -160,7 +160,6 @@ export class TreeModel implements ITreeModel, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log('destroy');
     this.dispose();
   }
 

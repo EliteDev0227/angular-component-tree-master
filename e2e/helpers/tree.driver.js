@@ -14,9 +14,13 @@ class BaseDriver {
   }
 
   getNode(name) {
-    const selector = this.getNodes().find('tree-node-content span').withText(name).parent('tree-node');
+    const selector = this.getNodes().find('tree-node-content span').withText(name).parent('tree-node').nth(0);
 
     return new NodeDriver(selector);
+  }
+
+  getLoading() {
+    return this.selector.find('span').withText('loading...');
   }
 }
 
@@ -126,22 +130,22 @@ class TreeDriver extends BaseDriver {
   }
 
   keyDown(t) {
-    return t.keyPress(Key.ARROW_DOWN);
+    return t.pressKey('down');
   }
   keyUp(t) {
-    return t.keyPress(Key.ARROW_UP);
+    return t.pressKey('up');
   }
   keyLeft(t) {
-    return t.keyPress(Key.ARROW_LEFT);
+    return t.pressKey('left');
   }
   keyRight(t) {
-    return t.keyPress(Key.ARROW_RIGHT);
+    return t.pressKey('right');
   }
   keyEnter(t) {
-    return t.keyPress(Key.ENTER);
+    return t.pressKey('enter');
 }
   keySpace(t) {
-    return t.keyPress(Key.SPACE);
+    return t.pressKey('space');
   }
 }
 

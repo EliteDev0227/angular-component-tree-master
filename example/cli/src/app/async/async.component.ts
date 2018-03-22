@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { ITreeOptions, TreeNode} from 'angular-tree-component';
 
-
-let id = 10;
-
 @Component({
   selector: 'app-async',
   template: `
