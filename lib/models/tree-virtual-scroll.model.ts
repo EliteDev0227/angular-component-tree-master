@@ -3,8 +3,8 @@ import { observable, computed, action, autorun, reaction } from 'mobx';
 import { TreeModel } from './tree.model';
 import { TREE_EVENTS } from '../constants/events';
 
-const Y_OFFSET = 300; // Extra pixels outside the viewport, in each direction, to render nodes in
-const Y_EPSILON = 50; // Minimum pixel change required to recalculate the rendered nodes
+const Y_OFFSET = 500; // Extra pixels outside the viewport, in each direction, to render nodes in
+const Y_EPSILON = 150; // Minimum pixel change required to recalculate the rendered nodes
 
 @Injectable()
 export class TreeVirtualScroll {

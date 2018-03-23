@@ -9,6 +9,8 @@
 * Fixed memory leak - disposing of reactions
 * Added useTriState option
 * Fixed master checkbox to only select visible children
+* Improving scroll performance
+* Added mobile drag and drop polyfill
 
 <a name="7.0.2"></a>
 # 7.0.2 (2018-13-03)

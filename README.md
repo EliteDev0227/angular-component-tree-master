@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/500tech/angular-tree-component.svg?branch=master)](https://travis-ci.org/500tech/angular-tree-component)
+[![Build Status](https://circleci.com/gh/500tech/angular-tree-component.svg?style=svg)](https://circleci.com/gh/500tech/angular-tree-component)
 [![npm version](https://badge.fury.io/js/angular-tree-component.svg)](https://badge.fury.io/js/angular-tree-component)
 
 # angular tree component
@@ -18,10 +18,8 @@ Please refer to the full documentation:
 angular-tree-component supports angular 2.X.X, 4.X.X and 5.X.X releases, and AoT compilation.
 
 ## SystemJS
-Sorry guys, SystemJS is not supported.
-Modern web applications use bundlers like Webpack.
-
-We've tried to support SystemJS for a year, but it just causes too many issues.
+SystemJS is not officially supported.
+We've tried to support it for a year, but it just causes too many issues. Sorry.
 
 ## Contributing
 run `npm run example:cli` and open [localhost:4200](http://localhost:4200) to test your code before submitting a pull request.  
@@ -30,8 +28,8 @@ Windows users - if it doesn't work try `npm run example:cli:win`.
 
 To run tests locally - make sure port 4200 is available and run:
 ```
-$ npm run test:setup  # Wait until webpack finishes and http://localhost:4200 is available
-$ npm run test
+$ npm run example:cli  # Wait until webpack finishes and http://localhost:4200 is available
+$ npm run test:dev
 ```
 
 Please check the issues / project before starting to work on a feature / bug to make sure it's not already in progress.

@@ -3,6 +3,8 @@ import {
 } from '@angular/core';
 import { TreeVirtualScroll } from '../models/tree-virtual-scroll.model';
 import { TREE_EVENTS } from '../constants/events';
+import { Cancelable } from 'lodash';
+import throttle from 'lodash/throttle';
 
 @Component({
   selector: 'tree-viewport',
@@ -17,6 +19,10 @@ import { TREE_EVENTS } from '../constants/events';
   `
 })
 export class TreeViewportComponent implements AfterViewInit, OnInit, OnDestroy {
+  setViewport = throttle(() => {
+    this.virtualScroll.setViewport(this.elementRef.nativeElement);
+  }, 17);
+
   constructor(
     private elementRef: ElementRef,
     public virtualScroll: TreeVirtualScroll) {
@@ -44,9 +50,5 @@ export class TreeViewportComponent implements AfterViewInit, OnInit, OnDestroy {
   @HostListener('scroll', ['$event'])
   onScroll() {
     this.setViewport();
-  }
-
-  setViewport() {
-    this.virtualScroll.setViewport(this.elementRef.nativeElement);
   }
 }
