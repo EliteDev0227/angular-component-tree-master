@@ -20,4 +20,4 @@ before_install:
  - fluxbox >/dev/null 2>&1 &
 
 before_script: 
- - yarn test:setup
+ - npm run test:setup
