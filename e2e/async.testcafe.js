@@ -9,7 +9,7 @@ fixture `Async`
   });
 
 test('should show the tree', async t => {
-  await t.expect(t.ctx.tree.isPresent()).ok();
+  await t.expect(t.ctx.tree.isPresent()).notOk();
 });
 
 test('should have 3 nodes', async t => {
