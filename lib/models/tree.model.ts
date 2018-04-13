@@ -382,8 +382,6 @@ export class TreeModel implements ITreeModel, OnDestroy {
   @action copyNode(node, to) {
     const fromIndex = node.getIndexInParent();
 
-    if (!this._canMoveNode(node, fromIndex , to)) return;
-
     // If node doesn't have children - create children array
     if (!to.parent.getField('children')) {
       to.parent.setField('children', []);
