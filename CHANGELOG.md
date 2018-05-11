@@ -1,3 +1,7 @@
+<a name="7.2.0"></a>
+# 7.2.0 (2018-xx-xx)
+* Added nodeActivate and nodeDeactivate events for IE11 - issue #387
+
 <a name="7.1.0"></a>
 # 7.1.0 (2018-24-03)
 * Breaking change - Renamed SELECT action to ACTIVATE

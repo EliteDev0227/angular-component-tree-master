@@ -269,8 +269,10 @@ export class TreeModel implements ITreeModel, OnDestroy {
     if (value) {
       node.focus();
       this.fireEvent({ eventName: TREE_EVENTS.activate, node });
+      this.fireEvent({ eventName: TREE_EVENTS.nodeActivate, node }); // For IE11
     } else {
       this.fireEvent({ eventName: TREE_EVENTS.deactivate, node });
+      this.fireEvent({ eventName: TREE_EVENTS.nodeDeactivate, node }); // For IE11
     }
   }
 
@@ -480,6 +482,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
       .filter((activeNode) => activeNode !== node)
       .forEach((activeNode) => {
         this.fireEvent({ eventName: TREE_EVENTS.deactivate, node: activeNode });
+        this.fireEvent({ eventName: TREE_EVENTS.nodeDeactivate, node: activeNode }); // For IE11
       });
 
     if (value) {

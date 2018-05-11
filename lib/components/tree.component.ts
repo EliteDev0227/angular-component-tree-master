@@ -67,6 +67,8 @@ export class TreeComponent implements OnChanges {
   @Output() toggleExpanded;
   @Output() activate;
   @Output() deactivate;
+  @Output() nodeActivate;
+  @Output() nodeDeactivate;
   @Output() select;
   @Output() deselect;
   @Output() focus;

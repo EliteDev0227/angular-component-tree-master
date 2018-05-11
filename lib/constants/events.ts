@@ -2,6 +2,8 @@ export const TREE_EVENTS = {
   toggleExpanded: 'toggleExpanded',
   activate: 'activate',
   deactivate: 'deactivate',
+  nodeActivate: 'nodeActivate',
+  nodeDeactivate: 'nodeDeactivate',
   select: 'select',
   deselect: 'deselect',
   focus: 'focus',
