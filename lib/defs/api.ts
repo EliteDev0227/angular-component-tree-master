@@ -261,9 +261,11 @@ export interface ITreeOptions {
     /**
      * Whether to use master checkboxes mechanism if the useCheckbox is set to true
      */
-    useTriState?: boolean
+    useTriState?: boolean;
     /**
-     * The HTML element that is the scroll container for the tree. The default behaviour is to wrap the tree with a container that has overflow: hidden, and then the scrolling container is the viewport inside the tree component
+     * The HTML element that is the scroll container for the tree.
+     * The default behaviour is to wrap the tree with a container that has overflow: hidden,
+     * and then the scrolling container is the viewport inside the tree component
      */
     scrollContainer?: HTMLElement;
  }
