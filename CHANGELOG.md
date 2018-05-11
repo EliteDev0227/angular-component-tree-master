@@ -1,6 +1,7 @@
 <a name="7.2.0"></a>
 # 7.2.0 (2018-xx-xx)
 * Added nodeActivate and nodeDeactivate events for IE11 - issue #387
+* Added scrollContainer option to allow scrolling in external container - issue #92
 
 <a name="7.1.0"></a>
 # 7.1.0 (2018-24-03)

@@ -15,6 +15,7 @@ import { DragComponent } from './drag/drag.component';
 import { VirtualscrollComponent } from './virtualscroll/virtualscroll.component';
 import { ApiComponent } from './api/api.component';
 import { ActionsComponent } from './actions/actions.component';
+import { ScrollContainerComponent } from './scrollcontainer/scrollcontainer.component';
 
 const routes: Routes = [
   {
@@ -72,6 +73,10 @@ const routes: Routes = [
   {
     path: 'actions',
     component: ActionsComponent
+  },
+  {
+    path: 'scroll-container',
+    component: ScrollContainerComponent
   }
 ];
 

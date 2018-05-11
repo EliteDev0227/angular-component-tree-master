@@ -20,6 +20,7 @@ import { DragComponent } from './drag/drag.component';
 import { VirtualscrollComponent } from './virtualscroll/virtualscroll.component';
 import { ApiComponent } from './api/api.component';
 import { ActionsComponent } from './actions/actions.component';
+import { ScrollContainerComponent } from './scrollcontainer/scrollcontainer.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ActionsComponent } from './actions/actions.component';
     DragComponent,
     VirtualscrollComponent,
     ApiComponent,
-    ActionsComponent
+    ActionsComponent,
+    ScrollContainerComponent
   ],
   imports: [
     BrowserModule,

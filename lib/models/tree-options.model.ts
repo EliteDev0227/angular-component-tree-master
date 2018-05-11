@@ -94,6 +94,7 @@ export class TreeOptions {
   get rootId(): any {return this.options.rootId; }
   get useCheckbox(): boolean { return this.options.useCheckbox; }
   get useTriState(): boolean { return this.options.useTriState === undefined ? true : this.options.useTriState; }
+  get scrollContainer(): HTMLElement { return this.options.scrollContainer; }
   actionMapping: IActionMapping;
 
   constructor(private options: ITreeOptions = {}) {
