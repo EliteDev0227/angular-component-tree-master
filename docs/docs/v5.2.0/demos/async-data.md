@@ -1,4 +1,0 @@
----
-title: "Async data"
-excerpt: ""
----
