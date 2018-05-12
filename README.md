@@ -1,6 +1,6 @@
 [![Build Status](https://circleci.com/gh/500tech/angular-tree-component.svg?style=svg)](https://circleci.com/gh/500tech/angular-tree-component)
 [![npm version](https://badge.fury.io/js/angular-tree-component.svg)](https://badge.fury.io/js/angular-tree-component)
-<a href="https://angular-tree-component.herokuapp.com/"><img src="https://ngx-slack.herokuapp.com/badge.svg" alt="slack" ></a>
+<a href="https://angular-tree-component.herokuapp.com/"><img src="https://angular-tree-component.herokuapp.com/badge.svg" alt="slack" ></a>
 # angular tree component
 
 ## Getting started, Docs, Demos & More
