@@ -9,10 +9,6 @@
 ## Angular supported version
 angular-tree-component supports angular 2-6 releases, and AoT compilation.
 
-## SystemJS
-SystemJS is not officially supported.
-We've tried to support it for a year, but it just causes too many issues. Sorry.
-
 ## Contributing
 run `npm run example:cli` and open [localhost:4200](http://localhost:4200) to test your code before submitting a pull request.  
 
