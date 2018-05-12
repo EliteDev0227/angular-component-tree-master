@@ -3,19 +3,11 @@
 
 # angular tree component
 
-# support
-Get Quick and Professional (paid) Support:  
-<a href="https://goo.gl/forms/9KobHoFkjSMtGC2K3" target="_blank"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnzsBPel0j5qAOT6QJGiogkYKhfM39YNQnV7hRYGa_x-pwExBr" height="100"/></a>
-
-* note: This project is completely free and open to use under the MIT license.
-If you wish to get help from fellow community developers, feel free to use Github issues.
-
-## Getting started & Demos
-Please refer to the full documentation:  
-[https://angular2-tree.readme.io/docs](https://angular2-tree.readme.io/docs)
+## Getting started, Docs, Demos & More
+[http://500tech.github.io/angular-tree-component/](http://500tech.github.io/angular-tree-component/)
 
 ## Angular supported version
-angular-tree-component supports angular 2.X.X, 4.X.X and 5.X.X releases, and AoT compilation.
+angular-tree-component supports angular 2-6 releases, and AoT compilation.
 
 ## SystemJS
 SystemJS is not officially supported.
