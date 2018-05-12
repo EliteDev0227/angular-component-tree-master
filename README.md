@@ -1,17 +1,17 @@
 [![Build Status](https://circleci.com/gh/500tech/angular-tree-component.svg?style=svg)](https://circleci.com/gh/500tech/angular-tree-component)
 [![npm version](https://badge.fury.io/js/angular-tree-component.svg)](https://badge.fury.io/js/angular-tree-component)
-
+<a href="https://angular-tree-component.herokuapp.com/"><img src="https://angular-tree-component.herokuapp.com/badge.svg" alt="slack" ></a>
 # angular tree component
 
 ## Getting started, Docs, Demos & More
 [http://500tech.github.io/angular-tree-component/](http://500tech.github.io/angular-tree-component/)
 
+## Slack Channel
+The best way to get support from the community:
+[Slack Community](https://angular-tree-component.herokuapp.com/)
+
 ## Angular supported version
 angular-tree-component supports angular 2-6 releases, and AoT compilation.
-
-## SystemJS
-SystemJS is not officially supported.
-We've tried to support it for a year, but it just causes too many issues. Sorry.
 
 ## Contributing
 run `npm run example:cli` and open [localhost:4200](http://localhost:4200) to test your code before submitting a pull request.  
