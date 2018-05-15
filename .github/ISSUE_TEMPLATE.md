@@ -1,8 +1,10 @@
-# Professional Support
-Please fill this form to get quick and professional support (bug report / feature request / help implementing / etc.):
-[https://goo.gl/forms/9KobHoFkjSMtGC2K3](https://goo.gl/forms/9KobHoFkjSMtGC2K3)
-
 # Community Support
+The fastest way to ask a question is via the slack channel:
+https://angular-tree-component.herokuapp.com/
+
+You will also get updates on releases, bugfixes and other announcements.
+
+# Issues
 To allow for a faster response, please read carefully:
 
 Please look for an answer in the docs before submitting an issue:
