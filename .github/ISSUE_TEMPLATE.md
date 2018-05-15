@@ -1,12 +1,12 @@
-# Community Support
-The fastest way to ask a question is via the slack channel:
+PLEASE READ CAREFULLY!
+
+# Use the Slack Channel
+The fastest way to get an answer is via the slack channel:
 https://angular-tree-component.herokuapp.com/
 
 You will also get updates on releases, bugfixes and other announcements.
 
-# Issues
-To allow for a faster response, please read carefully:
-
+# Github Issue
 Please look for an answer in the docs before submitting an issue:
 angular2-tree.readme.io.
 
