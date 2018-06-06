@@ -1,4 +1,4 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable, EventEmitter, OnDestroy } from '@angular/core';
 import { observable, computed, action, autorun } from 'mobx';
 import { TreeNode } from './tree-node.model';
 import { TreeOptions } from './tree-options.model';
@@ -6,12 +6,15 @@ import { TreeVirtualScroll } from './tree-virtual-scroll.model';
 import { ITreeModel, IDType, IDTypeDictionary } from '../defs/api';
 import { TREE_EVENTS } from '../constants/events';
 
-import * as _ from 'lodash';
-
-const { first, last, compact, find, includes, isString, isFunction } = _;
+import first from 'lodash/first';
+import last from 'lodash/last';
+import compact from 'lodash/compact';
+import find from 'lodash/find';
+import isString from 'lodash/isString';
+import isFunction from 'lodash/isFunction';
 
 @Injectable()
-export class TreeModel implements ITreeModel {
+export class TreeModel implements ITreeModel, OnDestroy {
   static focusedTree = null;
 
   options: TreeOptions = new TreeOptions();
@@ -156,6 +159,17 @@ export class TreeModel implements ITreeModel {
     return this.selectedLeafNodeIds[node.id];
   }
 
+  ngOnDestroy() {
+    this.dispose();
+  }
+
+  dispose() {
+    // Dispose reactions of the replaced nodes
+    if (this.virtualRoot) {
+      this.virtualRoot.dispose();
+    }
+  }
+
   // actions
   @action setData({ nodes, options = null, events = null }: {nodes: any, options: any, events: any}) {
     if (options) {
@@ -178,6 +192,8 @@ export class TreeModel implements ITreeModel {
       virtual: true,
       [this.options.childrenField]: this.nodes
     };
+
+    this.dispose();
 
     this.virtualRoot = new TreeNode(virtualRootConfig, null, this, 0);
 
@@ -253,8 +269,10 @@ export class TreeModel implements ITreeModel {
     if (value) {
       node.focus();
       this.fireEvent({ eventName: TREE_EVENTS.activate, node });
+      this.fireEvent({ eventName: TREE_EVENTS.nodeActivate, node }); // For IE11
     } else {
       this.fireEvent({ eventName: TREE_EVENTS.deactivate, node });
+      this.fireEvent({ eventName: TREE_EVENTS.nodeDeactivate, node }); // For IE11
     }
   }
 
@@ -464,6 +482,7 @@ export class TreeModel implements ITreeModel {
       .filter((activeNode) => activeNode !== node)
       .forEach((activeNode) => {
         this.fireEvent({ eventName: TREE_EVENTS.deactivate, node: activeNode });
+        this.fireEvent({ eventName: TREE_EVENTS.nodeDeactivate, node: activeNode }); // For IE11
       });
 
     if (value) {

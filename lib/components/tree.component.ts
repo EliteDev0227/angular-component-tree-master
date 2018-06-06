@@ -8,9 +8,8 @@ import { TreeDraggedElement } from '../models/tree-dragged-element.model';
 import { TreeOptions } from '../models/tree-options.model';
 import { TreeViewportComponent } from './tree-viewport.component';
 
-import * as _ from 'lodash';
-
-const { includes, pick }  = _;
+import includes from 'lodash/includes';
+import pick from 'lodash/pick';
 
 @Component({
   selector: 'Tree, tree-root',
@@ -68,6 +67,8 @@ export class TreeComponent implements OnChanges {
   @Output() toggleExpanded;
   @Output() activate;
   @Output() deactivate;
+  @Output() nodeActivate;
+  @Output() nodeDeactivate;
   @Output() select;
   @Output() deselect;
   @Output() focus;

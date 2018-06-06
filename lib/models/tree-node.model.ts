@@ -1,29 +1,40 @@
-import { observable, computed, reaction, autorun, action } from 'mobx';
+import { observable, computed, reaction, autorun, action, IReactionDisposer } from 'mobx';
 import { TreeModel } from './tree.model';
 import { TreeOptions } from './tree-options.model';
 import { ITreeNode } from '../defs/api';
 import { TREE_EVENTS } from '../constants/events';
 
-import * as _ from 'lodash';
-const { first, last, some, every } = _;
+import first from 'lodash/first';
+import last from 'lodash/last';
+import some from 'lodash/some';
+import every from 'lodash/every';
 
 export class TreeNode implements ITreeNode {
+  private handler: IReactionDisposer;
   @computed get isHidden() { return this.treeModel.isHidden(this); };
   @computed get isExpanded() { return this.treeModel.isExpanded(this); };
   @computed get isActive() { return this.treeModel.isActive(this); };
   @computed get isFocused() { return this.treeModel.isNodeFocused(this); };
   @computed get isSelected() {
-    if (this.isLeaf) {
-      return this.treeModel.isSelected(this);
+    if (this.treeModel.options.useTriState) {
+      if (this.isLeaf) {
+        return this.treeModel.isSelected(this);
+      } else {
+        return some(this.children, (node) => node.isSelected);
+      }
     } else {
-      return some(this.children, (node) => node.isSelected);
+      return this.treeModel.isSelected(this);
     }
   };
   @computed get isAllSelected() {
-    if (this.isLeaf) {
-      return this.isSelected;
+    if (this.treeModel.options.useTriState) {
+      if (this.isLeaf) {
+        return this.isSelected;
+      } else {
+        return every(this.children, (node) => node.isAllSelected);
+      }
     } else {
-      return every(this.children, (node) => node.isAllSelected);
+      return this.isSelected;
     }
   };
   @computed get isPartiallySelected() {
@@ -271,31 +282,45 @@ export class TreeNode implements ITreeNode {
   };
 
   autoLoadChildren() {
-    reaction(
-      () => this.isExpanded,
-      (isExpanded) => {
-        if (!this.children && this.hasChildren && isExpanded) {
-          this.loadNodeChildren();
-        }
-      },
-      { fireImmediately: true }
-    );
+    this.handler =
+      reaction(
+        () => this.isExpanded,
+        (isExpanded) => {
+          if (!this.children && this.hasChildren && isExpanded) {
+            this.loadNodeChildren();
+          }
+        },
+        { fireImmediately: true }
+      );
+  }
+
+  dispose() {
+    if (this.children) {
+      this.children.forEach((child) => child.dispose());
+    }
+    if (this.handler) {
+      this.handler();
+    }
   }
 
   setIsActive(value, multi = false) {
     this.treeModel.setActiveNode(this, value, multi);
     if (value) {
-      this.focus(this.options.scrollOnSelect);
+      this.focus(this.options.scrollOnActivate);
     }
 
     return this;
   }
 
-  setIsSelected(value) {
-    if (this.isLeaf) {
-      this.treeModel.setSelectedNode(this, value);
+  @action setIsSelected(value) {
+    if (this.treeModel.options.useTriState) {
+      if (this.isLeaf) {
+        this.treeModel.setSelectedNode(this, value);
+      } else {
+        this.visibleChildren.forEach((child) => child.setIsSelected(value));
+      }
     } else {
-      this.children.forEach((child) => child.setIsSelected(value));
+      this.treeModel.setSelectedNode(this, value);
     }
 
     return this;

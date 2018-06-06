@@ -1,163 +1,155 @@
-const { Key, browser, ElementArrayFinder, ElementFinder, WebElement, by, element, $, $$, promise } = require('protractor');
-const { code: htmlDnd } = require('html-dnd');
-
-function hasClass(element, cls) {
-    return element.getAttribute('class').then(function (classes) {
-        return classes.split(' ').indexOf(cls) !== -1;
-    });
-};
-
-function dragAndDrop(from, to) {
-  browser.executeScript(htmlDnd, from, to, 0, 0);
-}
+import { Selector } from 'testcafe';
 
 class BaseDriver {
-  constructor(element) {
-    this.element = element;
+  constructor(selector) {
+    this.selector = selector;
   }
 
   isPresent() {
-    return this.element.isPresent();
+    return this.selector.exists;
   }
 
   getNodes() {
-    return this.element.$$('tree-node');
+    return this.selector.find('tree-node');
   }
 
   getNode(name) {
-    const element = this.getNodes().filter((el) => {
-      return el.$('tree-node-content span').getText().then((text) => text === name);
-    }).get(0);
+    const selector = this.getNodes().find('tree-node-content span').withText(name).parent('tree-node').nth(0);
 
-    return new NodeDriver(element);
+    return new NodeDriver(selector);
+  }
+
+  getLoading() {
+    return this.selector.find('span').withText('loading...');
   }
 }
 
 class NodeDriver extends BaseDriver {
 
   isPresent() {
-    return this.element.isPresent();
+    return this.selector.exists;
   }
 
   isActive() {
-    return hasClass(this.getTreeNodeElement(), 'tree-node-active');
+    return this.getTreeNodeElement().hasClass('tree-node-active');
   }
 
   isFocused() {
-    return hasClass(this.getTreeNodeElement(), 'tree-node-focused');
+    return this.getTreeNodeElement().hasClass('tree-node-focused');
   }
 
   isExpanded() {
-    return hasClass(this.getTreeNodeElement(), 'tree-node-expanded');
+    return this.getTreeNodeElement().hasClass('tree-node-expanded');
   }
 
   isChecked() {
-    return this.getCheckbox().isSelected();
+    return this.getCheckbox().checked;
   }
 
-  getIndeterminate() {
-    return this.getCheckbox().getAttribute('indeterminate');
+  isIndeterminate() {
+    return this.getCheckbox().addCustomDOMProperties({
+      indeterminate: el => el.indeterminate
+    }).indeterminate;
   }
 
   getTreeNodeElement() {
-    return this.element.$('.tree-node');
+    return this.selector.find('.tree-node');
   }
 
   getNodeContentWrapper() {
-    return this.element.$('.node-content-wrapper');
+    return this.selector.find('.node-content-wrapper');
   }
 
   getExpander() {
-    return this.element.$('.toggle-children-wrapper');
+    return this.selector.find('.toggle-children-wrapper');
   }
 
   getCheckbox() {
-    return this.element.$('.tree-node-checkbox');
+    return this.selector.find('.tree-node-checkbox');
   }
   
   getChildren() {
-    return this.element.$('.tree-children');
+    return this.selector.find('.tree-children');
   }
 
   getDropSlot(index = 0) {
-    return this.element.$$('.node-drop-slot').get(index);
+    return this.selector.find('.node-drop-slot').nth(index);
   }
 
-  clickExpander() {
-    return this.getExpander().click();
+  clickExpander(t) {
+    return t.click(this.getExpander());
   }
 
-  clickCheckbox() {
-    return this.getCheckbox().click();
+  clickCheckbox(t) {
+    return t.click(this.getCheckbox());
   }
 
-  click() {
-    return this.getNodeContentWrapper().click();
+  click(t) {
+    return t.click(this.getNodeContentWrapper());
   }
-  dblclick() {
+  dblclick(t) {
 
   }
-  contextMenu() {
+  contextMenu(t) {
 
   }
-  dragToNode(node) {
-    dragAndDrop(
+  dragToNode(t, node) {
+    return t.dragToElement(
       this.getNodeContentWrapper(),
       node.getNodeContentWrapper()
     );
   }
-  dragToDropSlot(node) {
-    dragAndDrop(
+  dragToDropSlot(t, node) {
+    return t.dragToElement(
       this.getNodeContentWrapper(),
       node.getDropSlot()
+    );
+  }
+  ctrlDragToNode(t, node) {
+    return t.dragToElement(
+      this.getNodeContentWrapper(),
+      node.getNodeContentWrapper(),
+      {
+        modifiers: {
+          ctrl: true
+        }
+      }
     );
   }
 }
 
 class TreeDriver extends BaseDriver {
   constructor(elementCss) {
-    super($(elementCss));
+    super(Selector(elementCss));
   }
 
   getNodeByIndex(index) {
-    const element = this.getNodes().get(index);
+    const element = this.getNodes().nth(index);
 
     return new NodeDriver(element);
   }
 
-  sendKey(key) {
-    browser.actions().sendKeys(key).perform();
+  keyDown(t) {
+    return t.pressKey('down');
   }
-
-  keyDown() {
-    this.sendKey(Key.ARROW_DOWN);
+  keyUp(t) {
+    return t.pressKey('up');
   }
-  keyUp() {
-    this.sendKey(Key.ARROW_UP);
+  keyLeft(t) {
+    return t.pressKey('left');
   }
-  keyLeft() {
-    this.sendKey(Key.ARROW_LEFT);
+  keyRight(t) {
+    return t.pressKey('right');
   }
-  keyRight() {
-    this.sendKey(Key.ARROW_RIGHT);
-  }
-  keyEnter() {
-    this.sendKey(Key.ENTER);
-  }
-  keySpace() {
-    this.sendKey(Key.SPACE);
-  }
+  keyEnter(t) {
+    return t.pressKey('enter');
 }
-
-class InputDriver {
-  constructor(element) {
-    this.element = element;
+  keySpace(t) {
+    return t.pressKey('space');
   }
 }
 
 module.exports = {
-  dragAndDrop,
-  InputDriver,
   NodeDriver,
   TreeDriver
 };

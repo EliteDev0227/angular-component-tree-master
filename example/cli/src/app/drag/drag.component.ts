@@ -5,6 +5,7 @@ import { v4 } from 'uuid';
 @Component({
   selector: 'app-drag',
   template: `
+    <h4>Allowing to drag only leaf nodes</h4>
     <tree-root [state]="state" [options]="options" [focused]="true" [nodes]="nodes"></tree-root>
   `,
   styles: []

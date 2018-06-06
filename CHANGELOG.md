@@ -1,3 +1,27 @@
+<a name="7.2.0"></a>
+# 7.2.0 (2018-xx-xx)
+* Added nodeActivate and nodeDeactivate events for IE11 - issue #387
+* Added scrollContainer option to allow scrolling in external container - issue #92
+
+<a name="7.1.0"></a>
+# 7.1.0 (2018-24-03)
+* Breaking change - Renamed SELECT action to ACTIVATE
+* Breaking change - Renamed DESELECT action to DEACTIVATE
+* Added SELECT and DESLECT that do selection instead of activation
+* Breaking change - renamed scrollOnSelect to scrollOnActivate
+* Fixed setHiddenNodesIds with correct reduce order
+* Added useTriState to options to decide if using master checkboxes or not
+* Fixed memory leak - disposing of reactions
+* Added useTriState option
+* Fixed master checkbox to only select visible children
+* Improving scroll performance
+* Added mobile drag and drop polyfill
+
+<a name="7.0.2"></a>
+# 7.0.2 (2018-13-03)
+* Load specific lodash modules
+* Fix mobx and mobx-angular versions
+
 <a name="7.0.1"></a>
 # 7.0.1 (2017-15-12)
 * Fixed typescript 2.6.1 strict checking

@@ -24,8 +24,10 @@ export interface IAllowDragFn {
 
 export interface ITreeState {
   expandedNodeIds?: IDTypeDictionary;
+  selectedNodeIds?: IDTypeDictionary;
   activeNodeIds?: IDTypeDictionary;
   hiddenNodeIds?: IDTypeDictionary;
+  selectedLeafNodeIds?: IDTypeDictionary;
   focusedNodeId?: IDType;
 }
 
@@ -218,11 +220,11 @@ export interface ITreeOptions {
     */
    animateAcceleration?: number;
    /**
-    * Whether to scroll to the node to make it visible when it is selected / activated.
+    * Whether to scroll to the node to make it visible when it is activated.
 
     * **Default Value: true**
     */
-    scrollOnSelect?: boolean;
+   scrollOnActivate?: boolean;
    /**
     * Function to clone a node.
     * Receives a TreeNode object, and returns a node object (only the data).
@@ -256,6 +258,16 @@ export interface ITreeOptions {
      * Whether to display a checkbox next to the node or not
      */
     useCheckbox?: boolean;
+    /**
+     * Whether to use master checkboxes mechanism if the useCheckbox is set to true
+     */
+    useTriState?: boolean;
+    /**
+     * The HTML element that is the scroll container for the tree.
+     * The default behaviour is to wrap the tree with a container that has overflow: hidden,
+     * and then the scrolling container is the viewport inside the tree component
+     */
+    scrollContainer?: HTMLElement;
  }
 
 export interface ITreeNode {
@@ -453,7 +465,7 @@ export interface ITreeModel {
    */
   isFocused: boolean;
   /**
-   * @returns Current active (selected) nodes
+   * @returns Current active nodes
    */
   activeNodes: ITreeNode[];
   /**
@@ -463,7 +475,7 @@ export interface ITreeModel {
 
   // helpers
   /**
-   * @returns Current active (selected) node. If multiple nodes are active - returns the first one.
+   * @returns Current active node. If multiple nodes are active - returns the first one.
    */
   getActiveNode(): ITreeNode;
   /**
@@ -511,6 +523,10 @@ export interface ITreeModel {
    * @returns   First node that matches the predicate, if found - null otherwise
    */
   getNodeBy(predicate: any, startNode?: ITreeNode): ITreeNode;
+  /**
+   * get tree state
+   */
+  getState(): ITreeState;
 
   // actions
   /**
@@ -567,10 +583,6 @@ export interface ITreeModel {
    * collapse all nodes
    */
   collapseAll();
-  /**
-   * get tree state
-   */
-  getState(): ITreeState;
   /**
    * set tree state
    */

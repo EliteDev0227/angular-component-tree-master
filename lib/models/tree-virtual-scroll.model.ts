@@ -3,8 +3,8 @@ import { observable, computed, action, autorun, reaction } from 'mobx';
 import { TreeModel } from './tree.model';
 import { TREE_EVENTS } from '../constants/events';
 
-const Y_OFFSET = 300; // Extra pixels outside the viewport, in each direction, to render nodes in
-const Y_EPSILON = 50; // Minimum pixel change required to recalculate the rendered nodes
+const Y_OFFSET = 500; // Extra pixels outside the viewport, in each direction, to render nodes in
+const Y_EPSILON = 150; // Minimum pixel change required to recalculate the rendered nodes
 
 @Injectable()
 export class TreeVirtualScroll {
@@ -92,15 +92,30 @@ export class TreeVirtualScroll {
   }
 
   @action scrollIntoView(node, force, scrollToMiddle = true) {
-    if (force || // force scroll to node
-      node.position < this.y || // node is above viewport
-      node.position + node.getSelfHeight() > this.y + this.viewportHeight) { // node is below viewport
-      if (this.viewport) {
-        this.viewport.scrollTop = scrollToMiddle ?
+    if (node.options.scrollContainer) {
+      const scrollContainer = node.options.scrollContainer;
+      const scrollContainerHeight = scrollContainer.getBoundingClientRect().height;
+      const scrollContainerTop = scrollContainer.getBoundingClientRect().top;
+      const nodeTop = this.viewport.getBoundingClientRect().top + node.position - scrollContainerTop;
+
+      if (force || // force scroll to node
+        nodeTop < scrollContainer.scrollTop || // node is above scroll container
+        nodeTop + node.getSelfHeight() > scrollContainer.scrollTop + scrollContainerHeight) { // node is below container
+        scrollContainer.scrollTop = scrollToMiddle ?
+          nodeTop - scrollContainerHeight / 2 : // scroll to middle
+          nodeTop; // scroll to start
+      }
+    } else {
+      if (force || // force scroll to node
+        node.position < this.y || // node is above viewport
+        node.position + node.getSelfHeight() > this.y + this.viewportHeight) { // node is below viewport
+        if (this.viewport) {
+          this.viewport.scrollTop = scrollToMiddle ?
           node.position - this.viewportHeight / 2 : // scroll to middle
           node.position; // scroll to start
 
-        this._setYBlocks(Math.floor(this.viewport.scrollTop / Y_EPSILON));
+          this._setYBlocks(Math.floor(this.viewport.scrollTop / Y_EPSILON));
+        }
       }
     }
   }
