@@ -112,11 +112,13 @@ export class TreeComponent implements OnChanges {
   }
 
   ngOnChanges(changes) {
-    this.treeModel.setData({
-      options: changes.options && changes.options.currentValue,
-      nodes: changes.nodes && changes.nodes.currentValue,
-      events: pick(this, this.treeModel.eventNames)
-    });
+    if (changes.options || changes.nodes) {
+      this.treeModel.setData({
+        options: changes.options && changes.options.currentValue,
+        nodes: changes.nodes && changes.nodes.currentValue,
+        events: pick(this, this.treeModel.eventNames)
+      });
+    }
   }
 
   sizeChanged() {
