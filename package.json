@@ -1,6 +1,6 @@
 {
   "name": "angular-tree-component",
-  "version": "7.2.0",
+  "version": "7.2.1",
   "description": "A simple yet powerful tree component for Angular2",
   "author": "Adam Klein <adam@500tech.com>",
   "homepage": "https://github.com/500tech/angular-tree-component",
@@ -107,7 +107,8 @@
     "typedoc": "^0.3.12",
     "typescript": "^2.5.3",
     "hoek": "~> 5.0.3",
-    "zone.js": "^0.8.4"
+    "zone.js": "^0.8.4",
+    "growl": "~> 1.10.0"
   },
   "repository": "https://github.com/500tech/angular-tree-component.git",
   "bugs": {

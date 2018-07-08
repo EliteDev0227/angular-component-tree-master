@@ -1,5 +1,11 @@
+<a name="7.2.1"></a>
+# 7.2.1 (2018-21-06)
+* remove _canMoveNode validation from the copyNode function, fix #608 - PR #609
+* Add event parameter to onScroll, fix #534 #537 - PR #537
+* Optimize onChanges update, fix #534 #537 - PR #537
+
 <a name="7.2.0"></a>
-# 7.2.0 (2018-xx-xx)
+# 7.2.0 (2018-14-05)
 * Added nodeActivate and nodeDeactivate events for IE11 - issue #387
 * Added scrollContainer option to allow scrolling in external container - issue #92
 
