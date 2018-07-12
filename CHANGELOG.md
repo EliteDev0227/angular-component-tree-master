@@ -3,6 +3,8 @@
 * remove _canMoveNode validation from the copyNode function, fix #608 - PR #609
 * Add event parameter to onScroll, fix #534 #537 - PR #537
 * Optimize onChanges update, fix #534 #537 - PR #537
+* Fixed example with Angular6
+* Moved @lodash/types from devDependency to dependency
 
 <a name="7.2.0"></a>
 # 7.2.0 (2018-14-05)
