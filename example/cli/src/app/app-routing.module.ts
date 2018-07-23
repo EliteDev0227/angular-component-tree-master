@@ -16,6 +16,7 @@ import { VirtualscrollComponent } from './virtualscroll/virtualscroll.component'
 import { ApiComponent } from './api/api.component';
 import { ActionsComponent } from './actions/actions.component';
 import { ScrollContainerComponent } from './scrollcontainer/scrollcontainer.component';
+import { ContextmenuComponent } from './contextmenu/contextmenu.component';
 
 const routes: Routes = [
   {
@@ -77,6 +78,10 @@ const routes: Routes = [
   {
     path: 'scroll-container',
     component: ScrollContainerComponent
+  },
+  {
+    path: 'context-menu',
+    component: ContextmenuComponent
   }
 ];
 
