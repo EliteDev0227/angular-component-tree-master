@@ -356,7 +356,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
     const fromIndex = node.getIndexInParent();
     const fromParent = node.parent;
 
-    if (!this._canMoveNode(node, fromIndex , to)) return;
+    if (!this.canMoveNode(node, to, fromIndex)) return;
 
     const fromChildren = fromParent.getField('children');
 
@@ -383,6 +383,8 @@ export class TreeModel implements ITreeModel, OnDestroy {
 
   @action copyNode(node, to) {
     const fromIndex = node.getIndexInParent();
+
+    if (!this.canMoveNode(node, to, fromIndex)) return;
 
     // If node doesn't have children - create children array
     if (!to.parent.getField('children')) {
@@ -428,8 +430,9 @@ export class TreeModel implements ITreeModel, OnDestroy {
     autorun(() => fn(this.getState()));
   }
 
-  // private methods
-  private _canMoveNode(node, fromIndex, to) {
+  canMoveNode(node, to, fromIndex = undefined) {
+    const fromNodeIndex = fromIndex || node.getIndexInParent();
+
     // same node:
     if (node.parent === to.parent && fromIndex === to.index) {
       return false;
@@ -438,7 +441,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
     return !to.parent.isDescendantOf(node);
   }
 
-
+  // private methods
   private _filterNode(ids, node, filterFn, autoShow) {
     // if node passes function then it's visible
     let isVisible = filterFn(node);

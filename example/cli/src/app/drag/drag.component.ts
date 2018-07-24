@@ -21,7 +21,7 @@ export class DragComponent {
   };
 
   options: ITreeOptions = {
-    allowDrag: (node) => node.isLeaf,
+    allowDrag: (node) => true,
     getNodeClone: (node) => ({
       ...node.data,
       id: v4(),
