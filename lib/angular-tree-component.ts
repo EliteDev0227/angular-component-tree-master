@@ -1,9 +1,9 @@
-import { NgModule }      from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MobxAngularModule } from 'mobx-angular';
 
-import { TREE_ACTIONS, IActionMapping, IActionHandler } from './models/tree-options.model';
-import { ITreeOptions, IAllowDropFn, IAllowDragFn, ITreeState } from './defs/api';
+import { IActionHandler, IActionMapping, TREE_ACTIONS } from './models/tree-options.model';
+import { IAllowDragFn, IAllowDropFn, ITreeOptions, ITreeState } from './defs/api';
 import { KEYS } from './constants/keys';
 import { TreeModel } from './models/tree.model';
 import { TreeNode } from './models/tree-node.model';
@@ -63,11 +63,16 @@ import './polyfills';
     CommonModule,
     MobxAngularModule
   ],
-  providers: [
-    TreeDraggedElement
-  ]
+  providers: []
 })
-export class TreeModule {}
+export class TreeModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: TreeModule,
+      providers: [TreeDraggedElement]
+    };
+  }
+}
 
 export {
   TreeModel,
