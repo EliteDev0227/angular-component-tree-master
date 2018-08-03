@@ -46,7 +46,7 @@ import { ContextmenuComponent } from './contextmenu/contextmenu.component';
   imports: [
     BrowserModule,
     FormsModule,
-    TreeModule,
+    TreeModule.forRoot(),
     CommonModule,
     AppRoutingModule
   ],

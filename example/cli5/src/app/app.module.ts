@@ -44,7 +44,7 @@ import { ScrollContainerComponent } from './scrollcontainer/scrollcontainer.comp
   imports: [
     BrowserModule,
     FormsModule,
-    TreeModule,
+    TreeModule.forRoot(),
     CommonModule,
     AppRoutingModule
   ],
