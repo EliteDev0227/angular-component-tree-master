@@ -50,7 +50,7 @@
     "test:debug": "./node_modules/.bin/testcafe chrome e2e/*.testcafe.js --inspect-brk",
     "test:slow": "./node_modules/.bin/testcafe chrome e2e/*.testcafe.js --speed 0.1",
     "test:setup": "npm run build && cd example/cli && npm install && cp -rf ../../dist node_modules/angular-tree-component/",
-    "prepublishOnly": "cd example/cli && npm install && cd ../../ && npm run build && npm run example:cli:build",
+    "prepublishOnly": "cd example/cli && npm install && cd ../../ && npm run build",
     "e2e:tsc": "../node_modules/.bin/tsc --p e2e/tsconfig.json"
   },
   "files": [
