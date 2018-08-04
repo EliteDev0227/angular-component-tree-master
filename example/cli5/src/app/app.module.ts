@@ -21,7 +21,6 @@ import { VirtualscrollComponent } from './virtualscroll/virtualscroll.component'
 import { ApiComponent } from './api/api.component';
 import { ActionsComponent } from './actions/actions.component';
 import { ScrollContainerComponent } from './scrollcontainer/scrollcontainer.component';
-import { ContextmenuComponent } from './contextmenu/contextmenu.component';
 
 @NgModule({
   declarations: [
@@ -40,8 +39,7 @@ import { ContextmenuComponent } from './contextmenu/contextmenu.component';
     VirtualscrollComponent,
     ApiComponent,
     ActionsComponent,
-    ScrollContainerComponent,
-    ContextmenuComponent
+    ScrollContainerComponent
   ],
   imports: [
     BrowserModule,
