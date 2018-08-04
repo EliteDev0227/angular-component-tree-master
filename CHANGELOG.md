@@ -1,3 +1,8 @@
+<a name="8.0.0"></a>
+# 8.0.0 (2018-04-08)
+* Breaking change - Upgrade to Angular6 and Renderer2
+* Breaking change - load TreeDraggedElement in forRoot to support lazy loading
+
 <a name="7.2.1"></a>
 # 7.2.1 (2018-21-06)
 * remove _canMoveNode validation from the copyNode function, fix #608 - PR #609
