@@ -42,7 +42,7 @@ const routes: Route[] = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    TreeModule,
+    TreeModule.forRoot(),
     RouterModule.forRoot(routes, { useHash: true })
   ],
   providers: [],

@@ -45,7 +45,7 @@ useStrict(true);
     BrowserModule,
     FormsModule,
     HttpModule,
-    TreeModule,
+    TreeModule.forRoot(),
     AppRoutingModule
   ],
   providers: [],
