@@ -1,7 +1,4 @@
-import {
-  Directive, Input, HostListener, Renderer, ElementRef,
-  DoCheck, TemplateRef, ViewContainerRef
-} from '@angular/core';
+import { Directive, Input, Renderer2, TemplateRef, ViewContainerRef } from '@angular/core';
 
 const EASE_ACCELERATION = 1.005;
 
@@ -31,9 +28,10 @@ export class TreeAnimateOpenDirective {
   private innerElement: any;
 
   constructor(
-    private renderer: Renderer,
+    private renderer: Renderer2,
     private templateRef: TemplateRef<any>,
-    private viewContainerRef: ViewContainerRef) {}
+    private viewContainerRef: ViewContainerRef) {
+  }
 
   private _show() {
     if (this.innerElement) return;
@@ -53,7 +51,7 @@ export class TreeAnimateOpenDirective {
     let maxHeight = 0;
 
     // set height to 0
-    this.renderer.setElementStyle(this.innerElement, 'max-height', `0`);
+    this.renderer.setStyle(this.innerElement, 'max-height', `0`);
 
     // increase maxHeight until height doesn't change
     setTimeout(() => { // Allow inner element to create its content
@@ -63,14 +61,14 @@ export class TreeAnimateOpenDirective {
         maxHeight += delta;
         const roundedMaxHeight = Math.round(maxHeight);
 
-        this.renderer.setElementStyle(this.innerElement, 'max-height', `${roundedMaxHeight}px`);
+        this.renderer.setStyle(this.innerElement, 'max-height', `${roundedMaxHeight}px`);
         const height = this.innerElement.getBoundingClientRect ? this.innerElement.getBoundingClientRect().height : 0; // TBD use renderer
 
         delta *= ease;
         ease *= EASE_ACCELERATION;
         if (height < roundedMaxHeight) {
           // Make maxHeight auto because animation finished and container might change height later on
-          this.renderer.setElementStyle(this.innerElement, 'max-height', null);
+          this.renderer.setStyle(this.innerElement, 'max-height', null);
           clearInterval(i);
         }
       }, 17);
@@ -89,7 +87,7 @@ export class TreeAnimateOpenDirective {
       if (this._isOpen || !this.innerElement) return clearInterval(i);
 
       height -= delta;
-      this.renderer.setElementStyle(this.innerElement, 'max-height', `${height}px`);
+      this.renderer.setStyle(this.innerElement, 'max-height', `${height}px`);
       delta *= ease;
       ease *= EASE_ACCELERATION;
 
