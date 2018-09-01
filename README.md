@@ -3,8 +3,27 @@
 <a href="https://angular-tree-component.herokuapp.com/"><img src="https://angular-tree-component.herokuapp.com/badge.svg" alt="slack" ></a>
 # angular tree component
 
+## Call for maintainers
+It's been a long road, and now - I'm ready to hand over the keys.
+
+Maintaining this fabulous component was a thrill for me.  
+Seeing so many developers around the world using it, enjoying it, and complimenting me about it - was a truly satisfying experience.  
+
+I no longer feel I can truly support the community, and there is much more to do for this library and its users.
+
+I would like to propose someone or some company from the community to take over the library.
+Giving up a baby is not easy, and I'd like to make sure take whoever takes over - will be dedicated to keep a clean code, green tests, and also support the community.
+
+That being said - I think the community should support itself as well.
+That's why I opened the Slack community, with already over 120 members, and growing still.
+
+To apply to maintain the library, please contact me via this form:
+[https://goo.gl/forms/vBl0LyMnqpcJNhf43](https://goo.gl/forms/vBl0LyMnqpcJNhf43)
+
+Cheers
+
 ## Getting started, Docs, Demos & More
-[http://500tech.github.io/angular-tree-component/](http://500tech.github.io/angular-tree-component/)
+[https://angular2-tree.readme.io/docs/](https://angular2-tree.readme.io/docs/)
 
 ## Slack Channel
 The best way to get support from the community:
