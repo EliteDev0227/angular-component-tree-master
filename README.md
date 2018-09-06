@@ -12,7 +12,7 @@ Seeing so many developers around the world using it, enjoying it, and compliment
 I no longer feel I can truly support the community, and there is much more to do for this library and its users.
 
 I would like to propose someone or some company from the community to take over the library.
-Giving up a baby is not easy, and I'd like to make sure take whoever takes over - will be dedicated to keep a clean code, green tests, and also support the community.
+Giving up a baby is not easy, and I'd like to make sure that whoever takes over - will be dedicated to keeping a clean code, green tests, and also support the community.
 
 That being said - I think the community should support itself as well.
 That's why I opened the Slack community, with already over 120 members, and growing still.
