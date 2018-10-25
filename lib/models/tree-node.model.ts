@@ -301,6 +301,8 @@ export class TreeNode implements ITreeNode {
     if (this.handler) {
       this.handler();
     }
+    this.parent = null;
+    this.children = null;
   }
 
   setIsActive(value, multi = false) {
