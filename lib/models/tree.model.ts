@@ -1,5 +1,6 @@
 import { Injectable, EventEmitter, OnDestroy } from '@angular/core';
 import { observable, computed, action, autorun } from 'mobx';
+import { Subscription } from 'rxjs';
 import { TreeNode } from './tree-node.model';
 import { TreeOptions } from './tree-options.model';
 import { TreeVirtualScroll } from './tree-virtual-scroll.model';
@@ -32,6 +33,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
 
   private firstUpdate = true;
   private events: any;
+  private subscriptions: Subscription[] = [];
 
   // events
   fireEvent(event) {
@@ -41,7 +43,8 @@ export class TreeModel implements ITreeModel, OnDestroy {
   }
 
   subscribe(eventName, fn) {
-    this.events[eventName].subscribe(fn);
+    const subscription = this.events[eventName].subscribe(fn);
+    this.subscriptions.push(subscription);
   }
 
 
@@ -161,6 +164,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
 
   ngOnDestroy() {
     this.dispose();
+    this.unsubscribeAll();
   }
 
   dispose() {
@@ -168,6 +172,11 @@ export class TreeModel implements ITreeModel, OnDestroy {
     if (this.virtualRoot) {
       this.virtualRoot.dispose();
     }
+  }
+
+  unsubscribeAll() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    this.subscriptions = [];
   }
 
   // actions
