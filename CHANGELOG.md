@@ -1,3 +1,7 @@
+<a name="8.0.1"></a>
+# 8.0.1 (2018-04-08)
+* Unsubscribe to prevent memory leaks
+
 <a name="8.0.0"></a>
 # 8.0.0 (2018-04-08)
 * Breaking change - Upgrade to Angular6 and Renderer2
