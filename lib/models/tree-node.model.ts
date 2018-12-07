@@ -17,10 +17,10 @@ export class TreeNode implements ITreeNode {
   @computed get isFocused() { return this.treeModel.isNodeFocused(this); };
   @computed get isSelected() {
     if (this.treeModel.options.useTriState) {
-      if (this.isLeaf) {
-        return this.treeModel.isSelected(this);
+      if (this.isLeaf || !this.children) {
+          return this.treeModel.isSelected(this);
       } else {
-        return some(this.children, (node) => node.isSelected);
+        return some(this.children, (node: TreeNode) => node.isSelected);
       }
     } else {
       return this.treeModel.isSelected(this);
@@ -28,10 +28,10 @@ export class TreeNode implements ITreeNode {
   };
   @computed get isAllSelected() {
     if (this.treeModel.options.useTriState) {
-      if (this.isLeaf) {
-        return this.isSelected;
+      if (this.isLeaf || !this.children) {
+        return this.treeModel.isSelected(this);
       } else {
-        return every(this.children, (node) => node.isAllSelected);
+        return every(this.children, (node: TreeNode) => node.isAllSelected);
       }
     } else {
       return this.isSelected;
@@ -65,6 +65,7 @@ export class TreeNode implements ITreeNode {
       this.id = uuid();
     } // Make sure there's a unique id without overriding existing ids to work with immutable data structures
     this.index = index;
+    this.setField('isSelected', parent.isSelected);
 
     if (this.getField('children')) {
       this._initChildren();
@@ -316,9 +317,10 @@ export class TreeNode implements ITreeNode {
 
   @action setIsSelected(value) {
     if (this.treeModel.options.useTriState) {
-      if (this.isLeaf) {
+      if (this.isLeaf || !this.children) {
         this.treeModel.setSelectedNode(this, value);
       } else {
+        this.treeModel.setSelectedNode(this, value);
         this.visibleChildren.forEach((child) => child.setIsSelected(value));
       }
     } else {
