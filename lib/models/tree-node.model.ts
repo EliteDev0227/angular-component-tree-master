@@ -65,7 +65,9 @@ export class TreeNode implements ITreeNode {
       this.id = uuid();
     } // Make sure there's a unique id without overriding existing ids to work with immutable data structures
     this.index = index;
-    this.setField('isSelected', parent.isSelected);
+    if (parent) {
+      this.treeModel.setSelectedNode(this, parent.isSelected);
+    }
 
     if (this.getField('children')) {
       this._initChildren();
@@ -316,15 +318,10 @@ export class TreeNode implements ITreeNode {
   }
 
   @action setIsSelected(value) {
-    if (this.treeModel.options.useTriState) {
-      if (this.isLeaf || !this.children) {
-        this.treeModel.setSelectedNode(this, value);
-      } else {
-        this.treeModel.setSelectedNode(this, value);
-        this.visibleChildren.forEach((child) => child.setIsSelected(value));
-      }
-    } else {
+    if (this.isLeaf || !this.children) {
       this.treeModel.setSelectedNode(this, value);
+    } else {
+      this.visibleChildren.forEach((child) => child.setIsSelected(value));
     }
 
     return this;
