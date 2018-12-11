@@ -1,5 +1,9 @@
+<a name="8.0.2"></a>
+# 8.0.2 (2018-11-12)
+* Unsubscribe to prevent memory leaks
+
 <a name="8.0.1"></a>
-# 8.0.1 (2018-04-08)
+# 8.0.1 (2018-04-12)
 * Unsubscribe to prevent memory leaks
 
 <a name="8.0.0"></a>
