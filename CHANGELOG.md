@@ -1,6 +1,10 @@
+<a name="8.0.3"></a>
+# 8.0.3 (2018-20-12)
+* Fixed Warning on state bind
+
 <a name="8.0.2"></a>
 # 8.0.2 (2018-11-12)
-* Unsubscribe to prevent memory leaks
+* Checkbox keep parent selection on async childs
 
 <a name="8.0.1"></a>
 # 8.0.1 (2018-04-12)
