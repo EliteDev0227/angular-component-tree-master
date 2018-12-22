@@ -16,14 +16,12 @@ export class TreeNode implements ITreeNode {
   @computed get isActive() { return this.treeModel.isActive(this); };
   @computed get isFocused() { return this.treeModel.isNodeFocused(this); };
   @computed get isSelected() {
-    if (this.treeModel.options.useTriState) {
-      if (this.isLeaf || !this.children) {
-          return this.treeModel.isSelected(this);
-      } else {
-        return some(this.children, (node: TreeNode) => node.isSelected);
-      }
+    if (this.isLeaf || !this.children) {
+        return this.treeModel.isSelected(this);
     } else {
-      return this.treeModel.isSelected(this);
+      const method = this.treeModel.options.useTriState ? some : every;
+
+      return method(this.children, (node: TreeNode) => node.isSelected);
     }
   };
   @computed get isAllSelected() {

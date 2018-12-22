@@ -1,3 +1,8 @@
+<a name="8.0.4"></a>
+# 8.0.4 (2018-22-12)
+* Fixed non triState checkboxes
+* Fixed checkboxes example to switch expander and checkbox
+
 <a name="8.0.3"></a>
 # 8.0.3 (2018-20-12)
 * Fixed Warning on state bind
