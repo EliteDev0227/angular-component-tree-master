@@ -27,6 +27,7 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
   private readonly dragEnterEventHandler: (ev: DragEvent) => void;
   private readonly dragLeaveEventHandler: (ev: DragEvent) => void;
 
+  private _allowDragoverStyling = true;
   private _allowDrop = (element, $event) => true;
 
   @Input() set treeAllowDrop(allowDrop) {
@@ -34,6 +35,9 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
       this._allowDrop = allowDrop;
     }
     else this._allowDrop = (element, $event) => allowDrop;
+  }
+  @Input() set allowDragoverStyling(allowDragoverStyling: boolean) {
+    this._allowDragoverStyling = allowDragoverStyling;
   }
 
   allowDrop($event) {
@@ -63,12 +67,19 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
   }
 
   onDragOver($event) {
-    if (!this.allowDrop($event)) return this.addDisabledClass();
+    if (!this.allowDrop($event)) {
+      if (this._allowDragoverStyling) {
+        return this.addDisabledClass();
+      }
+      return;
+    };
 
     this.onDragOverCallback.emit({event: $event, element: this.treeDraggedElement.get()});
 
     $event.preventDefault();
-    this.addClass();
+    if (this._allowDragoverStyling) {
+      this.addClass();
+    }
   }
 
   onDragEnter($event) {
@@ -78,11 +89,17 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
   }
 
   onDragLeave($event) {
-    if (!this.allowDrop($event)) return this.removeDisabledClass();
-
+    if (!this.allowDrop($event)) {
+      if (this._allowDragoverStyling) {
+        return this.removeDisabledClass();
+      }
+      return;
+    }
     this.onDragLeaveCallback.emit({event: $event, element: this.treeDraggedElement.get()});
 
-    this.removeClass();
+    if (this._allowDragoverStyling) {
+      this.removeClass();
+    }
   }
 
   @HostListener('drop', ['$event']) onDrop($event) {
@@ -90,7 +107,10 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
 
     $event.preventDefault();
     this.onDropCallback.emit({event: $event, element: this.treeDraggedElement.get()});
-    this.removeClass();
+
+    if (this._allowDragoverStyling) {
+      this.removeClass();
+    }
     this.treeDraggedElement.set(null);
   }
 

@@ -95,6 +95,7 @@ export class TreeOptions {
   get useCheckbox(): boolean { return this.options.useCheckbox; }
   get useTriState(): boolean { return this.options.useTriState === undefined ? true : this.options.useTriState; }
   get scrollContainer(): HTMLElement { return this.options.scrollContainer; }
+  get allowDragoverStyling(): boolean { return this.options.allowDragoverStyling === undefined ? true : this.options.allowDragoverStyling; }
   actionMapping: IActionMapping;
 
   constructor(private options: ITreeOptions = {}) {
