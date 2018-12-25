@@ -1,3 +1,7 @@
+<a name="8.0.5"></a>
+# 8.0.5 (2018-25-12)
+* Fixed non triState checkboxes to reflect expected behaviour
+
 <a name="8.0.4"></a>
 # 8.0.4 (2018-22-12)
 * Fixed non triState checkboxes
