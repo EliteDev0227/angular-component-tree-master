@@ -1,3 +1,8 @@
+<a name="8.1.0"></a>
+# 8.1.0 (2018-25-12)
+* Added public calculateExpandedNodes
+* Fixed loading async children in large tree
+
 <a name="8.0.5"></a>
 # 8.0.5 (2018-25-12)
 * Fixed non triState checkboxes to reflect expected behaviour
