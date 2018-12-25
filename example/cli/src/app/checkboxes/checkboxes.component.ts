@@ -31,7 +31,7 @@ import { Component } from '@angular/core';
 export class CheckboxesComponent {
   nodes = [
     {
-      name: 'root1'
+      name: 'root1',
     },
     {
       name: 'root2',
@@ -42,15 +42,36 @@ export class CheckboxesComponent {
           { name: 'grandchild2' }
         ] }
       ]
+    },
+    {
+      name: 'asyncroot',
+      hasChildren: true
     }
   ];
 
   options: ITreeOptions = {
-    useCheckbox: true
+    useCheckbox: true,
+    getChildren: this.getChildren.bind(this)
   };
 
   optionsDisabled: ITreeOptions = {
     useCheckbox: true,
+    getChildren: this.getChildren.bind(this),
     useTriState: false
   };
+
+  getChildren(node: any) {
+    const newNodes = [
+      {
+        name: 'child1'
+      }, {
+        name: 'child2'
+      }
+    ];
+
+    return new Promise((resolve, reject) => {
+      setTimeout(() => resolve(newNodes), 1000);
+    });
+  }
+
 }

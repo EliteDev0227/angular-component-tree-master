@@ -10,7 +10,8 @@ import { ITreeOptions, TreeNode} from 'angular-tree-component';
 })
 export class AsyncTreeComponent {
   options: ITreeOptions = {
-    getChildren: this.getChildren.bind(this)
+    getChildren: this.getChildren.bind(this),
+    useCheckbox: true
   };
 
   nodes: any[] = [];

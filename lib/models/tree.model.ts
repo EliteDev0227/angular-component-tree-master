@@ -450,6 +450,10 @@ export class TreeModel implements ITreeModel, OnDestroy {
     return !to.parent.isDescendantOf(node);
   }
 
+  calculateExpandedNodes() {
+      this._calculateExpandedNodes();
+  }
+
   // private methods
   private _filterNode(ids, node, filterFn, autoShow) {
     // if node passes function then it's visible
