@@ -674,7 +674,8 @@ __webpack_require__.r(__webpack_exports__);
 var AsyncTreeComponent = /** @class */ (function () {
     function AsyncTreeComponent() {
         this.options = {
-            getChildren: this.getChildren.bind(this)
+            getChildren: this.getChildren.bind(this),
+            useCheckbox: true
         };
         this.nodes = [];
         this.asyncChildren = [
@@ -877,7 +878,7 @@ var CheckboxesComponent = /** @class */ (function () {
     function CheckboxesComponent() {
         this.nodes = [
             {
-                name: 'root1'
+                name: 'root1',
             },
             {
                 name: 'root2',
@@ -888,16 +889,34 @@ var CheckboxesComponent = /** @class */ (function () {
                             { name: 'grandchild2' }
                         ] }
                 ]
+            },
+            {
+                name: 'asyncroot',
+                hasChildren: true
             }
         ];
         this.options = {
-            useCheckbox: true
+            useCheckbox: true,
+            getChildren: this.getChildren.bind(this)
         };
         this.optionsDisabled = {
             useCheckbox: true,
+            getChildren: this.getChildren.bind(this),
             useTriState: false
         };
     }
+    CheckboxesComponent.prototype.getChildren = function (node) {
+        var newNodes = [
+            {
+                name: 'child1'
+            }, {
+                name: 'child2'
+            }
+        ];
+        return new Promise(function (resolve, reject) {
+            setTimeout(function () { return resolve(newNodes); }, 1000);
+        });
+    };
     return CheckboxesComponent;
 }());
 
