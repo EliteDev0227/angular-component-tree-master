@@ -16,23 +16,17 @@ export class TreeNode implements ITreeNode {
   @computed get isActive() { return this.treeModel.isActive(this); };
   @computed get isFocused() { return this.treeModel.isNodeFocused(this); };
   @computed get isSelected() {
-    if (this.isLeaf || !this.children) {
+    if (this.isSelectable()) {
         return this.treeModel.isSelected(this);
     } else {
-      const method = this.treeModel.options.useTriState ? some : every;
-
-      return method(this.children, (node: TreeNode) => node.isSelected);
+      return some(this.children, (node: TreeNode) => node.isSelected);
     }
   };
   @computed get isAllSelected() {
-    if (this.treeModel.options.useTriState) {
-      if (this.isLeaf || !this.children) {
-        return this.treeModel.isSelected(this);
-      } else {
-        return every(this.children, (node: TreeNode) => node.isAllSelected);
-      }
+    if (this.isSelectable()) {
+      return this.treeModel.isSelected(this);
     } else {
-      return this.isSelected;
+      return every(this.children, (node: TreeNode) => node.isAllSelected);
     }
   };
   @computed get isPartiallySelected() {
@@ -211,7 +205,7 @@ export class TreeNode implements ITreeNode {
         if (children) {
           this.setField('children', children);
           this._initChildren();
-          if (this.treeModel.isSelected(this)) {
+          if (this.options.useTriState && this.treeModel.isSelected(this)) {
             this.setIsSelected(true);
           }
           this.children.forEach((child) => {
@@ -315,8 +309,12 @@ export class TreeNode implements ITreeNode {
     return this;
   }
 
+  isSelectable() {
+    return this.isLeaf || !this.children || !this.options.useTriState;
+  }
+
   @action setIsSelected(value) {
-    if (this.isLeaf || !this.children) {
+    if (this.isSelectable()) {
       this.treeModel.setSelectedNode(this, value);
     } else {
       this.visibleChildren.forEach((child) => child.setIsSelected(value));

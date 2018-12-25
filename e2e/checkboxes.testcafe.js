@@ -9,6 +9,8 @@ fixture `Checkboxes`
     t.ctx.tree3 = new TreeDriver('#tree3');
     t.ctx.root1 = t.ctx.tree.getNode('root1');
     t.ctx.root2 = t.ctx.tree.getNode('root2');
+    t.ctx.asyncroot = t.ctx.tree.getNode('asyncroot');
+    t.ctx.asyncroot3 = t.ctx.tree3.getNode('asyncroot');
     await t.ctx.root2.clickExpander(t);
     t.ctx.child2 = t.ctx.tree.getNode('child2');
     await t.ctx.child2.clickExpander(t);
@@ -85,3 +87,19 @@ test('should disable tri-state if useTriState is false', async t => {
     .expect(t.ctx.grandchild32.isIndeterminate()).eql(false);
 });
 
+test('should reflect selected parent state in async children', async t => {
+  await t.ctx.asyncroot.clickCheckbox(t);
+  await t.ctx.asyncroot.clickExpander(t)
+    .expect(t.ctx.asyncroot.getNode('child1').isChecked()).eql(true);
+});
+
+test('should not select child of async root if it is not selected', async t => {
+  await t.ctx.asyncroot.clickExpander(t)
+    .expect(t.ctx.asyncroot.getNode('child1').isChecked()).eql(false);
+});
+
+test('should not select child of async root if it is not using triState', async t => {
+  await t.ctx.asyncroot3.clickCheckbox(t);
+  await t.ctx.asyncroot3.clickExpander(t)
+    .expect(t.ctx.asyncroot3.getNode('child1').isChecked()).eql(false);
+});
