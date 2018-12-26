@@ -17,6 +17,8 @@ import { ApiComponent } from './api/api.component';
 import { ActionsComponent } from './actions/actions.component';
 import { ScrollContainerComponent } from './scrollcontainer/scrollcontainer.component';
 import { ContextmenuComponent } from './contextmenu/contextmenu.component';
+import { DragOverStylingComponent } from './dragover-styling/dragover-styling.component';
+import { DragOverStylingFullTreeComponent } from './dragover-styling/dragover-styling-full-tree.component';
 
 const routes: Routes = [
   {
@@ -64,6 +66,14 @@ const routes: Routes = [
     component: DragComponent
   },
   {
+    path: 'dragover-styling',
+    component: DragOverStylingComponent
+  },
+  {
+    path: 'dragover-styling-full-tree',
+    component: DragOverStylingFullTreeComponent
+  },
+  {
     path: 'virtual',
     component: VirtualscrollComponent
   },
@@ -89,4 +99,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
