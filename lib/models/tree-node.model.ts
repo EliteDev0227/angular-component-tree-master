@@ -190,6 +190,10 @@ export class TreeNode implements ITreeNode {
     return this.options.allowDrop(element, { parent: this, index: 0 }, $event);
   }
 
+  allowDragoverStyling = () => {
+    return this.options.allowDragoverStyling;
+  }
+
   allowDrag() {
     return this.options.allowDrag(this);
   }
