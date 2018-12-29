@@ -1175,7 +1175,7 @@ __webpack_require__.r(__webpack_exports__);
 var styles_DragComponent = [];
 var RenderType_DragComponent = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵcrt"]({ encapsulation: 2, styles: styles_DragComponent, data: {} });
 
-function View_DragComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "h4", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵted"](-1, null, ["Allowing to drag only leaf nodes"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](2, 0, null, null, 6, "tree-root", [], null, [["body", "keydown"], ["body", "mousedown"]], function (_v, en, $event) { var ad = true; if (("body:keydown" === en)) {
+function View_DragComponent_0(_l) { return _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵvid"](0, [(_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](0, 0, null, null, 1, "h4", [], null, null, null, null, null)), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵted"](-1, null, ["Allowing to drag only leaf nodes; ctrl-drag to copy"])), (_l()(), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵeld"](2, 0, null, null, 6, "tree-root", [], null, [["body", "keydown"], ["body", "mousedown"]], function (_v, en, $event) { var ad = true; if (("body:keydown" === en)) {
         var pd_0 = (_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵnov"](_v, 4).onKeydown($event) !== false);
         ad = (pd_0 && ad);
     } if (("body:mousedown" === en)) {
@@ -1221,7 +1221,7 @@ var DragComponent = /** @class */ (function () {
             activeNodeIds: {}
         };
         this.options = {
-            allowDrag: function (node) { return true; },
+            allowDrag: function (node) { return node.isLeaf; },
             getNodeClone: function (node) { return (__assign({}, node.data, { id: Object(uuid__WEBPACK_IMPORTED_MODULE_0__["v4"])(), name: "copy of " + node.data.name })); }
         };
         this.nodes = [
@@ -2809,7 +2809,7 @@ _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__["platformBrowser"]().boot
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\kjovanovski\Documents\Projects\angular-tree-component\example\cli\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! /Users/adamklein/projects/ng2tree/example/cli/src/main.ts */"./src/main.ts");
 
 
 /***/ })

@@ -1,3 +1,7 @@
+<a name="8.2.0"></a>
+# 8.2.0 (2018-29-12)
+* Added allowDragoverStyling option
+
 <a name="8.1.0"></a>
 # 8.1.0 (2018-25-12)
 * Added public calculateExpandedNodes
