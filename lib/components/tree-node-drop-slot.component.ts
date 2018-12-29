@@ -10,7 +10,7 @@ import { TreeNode } from '../models/tree-node.model';
       class="node-drop-slot"
       (treeDrop)="onDrop($event)"
       [treeAllowDrop]="allowDrop.bind(this)"
-      [allowDragoverStyling]="allowDragoverStyling()">
+      [allowDragoverStyling]="true">
     </div>
   `
 })
@@ -27,9 +27,5 @@ export class TreeNodeDropSlot {
 
   allowDrop(element, $event) {
     return this.node.options.allowDrop(element, { parent: this.node, index: this.dropIndex }, $event);
-  }
-
-  allowDragoverStyling () {
-    return true;
   }
 }

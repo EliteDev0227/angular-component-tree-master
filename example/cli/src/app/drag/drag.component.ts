@@ -5,7 +5,7 @@ import { v4 } from 'uuid';
 @Component({
   selector: 'app-drag',
   template: `
-    <h4>Allowing to drag only leaf nodes</h4>
+    <h4>Allowing to drag only leaf nodes; ctrl-drag to copy</h4>
     <tree-root [state]="state" [options]="options" [focused]="true" [nodes]="nodes"></tree-root>
   `,
   styles: []
@@ -21,7 +21,7 @@ export class DragComponent {
   };
 
   options: ITreeOptions = {
-    allowDrag: (node) => true,
+    allowDrag: (node) => node.isLeaf,
     getNodeClone: (node) => ({
       ...node.data,
       id: v4(),

@@ -19,6 +19,7 @@ const DRAG_DISABLED_CLASS = 'is-dragging-over-disabled';
   selector: '[treeDrop]'
 })
 export class TreeDropDirective implements AfterViewInit, OnDestroy {
+  @Input() allowDragoverStyling = true;
   @Output('treeDrop') onDropCallback = new EventEmitter();
   @Output('treeDropDragOver') onDragOverCallback = new EventEmitter();
   @Output('treeDropDragLeave') onDragLeaveCallback = new EventEmitter();
@@ -27,7 +28,6 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
   private readonly dragEnterEventHandler: (ev: DragEvent) => void;
   private readonly dragLeaveEventHandler: (ev: DragEvent) => void;
 
-  private _allowDragoverStyling = true;
   private _allowDrop = (element, $event) => true;
 
   @Input() set treeAllowDrop(allowDrop) {
@@ -35,9 +35,6 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
       this._allowDrop = allowDrop;
     }
     else this._allowDrop = (element, $event) => allowDrop;
-  }
-  @Input() set allowDragoverStyling(allowDragoverStyling: boolean) {
-    this._allowDragoverStyling = allowDragoverStyling;
   }
 
   allowDrop($event) {
@@ -68,7 +65,7 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
 
   onDragOver($event) {
     if (!this.allowDrop($event)) {
-      if (this._allowDragoverStyling) {
+      if (this.allowDragoverStyling) {
         return this.addDisabledClass();
       }
       return;
@@ -77,7 +74,7 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
     this.onDragOverCallback.emit({event: $event, element: this.treeDraggedElement.get()});
 
     $event.preventDefault();
-    if (this._allowDragoverStyling) {
+    if (this.allowDragoverStyling) {
       this.addClass();
     }
   }
@@ -90,14 +87,14 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
 
   onDragLeave($event) {
     if (!this.allowDrop($event)) {
-      if (this._allowDragoverStyling) {
+      if (this.allowDragoverStyling) {
         return this.removeDisabledClass();
       }
       return;
     }
     this.onDragLeaveCallback.emit({event: $event, element: this.treeDraggedElement.get()});
 
-    if (this._allowDragoverStyling) {
+    if (this.allowDragoverStyling) {
       this.removeClass();
     }
   }
@@ -108,7 +105,7 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
     $event.preventDefault();
     this.onDropCallback.emit({event: $event, element: this.treeDraggedElement.get()});
 
-    if (this._allowDragoverStyling) {
+    if (this.allowDragoverStyling) {
       this.removeClass();
     }
     this.treeDraggedElement.set(null);
