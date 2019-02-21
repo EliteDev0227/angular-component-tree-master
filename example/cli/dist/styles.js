@@ -539,7 +539,7 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/adamklein/projects/ng2tree/example/cli/src/styles.css */"./src/styles.css");
+module.exports = __webpack_require__(/*! /Users/adamklein/projects/angular-tree-component/example/cli/src/styles.css */"./src/styles.css");
 
 
 /***/ })
