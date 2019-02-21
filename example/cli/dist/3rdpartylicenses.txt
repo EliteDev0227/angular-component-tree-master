@@ -95,7 +95,7 @@ MIT
 MIT
 MIT
 
-angular-tree-component@8.2.0
+angular-tree-component@8.2.1
 MIT
 The MIT License (MIT)
 
