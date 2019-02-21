@@ -1,3 +1,7 @@
+<a name="8.2.1"></a>
+# 8.2.1 (2019-21-02)
+* Moved @types/lodash to devDeps
+
 <a name="8.2.0"></a>
 # 8.2.0 (2018-29-12)
 * Added allowDragoverStyling option

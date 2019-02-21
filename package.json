@@ -1,6 +1,6 @@
 {
   "name": "angular-tree-component",
-  "version": "8.2.0",
+  "version": "8.2.1",
   "description": "A simple yet powerful tree component for Angular2",
   "author": "Adam Klein <adam@500tech.com>",
   "homepage": "https://github.com/500tech/angular-tree-component",
@@ -65,12 +65,12 @@
     "core-js": "^2.4.1"
   },
   "dependencies": {
-    "@types/lodash": "^4.14.62",
     "lodash": "^4.17.5",
     "mobx": "^3.6.2",
     "mobx-angular": "2.1.1"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.62",
     "@angular-devkit/core": "0.4.5",
     "@angular/cli": "^6.1.1",
     "@angular/common": "^6.1.0",
