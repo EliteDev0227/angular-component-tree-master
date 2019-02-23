@@ -106,6 +106,14 @@ export class TreeModel implements ITreeModel, OnDestroy {
     return compact(nodes);
   }
 
+  @computed get hiddenNodes() {
+    const nodes = Object.keys(this.hiddenNodeIds)
+        .filter((id) => this.hiddenNodeIds[id])
+        .map((id) => this.getNodeById(id));
+
+    return compact(nodes);
+  }
+
   @computed get selectedLeafNodes() {
     const nodes = Object.keys(this.selectedLeafNodeIds)
         .filter((id) => this.selectedLeafNodeIds[id])
