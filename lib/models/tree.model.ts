@@ -292,7 +292,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
     }
 
     if (value) {
-      node.focus();
+      node.focus(this.options.scrollOnActivate);
       this.fireEvent({ eventName: TREE_EVENTS.activate, node });
       this.fireEvent({ eventName: TREE_EVENTS.nodeActivate, node }); // For IE11
     } else {
