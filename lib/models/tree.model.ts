@@ -106,6 +106,22 @@ export class TreeModel implements ITreeModel, OnDestroy {
     return compact(nodes);
   }
 
+  @computed get hiddenNodes() {
+    const nodes = Object.keys(this.hiddenNodeIds)
+        .filter((id) => this.hiddenNodeIds[id])
+        .map((id) => this.getNodeById(id));
+
+    return compact(nodes);
+  }
+
+  @computed get selectedLeafNodes() {
+    const nodes = Object.keys(this.selectedLeafNodeIds)
+        .filter((id) => this.selectedLeafNodeIds[id])
+        .map((id) => this.getNodeById(id));
+
+    return compact(nodes);
+  }
+
   // locating nodes
   getNodeByPath(path: any[], startNode= null): TreeNode {
     if (!path) return null;
@@ -276,7 +292,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
     }
 
     if (value) {
-      node.focus();
+      node.focus(this.options.scrollOnActivate);
       this.fireEvent({ eventName: TREE_EVENTS.activate, node });
       this.fireEvent({ eventName: TREE_EVENTS.nodeActivate, node }); // For IE11
     } else {
