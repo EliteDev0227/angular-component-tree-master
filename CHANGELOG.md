@@ -1,3 +1,8 @@
+<a name="8.3.0"></a>
+# 8.3.0 (2019-22-02)
+* Extended selection-api for nodes
+* Setting option scrollOnActivate to true did not prevent scrolling when clicking a node
+
 <a name="8.2.1"></a>
 # 8.2.1 (2019-21-02)
 * Moved @types/lodash to devDeps
