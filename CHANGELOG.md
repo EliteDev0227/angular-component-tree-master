@@ -1,3 +1,37 @@
+<a name="8.2.1"></a>
+# 8.2.1 (2019-21-02)
+* Moved @types/lodash to devDeps
+
+<a name="8.2.0"></a>
+# 8.2.0 (2018-29-12)
+* Added allowDragoverStyling option
+
+<a name="8.1.0"></a>
+# 8.1.0 (2018-25-12)
+* Added public calculateExpandedNodes
+* Fixed loading async children in large tree
+
+<a name="8.0.5"></a>
+# 8.0.5 (2018-25-12)
+* Fixed non triState checkboxes to reflect expected behaviour
+
+<a name="8.0.4"></a>
+# 8.0.4 (2018-22-12)
+* Fixed non triState checkboxes
+* Fixed checkboxes example to switch expander and checkbox
+
+<a name="8.0.3"></a>
+# 8.0.3 (2018-20-12)
+* Fixed Warning on state bind
+
+<a name="8.0.2"></a>
+# 8.0.2 (2018-11-12)
+* Checkbox keep parent selection on async childs
+
+<a name="8.0.1"></a>
+# 8.0.1 (2018-04-12)
+* Unsubscribe to prevent memory leaks
+
 <a name="8.0.0"></a>
 # 8.0.0 (2018-04-08)
 * Breaking change - Upgrade to Angular6 and Renderer2

@@ -22,6 +22,8 @@ import { ApiComponent } from './api/api.component';
 import { ActionsComponent } from './actions/actions.component';
 import { ScrollContainerComponent } from './scrollcontainer/scrollcontainer.component';
 import { ContextmenuComponent } from './contextmenu/contextmenu.component';
+import { DragOverStylingComponent } from './dragover-styling/dragover-styling.component';
+import { DragOverStylingFullTreeComponent } from './dragover-styling/dragover-styling-full-tree.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { ContextmenuComponent } from './contextmenu/contextmenu.component';
     SaveRestoreComponent,
     CheckboxesComponent,
     DragComponent,
+    DragOverStylingComponent,
+    DragOverStylingFullTreeComponent,
     VirtualscrollComponent,
     ApiComponent,
     ActionsComponent,
@@ -53,4 +57,4 @@ import { ContextmenuComponent } from './contextmenu/contextmenu.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

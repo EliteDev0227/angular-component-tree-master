@@ -19,6 +19,7 @@ const DRAG_DISABLED_CLASS = 'is-dragging-over-disabled';
   selector: '[treeDrop]'
 })
 export class TreeDropDirective implements AfterViewInit, OnDestroy {
+  @Input() allowDragoverStyling = true;
   @Output('treeDrop') onDropCallback = new EventEmitter();
   @Output('treeDropDragOver') onDragOverCallback = new EventEmitter();
   @Output('treeDropDragLeave') onDragLeaveCallback = new EventEmitter();
@@ -63,12 +64,19 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
   }
 
   onDragOver($event) {
-    if (!this.allowDrop($event)) return this.addDisabledClass();
+    if (!this.allowDrop($event)) {
+      if (this.allowDragoverStyling) {
+        return this.addDisabledClass();
+      }
+      return;
+    };
 
     this.onDragOverCallback.emit({event: $event, element: this.treeDraggedElement.get()});
 
     $event.preventDefault();
-    this.addClass();
+    if (this.allowDragoverStyling) {
+      this.addClass();
+    }
   }
 
   onDragEnter($event) {
@@ -78,11 +86,17 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
   }
 
   onDragLeave($event) {
-    if (!this.allowDrop($event)) return this.removeDisabledClass();
-
+    if (!this.allowDrop($event)) {
+      if (this.allowDragoverStyling) {
+        return this.removeDisabledClass();
+      }
+      return;
+    }
     this.onDragLeaveCallback.emit({event: $event, element: this.treeDraggedElement.get()});
 
-    this.removeClass();
+    if (this.allowDragoverStyling) {
+      this.removeClass();
+    }
   }
 
   @HostListener('drop', ['$event']) onDrop($event) {
@@ -90,7 +104,10 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
 
     $event.preventDefault();
     this.onDropCallback.emit({event: $event, element: this.treeDraggedElement.get()});
-    this.removeClass();
+
+    if (this.allowDragoverStyling) {
+      this.removeClass();
+    }
     this.treeDraggedElement.set(null);
   }
 
