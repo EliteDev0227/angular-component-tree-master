@@ -16,25 +16,17 @@ export class TreeNode implements ITreeNode {
   @computed get isActive() { return this.treeModel.isActive(this); };
   @computed get isFocused() { return this.treeModel.isNodeFocused(this); };
   @computed get isSelected() {
-    if (this.treeModel.options.useTriState) {
-      if (this.isLeaf) {
+    if (this.isSelectable()) {
         return this.treeModel.isSelected(this);
-      } else {
-        return some(this.children, (node) => node.isSelected);
-      }
     } else {
-      return this.treeModel.isSelected(this);
+      return some(this.children, (node: TreeNode) => node.isSelected);
     }
   };
   @computed get isAllSelected() {
-    if (this.treeModel.options.useTriState) {
-      if (this.isLeaf) {
-        return this.isSelected;
-      } else {
-        return every(this.children, (node) => node.isAllSelected);
-      }
+    if (this.isSelectable()) {
+      return this.treeModel.isSelected(this);
     } else {
-      return this.isSelected;
+      return every(this.children, (node: TreeNode) => node.isAllSelected);
     }
   };
   @computed get isPartiallySelected() {
@@ -198,6 +190,10 @@ export class TreeNode implements ITreeNode {
     return this.options.allowDrop(element, { parent: this, index: 0 }, $event);
   }
 
+  allowDragoverStyling = () => {
+    return this.options.allowDragoverStyling;
+  }
+
   allowDrag() {
     return this.options.allowDrag(this);
   }
@@ -213,6 +209,9 @@ export class TreeNode implements ITreeNode {
         if (children) {
           this.setField('children', children);
           this._initChildren();
+          if (this.options.useTriState && this.treeModel.isSelected(this)) {
+            this.setIsSelected(true);
+          }
           this.children.forEach((child) => {
             if (child.getField('isExpanded') && child.hasChildren) {
               child.expand();
@@ -301,6 +300,8 @@ export class TreeNode implements ITreeNode {
     if (this.handler) {
       this.handler();
     }
+    this.parent = null;
+    this.children = null;
   }
 
   setIsActive(value, multi = false) {
@@ -312,15 +313,15 @@ export class TreeNode implements ITreeNode {
     return this;
   }
 
+  isSelectable() {
+    return this.isLeaf || !this.children || !this.options.useTriState;
+  }
+
   @action setIsSelected(value) {
-    if (this.treeModel.options.useTriState) {
-      if (this.isLeaf) {
-        this.treeModel.setSelectedNode(this, value);
-      } else {
-        this.visibleChildren.forEach((child) => child.setIsSelected(value));
-      }
-    } else {
+    if (this.isSelectable()) {
       this.treeModel.setSelectedNode(this, value);
+    } else {
+      this.visibleChildren.forEach((child) => child.setIsSelected(value));
     }
 
     return this;

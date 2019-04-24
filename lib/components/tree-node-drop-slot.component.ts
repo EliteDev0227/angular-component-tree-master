@@ -9,7 +9,8 @@ import { TreeNode } from '../models/tree-node.model';
     <div
       class="node-drop-slot"
       (treeDrop)="onDrop($event)"
-      [treeAllowDrop]="allowDrop.bind(this)">
+      [treeAllowDrop]="allowDrop.bind(this)"
+      [allowDragoverStyling]="true">
     </div>
   `
 })

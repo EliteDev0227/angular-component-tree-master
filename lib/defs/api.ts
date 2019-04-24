@@ -142,6 +142,23 @@ export interface ITreeOptions {
     ```
    */
    allowDrop?: boolean | IAllowDropFn;
+    /**
+    Boolean flag to allow adding and removing is-dragging-over and is-dragging-over-disabled classes.
+
+    If set to false it will not add the above mentioned classes and you should handle the styling yourself with css and in
+    the actionMapping -> mouse -> dragEnter, dragLeave
+
+    * **Default Value: true**
+
+    example:
+    ```
+    * options = {
+    *   allowDrop: true,
+    *   allowDragoverStyling: false
+    * }
+    ```
+    */
+   allowDragoverStyling?: boolean;
    /**
    * Specify padding per node (integer).
     Each node will have padding-left value of level * levelPadding, instead of using the default padding for children.

@@ -15,7 +15,7 @@ The best way to get support from the community:
 
 ## Angular supported version
 
-angular-tree-component supports angular 2-6 releases, and AoT compilation.
+angular-tree-component supports angular 2 and above, and AoT compilation.
 
 ## Contributing
 

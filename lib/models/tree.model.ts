@@ -1,5 +1,6 @@
 import { Injectable, EventEmitter, OnDestroy } from '@angular/core';
 import { observable, computed, action, autorun } from 'mobx';
+import { Subscription } from 'rxjs';
 import { TreeNode } from './tree-node.model';
 import { TreeOptions } from './tree-options.model';
 import { TreeVirtualScroll } from './tree-virtual-scroll.model';
@@ -32,6 +33,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
 
   private firstUpdate = true;
   private events: any;
+  private subscriptions: Subscription[] = [];
 
   // events
   fireEvent(event) {
@@ -41,7 +43,8 @@ export class TreeModel implements ITreeModel, OnDestroy {
   }
 
   subscribe(eventName, fn) {
-    this.events[eventName].subscribe(fn);
+    const subscription = this.events[eventName].subscribe(fn);
+    this.subscriptions.push(subscription);
   }
 
 
@@ -99,6 +102,22 @@ export class TreeModel implements ITreeModel, OnDestroy {
     const nodes = Object.keys(this.activeNodeIds)
       .filter((id) => this.activeNodeIds[id])
       .map((id) => this.getNodeById(id));
+
+    return compact(nodes);
+  }
+
+  @computed get hiddenNodes() {
+    const nodes = Object.keys(this.hiddenNodeIds)
+        .filter((id) => this.hiddenNodeIds[id])
+        .map((id) => this.getNodeById(id));
+
+    return compact(nodes);
+  }
+
+  @computed get selectedLeafNodes() {
+    const nodes = Object.keys(this.selectedLeafNodeIds)
+        .filter((id) => this.selectedLeafNodeIds[id])
+        .map((id) => this.getNodeById(id));
 
     return compact(nodes);
   }
@@ -161,6 +180,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
 
   ngOnDestroy() {
     this.dispose();
+    this.unsubscribeAll();
   }
 
   dispose() {
@@ -168,6 +188,11 @@ export class TreeModel implements ITreeModel, OnDestroy {
     if (this.virtualRoot) {
       this.virtualRoot.dispose();
     }
+  }
+
+  unsubscribeAll() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    this.subscriptions = [];
   }
 
   // actions
@@ -267,7 +292,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
     }
 
     if (value) {
-      node.focus();
+      node.focus(this.options.scrollOnActivate);
       this.fireEvent({ eventName: TREE_EVENTS.activate, node });
       this.fireEvent({ eventName: TREE_EVENTS.nodeActivate, node }); // For IE11
     } else {
@@ -444,6 +469,10 @@ export class TreeModel implements ITreeModel, OnDestroy {
     }
 
     return !to.parent.isDescendantOf(node);
+  }
+
+  calculateExpandedNodes() {
+      this._calculateExpandedNodes();
   }
 
   // private methods

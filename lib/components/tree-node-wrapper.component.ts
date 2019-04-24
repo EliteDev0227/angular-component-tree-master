@@ -20,6 +20,7 @@ import { TreeNode } from '../models/tree-node.model';
           (treeDropDragLeave)="node.mouseAction('dragLeave', $event)"
           (treeDropDragEnter)="node.mouseAction('dragEnter', $event)"
           [treeAllowDrop]="node.allowDrop"
+          [allowDragoverStyling]="node.allowDragoverStyling()"
           [treeDrag]="node"
           [treeDragEnabled]="node.allowDrag()">
 
