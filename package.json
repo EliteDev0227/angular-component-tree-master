@@ -65,7 +65,7 @@
     "core-js": "^2.4.1"
   },
   "dependencies": {
-    "lodash": "^4.17.5",
+    "lodash": "^4.17.11",
     "mobx": "^3.6.2",
     "mobx-angular": "2.1.1"
   },
