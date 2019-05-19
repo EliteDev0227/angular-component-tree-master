@@ -10,6 +10,7 @@
 
 ## Support
 [https://stackoverflow.com/questions/tagged/angular-tree-component](Stackoverflow)
+
 [Slack Community](https://angular-tree-component.herokuapp.com/)
 
 ## Angular supported version
