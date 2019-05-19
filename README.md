@@ -9,7 +9,7 @@
 [https://angular2-tree.readme.io/docs/](https://angular2-tree.readme.io/docs/)
 
 ## Support
-[https://stackoverflow.com/questions/tagged/angular-tree-component](Stackoverflow)
+[Stackoverflow](https://stackoverflow.com/questions/tagged/angular-tree-component)
 
 [Slack Community](https://angular-tree-component.herokuapp.com/)
 
