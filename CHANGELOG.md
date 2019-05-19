@@ -1,3 +1,7 @@
+<a name="8.4.0"></a>
+# 8.4.0 (2019-19-05)
+* Added 'from' node on moveNode event
+
 <a name="8.3.0"></a>
 # 8.3.0 (2019-22-02)
 * Extended selection-api for nodes
