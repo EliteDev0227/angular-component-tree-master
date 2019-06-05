@@ -8,9 +8,9 @@
 
 [https://angular2-tree.readme.io/docs/](https://angular2-tree.readme.io/docs/)
 
-## Slack Channel
+## Support
+[Stackoverflow](https://stackoverflow.com/questions/tagged/angular-tree-component)
 
-The best way to get support from the community:
 [Slack Community](https://angular-tree-component.herokuapp.com/)
 
 ## Angular supported version
