@@ -1,4 +1,3 @@
-const { browser, element, by, $ } = require('protractor');
 const { TreeDriver } = require('./helpers/tree.driver');
 
 fixture `Drag and Drop`
