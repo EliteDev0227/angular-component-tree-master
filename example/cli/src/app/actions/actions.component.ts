@@ -17,9 +17,13 @@ const actionMapping:IActionMapping = {
         ? TREE_ACTIONS.TOGGLE_ACTIVE_MULTI(tree, node, $event)
         : TREE_ACTIONS.TOGGLE_ACTIVE(tree, node, $event);
     },
-    hover: (tree, node, $event) => {
+    mouseover: (tree, node, $event) => {
       $event.preventDefault();
-      console.log(`hover ${node.data.name}`);
+      console.log(`mouseover ${node.data.name}`);
+    },
+    mouseout: (tree, node, $event) => {
+      $event.preventDefault();
+      console.log(`mouseout ${node.data.name}`);
     }
   },
   keys: {

@@ -71,7 +71,8 @@ export interface IActionMapping {
     dragLeave?: IActionHandler,
     dragEnter?: IActionHandler,
     drop?: IActionHandler,
-    hover?: IActionHandler
+    mouseover?: IActionHandler,
+    mouseout?: IActionHandler
   };
   keys?: {
     [key: number]: IActionHandler
