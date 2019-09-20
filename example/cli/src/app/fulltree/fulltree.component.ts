@@ -16,6 +16,10 @@ const actionMapping: IActionMapping = {
       $event.shiftKey
         ? TREE_ACTIONS.TOGGLE_ACTIVE_MULTI(tree, node, $event)
         : TREE_ACTIONS.TOGGLE_ACTIVE(tree, node, $event)
+    },
+    hover: (tree, node, $event) => {
+      $event.preventDefault();
+      console.log(`hover ${node.data.name}`);
     }
   },
   keys: {
