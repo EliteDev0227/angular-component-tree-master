@@ -1,3 +1,8 @@
+<a name="8.4.1"></a>
+# 8.4.1 (2019-01-10)
+* Exporting TreeNodeWrapperComponent and TreeAnimateOpenDirective from main module
+* Added openCollective message post install
+
 <a name="8.4.0"></a>
 # 8.4.0 (2019-19-05)
 * Added 'from' node on moveNode event
