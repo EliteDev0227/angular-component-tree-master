@@ -4,6 +4,10 @@
 
 # angular tree component
 
+## ❤️ Support Us ❤️
+
+Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/angular-tree-component/contribute)]
+
 ## Getting started, Docs, Demos & More
 
 [https://angular2-tree.readme.io/docs/](https://angular2-tree.readme.io/docs/)
@@ -38,10 +42,6 @@ Please check the issues / project before starting to work on a feature / bug to 
 
 This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
 <a href="https://github.com/500tech/angular-tree-component/graphs/contributors"><img src="https://opencollective.com/angular-tree-component/contributors.svg?width=890&button=false" /></a>
-
-### Financial Contributors
-
-Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/angular-tree-component/contribute)]
 
 #### Individuals
 
