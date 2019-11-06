@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 import { TreeModule } from 'angular-tree-component';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -21,9 +21,9 @@ import { DragComponent } from './drag/drag.component';
   Turn on to check if tree supports strict mode in MobX.
   But remember to turn off (to allow users of MobX not to use strict mode in their apps)
 */
-import { configure } from 'mobx';
+import { useStrict } from 'mobx';
 import { EmptyComponent } from './empty/empty.component';
-configure({ enforceActions: true })
+useStrict(true);
 
 
 @NgModule({
@@ -44,7 +44,7 @@ configure({ enforceActions: true })
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule,
+    HttpModule,
     TreeModule.forRoot(),
     AppRoutingModule
   ],
