@@ -1,5 +1,5 @@
 {
-  "name": "angular-tree-component",
+  "name": "angular-tree-component-mouseevent",
   "version": "8.4.0",
   "description": "A simple yet powerful tree component for Angular2",
   "author": "Adam Klein <adam@500tech.com>",
@@ -66,8 +66,8 @@
   },
   "dependencies": {
     "lodash": "^4.17.11",
-    "mobx": "^3.6.2",
-    "mobx-angular": "2.1.1"
+    "mobx": "^5.14.2",
+    "mobx-angular": "^3.0.3"
   },
   "devDependencies": {
     "@angular-devkit/core": "0.4.5",
