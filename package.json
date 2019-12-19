@@ -98,6 +98,7 @@
     "protractor-jasmine2-html-reporter": "0.0.7",
     "rimraf": "^2.5.1",
     "rollup": "^0.41.4",
+    "rollup-plugin-auto-external": "^2.0.0",
     "rollup-plugin-commonjs": "7.0.2",
     "rollup-plugin-node-resolve": "2.0.0",
     "rollup-plugin-uglify": "1.0.1",
