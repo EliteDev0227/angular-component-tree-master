@@ -67,8 +67,8 @@
   },
   "dependencies": {
     "lodash": "^4.17.11",
-    "mobx": "^3.6.2",
-    "mobx-angular": "2.1.1",
+    "mobx": "^4.15.1",
+    "mobx-angular": "3.0.3",
     "opencollective-postinstall": "^2.0.2"
   },
   "devDependencies": {
