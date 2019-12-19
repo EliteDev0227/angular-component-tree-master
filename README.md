@@ -4,6 +4,13 @@
 
 # angular tree component
 
+<p align="center">
+  <a href="https://app.codefund.io/properties/628/visit-sponsor">
+    <img src="https://app.codefund.io/properties/628/sponsor" />
+  </a>
+</p>
+
+
 ## ❤️ Support Us ❤️
 
 Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/angular-tree-component/contribute)]

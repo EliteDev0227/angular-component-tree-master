@@ -1,6 +1,6 @@
 {
   "name": "angular-tree-component",
-  "version": "8.4.1",
+  "version": "8.5.3",
   "description": "A simple yet powerful tree component for Angular2",
   "author": "Adam Klein <adam@500tech.com>",
   "homepage": "https://github.com/500tech/angular-tree-component",
@@ -67,12 +67,12 @@
   },
   "dependencies": {
     "lodash": "^4.17.11",
-    "mobx": "^5.14.2",
+    "mobx": "^4.15.1",
     "mobx-angular": "3.0.3",
     "opencollective-postinstall": "^2.0.2"
   },
   "devDependencies": {
-    "@angular-devkit/core": "0.4.5",
+    "@angular-devkit/core": "^8.1.0",
     "@angular/cli": "^8.1.1",
     "@angular/common": "^8.1.0",
     "@angular/compiler": "^8.1.0",
@@ -98,6 +98,7 @@
     "protractor-jasmine2-html-reporter": "0.0.7",
     "rimraf": "^2.5.1",
     "rollup": "^0.41.4",
+    "rollup-plugin-auto-external": "^2.0.0",
     "rollup-plugin-commonjs": "7.0.2",
     "rollup-plugin-node-resolve": "2.0.0",
     "rollup-plugin-uglify": "1.0.1",
@@ -106,8 +107,8 @@
     "testcafe-browser-provider-saucelabs": "^1.6.1",
     "tslint": "4.4.2",
     "typedoc": "^0.3.12",
-    "typescript": "~3.4.0",
-    "zone.js": "^0.8.26"
+    "typescript": "~3.5.3",
+    "zone.js": "^0.9.1"
   },
   "repository": "https://github.com/500tech/angular-tree-component.git",
   "bugs": {
