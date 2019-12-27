@@ -39,7 +39,10 @@ export class TreeNodeCollectionComponent implements OnInit, OnDestroy {
 
   @computed get marginTop(): string {
     const firstNode = this.viewportNodes && this.viewportNodes.length && this.viewportNodes[0];
-    const relativePosition = firstNode ? firstNode.position - firstNode.parent.position - firstNode.parent.getSelfHeight() : 0;
+    const relativePosition =
+      (firstNode && firstNode.parent)
+      ? firstNode.position - firstNode.parent.position - firstNode.parent.getSelfHeight()
+      : 0;
 
     return `${relativePosition}px`;
   }

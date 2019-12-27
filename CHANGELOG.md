@@ -1,3 +1,20 @@
+<a name="8.5.2"></a>
+# 8.5.2 (2019-03-12)
+* Fixed computed value after updating model, because parent was null and we got a race-condition
+
+<a name="8.5.1"></a>
+# 8.5.1 (2019-07-11)
+* Changed options input to ITreeOptions
+
+<a name="8.5.0"></a>
+# 8.5.0 (2019-06-11)
+* Support IVY by removing transitive dependency on Renderer via mobx-angular
+
+<a name="8.4.1"></a>
+# 8.4.1 (2019-01-10)
+* Exporting TreeNodeWrapperComponent and TreeAnimateOpenDirective from main module
+* Added openCollective message post install
+
 <a name="8.4.0"></a>
 # 8.4.0 (2019-19-05)
 * Added 'from' node on moveNode event

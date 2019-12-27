@@ -42,11 +42,11 @@ export class TreeComponent implements OnChanges {
   _nodes: any[];
   _options: TreeOptions;
 
-  @ContentChild('loadingTemplate') loadingTemplate: TemplateRef<any>;
-  @ContentChild('treeNodeTemplate') treeNodeTemplate: TemplateRef<any>;
-  @ContentChild('treeNodeWrapperTemplate') treeNodeWrapperTemplate: TemplateRef<any>;
-  @ContentChild('treeNodeFullTemplate') treeNodeFullTemplate: TemplateRef<any>;
-  @ViewChild('viewport') viewportComponent: TreeViewportComponent;
+  @ContentChild('loadingTemplate', { static: false }) loadingTemplate: TemplateRef<any>;
+  @ContentChild('treeNodeTemplate', { static: false }) treeNodeTemplate: TemplateRef<any>;
+  @ContentChild('treeNodeWrapperTemplate', { static: false }) treeNodeWrapperTemplate: TemplateRef<any>;
+  @ContentChild('treeNodeFullTemplate', { static: false }) treeNodeFullTemplate: TemplateRef<any>;
+  @ViewChild('viewport', { static: false }) viewportComponent: TreeViewportComponent;
 
   // Will be handled in ngOnChanges
   @Input() set nodes(nodes: any[]) {
