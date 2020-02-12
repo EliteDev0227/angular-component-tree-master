@@ -1,5 +1,5 @@
-<a name="8.5.3"></a>
-# 8.5.3 (2020-12-02)
+<a name="8.5.4"></a>
+# 8.5.4 (2020-12-02)
 * Support Angular 9 by upgrading mobx-angular to 3.1.1
 
 <a name="8.5.2"></a>
