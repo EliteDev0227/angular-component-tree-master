@@ -69,7 +69,7 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
         return this.addDisabledClass();
       }
       return;
-    };
+    }
 
     this.onDragOverCallback.emit({event: $event, element: this.treeDraggedElement.get()});
 
@@ -82,6 +82,7 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
   onDragEnter($event) {
     if (!this.allowDrop($event)) return;
 
+    $event.preventDefault();
     this.onDragEnterCallback.emit({event: $event, element: this.treeDraggedElement.get()});
   }
 
