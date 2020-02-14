@@ -14,7 +14,7 @@ export class TreeMobxAutorunDirective implements OnInit, OnDestroy {
   protected templateBindings = {};
   protected dispose: any;
   protected view: EmbeddedViewRef<any>;
-  @Input() mobxAutorun;
+  @Input() treeMobxAutorun;
 
   constructor(
     protected templateRef: TemplateRef<any>,
@@ -35,7 +35,7 @@ export class TreeMobxAutorunDirective implements OnInit, OnDestroy {
   }
 
   shouldDetach() {
-    return this.mobxAutorun && this.mobxAutorun.detach;
+    return this.treeMobxAutorun && this.treeMobxAutorun.detach;
   }
 
   autoDetect(view: EmbeddedViewRef<any>) {

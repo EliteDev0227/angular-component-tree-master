@@ -67,7 +67,8 @@ import './polyfills';
     TreeViewportComponent,
     TreeNodeWrapperComponent,
     TreeNodeCheckboxComponent,
-    TreeAnimateOpenDirective
+    TreeAnimateOpenDirective,
+    TreeMobxAutorunDirective
   ],
   imports: [CommonModule],
   providers: []

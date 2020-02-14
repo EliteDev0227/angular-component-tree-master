@@ -6,13 +6,14 @@ import { TreeNode } from '../models/tree-node.model';
   encapsulation: ViewEncapsulation.None,
   styles: [],
   template: `
-    <ng-container *mobxAutorun="{dontDetach: true}">
+    <ng-container *treeMobxAutorun="{ dontDetach: true }">
       <input
         class="tree-node-checkbox"
         type="checkbox"
         (click)="node.mouseAction('checkboxClick', $event)"
         [checked]="node.isSelected"
-        [indeterminate]="node.isPartiallySelected"/>
+        [indeterminate]="node.isPartiallySelected"
+      />
     </ng-container>
   `
 })

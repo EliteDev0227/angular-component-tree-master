@@ -1,5 +1,11 @@
 import {
-  Component, ElementRef, ViewEncapsulation, AfterViewInit, OnInit, OnDestroy, NgZone
+  Component,
+  ElementRef,
+  ViewEncapsulation,
+  AfterViewInit,
+  OnInit,
+  OnDestroy,
+  NgZone
 } from '@angular/core';
 import { TreeVirtualScroll } from '../models/tree-virtual-scroll.model';
 import { TREE_EVENTS } from '../constants/events';
@@ -11,7 +17,7 @@ import throttle from 'lodash/throttle';
   styles: [],
   providers: [TreeVirtualScroll],
   template: `
-    <ng-container *mobxAutorun="{dontDetach: true}">
+    <ng-container *treeMobxAutorun="{ dontDetach: true }">
       <div [style.height]="getTotalHeight()">
         <ng-content></ng-content>
       </div>
@@ -27,8 +33,9 @@ export class TreeViewportComponent implements AfterViewInit, OnInit, OnDestroy {
   constructor(
     private elementRef: ElementRef,
     private ngZone: NgZone,
-    public virtualScroll: TreeVirtualScroll) {
-        this.scrollEventHandler = this.setViewport.bind(this);
+    public virtualScroll: TreeVirtualScroll
+  ) {
+    this.scrollEventHandler = this.setViewport.bind(this);
   }
 
   ngOnInit() {
@@ -42,7 +49,7 @@ export class TreeViewportComponent implements AfterViewInit, OnInit, OnDestroy {
     });
     let el: HTMLElement = this.elementRef.nativeElement;
     this.ngZone.runOutsideAngular(() => {
-        el.addEventListener('scroll', this.scrollEventHandler);
+      el.addEventListener('scroll', this.scrollEventHandler);
     });
   }
 
@@ -53,6 +60,10 @@ export class TreeViewportComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   getTotalHeight() {
-    return this.virtualScroll.isEnabled() && this.virtualScroll.totalHeight + 'px' || 'auto';
+    return (
+      (this.virtualScroll.isEnabled() &&
+        this.virtualScroll.totalHeight + 'px') ||
+      'auto'
+    );
   }
 }

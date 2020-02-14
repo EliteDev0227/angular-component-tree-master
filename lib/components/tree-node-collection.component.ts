@@ -15,7 +15,7 @@ import { TreeModel } from '../models/tree.model';
   selector: 'tree-node-collection',
   encapsulation: ViewEncapsulation.None,
   template: `
-    <ng-container *mobxAutorun="{ dontDetach: true }">
+    <ng-container *treeMobxAutorun="{ dontDetach: true }">
       <div [style.margin-top]="marginTop">
         <tree-node
           *ngFor="let node of viewportNodes; let i = index; trackBy: trackNode"

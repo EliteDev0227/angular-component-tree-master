@@ -1,4 +1,9 @@
-import { Component, Input, ViewEncapsulation, TemplateRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  ViewEncapsulation,
+  TemplateRef
+} from '@angular/core';
 import { TreeNode } from '../models/tree-node.model';
 
 @Component({
@@ -6,7 +11,7 @@ import { TreeNode } from '../models/tree-node.model';
   encapsulation: ViewEncapsulation.None,
   styles: [],
   template: `
-    <ng-container *mobxAutorun="{dontDetach: true}">
+    <ng-container *treeMobxAutorun="{ dontDetach: true }">
       <div
         *ngIf="!templates.treeNodeFullTemplate"
         [class]="node.getClass()"
@@ -16,22 +21,41 @@ import { TreeNode } from '../models/tree-node.model';
         [class.tree-node-leaf]="node.isLeaf"
         [class.tree-node-active]="node.isActive"
         [class.tree-node-focused]="node.isFocused"
-        >
+      >
+        <tree-node-drop-slot
+          *ngIf="index === 0"
+          [dropIndex]="node.index"
+          [node]="node.parent"
+        ></tree-node-drop-slot>
 
-        <tree-node-drop-slot *ngIf="index === 0" [dropIndex]="node.index" [node]="node.parent"></tree-node-drop-slot>
+        <tree-node-wrapper
+          [node]="node"
+          [index]="index"
+          [templates]="templates"
+        ></tree-node-wrapper>
 
-        <tree-node-wrapper [node]="node" [index]="index" [templates]="templates"></tree-node-wrapper>
-
-        <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
-        <tree-node-drop-slot [dropIndex]="node.index + 1" [node]="node.parent"></tree-node-drop-slot>
+        <tree-node-children
+          [node]="node"
+          [templates]="templates"
+        ></tree-node-children>
+        <tree-node-drop-slot
+          [dropIndex]="node.index + 1"
+          [node]="node.parent"
+        ></tree-node-drop-slot>
       </div>
       <ng-container
         [ngTemplateOutlet]="templates.treeNodeFullTemplate"
-        [ngTemplateOutletContext]="{ $implicit: node, node: node, index: index, templates: templates }">
+        [ngTemplateOutletContext]="{
+          $implicit: node,
+          node: node,
+          index: index,
+          templates: templates
+        }"
+      >
       </ng-container>
-    </ng-container>`
+    </ng-container>
+  `
 })
-
 export class TreeNodeComponent {
   @Input() node: TreeNode;
   @Input() index: number;

@@ -6,19 +6,17 @@ import { TreeNode } from '../models/tree-node.model';
   encapsulation: ViewEncapsulation.None,
   styles: [],
   template: `
-    <ng-container *mobxAutorun="{dontDetach: true}">
+    <ng-container *treeMobxAutorun="{ dontDetach: true }">
       <span
         *ngIf="node.hasChildren"
         [class.toggle-children-wrapper-expanded]="node.isExpanded"
         [class.toggle-children-wrapper-collapsed]="node.isCollapsed"
         class="toggle-children-wrapper"
-        (click)="node.mouseAction('expanderClick', $event)">
-
+        (click)="node.mouseAction('expanderClick', $event)"
+      >
         <span class="toggle-children"></span>
       </span>
-      <span
-        *ngIf="!node.hasChildren"
-        class="toggle-children-placeholder">
+      <span *ngIf="!node.hasChildren" class="toggle-children-placeholder">
       </span>
     </ng-container>
   `

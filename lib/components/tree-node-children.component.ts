@@ -6,19 +6,23 @@ import { TreeNode } from '../models/tree-node.model';
   encapsulation: ViewEncapsulation.None,
   styles: [],
   template: `
-    <ng-container *mobxAutorun="{dontDetach: true}">
-      <div [class.tree-children]="true"
-          [class.tree-children-no-padding]="node.options.levelPadding"
-          *treeAnimateOpen="
-            node.isExpanded;
-            speed:node.options.animateSpeed;
-            acceleration:node.options.animateAcceleration;
-            enabled:node.options.animateExpand">
+    <ng-container *treeMobxAutorun="{ dontDetach: true }">
+      <div
+        [class.tree-children]="true"
+        [class.tree-children-no-padding]="node.options.levelPadding"
+        *treeAnimateOpen="
+          node.isExpanded;
+          speed: node.options.animateSpeed;
+          acceleration: node.options.animateAcceleration;
+          enabled: node.options.animateExpand
+        "
+      >
         <tree-node-collection
           *ngIf="node.children"
           [nodes]="node.children"
           [templates]="templates"
-          [treeModel]="node.treeModel">
+          [treeModel]="node.treeModel"
+        >
         </tree-node-collection>
         <tree-loading-component
           [style.padding-left]="node.getNodePadding()"

@@ -1,3 +1,7 @@
+<a name="8.5.6"></a>
+# 8.5.6 (2020-14-02)
+* Fixed mobxAutorun to treeMobxAutorun
+
 <a name="8.5.5"></a>
 # 8.5.5 (2020-14-02)
 * Support Angular 9 by removing dependency to mobx-angular (copied code inside)
