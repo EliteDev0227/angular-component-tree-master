@@ -1,9 +1,18 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MobxAngularModule } from 'mobx-angular';
+import { TreeMobxAutorunDirective } from './mobx-angular/tree-mobx-autorun.directive';
 
-import { IActionHandler, IActionMapping, TREE_ACTIONS } from './models/tree-options.model';
-import { IAllowDragFn, IAllowDropFn, ITreeOptions, ITreeState } from './defs/api';
+import {
+  IActionHandler,
+  IActionMapping,
+  TREE_ACTIONS
+} from './models/tree-options.model';
+import {
+  IAllowDragFn,
+  IAllowDropFn,
+  ITreeOptions,
+  ITreeState
+} from './defs/api';
 import { KEYS } from './constants/keys';
 import { TreeModel } from './models/tree.model';
 import { TreeNode } from './models/tree-node.model';
@@ -41,7 +50,8 @@ import './polyfills';
     TreeViewportComponent,
     TreeNodeWrapperComponent,
     TreeNodeCheckboxComponent,
-    TreeAnimateOpenDirective
+    TreeAnimateOpenDirective,
+    TreeMobxAutorunDirective
   ],
   exports: [
     TreeComponent,
@@ -59,10 +69,7 @@ import './polyfills';
     TreeNodeCheckboxComponent,
     TreeAnimateOpenDirective
   ],
-  imports: [
-    CommonModule,
-    MobxAngularModule
-  ],
+  imports: [CommonModule],
   providers: []
 })
 export class TreeModule {

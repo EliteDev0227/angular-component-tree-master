@@ -14,12 +14,11 @@
     "stripInternal": true,
     "lib": ["es2015", "dom"]
   },
-  "files": [
-    "lib/angular-tree-component"
-  ],
+  "files": ["lib/angular-tree-component"],
   "compileOnSave": false,
   "buildOnSave": false,
   "angularCompilerOptions": {
-    "skipTemplateCodegen": true
+    "skipTemplateCodegen": true,
+    "enableIvy": false
   }
 }

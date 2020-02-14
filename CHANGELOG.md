@@ -1,3 +1,7 @@
+<a name="8.5.5"></a>
+# 8.5.5 (2020-14-02)
+* Support Angular 9 by removing dependency to mobx-angular (copied code inside)
+
 <a name="8.5.4"></a>
 # 8.5.4 (2020-12-02)
 * Support Angular 9 by upgrading mobx-angular to 3.1.1

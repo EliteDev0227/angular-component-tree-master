@@ -1,6 +1,6 @@
 {
   "name": "angular-tree-component",
-  "version": "8.5.4",
+  "version": "8.5.5",
   "description": "A simple yet powerful tree component for Angular2",
   "author": "Adam Klein <adam@500tech.com>",
   "homepage": "https://github.com/500tech/angular-tree-component",
@@ -66,8 +66,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.11",
-    "mobx": "^4.15.1",
-    "mobx-angular": "3.1.1"
+    "mobx": "^4.15.1"
   },
   "devDependencies": {
     "@angular-devkit/core": "^8.1.0",
@@ -91,7 +90,10 @@
     "hoek": "~> 5.0.3",
     "html-dnd": "1.2.0",
     "http-server": "0.9.0",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.7",
     "nightwatch": "0.9.12",
+    "prettier": "^1.19.1",
     "protractor": "5.1.1",
     "protractor-jasmine2-html-reporter": "0.0.7",
     "rimraf": "^2.5.1",
@@ -118,5 +120,32 @@
   "collective": {
     "type": "opencollective",
     "url": "https://opencollective.com/angular-tree-component"
+  },
+  "prettier": {
+    "printWidth": 80,
+    "tabWidth": 2,
+    "useTabs": false,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "none",
+    "bracketSpacing": true,
+    "jsxBracketSameLine": true,
+    "requirePragma": false
+  },
+  "lint-staged": {
+    "*.{js,ts,json}": [
+      "./node_modules/.bin/prettier --write"
+    ],
+    "*.ts": [
+      "tslint"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "post-commit": "git reset",
+      "pre-commit": [
+        "lint-staged"
+      ]
+    }
   }
 }
