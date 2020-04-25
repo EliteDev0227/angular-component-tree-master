@@ -10,6 +10,15 @@
   </a>
 </p>
 
+## Low maintenance - only major Angular versions
+Hi, this library is in low maintenance mode.  
+Meaning I only fix it to support new Angular versions.  
+
+No issue support, no pull requests, no new features.  
+
+If there is anyone/company who wants to take over - email me at adamklein.mail@gmail.com.
+
+Cheers
 
 ## ❤️ Support Us ❤️
 
