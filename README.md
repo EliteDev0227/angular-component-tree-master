@@ -1,28 +1,12 @@
-[![Build Status](https://circleci.com/gh/500tech/angular-tree-component.svg?style=svg)](https://circleci.com/gh/500tech/angular-tree-component)
-[![Financial Contributors on Open Collective](https://opencollective.com/angular-tree-component/all/badge.svg?label=financial+contributors)](https://opencollective.com/angular-tree-component) [![npm version](https://badge.fury.io/js/angular-tree-component.svg)](https://badge.fury.io/js/angular-tree-component)
-<a href="https://angular-tree-component.herokuapp.com/"><img src="https://angular-tree-component.herokuapp.com/badge.svg" alt="slack" ></a>
+[![npm version](https://badge.fury.io/js/angular-tree-component.svg)](https://badge.fury.io/js/angular-tree-component)
 
 # angular tree component
 
-<p align="center">
-  <a href="https://app.codefund.io/properties/628/visit-sponsor">
-    <img src="https://app.codefund.io/properties/628/sponsor" />
-  </a>
-</p>
+## News
 
-## Low maintenance - only major Angular versions
-Hi, this library is in low maintenance mode.  
-Meaning I only fix it to support new Angular versions.  
-
-No issue support, no pull requests, no new features.  
-
-If there is anyone/company who wants to take over - email me at adamklein.mail@gmail.com.
-
-Cheers
-
-## ❤️ Support Us ❤️
-
-Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/angular-tree-component/contribute)]
+We are happy to announce, that starting today, [Circlon | group](https://circlon.de) is taking over this repository.
+We're going on this journey with the strong belief, that this component should not be missed by the community, and we are hoping on your continuous and significant support as always.
+On this new journey we will also receive technical guidance from [Adam](https://github.com/adamkleingit), who will help us to better understand the community, their needs and also to elevate this component to a completely new level of engineering.
 
 ## Getting started, Docs, Demos & More
 
@@ -54,26 +38,5 @@ Please check the issues / project before starting to work on a feature / bug to 
 
 ## Contributors
 
-### Code Contributors
-
-This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+This project exists thanks to all the people who contribute.
 <a href="https://github.com/500tech/angular-tree-component/graphs/contributors"><img src="https://opencollective.com/angular-tree-component/contributors.svg?width=890&button=false" /></a>
-
-#### Individuals
-
-<a href="https://opencollective.com/angular-tree-component"><img src="https://opencollective.com/angular-tree-component/individuals.svg?width=890"></a>
-
-#### Organizations
-
-Support this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/angular-tree-component/contribute)]
-
-<a href="https://opencollective.com/angular-tree-component/organization/0/website"><img src="https://opencollective.com/angular-tree-component/organization/0/avatar.svg"></a>
-<a href="https://opencollective.com/angular-tree-component/organization/1/website"><img src="https://opencollective.com/angular-tree-component/organization/1/avatar.svg"></a>
-<a href="https://opencollective.com/angular-tree-component/organization/2/website"><img src="https://opencollective.com/angular-tree-component/organization/2/avatar.svg"></a>
-<a href="https://opencollective.com/angular-tree-component/organization/3/website"><img src="https://opencollective.com/angular-tree-component/organization/3/avatar.svg"></a>
-<a href="https://opencollective.com/angular-tree-component/organization/4/website"><img src="https://opencollective.com/angular-tree-component/organization/4/avatar.svg"></a>
-<a href="https://opencollective.com/angular-tree-component/organization/5/website"><img src="https://opencollective.com/angular-tree-component/organization/5/avatar.svg"></a>
-<a href="https://opencollective.com/angular-tree-component/organization/6/website"><img src="https://opencollective.com/angular-tree-component/organization/6/avatar.svg"></a>
-<a href="https://opencollective.com/angular-tree-component/organization/7/website"><img src="https://opencollective.com/angular-tree-component/organization/7/avatar.svg"></a>
-<a href="https://opencollective.com/angular-tree-component/organization/8/website"><img src="https://opencollective.com/angular-tree-component/organization/8/avatar.svg"></a>
-<a href="https://opencollective.com/angular-tree-component/organization/9/website"><img src="https://opencollective.com/angular-tree-component/organization/9/avatar.svg"></a>

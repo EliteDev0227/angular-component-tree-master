@@ -2,8 +2,8 @@
   "name": "angular-tree-component",
   "version": "8.5.6",
   "description": "A simple yet powerful tree component for Angular2",
-  "author": "Adam Klein <adam@500tech.com>",
-  "homepage": "https://github.com/500tech/angular-tree-component",
+  "author": "Circlon Group <os-group@circlon.de>",
+  "homepage": "https://github.com/CirclonGroup/angular-tree-component",
   "license": "MIT",
   "main": "dist/angular-tree-component.umd.js",
   "js:next": "dist/angular-tree-component.js",
@@ -57,7 +57,7 @@
   "files": [
     "dist/"
   ],
-  "readme": "https://github.com/500tech/angular-tree-component/blob/master/README.md",
+  "readme": "https://github.com/CirclonGroup/angular-tree-component/blob/master/README.md",
   "contributors": [
     "Adam Klein <adam@500tech.com>"
   ],
@@ -110,16 +110,12 @@
     "typescript": "~3.5.3",
     "zone.js": "^0.9.1"
   },
-  "repository": "https://github.com/500tech/angular-tree-component.git",
+  "repository": "https://github.com/CirclonGroup/angular-tree-component.git",
   "bugs": {
-    "url": "https://github.com/500tech/angular-tree-component/issues"
+    "url": "https://github.com/CirclonGroup/angular-tree-component/issues"
   },
   "engines": {
     "node": ">=8.0.0"
-  },
-  "collective": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/angular-tree-component"
   },
   "prettier": {
     "printWidth": 80,
