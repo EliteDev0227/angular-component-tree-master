@@ -1,3 +1,49 @@
+<a name="9.0.0"></a>
+# 9.0.0 (2020-07-10)
+
+### Bug Fixes
+
+* Use correct ITreeOptions input in TreeComponent instead of TreeOptions ([#795](https://github.com/CirclonGroup/angular-tree-component/issues/795)) ([62f0c02](https://github.com/CirclonGroup/angular-tree-component/commit/62f0c02)), closes ([#795](https://github.com/CirclonGroup/angular-tree-component/issues/795))
+
+### Features
+
+* Update to Angular 9 ([37feac56](https://github.com/CirclonGroup/angular-tree-component/commit/37feac56))
+
+### Code Refactoring
+
+* use on example app and move app to projects ([5ded257](https://github.com/CirclonGroup/angular-tree-component/commit/5ded257))
+* move library to projects and use ng-packagr for build ([a04ea64](https://github.com/CirclonGroup/angular-tree-component/commit/a04ea64))
+
+### BREAKING CHANGES
+
+* Provide TreeDraggedElement in root ([50dee1b](https://github.com/CirclonGroup/angular-tree-component/commit/50dee1b))
+
+BEFORE:
+
+Import TreeModule with `TreeModule.forRoot()` in base module.
+
+```
+@NgModule({
+  imports: [
+    TreeModule.forRoot()
+  ]
+})
+export class MyModule {}
+```
+
+AFTER:
+
+Import TreeModule with `TreeModule` in all modules.
+
+```
+@NgModule({
+  imports: [
+    TreeModule
+  ]
+})
+export class MyModule {}
+```
+
 <a name="8.5.6"></a>
 # 8.5.6 (2020-14-02)
 * Fixed mobxAutorun to treeMobxAutorun
