@@ -1,4 +1,6 @@
-[![npm version](https://badge.fury.io/js/angular-tree-component.svg)](https://badge.fury.io/js/angular-tree-component)
+[![npm version](https://badge.fury.io/js/%40circlon%2Fangular-tree-component.svg)](https://badge.fury.io/js/%40circlon%2Fangular-tree-component)
+[![Build Status](https://dev.azure.com/pdsgmbh/AngularTree/_apis/build/status/AngularTreeComponent-CI?branchName=master)](https://dev.azure.com/pdsgmbh/AngularTree/_build/latest?definitionId=59&branchName=master)
+<a href="https://angular-tree-component.herokuapp.com/"><img src="https://angular-tree-component.herokuapp.com/badge.svg" alt="slack" ></a>
 
 # angular tree component
 
@@ -8,7 +10,32 @@ We are happy to announce, that starting today, [Circlon | group](https://circlon
 We're going on this journey with the strong belief, that this component should not be missed by the community, and we are hoping on your continuous and significant support as always.
 On this new journey we will also receive technical guidance from [Adam](https://github.com/adamkleingit), who will help us to better understand the community, their needs and also to elevate this component to a completely new level of engineering.
 
-## Getting started, Docs, Demos & More
+## Getting started
+
+Install `angular-tree-component`:
+
+```npm install --save @circlon/angular-tree-component```
+
+Import `TreeModule`:
+
+```
+import { TreeModule } from '@circlon/angular-tree-component';
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [TreeModule],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+```
+
+Add css to `styles.scss` or include in `angular.json`:
+
+```
+@import '~@circlon/angular-tree-component/css/angular-tree-component.css';
+```
+
+## Docs, Demos & More
 
 [https://angular2-tree.readme.io/docs/](https://angular2-tree.readme.io/docs/)
 

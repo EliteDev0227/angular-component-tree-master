@@ -1,3 +1,52 @@
+<a name="9.0.1"></a>
+# 9.0.1 (2020-07-15)
+
+### BREAKING CHANGES
+
+* move to new npm package scope
+
+BEFORE:
+
+package.json:
+
+```
+"dependencies": {
+    ...
+    "angular-tree-component": "^8.5.6",
+    ...
+}
+```
+
+AFTER:
+
+package.json
+
+```
+"dependencies": {
+    ...
+    "@circlon/angular-tree-component": "^9.0.1",
+    ...
+}
+```
+
+* move css file to css folder instead of dist
+
+BEFORE:
+
+Import angular tree css:
+
+```
+@import '~angular-tree-component/dist/angular-tree-component.css';
+```
+
+AFTER:
+
+package.json
+
+```
+@import '~@circlon/angular-tree-component/css/angular-tree-component.css';
+```
+
 <a name="9.0.0"></a>
 # 9.0.0 (2020-07-10)
 
