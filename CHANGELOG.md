@@ -1,3 +1,10 @@
+<a name="9.0.2"></a>
+# 9.0.2 (2020-07-15)
+
+### Bug Fixes
+
+* include mobx as dependency ([a96f2bc](https://github.com/CirclonGroup/angular-tree-component/commit/a96f2bc))
+
 <a name="9.0.1"></a>
 # 9.0.1 (2020-07-15)
 

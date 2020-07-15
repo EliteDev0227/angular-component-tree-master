@@ -1,6 +1,6 @@
 {
   "name": "@circlon/angular-tree-component",
-  "version": "9.0.1",
+  "version": "9.0.2",
   "peerDependencies": {
     "core-js": "^2.5.4"
   },

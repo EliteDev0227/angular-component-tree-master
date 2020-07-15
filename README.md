@@ -14,7 +14,7 @@ On this new journey we will also receive technical guidance from [Adam](https://
 
 Install `angular-tree-component`:
 
-```npm install --save @circlon/angular-tree-component```
+```npm install @circlon/angular-tree-component```
 
 Import `TreeModule`:
 
