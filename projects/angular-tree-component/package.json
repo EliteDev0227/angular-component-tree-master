@@ -3,7 +3,7 @@
   "author": "Circlon Group <os-group@circlon.de>",
   "homepage": "https://github.com/CirclonGroup/angular-tree-component",
   "license": "MIT",
-  "version": "9.0.2",
+  "version": "9.0.3",
   "repository": "https://github.com/CirclonGroup/angular-tree-component.git",
   "bugs": {
     "url": "https://github.com/CirclonGroup/angular-tree-component/issues"

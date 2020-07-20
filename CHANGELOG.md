@@ -1,3 +1,10 @@
+<a name="9.0.3"></a>
+# 9.0.3 (2020-07-20)
+
+### Build
+
+* add license to library package.json ([#843](https://github.com/CirclonGroup/angular-tree-component/issues/843)) ([23476c8](https://github.com/CirclonGroup/angular-tree-component/commit/23476c8)), closes ([#843](https://github.com/CirclonGroup/angular-tree-component/issues/843))
+
 <a name="9.0.2"></a>
 # 9.0.2 (2020-07-15)
 
