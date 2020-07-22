@@ -1,3 +1,20 @@
+<a name="10.0.0-beta.0"></a>
+# 10.0.0-beta.0 (2020-07-22)
+
+### Features
+
+* Update to Angular 10
+
+### BREAKING CHANGES
+
+BEFORE:
+
+No minimum Angular version set
+
+AFTER:
+
+Angular v10 minimum dependencies
+
 <a name="9.0.3"></a>
 # 9.0.3 (2020-07-20)
 
