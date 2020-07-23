@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TreeMobxAutorunDirective } from './mobx-angular/tree-mobx-autorun.directive';
 
@@ -32,8 +32,6 @@ import { TreeNodeCheckboxComponent } from './components/tree-node-checkbox.compo
 import { TreeDropDirective } from './directives/tree-drop.directive';
 import { TreeDragDirective } from './directives/tree-drag.directive';
 import { TreeAnimateOpenDirective } from './directives/tree-animate-open.directive';
-
-import './polyfills';
 
 @NgModule({
   declarations: [
@@ -73,8 +71,7 @@ import './polyfills';
   imports: [CommonModule],
   providers: []
 })
-export class TreeModule {
-}
+export class TreeModule {}
 
 export {
   TreeModel,

@@ -41,12 +41,15 @@
     "lint": "tslint lib/**/*.ts",
     "prepublish:lib:win": "npm run build:lib && npm run copy:files:win",
     "start:example-app": "ng serve",
+    "start:example-app:es5": "ng serve --configuration=es5",
     "example:cli:build": "npm run build && cd example/cli && npm install && cp -rf ../../dist node_modules/angular-tree-component/ && cp src/index.build.html src/index.html && ./node_modules/.bin/ng build --aot && cp src/index.dev.html src/index.html && mkdir -p 500tech/angular-tree-component/master/example/cli/ && cp -rf dist 500tech/angular-tree-component/master/example/cli/",
     "test:ci:local": "testcafe chrome:headless e2e/*.testcafe.js --app \"ng serve\" -r xunit:./xunit/res.xml -c 4 --assertion-timeout 10000 --app-init-delay 20000 --page-load-timeout 10000 --selector-timeout 20000",
     "test:dev": "testcafe chrome:headless e2e/*.testcafe.js",
     "test:debug": "testcafe chrome e2e/*.testcafe.js --inspect-brk",
     "test:slow": "testcafe chrome e2e/*.testcafe.js --speed 0.1",
-    "e2e:tsc": "../node_modules/.bin/tsc --p e2e/tsconfig.json"
+    "e2e:tsc": "../node_modules/.bin/tsc --p e2e/tsconfig.json",
+    "publish:release": "npm publish ./dist/angular-tree-component",
+    "publish:next": "npm publish ./dist/angular-tree-component --tag next"
   },
   "files": [
     "dist/"

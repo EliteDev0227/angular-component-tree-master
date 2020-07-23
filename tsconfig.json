@@ -11,6 +11,9 @@
       "path": "./projects/example-app/tsconfig.app.json"
     },
     {
+      "path": "./projects/example-app/tsconfig.es5.app.json"
+    },
+    {
       "path": "./projects/example-app/tsconfig.spec.json"
     },
     {

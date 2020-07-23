@@ -27,9 +27,7 @@
               "projects/example-app/src/favicon.ico",
               "projects/example-app/src/assets"
             ],
-            "styles": [
-              "projects/example-app/src/styles.scss"
-            ],
+            "styles": ["projects/example-app/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -61,6 +59,15 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "es5": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "tsConfig": "projects/example-app/tsconfig.es5.app.json"
             }
           }
         },
@@ -72,6 +79,9 @@
           "configurations": {
             "production": {
               "browserTarget": "example-app:build:production"
+            },
+            "es5": {
+              "browserTarget": "example-app:build:es5"
             }
           }
         },
@@ -86,9 +96,7 @@
               "projects/example-app/src/favicon.ico",
               "projects/example-app/src/assets"
             ],
-            "styles": [
-              "projects/example-app/src/styles.scss"
-            ],
+            "styles": ["projects/example-app/src/styles.scss"],
             "scripts": []
           }
         },
@@ -99,9 +107,7 @@
               "projects/example-app/tsconfig.app.json",
               "projects/example-app/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -134,12 +140,11 @@
               "projects/angular-tree-component/tsconfig.lib.json",
               "projects/angular-tree-component/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "example-app"
 }
