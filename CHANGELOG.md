@@ -1,9 +1,16 @@
 <a name="10.0.0-beta.0"></a>
+# 10.0.0 (2020-07-29)
+
+### Code Refactoring
+
+* remove unused polyfill ([#847](https://github.com/CirclonGroup/angular-tree-component/issues/847)) ([5a1a14e](https://github.com/CirclonGroup/angular-tree-component/commit/5a1a14e)), closes ([#847](https://github.com/CirclonGroup/angular-tree-component/issues/847))
+
+<a name="10.0.0-beta.0"></a>
 # 10.0.0-beta.0 (2020-07-22)
 
 ### Features
 
-* Update to Angular 10
+* Update to Angular 10 ([5338eb4](https://github.com/CirclonGroup/angular-tree-component/commit/5338eb4))
 
 ### BREAKING CHANGES
 
