@@ -1,4 +1,11 @@
-<a name="10.0.0-beta.0"></a>
+<a name="10.0.1"></a>
+# 10.0.1 (2020-12-11)
+
+### Bug Fixes
+
+* do not load whole child collection with virtual scroll ([#463](https://github.com/CirclonGroup/angular-tree-component/issues/463)) ([a62fc73](https://github.com/CirclonGroup/angular-tree-component/commit/5a1a14e))
+
+<a name="10.0.0"></a>
 # 10.0.0 (2020-07-29)
 
 ### Code Refactoring
