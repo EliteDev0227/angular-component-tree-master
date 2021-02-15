@@ -1,6 +1,6 @@
 {
   "name": "@circlon/angular-tree-component",
-  "version": "10.0.2",
+  "version": "11.0.0",
   "description": "A simple yet powerful tree component for Angular2",
   "author": "Circlon Group <os-group@circlon.de>",
   "homepage": "https://github.com/CirclonGroup/angular-tree-component",

@@ -1,3 +1,21 @@
+<a name="11.0.0"></a>
+# 11.0.0 (2021-02-15)
+
+### Features
+
+* update to angular 11 ([4528c96](https://github.com/CirclonGroup/angular-tree-component/commit/4528c96))
+* remove lodash-es ([f639c98](https://github.com/CirclonGroup/angular-tree-component/commit/f639c98))
+
+### BREAKING CHANGES
+
+BEFORE:
+
+getNodeById(predicate) - predicate needs to support lodash find method
+
+AFTER:
+
+getNodeById(predicate) - predicate needs to support javaScript find method
+
 <a name="10.0.2"></a>
 # 10.0.2 (2020-12-21)
 
