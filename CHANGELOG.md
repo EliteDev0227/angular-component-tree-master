@@ -1,3 +1,10 @@
+<a name="11.0.1"></a>
+# 11.0.1 (2021-02-16)
+
+### Bug Fixes
+
+* remove log calls ([#889](https://github.com/CirclonGroup/angular-tree-component/issues/889)) ([eb055aa](https://github.com/CirclonGroup/angular-tree-component/commit/22e0d85)), closes ([#889](https://github.com/CirclonGroup/angular-tree-component/issues/889))
+
 <a name="11.0.0"></a>
 # 11.0.0 (2021-02-15)
 
