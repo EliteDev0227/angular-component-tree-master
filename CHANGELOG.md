@@ -1,3 +1,10 @@
+<a name="11.0.2"></a>
+# 11.0.2 (2021-02-16)
+
+### Bug Fixes
+
+* merge default and optional action mappings ([#891](https://github.com/CirclonGroup/angular-tree-component/issues/891)) ([4b2d8a9](https://github.com/CirclonGroup/angular-tree-component/commit/4b2d8a9)), closes ([#891](https://github.com/CirclonGroup/angular-tree-component/issues/891))
+
 <a name="11.0.1"></a>
 # 11.0.1 (2021-02-16)
 
