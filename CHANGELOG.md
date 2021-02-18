@@ -1,3 +1,10 @@
+<a name="11.0.3"></a>
+# 11.0.3 (2021-02-18)
+
+### Bug Fixes
+
+* return TreeNode for first and last child ([#893](https://github.com/CirclonGroup/angular-tree-component/issues/893)) ([c0792c3](https://github.com/CirclonGroup/angular-tree-component/commit/c0792c3)), closes ([#893](https://github.com/CirclonGroup/angular-tree-component/issues/893))
+
 <a name="11.0.2"></a>
 # 11.0.2 (2021-02-16)
 
