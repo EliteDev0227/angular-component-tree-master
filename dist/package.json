@@ -1,0 +1,65 @@
+{
+  "name": "@circlon/angular-tree-component",
+  "author": "Circlon Group <os-group@circlon.de>",
+  "homepage": "https://github.com/CirclonGroup/angular-tree-component",
+  "description": "A simple yet powerful tree component for Angular",
+  "license": "MIT",
+  "version": "11.0.4",
+  "repository": "https://github.com/CirclonGroup/angular-tree-component.git",
+  "bugs": {
+    "url": "https://github.com/CirclonGroup/angular-tree-component/issues"
+  },
+  "readme": "https://github.com/CirclonGroup/angular-tree-component/blob/master/README.md",
+  "keywords": [
+    "ng",
+    "angular",
+    "ng2",
+    "angular2",
+    "tree",
+    "treeview",
+    "tree-view",
+    "angular2-tree",
+    "angular-tree",
+    "angular tree",
+    "angular2 tree",
+    "ng2-tree",
+    "ng2tree",
+    "ng2 tree",
+    "ngtree",
+    "ng-tree",
+    "angular-treeview",
+    "angular2-treeview",
+    "angular-tree-component",
+    "angular tree component",
+    "angular2-tree-component",
+    "angular2 tree component"
+  ],
+  "peerDependencies": {
+    "@angular/common": "13",
+    "@angular/core": "13"
+  },
+  "dependencies": {
+    "mobx": "~4.14.1",
+    "tslib": "^2.0.0"
+  },
+  "module": "fesm2015/circlon-angular-tree-component.mjs",
+  "es2020": "fesm2020/circlon-angular-tree-component.mjs",
+  "esm2020": "esm2020/circlon-angular-tree-component.mjs",
+  "fesm2020": "fesm2020/circlon-angular-tree-component.mjs",
+  "fesm2015": "fesm2015/circlon-angular-tree-component.mjs",
+  "typings": "circlon-angular-tree-component.d.ts",
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "types": "./circlon-angular-tree-component.d.ts",
+      "esm2020": "./esm2020/circlon-angular-tree-component.mjs",
+      "es2020": "./fesm2020/circlon-angular-tree-component.mjs",
+      "es2015": "./fesm2015/circlon-angular-tree-component.mjs",
+      "node": "./fesm2015/circlon-angular-tree-component.mjs",
+      "default": "./fesm2020/circlon-angular-tree-component.mjs"
+    }
+  },
+  "sideEffects": false
+}

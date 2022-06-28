@@ -60,7 +60,6 @@ npm-debug.log
 .idea/
 *.swp
 
-/dist
 
 compiled
 

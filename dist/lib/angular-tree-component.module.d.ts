@@ -1,0 +1,38 @@
+import { IActionHandler, IActionMapping, TREE_ACTIONS } from './models/tree-options.model';
+import { IAllowDragFn, IAllowDropFn, ITreeOptions, ITreeState } from './defs/api';
+import { KEYS } from './constants/keys';
+import { TreeModel } from './models/tree.model';
+import { TreeNode } from './models/tree-node.model';
+import { TreeDraggedElement } from './models/tree-dragged-element.model';
+import { TreeVirtualScroll } from './models/tree-virtual-scroll.model';
+import { LoadingComponent } from './components/loading.component';
+import { TreeComponent, TreeNodeComponent, TreeNodeChildrenComponent, TreeNodeCollectionComponent } from './components/tree.component';
+import { TreeNodeContent } from './components/tree-node-content.component';
+import { TreeNodeDropSlot } from './components/tree-node-drop-slot.component';
+import { TreeNodeExpanderComponent } from './components/tree-node-expander.component';
+import { TreeNodeWrapperComponent } from './components/tree-node-wrapper.component';
+import { TreeViewportComponent } from './components/tree-viewport.component';
+import { TreeNodeCheckboxComponent } from './components/tree-node-checkbox.component';
+import { TreeDropDirective } from './directives/tree-drop.directive';
+import { TreeDragDirective } from './directives/tree-drag.directive';
+import { TreeAnimateOpenDirective } from './directives/tree-animate-open.directive';
+import * as i0 from "@angular/core";
+import * as i1 from "./components/tree.component";
+import * as i2 from "./components/tree-node-content.component";
+import * as i3 from "./components/loading.component";
+import * as i4 from "./directives/tree-drop.directive";
+import * as i5 from "./directives/tree-drag.directive";
+import * as i6 from "./components/tree-node-expander.component";
+import * as i7 from "./components/tree-node-drop-slot.component";
+import * as i8 from "./components/tree-viewport.component";
+import * as i9 from "./components/tree-node-wrapper.component";
+import * as i10 from "./components/tree-node-checkbox.component";
+import * as i11 from "./directives/tree-animate-open.directive";
+import * as i12 from "./mobx-angular/tree-mobx-autorun.directive";
+import * as i13 from "@angular/common";
+export declare class TreeModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<TreeModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<TreeModule, [typeof i1.TreeComponent, typeof i1.TreeNodeComponent, typeof i2.TreeNodeContent, typeof i3.LoadingComponent, typeof i4.TreeDropDirective, typeof i5.TreeDragDirective, typeof i6.TreeNodeExpanderComponent, typeof i1.TreeNodeChildrenComponent, typeof i7.TreeNodeDropSlot, typeof i1.TreeNodeCollectionComponent, typeof i8.TreeViewportComponent, typeof i9.TreeNodeWrapperComponent, typeof i10.TreeNodeCheckboxComponent, typeof i11.TreeAnimateOpenDirective, typeof i12.TreeMobxAutorunDirective], [typeof i13.CommonModule], [typeof i1.TreeComponent, typeof i1.TreeNodeComponent, typeof i2.TreeNodeContent, typeof i3.LoadingComponent, typeof i4.TreeDropDirective, typeof i5.TreeDragDirective, typeof i6.TreeNodeExpanderComponent, typeof i1.TreeNodeChildrenComponent, typeof i7.TreeNodeDropSlot, typeof i1.TreeNodeCollectionComponent, typeof i8.TreeViewportComponent, typeof i9.TreeNodeWrapperComponent, typeof i10.TreeNodeCheckboxComponent, typeof i11.TreeAnimateOpenDirective, typeof i12.TreeMobxAutorunDirective]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<TreeModule>;
+}
+export { TreeModel, TreeNode, TreeDraggedElement, TreeVirtualScroll, ITreeOptions, TREE_ACTIONS, KEYS, IActionMapping, IActionHandler, IAllowDropFn, IAllowDragFn, LoadingComponent, TreeAnimateOpenDirective, TreeComponent, TreeNodeComponent, TreeNodeWrapperComponent, TreeNodeContent, TreeDropDirective, TreeDragDirective, TreeNodeExpanderComponent, TreeNodeChildrenComponent, TreeNodeDropSlot, TreeNodeCollectionComponent, TreeViewportComponent, TreeNodeCheckboxComponent, ITreeState };
